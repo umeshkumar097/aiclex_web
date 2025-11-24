@@ -81,7 +81,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-3">
               <MapPin size={18} className="text-[#5271FF]" />
-              Sector 37, Faridabad
+              Gaur City Mall, Greater Noida
             </div>
           </div>
         </div>
