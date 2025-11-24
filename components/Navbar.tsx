@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Search, Home, User, Layers, Phone } from "lucide-react";
+import { Menu, X, Search, Home,ZoomIn, User, Layers, Phone } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -21,6 +21,7 @@ export default function Navbar() {
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} /> },
     { name: "About Us", href: "/about", icon: <User size={18} /> },
+     { name: "Zoom", href: "/zoom", icon: <ZoomIn size={18} /> },
     { name: "Services", href: "/services", icon: <Layers size={18} /> },
     { name: "Contact Us", href: "/contact", icon: <Phone size={18} /> },
   ];
@@ -45,7 +46,7 @@ export default function Navbar() {
               <Link
                 href={item.href}
                 key={item.name}
-                className="relative px-8 py-4 flex items-center gap-2 cursor-pointer"
+                className="relative px-6 py-4 flex items-center gap-2 cursor-pointer"
                 onMouseEnter={() => setHovered(item.name)}
                 onMouseLeave={() => setHovered(null)}
               >

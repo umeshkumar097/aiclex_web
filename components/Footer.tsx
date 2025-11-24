@@ -17,8 +17,9 @@ import { useState, useEffect } from "react";
 
 export default function Footer() {
   const links = [
-    { name: "Blogs", href: "/blogs" },
+    { name: "Zoom", href: "/zoom" },
     { name: "Contact", href: "/contact" },
+    { name: "Blogs", href: "/blogs" },
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms & Conditions", href: "/terms" },
     { name: "FAQs", href: "/faqs" },
@@ -45,7 +46,6 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#F7F8FD] text-[#1D1D1D] mt-20">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
-
         {/* LEFT SIDE */}
         <div className="space-y-6">
           <Image
@@ -59,7 +59,9 @@ export default function Footer() {
           <p className="text-[15px] leading-relaxed text-black">
             Elevate your brand with{" "}
             <span className="font-bold">AICLEX TECHNOLOGIES!</span>
-            Our comprehensive brand development strategies are designed to make your business stand out. From concept to execution, we ensure your brand resonates with your target audience
+            Our comprehensive brand development strategies are designed to make
+            your business stand out. From concept to execution, we ensure your
+            brand resonates with your target audience
           </p>
 
           {/* CONTACT */}
@@ -69,9 +71,12 @@ export default function Footer() {
               +91 8449488090
             </div>
 
-            <div className="flex items-center gap-3">
-              <Mail size={18} className="text-[#5271FF]" />
-              info@aiclex.in
+            <div className="flex gap-3">
+              <Mail size={18} className="text-[#5271FF] mt-3" />
+              <div className="flex flex-col leading-tight">
+                <span>info@aiclex.in </span>
+                <span>sales@aiclex.in</span>
+              </div>
             </div>
 
             <div className="flex items-center gap-3">
@@ -176,35 +181,51 @@ export default function Footer() {
           <h3 className="text-lg font-semibold mb-6">Follow Us</h3>
 
           <div className="flex items-center gap-4">
-
             {/* Instagram */}
-            <Link href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy" target="_blank">
+            <Link
+              href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy"
+              target="_blank"
+            >
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Instagram size={20} className="text-[#1D1D1D] transition-all duration-200 hover:text-white" />
+                <Instagram
+                  size={20}
+                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
+                />
               </div>
             </Link>
 
             {/* Facebook */}
             <Link href="#">
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Facebook size={20} className="text-[#1D1D1D] transition-all duration-200 hover:text-white" />
+                <Facebook
+                  size={20}
+                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
+                />
               </div>
             </Link>
 
             {/* Linkedin */}
-            <Link href="https://www.linkedin.com/company/aiclex/posts/?feedView=all" target="_blank">
+            <Link
+              href="https://www.linkedin.com/company/aiclex/posts/?feedView=all"
+              target="_blank"
+            >
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Linkedin size={20} className="text-[#1D1D1D] transition-all duration-200 hover:text-white" />
+                <Linkedin
+                  size={20}
+                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
+                />
               </div>
             </Link>
 
             {/* Twitter */}
             <Link href="#">
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Twitter size={20} className="text-[#1D1D1D] transition-all duration-200 hover:text-white" />
+                <Twitter
+                  size={20}
+                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
+                />
               </div>
             </Link>
-
           </div>
         </div>
       </div>
