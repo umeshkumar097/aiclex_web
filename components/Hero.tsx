@@ -8,7 +8,7 @@ export default function Hero() {
     <section className="w-full bg-white dark:bg-black py-20">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start px-6 md:px-10">
         {/* LEFT CONTENT */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center space-y-6">
+        <div className="w-full md:w-1/2 flex flex-col justify-center space-y-6 mt-20">
           <h1 className="text-5xl md:text-6xl font-bold leading-[1.05]">
             We Help to <br />
             Grow Your <br />
@@ -82,7 +82,7 @@ export default function Hero() {
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="w-full md:w-1/2 mt-15 md:mt-0 flex justify-center relative">
+        <div className="w-full md:w-1/2 mt-0 flex justify-center relative">
           <img
             src="/hero.webp"
             alt="Hero Image"
