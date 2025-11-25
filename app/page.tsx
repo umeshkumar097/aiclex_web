@@ -1,15 +1,12 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
+import Hero from "../components/Hero";
+
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen gap-10 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-     <h1 className="text-2xl font-bold ">
-      Aiclex
-     </h1>
-        <div>
-        <Button>Click me</Button>
-      </div>
-    </div>
+    <main>
+      <Hero />
+    </main>
   );
 }
