@@ -21,22 +21,22 @@ export default function Navbar() {
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} /> },
     { name: "About Us", href: "/about", icon: <User size={18} /> },
-     { name: "Zoom", href: "/zoom", icon: <ZoomIn size={18} /> },
+    { name: "Zoom", href: "/zoom", icon: <ZoomIn size={18} /> },
     { name: "Services", href: "/services", icon: <Layers size={18} /> },
     { name: "Contact Us", href: "/contact", icon: <Phone size={18} /> },
   ];
 
   return (
     <>
-      <nav className="w-full px-6  py-4 flex items-center top-0 fixed justify-between bg-white z-50">
+      {/* MAIN NAVBAR: EXACTLY as you provided (no border, no extra shadow) */}
+      <nav className="w-full px-6 py-4 flex items-center top-0 fixed justify-between bg-white z-50">
        <Link href="/">
-
           <div className="flex items-center gap-2">
           <Image src="/logo.svg" alt="AICLEX Logo" width={177} height={60} />
         </div>
        </Link>
 
-        {/* Desktop Menu */}
+        {/* Desktop Menu: EXACTLY as you provided */}
         <div className="hidden md:flex bg-white shadow relative">
           {menuItems.map((item) => {
             const isActive = active === item.name;
@@ -75,7 +75,7 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* GET A QUOTE BUTTON */}
+        {/* GET A QUOTE BUTTON: EXACTLY as you provided */}
         <motion.button
           className="hidden md:block px-6 py-3 bg-[#001341] text-white rounded-md font-semibold relative overflow-hidden"
           onMouseEnter={() => setHovered("quote")}
@@ -135,7 +135,8 @@ export default function Navbar() {
                 onClick={() => {
                   setMobileOpen(false);
                 }}
-                className={`flex items-center gap-2 pb-2 border-b ${
+                // MODIFICATION: Added 'border-b border-gray-200' here for the mobile link separator
+                className={`flex items-center gap-2 pb-2 border-b border-gray-200 ${
                   isActive ? "text-orange-400" : "text-black"
                 }`}
               >
