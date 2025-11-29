@@ -14,20 +14,19 @@ const marqueeContent = [
 
 const marqueeVariants: Variants = {
   animate: {
-    x: ['0%', '-50%'], // Use -50% because we doubled content
+    x: ["0%", "-50%"],
     transition: {
       x: {
         repeat: Infinity,
-        repeatType: 'loop',
-        duration: 80, // Slower speed for smoother motion
-        ease: 'linear',
+        repeatType: "loop",
+        duration: 80,
+        ease: "linear",
       },
     },
   },
 };
 
-export default function ValueMarqueeSection(): JSX.Element {
-  // Duplicate content to avoid gaps
+const ValueMarqueeSection: React.FC = () => {
   const doubledContent = [...marqueeContent, ...marqueeContent];
 
   return (
@@ -52,4 +51,6 @@ export default function ValueMarqueeSection(): JSX.Element {
       </motion.div>
     </section>
   );
-}
+};
+
+export default ValueMarqueeSection;

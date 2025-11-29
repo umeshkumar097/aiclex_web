@@ -63,7 +63,6 @@ const processSteps: ProcessStep[] = [
   },
 ];
 
-// Container animation to stagger children
 const containerVariants: Variants = {
   hidden: {},
   show: {
@@ -75,10 +74,14 @@ const containerVariants: Variants = {
 
 const stepVariants: Variants = {
   hidden: { opacity: 0, y: 60 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 120, damping: 20 } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 120, damping: 20 },
+  },
 };
 
-export default function ProcessSection(): JSX.Element {
+const ProcessSection: React.FC = () => {
   return (
     <section className="py-20 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -99,12 +102,10 @@ export default function ProcessSection(): JSX.Element {
               variants={stepVariants}
               className="relative flex flex-col items-center md:items-start text-center md:text-left p-6 rounded-3xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-transform duration-500 group cursor-pointer"
             >
-              {/* Floating Number */}
-              <motion.div
-                className="absolute -top-5 -left-5 text-7xl font-extrabold text-gray-200 dark:text-gray-700 pointer-events-none"
-              >
+              {/* Number */}
+              <div className="absolute -top-5 -left-5 text-7xl font-extrabold text-gray-200 dark:text-gray-700 pointer-events-none">
                 {step.id}
-              </motion.div>
+              </div>
 
               {/* Icon */}
               <div
@@ -113,18 +114,17 @@ export default function ProcessSection(): JSX.Element {
                 <step.icon size={36} />
               </div>
 
-              {/* Title */}
               <h3 className="mt-6 text-xl md:text-2xl font-extrabold text-[#001341] dark:text-white mb-3 group-hover:text-orange-600 transition-colors duration-300">
                 {step.title}
               </h3>
 
-              {/* Description */}
-              <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">{step.description}</p>
+              <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm">
+                {step.description}
+              </p>
 
-              {/* CTA */}
               <a
                 href={step.ctaLink}
-                className="text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors cursor-pointer inline-flex items-center group-hover:translate-x-1 duration-300"
+                className="text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors inline-flex items-center group-hover:translate-x-1 duration-300"
               >
                 {step.ctaText}
                 <span className="ml-1">→</span>
@@ -135,4 +135,6 @@ export default function ProcessSection(): JSX.Element {
       </div>
     </section>
   );
-}
+};
+
+export default ProcessSection;
