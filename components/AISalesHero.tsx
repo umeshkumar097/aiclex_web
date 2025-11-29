@@ -99,11 +99,11 @@ export default function AiSalesAgentHeroSplit() {
                     variants={imageVariants} 
                 >
                     <Image
-                        src="/robot.png"
+                        src="/ajent.jpg"
                         alt="AI Sales Agent"
-                        width={350} 
-                        height={350} 
-                        className="w-[250px] md:w-[350px] h-auto object-contain drop-shadow-xl" 
+                        width={450} 
+                        height={450} 
+                        className="w-[250px] md:w-[450px] h-auto object-contain drop-shadow-xl" 
                     />
                 </motion.div>
                 

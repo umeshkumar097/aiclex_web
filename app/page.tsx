@@ -6,9 +6,13 @@ import AiSalesAgentHero from "@/components/AISalesHero";
 import ValueMarqueeSection from "@/components/ValueMarqueeSection";
 import MarketingCards from "@/components/MarketingCards";
 import ProcessSteps from "@/components/ProcessSteps";
+import PartnerSlider from "@/components/PartnerSlider";
+import TestimonialSection from "@/components/TestimonialSection";
 
 
 export default function Home() {
+
+  
   return (
     <main>
       <Hero />
@@ -17,6 +21,11 @@ export default function Home() {
       <ValueMarqueeSection />
       <MarketingCards />
       <ProcessSteps />
+      <PartnerSlider />
+      <TestimonialSection />
+     
+    
+      
     </main>
   );
 }

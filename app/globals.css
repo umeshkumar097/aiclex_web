@@ -112,6 +112,27 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@keyframes scroll {
+  0% {
+    /* Use translate3d to force hardware acceleration (GPU) */
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    /* Move -33.33% because the list is tripled. 
+       (100% / 3 sets = 33.33% per set) */
+    transform: translate3d(-33.33%, 0, 0);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+/* Pauses the animation when the user hovers over the slider */
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
