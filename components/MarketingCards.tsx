@@ -2,13 +2,13 @@
 "use client";
 
 import React from "react";
-import { ArrowRight, DollarSign, Zap, Rocket } from "lucide-react";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
 interface MarketingCard {
   title: string;
   description: string;
-  icon: React.ReactNode; // Lucide icon component
+  imgSrc: string; // Image from public folder
   gradient: string;
 }
 
@@ -17,21 +17,21 @@ const cards: MarketingCard[] = [
     title: "Paid Media Advertisement",
     description:
       "Quickly connect with customers through data-driven PPC campaigns. Our experts identify the exact keywords and audiences for maximum ROI and efficiency.",
-    icon: <DollarSign className="w-8 h-8 text-white" />,
+    imgSrc: "/media.webp",
     gradient: "from-orange-500 to-pink-500",
   },
   {
     title: "Funnel Automation & Marketing",
     description:
       "Develop a powerful funnel marketing strategy and achieve goals effortlessly. We automate lead nurture, boosting efficiency and sales velocity.",
-    icon: <Zap className="w-8 h-8 text-white" />,
+    imgSrc: "/leads.webp",
     gradient: "from-orange-500 to-pink-500",
   },
   {
     title: "Generate more quality leads",
     description:
       "Attract the right audience by targeting high-intent keywords and optimizing campaigns for better reach. Use data-driven insights to fill your pipeline faster.",
-    icon: <Rocket className="w-8 h-8 text-white" />,
+    imgSrc: "/marketing.webp",
     gradient: "from-orange-500 to-pink-500",
   },
 ];
@@ -88,9 +88,15 @@ export default function MarketingCards() {
                 {/* Inner Content */}
                 <div className="relative z-10 flex flex-col items-center text-center p-6 h-full bg-white dark:bg-gray-800 rounded-xl">
                   
-                  {/* Lucide Icon with circle background */}
-                  <div className={`w-20 h-20 flex items-center justify-center rounded-full bg-gradient-to-r ${card.gradient} shadow-md mb-6`}>
-                    {card.icon}
+                  {/* Image with bigger circle */}
+                  <div className={`w-28 h-28 rounded-full bg-gradient-to-r ${card.gradient} shadow-md mb-6 overflow-hidden relative`}>
+                    <Image
+                      src={card.imgSrc}
+                      alt={card.title}
+                      fill
+                      className="object-cover"
+                      sizes="112px"
+                    />
                   </div>
 
                   {/* Title */}
@@ -99,7 +105,7 @@ export default function MarketingCards() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-600 dark:text-gray-300 text-base flex-1 mb-6">
+                  <p className="text-gray-600 dark:text-gray-300 font-semibold text-base flex-1 mb-6">
                     {card.description}
                   </p>
 
@@ -108,7 +114,7 @@ export default function MarketingCards() {
                     whileHover={{ scale: 1.05 }}
                     className={`mt-auto px-6 py-2 rounded-full font-semibold text-white transition-transform duration-300 bg-gradient-to-r ${card.gradient} shadow-lg shadow-gray-500/30 dark:shadow-none`}
                   >
-                    Explore <ArrowRight className="w-4 h-4 ml-1 inline-block" />
+                    Explore
                   </motion.button>
                 </div>
               </div>
