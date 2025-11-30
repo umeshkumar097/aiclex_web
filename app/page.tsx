@@ -7,6 +7,9 @@ import MarketingCards from "@/components/MarketingCards";
 import ProcessSteps from "@/components/ProcessSteps";
 import PartnerSlider from "@/components/PartnerSlider";
 import TestimonialSection from "@/components/TestimonialSection";
+import TeamSection from "@/components/TeamSection";
+import NewsletterSection from "@/components/NewsletterSection";
+import ContactSection from "@/components/ContactSection";
 
 
 export default function Home() {
@@ -21,6 +24,9 @@ export default function Home() {
       <ProcessSteps />
       <PartnerSlider />
       <TestimonialSection />
+      <TeamSection />
+      <NewsletterSection />
+      <ContactSection />
      
     
       

@@ -36,9 +36,7 @@ export default function Footer() {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowButton(window.scrollY > 250);
-    };
+    const handleScroll = () => setShowButton(window.scrollY > 250);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -46,6 +44,7 @@ export default function Footer() {
   return (
     <footer className="w-full bg-[#F7F8FD] text-[#1D1D1D] mt-20">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+
         {/* LEFT SIDE */}
         <div className="space-y-6">
           <Image
@@ -93,38 +92,15 @@ export default function Footer() {
           <ul className="space-y-4 text-[15px] font-medium text-[#4A4A4A]">
             {links.map((item, i) => (
               <li key={i}>
-                <Link
-                  href={item.href}
-                  className="group flex items-center gap-2 transition-all"
-                >
-                  {/* ICON → animate + color change */}
+                <Link href={item.href} className="group flex items-center gap-2 transition-all">
                   <ChevronRight
                     size={18}
-                    className="
-                      text-[#5271FF] 
-                      transition-all duration-300 
-                      group-hover:translate-x-1
-                      group-hover:text-[#5271FF]
-                    "
+                    className="text-[#5271FF] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#5271FF]"
                   />
 
-                  {/* TEXT + underline + slide */}
-                  <span
-                    className="
-                      relative transition-all duration-300 
-                      group-hover:text-[#5271FF]
-                      group-hover:translate-x-1
-                    "
-                  >
+                  <span className="relative transition-all duration-300 group-hover:text-[#5271FF] group-hover:translate-x-1">
                     {item.name}
-
-                    <span
-                      className="
-                        absolute left-0 -bottom-1 h-[2px] bg-[#5271FF]
-                        w-0 rounded-md transition-all duration-300
-                        group-hover:w-full
-                      "
-                    />
+                    <span className="absolute left-0 -bottom-1 h-[2px] bg-[#5271FF] w-0 rounded-md transition-all duration-300 group-hover:w-full" />
                   </span>
                 </Link>
               </li>
@@ -139,36 +115,15 @@ export default function Footer() {
           <ul className="space-y-4 text-[15px] font-medium text-[#4A4A4A]">
             {support.map((item, i) => (
               <li key={i}>
-                <Link
-                  href={item.href}
-                  className="group flex items-center gap-2 transition-all"
-                >
+                <Link href={item.href} className="group flex items-center gap-2 transition-all">
                   <ChevronRight
                     size={18}
-                    className="
-                      text-[#5271FF]
-                      transition-all duration-300 
-                      group-hover:translate-x-1
-                      group-hover:text-[#5271FF]
-                    "
+                    className="text-[#5271FF] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#5271FF]"
                   />
 
-                  <span
-                    className="
-                      relative transition-all duration-300 
-                      group-hover:text-[#5271FF]
-                      group-hover:translate-x-1
-                    "
-                  >
+                  <span className="relative transition-all duration-300 group-hover:text-[#5271FF] group-hover:translate-x-1">
                     {item.name}
-
-                    <span
-                      className="
-                        absolute left-0 -bottom-1 h-[2px] bg-[#5271FF]
-                        w-0 rounded-md transition-all duration-300 
-                        group-hover:w-full
-                      "
-                    />
+                    <span className="absolute left-0 -bottom-1 h-[2px] bg-[#5271FF] w-0 rounded-md transition-all duration-300 group-hover:w-full" />
                   </span>
                 </Link>
               </li>
@@ -182,48 +137,30 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             {/* Instagram */}
-            <Link
-              href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy"
-              target="_blank"
-            >
+            <Link href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy" target="_blank">
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Instagram
-                  size={20}
-                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
-                />
+                <Instagram size={20} className="text-[#1D1D1D] hover:text-white" />
               </div>
             </Link>
 
             {/* Facebook */}
             <Link href="#">
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Facebook
-                  size={20}
-                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
-                />
+                <Facebook size={20} className="text-[#1D1D1D] hover:text-white" />
               </div>
             </Link>
 
             {/* Linkedin */}
-            <Link
-              href="https://www.linkedin.com/company/aiclex/posts/?feedView=all"
-              target="_blank"
-            >
+            <Link href="https://www.linkedin.com/company/aiclex/posts/?feedView=all" target="_blank">
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Linkedin
-                  size={20}
-                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
-                />
+                <Linkedin size={20} className="text-[#1D1D1D] hover:text-white" />
               </div>
             </Link>
 
             {/* Twitter */}
             <Link href="#">
               <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Twitter
-                  size={20}
-                  className="text-[#1D1D1D] transition-all duration-200 hover:text-white"
-                />
+                <Twitter size={20} className="text-[#1D1D1D] hover:text-white" />
               </div>
             </Link>
           </div>
@@ -235,13 +172,31 @@ export default function Footer() {
         2025-26 © All rights reserved by Aiclex Technologies.
       </div>
 
+      {/* WHATSAPP BUTTON */}
+      <Link
+        href="https://wa.me/919871881183"
+        target="_blank"
+        className="
+          fixed bottom-24 right-6 h-14 w-14 rounded-full bg-white shadow-xl overflow-hidden
+          flex items-center justify-center hover:scale-110 transition-all duration-300 z-[99999]
+        "
+      >
+        <Image
+          src='/whatsapp.jpeg'
+          alt='WhatsApp'
+          width={56}
+          height={56}
+          className="object-cover p-2"
+        />
+      </Link>
+
       {/* BACK TO TOP BUTTON */}
       {showButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="
             fixed bottom-6 right-6 h-12 w-12 cursor-pointer flex items-center justify-center 
-            rounded-full bg-[#0C0C0C] hover:bg-[#5271FF] transition-all
+            rounded-full bg-[#0C0C0C] hover:bg-[#5271FF] transition-all z-[9999]
           "
         >
           <ArrowUp size={22} className="text-white" />

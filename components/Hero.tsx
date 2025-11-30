@@ -101,7 +101,7 @@ export default function Hero() {
 
         {/* RIGHT IMAGE */}
         <motion.div
-          className="w-full md:w-1/2 mt-2 flex justify-center relative"
+          className="w-full  md:w-1/2 mt-2 hidden md:flex  justify-center relative"
           initial={{ x: 120, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
