@@ -83,7 +83,7 @@ const stepVariants: Variants = {
 
 const ProcessSection: React.FC = () => {
   return (
-    <section className="py-20 bg-white dark:bg-gray-900">
+    <section className="py-16 bg-white dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <h2 className="text-center text-4xl font-extrabold text-[#001341] dark:text-white mb-16">
           Most prominent side is our devoted features

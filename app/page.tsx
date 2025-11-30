@@ -25,7 +25,7 @@ export default function Home() {
       <PartnerSlider />
       <TestimonialSection />
       <TeamSection />
-      <NewsletterSection />
+      {/* <NewsletterSection /> */}
       <ContactSection />
      
     

@@ -5,11 +5,11 @@ import { MapPin, Phone, Mail, ChevronDown, ShieldCheck, Send } from "lucide-reac
 
 export default function ContactSection() {
   return (
-    <section className="relative w-full py-20 bg-gray-50 overflow-hidden">
+    <section className="relative w-full py-16  overflow-hidden">
       
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#5271ff]/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-[#ff914d]/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96  rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 -ml-20  w-80 h-80  rounded-full blur-3xl"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         

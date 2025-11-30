@@ -42,7 +42,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="w-full bg-[#F7F8FD] text-[#1D1D1D] mt-20">
+    <footer className="w-full bg-[#F7F8FD] text-[#1D1D1D] ">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
 
         {/* LEFT SIDE */}

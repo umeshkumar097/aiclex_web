@@ -36,6 +36,9 @@ export default function Navbar() {
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} /> },
     { name: "About Us", href: "/about", icon: <User size={18} /> },
+    
+    { name: "Zoom", href: "/zoom", icon: <Video size={18} /> },
+    { name: "Services", href: "/services", icon: <Layers size={18} /> },
     { 
       name: "Company", 
       href: "#", 
@@ -45,8 +48,6 @@ export default function Navbar() {
         { name: "Brochure", href: "/brochure", icon: <FileText size={18} /> },
       ]
     },
-    { name: "Zoom", href: "/zoom", icon: <Video size={18} /> },
-    { name: "Services", href: "/services", icon: <Layers size={18} /> },
     { name: "Contact Us", href: "/contact", icon: <Phone size={18} /> },
   ];
 
@@ -99,7 +100,7 @@ export default function Navbar() {
                 <div className="relative">
                   {hasChildren ? (
                     // Render as div/button if it has dropdown
-                    <div className="relative px-6 py-4 flex items-center gap-2 cursor-pointer">
+                    <div className="relative px-4 py-4 flex items-center gap-2 cursor-pointer">
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500"
                         initial={{ scaleX: 0 }}
@@ -117,7 +118,7 @@ export default function Navbar() {
                     </div>
                   ) : (
                     // Render as Link (<a>) if standard item
-                    <a href={item.href} className="relative px-6 py-4 flex items-center gap-2 cursor-pointer">
+                    <a href={item.href} className="relative px-4 py-4 flex items-center gap-2 cursor-pointer">
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500"
                         initial={{ scaleX: 0 }}

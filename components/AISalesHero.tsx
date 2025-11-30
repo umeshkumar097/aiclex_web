@@ -103,7 +103,7 @@ export default function AiSalesAgentHeroSplit() {
                         alt="AI Sales Agent"
                         width={450} 
                         height={450} 
-                        className="w-[250px] md:w-[450px] h-auto object-contain drop-shadow-xl" 
+                        className="w-[350px] md:w-[450px] h-auto object-contain drop-shadow-xl" 
                     />
                 </motion.div>
                 
