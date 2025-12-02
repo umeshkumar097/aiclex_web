@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 // import Link from "next/link"; // UNCOMMENT IN NEXT.JS
 // import { usePathname } from "next/navigation"; // UNCOMMENT IN NEXT.JS
-// import Image from "next/image"; // UNCOMMENT IN NEXT.JS
 import { 
   Menu, 
   X, 
@@ -21,22 +20,18 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
-  // MOCK PATHNAME FOR PREVIEW (Remove this line in Next.js)
+  // MOCK PATHNAME FOR PREVIEW
   const pathname = "/"; 
-  // UNCOMMENT IN NEXT.JS:
-  // const pathname = usePathname();
+  // const pathname = usePathname(); // UNCOMMENT IN NEXT.JS
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [active, setActive] = useState("");
   const [hovered, setHovered] = useState<string | null>(null);
-  
-  // State for mobile submenu toggle
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
 
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} /> },
     { name: "About Us", href: "/about", icon: <User size={18} /> },
-    
     { name: "Zoom", href: "/zoom", icon: <Video size={18} /> },
     { name: "Services", href: "/services", icon: <Layers size={18} /> },
     { 
@@ -45,24 +40,28 @@ export default function Navbar() {
       icon: <Building2 size={18} />,
       children: [
         { name: "Our Team", href: "/team", icon: <Users size={18} /> },
-        { name: "Brochure", href: "/brochure", icon: <FileText size={18} /> },
+        // isDownload flag now effectively means "Open in new tab as file"
+        { 
+          name: "Brochure", 
+          href: "/brouchure.pdf", 
+          icon: <FileText size={18} />,
+          isFile: true // Renamed for clarity (optional)
+        },
       ]
     },
     { name: "Contact Us", href: "/contact", icon: <Phone size={18} /> },
   ];
 
   useEffect(() => {
-    // Check top-level items
     let activeName = "";
     for (const item of menuItems) {
       if (item.href === pathname) {
         activeName = item.name;
         break;
       }
-      // Check children if they exist
       if (item.children) {
         if (item.children.some((child) => child.href === pathname)) {
-          activeName = item.name; // Set parent as active if child matches
+          activeName = item.name;
           break;
         }
       }
@@ -72,12 +71,9 @@ export default function Navbar() {
 
   return (
     <>
-      {/* MAIN NAVBAR */}
       <nav className="w-full px-6 py-4 flex items-center top-0 fixed justify-between bg-white z-50">
-        {/* Replace <Link> with <a> for preview */}
         <a href="/">
           <div className="flex items-center gap-2">
-            {/* Replace <Image> with <img> for preview */}
             <img src="/logo.svg" alt="AICLEX Logo" width={177} height={60} />
           </div>
         </a>
@@ -99,7 +95,6 @@ export default function Navbar() {
                 {/* Main Menu Item */}
                 <div className="relative">
                   {hasChildren ? (
-                    // Render as div/button if it has dropdown
                     <div className="relative px-4 py-4 flex items-center gap-2 cursor-pointer">
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500"
@@ -117,7 +112,6 @@ export default function Navbar() {
                       </div>
                     </div>
                   ) : (
-                    // Render as Link (<a>) if standard item
                     <a href={item.href} className="relative px-4 py-4 flex items-center gap-2 cursor-pointer">
                       <motion.div
                         className="absolute inset-0 bg-gradient-to-r from-orange-400 to-pink-500"
@@ -151,6 +145,9 @@ export default function Navbar() {
                           <a
                             key={child.name}
                             href={child.href}
+                            // CHANGE 1: Logic updated to open in new tab without forced download
+                            target={child.isFile ? "_blank" : undefined}
+                            rel={child.isFile ? "noopener noreferrer" : undefined}
                             className="flex items-center gap-3 px-6 py-3 hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors"
                           >
                             {child.icon}
@@ -166,7 +163,7 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* GET A QUOTE BUTTON */}
+        {/* Quote Button */}
         <motion.button
           className="hidden md:block px-6 py-3 bg-[#001341] text-white rounded-md font-semibold relative overflow-hidden"
           onMouseEnter={() => setHovered("quote")}
@@ -251,6 +248,9 @@ export default function Navbar() {
                           <a
                             key={child.name}
                             href={child.href}
+                            // CHANGE 2: Same logic for mobile
+                            target={child.isFile ? "_blank" : undefined}
+                            rel={child.isFile ? "noopener noreferrer" : undefined}
                             onClick={() => setMobileOpen(false)}
                             className="flex items-center gap-2 text-sm text-gray-600 hover:text-orange-500"
                           >

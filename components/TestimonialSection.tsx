@@ -27,7 +27,7 @@ const testimonials = [
     name: "Sachin Gupta ",
     type: "Lead Generation",
     company: "UC Property ",
-    image: "/testimonial/sachin-gupta.webp",
+    image: "/testimonial/Sachin-gupta.webp",
     quote: "The lead generation support from Aiclex has helped us reach more serious buyers. The leads were relevant and the process was very well managed. Great teamwork and timely updates.",
     rating: 5,
   },
