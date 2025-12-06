@@ -19,18 +19,13 @@ export default function Footer() {
   const links = [
     { name: "Zoom", href: "/zoom" },
     { name: "Contact", href: "/contact" },
-    { name: "Blogs", href: "/blogs" },
+    { name: "Blogs", href: "/blog" }, // ✅ Fixed: Changed from /blogs to /blog (to match your folder)
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms & Conditions", href: "/terms" },
-    { name: "FAQs", href: "/faqs" },
   ];
 
   const support = [
-    { name: "Submit a Ticket", href: "#" },
-    { name: "Visit Knowledge Base", href: "#" },
-    { name: "Support System", href: "#" },
     { name: "Refund Policy", href: "#" },
-    { name: "Professional Services", href: "#" },
   ];
 
   const [showButton, setShowButton] = useState(false);
@@ -42,36 +37,39 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="w-full bg-[#F7F8FD] text-[#1D1D1D] ">
+    <footer className="w-full bg-[#F7F8FD] text-[#1D1D1D] font-sans">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
 
         {/* LEFT SIDE */}
         <div className="space-y-6">
-          <Image
-            src="/logo.svg"
-            alt="Aiclex Logo"
-            width={180}
-            height={80}
-            className="select-none"
-          />
+          {/* ✅ SEO & UX: Wrapped Logo in Link to Home */}
+          <Link href="/">
+            <Image
+              src="/logo.svg"
+              alt="Aiclex Logo"
+              width={180}
+              height={80}
+              className="select-none cursor-pointer"
+            />
+          </Link>
 
           <p className="text-[15px] leading-relaxed text-black">
             Elevate your brand with{" "}
             <span className="font-bold">AICLEX TECHNOLOGIES!</span>
             Our comprehensive brand development strategies are designed to make
             your business stand out. From concept to execution, we ensure your
-            brand resonates with your target audience
+            brand resonates with your target audience.
           </p>
 
           {/* CONTACT */}
           <div className="space-y-4 text-[15px] font-semibold">
             <div className="flex items-center gap-3">
               <Phone size={18} className="text-[#5271FF]" />
-              +91 8449488090
+              +91 9871881183
             </div>
 
             <div className="flex gap-3">
-              <Mail size={18} className="text-[#5271FF] mt-3" />
+              <Mail size={18} className="text-[#5271FF] mt-1" />
               <div className="flex flex-col leading-tight">
                 <span>info@aiclex.in </span>
                 <span>sales@aiclex.in</span>
@@ -137,30 +135,30 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             {/* Instagram */}
-            <Link href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy" target="_blank">
-              <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Instagram size={20} className="text-[#1D1D1D] hover:text-white" />
+            <Link href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy" target="_blank" rel="noopener noreferrer">
+              <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
+                <Instagram size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
               </div>
             </Link>
 
             {/* Facebook */}
-            <Link href="#">
-              <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Facebook size={20} className="text-[#1D1D1D] hover:text-white" />
+            <Link href="#" target="_blank" rel="noopener noreferrer">
+              <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
+                <Facebook size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
               </div>
             </Link>
 
             {/* Linkedin */}
-            <Link href="https://www.linkedin.com/company/aiclex/posts/?feedView=all" target="_blank">
-              <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Linkedin size={20} className="text-[#1D1D1D] hover:text-white" />
+            <Link href="https://www.linkedin.com/company/aiclex/posts/?feedView=all" target="_blank" rel="noopener noreferrer">
+              <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
+                <Linkedin size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
               </div>
             </Link>
 
             {/* Twitter */}
-            <Link href="#">
-              <div className="h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                <Twitter size={20} className="text-[#1D1D1D] hover:text-white" />
+            <Link href="#" target="_blank" rel="noopener noreferrer">
+              <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
+                <Twitter size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
               </div>
             </Link>
           </div>
@@ -176,10 +174,8 @@ export default function Footer() {
       <Link
         href="https://wa.me/919871881183"
         target="_blank"
-        className="
-          fixed bottom-24 right-6 h-14 w-14 rounded-full bg-white shadow-xl overflow-hidden
-          flex items-center justify-center hover:scale-110 transition-all duration-300 z-[99999]
-        "
+        rel="noopener noreferrer"
+        className="fixed bottom-24 right-6 h-14 w-14 rounded-full bg-white shadow-xl overflow-hidden flex items-center justify-center hover:scale-110 transition-all duration-300 z-[99999]"
       >
         <Image
           src='/whatsapp.jpeg'
@@ -194,10 +190,7 @@ export default function Footer() {
       {showButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="
-            fixed bottom-6 right-6 h-12 w-12 cursor-pointer flex items-center justify-center 
-            rounded-full bg-[#0C0C0C] hover:bg-[#5271FF] transition-all z-[9999]
-          "
+          className="fixed bottom-6 right-6 h-12 w-12 cursor-pointer flex items-center justify-center rounded-full bg-[#0C0C0C] hover:bg-[#5271FF] transition-all z-[9999]"
         >
           <ArrowUp size={22} className="text-white" />
         </button>

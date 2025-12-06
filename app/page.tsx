@@ -10,6 +10,7 @@ import TestimonialSection from "@/components/TestimonialSection";
 import TeamSection from "@/components/TeamSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import ContactSection from "@/components/ContactSection";
+import LatestBlogs from "@/components/LatestBlogs";
 
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <MarketingCards />
       <ProcessSteps />
       <PartnerSlider />
+      <LatestBlogs />
       <TestimonialSection />
       <TeamSection />
       {/* <NewsletterSection /> */}
