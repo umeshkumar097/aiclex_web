@@ -8,9 +8,14 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    // Delete the post with this specific ID
-    await pool.query('DELETE FROM posts WHERE id = $1', [id]);
     
+    // ✅ CHANGED: Table name is now 'posts'
+    const result = await pool.query('DELETE FROM posts WHERE id = $1 RETURNING *', [id]);
+    
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -24,9 +29,9 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { title, slug, content, image } = await req.json();
+    const { title, slug, content, image_url } = await req.json();
 
-    // Update the specific row with new data
+    // ✅ CHANGED: Table name is now 'posts'
     const query = `
       UPDATE posts 
       SET title = $1, slug = $2, content = $3, image_url = $4 
@@ -34,9 +39,13 @@ export async function PUT(
       RETURNING *
     `;
     
-    await pool.query(query, [title, slug, content, image, id]);
+    const result = await pool.query(query, [title, slug, content, image_url, id]);
     
-    return NextResponse.json({ message: "Updated successfully" });
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+    
+    return NextResponse.json(result.rows[0]);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

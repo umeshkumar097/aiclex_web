@@ -23,7 +23,7 @@ export default async function LatestBlogs() {
   if (latestPosts.length === 0) return null;
 
   return (
-    <section className="  py-14 md:py-16 bg-[#F7F8FD] font-sans">
+    <section className="py-14 md:py-16 bg-[#F7F8FD] font-sans">
       <div className="max-w-7xl mx-auto px-4">
         
         {/* CENTERED HEADING */}
@@ -36,10 +36,7 @@ export default async function LatestBlogs() {
           </h2>
         </div>
 
-        {/* SLIDER CONTAINER 
-            - Mobile: flex, overflow-x-auto, snap-x (Creates the slider)
-            - Desktop: md:grid, md:grid-cols-3 (Switches back to grid)
-        */}
+        {/* SLIDER CONTAINER */}
         <div className="
             flex gap-4 overflow-x-auto snap-x snap-mandatory pb-8 -mx-4 px-4 
             md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:mx-0 md:px-0
@@ -61,7 +58,8 @@ export default async function LatestBlogs() {
                     src={post.image_url}
                     alt={post.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    quality={100} // ✅ Forces high quality
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
@@ -70,22 +68,30 @@ export default async function LatestBlogs() {
                 {/* Date Badge */}
                 <div className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold text-[#001341] shadow-sm flex items-center gap-1.5">
                     <Calendar size={10} className="text-[#ff914d]" />
-                    {new Date(post.created_at).toLocaleDateString()}
+                    {new Date(post.created_at).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                    })}
                 </div>
               </div>
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-lg font-bold text-[#001341] mb-2 line-clamp-2 leading-tight group-hover:text-[#ff914d] transition-colors">
-                  {post.title}
+                  {/* ✅ Fixed Link URL */}
+                  <Link href={`/${post.slug}`}>
+                    {post.title}
+                  </Link>
                 </h3>
                 
                 <p className="text-gray-500 text-sm line-clamp-2 mb-4 leading-relaxed">
                   {post.excerpt}...
                 </p>
                 
+                {/* ✅ Fixed Link URL */}
                 <Link 
-                  href={`/blog/${post.slug}`} 
+                  href={`/${post.slug}`} 
                   className="mt-auto inline-flex items-center gap-2 text-[#001341] font-bold text-sm group-hover:gap-3 transition-all"
                 >
                   Read More <ArrowRight size={16} className="text-[#ff914d]" />

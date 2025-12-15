@@ -4,13 +4,11 @@ import pool from "@/lib/db";
 import { Calendar, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Metadata } from "next";
 
-// ✅ SEO
 export const metadata: Metadata = {
   title: "Latest News & Insights | AICLEX Blog",
   description: "Explore the latest updates, tech tutorials, and insights from the AICLEX team.",
 };
 
-// ✅ No Caching (so pagination updates instantly)
 export const dynamic = "force-dynamic";
 
 type Props = {
@@ -18,7 +16,6 @@ type Props = {
 };
 
 export default async function BlogPage({ searchParams }: Props) {
-  // 1. Get Current Page Number (Default to 1)
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
   const postsPerPage = 6;
@@ -28,7 +25,6 @@ export default async function BlogPage({ searchParams }: Props) {
   let totalPosts = 0;
 
   try {
-    // 2. Fetch specific posts for this page (LIMIT 6)
     const query = `
       SELECT id, title, slug, image_url, created_at, 
       LEFT(content, 160) as excerpt 
@@ -39,7 +35,6 @@ export default async function BlogPage({ searchParams }: Props) {
     const result = await pool.query(query, [postsPerPage, offset]);
     posts = result.rows;
 
-    // 3. Count TOTAL posts (to know how many pages we need)
     const countResult = await pool.query('SELECT COUNT(*) FROM posts');
     totalPosts = parseInt(countResult.rows[0].count);
 
@@ -47,11 +42,10 @@ export default async function BlogPage({ searchParams }: Props) {
     console.error("Database Error:", error);
   }
 
-  // 4. Calculate Total Pages
   const totalPages = Math.ceil(totalPosts / postsPerPage);
 
   return (
-    <section className="w-full mt-10 py-20  px-4 sm:px-6 lg:px-8 font-sans min-h-screen">
+    <section className="w-full mt-10 py-20 px-4 sm:px-6 lg:px-8 font-sans min-h-screen">
       <div className="max-w-[1200px] mx-auto">
         
         {/* Header */}
@@ -78,8 +72,9 @@ export default async function BlogPage({ searchParams }: Props) {
                     src={post.image_url} 
                     alt={post.title} 
                     fill
+                    quality={100}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform backface-hidden"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
@@ -102,7 +97,8 @@ export default async function BlogPage({ searchParams }: Props) {
                 </div>
                 
                 <h3 className="text-xl font-bold text-[#001341] mb-3 line-clamp-2">
-                  <Link href={`/blog/${post.slug}`} className="hover:text-[#5271ff] transition-colors">
+                  {/* ✅ UPDATED LINK: Points to /[slug] instead of /blog/[slug] */}
+                  <Link href={`/${post.slug}`} className="hover:text-[#5271ff] transition-colors">
                     {post.title}
                   </Link>
                 </h3>
@@ -111,8 +107,9 @@ export default async function BlogPage({ searchParams }: Props) {
                   {post.excerpt}...
                 </p>
 
+                {/* ✅ UPDATED LINK */}
                 <Link 
-                  href={`/blog/${post.slug}`} 
+                  href={`/${post.slug}`} 
                   className="inline-flex items-center gap-2 text-[#5271ff] font-bold text-sm hover:text-[#001341] transition-colors mt-auto"
                 >
                   Read More <ArrowRight size={16} />
@@ -129,11 +126,9 @@ export default async function BlogPage({ searchParams }: Props) {
             </div>
         )}
 
-        {/* --- PAGINATION CONTROLS --- */}
+        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex justify-center items-center gap-4">
-            
-            {/* Previous Button */}
             {currentPage > 1 ? (
               <Link 
                 href={`/blog?page=${currentPage - 1}`}
@@ -147,7 +142,6 @@ export default async function BlogPage({ searchParams }: Props) {
               </span>
             )}
 
-            {/* Page Numbers */}
             <div className="hidden sm:flex gap-2">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                 <Link
@@ -165,7 +159,6 @@ export default async function BlogPage({ searchParams }: Props) {
               ))}
             </div>
 
-            {/* Next Button */}
             {currentPage < totalPages ? (
               <Link 
                 href={`/blog?page=${currentPage + 1}`}

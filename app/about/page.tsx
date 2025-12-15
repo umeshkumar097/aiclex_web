@@ -114,7 +114,7 @@ export default function AboutUs() {
   };
 
   return (
-    <div className="w-full bg-white overflow-hidden">
+    <div className="w-full bg-white mt-10 overflow-hidden">
       
       {/* ==================== 1. HERO / INTRO SECTION ==================== */}
       <section className="relative w-full py-16 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
