@@ -45,6 +45,7 @@ const ValueMarqueeSection: React.FC = () => {
             <Star
               className="w-6 h-6 sm:w-8 sm:h-8 text-orange-500 mx-6 md:mx-10 flex-shrink-0"
               fill="currentColor"
+              aria-hidden="true"
             />
           </span>
         ))}

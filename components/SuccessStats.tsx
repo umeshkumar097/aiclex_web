@@ -13,10 +13,10 @@ interface StatItem {
 
 // --- DATA: Statistics ---
 const stats: StatItem[] = [
-  { id: 1, value: "50+", label: "Happy Clients", icon: <Users className="w-8 h-8 text-[#5271ff]" /> },
-  { id: 2, value: "98%", label: "Success Rate", icon: <CheckCircle className="w-8 h-8 text-[#ff914d]" /> },
-  { id: 3, value: "100+", label: "Projects Done", icon: <Award className="w-8 h-8 text-[#5271ff]" /> },
-  { id: 4, value: "10+", label: "Years Experience", icon: <Coffee className="w-8 h-8 text-[#ff914d]" /> },
+  { id: 1, value: "50+", label: "Happy Clients", icon: <Users className="w-8 h-8 text-[#5271ff]" aria-hidden="true" /> },
+  { id: 2, value: "98%", label: "Success Rate", icon: <CheckCircle className="w-8 h-8 text-[#ff914d]" aria-hidden="true" /> },
+  { id: 3, value: "100+", label: "Projects Done", icon: <Award className="w-8 h-8 text-[#5271ff]" aria-hidden="true" /> },
+  { id: 4, value: "10+", label: "Years Experience", icon: <Coffee className="w-8 h-8 text-[#ff914d]" aria-hidden="true" /> },
 ];
 
 export default function SuccessStats() {
@@ -38,9 +38,9 @@ export default function SuccessStats() {
                   {stat.icon}
                 </div>
               </div>
-              <h3 className="text-4xl md:text-5xl font-extrabold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#5271ff] group-hover:to-[#ff914d] transition-all">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#5271ff] group-hover:to-[#ff914d] transition-all">
                 {stat.value}
-              </h3>
+              </h2>
               <p className="text-gray-400 font-medium uppercase tracking-wide text-sm">
                 {stat.label}
               </p>

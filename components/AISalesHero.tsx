@@ -133,8 +133,8 @@ export default function AiSalesAgentHeroSplit() {
                     </motion.h1>
 
                     <motion.p
-                        className="text-base text-gray-700 font-medium pt-2"
-                        variants={itemVariants}
+            className="text-base text-gray-700 font-medium pt-2"
+            variants={itemVariants}
                     >
                         Introducing AI-powered sales agents that help you scale your business and automate your sales process. Save time, increase conversions, and engage with customers instantly.
                     </motion.p>
@@ -146,7 +146,7 @@ export default function AiSalesAgentHeroSplit() {
                             whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(255, 165, 0, 0.4)" }}
                             whileTap={{ scale: 0.98 }}
                         >
-                            REQUEST AI SALES PRICING <ArrowRight size={20} className="ml-2" /> 
+                            REQUEST AI SALES PRICING <ArrowRight size={20} className="ml-2" aria-hidden="true" /> 
                         </motion.button>
                     </motion.div>
                     
