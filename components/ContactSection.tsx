@@ -88,7 +88,8 @@ export default function ContactSection() {
                     phone: target.phone.value,
                     email: target.email.value,
                     type: target.service.value,
-                    requirement: `Budget: ${target.budget.value || "Not specified"}`
+                    requirement: `Budget: ${target.budget.value || "Not specified"}`,
+                    source_page: window.location.pathname
                   };
                   
                   try {

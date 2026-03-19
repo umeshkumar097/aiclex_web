@@ -661,9 +661,17 @@ export default function Dashboard() {
                                             {lead.type} Lead
                                         </span>
                                     </div>
-                                    <div className="bg-gray-50 p-4 rounded-2xl">
-                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Requirement</p>
-                                        <p className="text-xs text-gray-600 italic leading-relaxed">"{lead.requirement || 'No detailed requirement provided.'}"</p>
+                                    <div className="bg-gray-50 p-4 rounded-2xl space-y-3">
+                                        <div>
+                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Requirement</p>
+                                            <p className="text-xs text-gray-600 italic leading-relaxed">"{lead.requirement || 'No detailed requirement provided.'}"</p>
+                                        </div>
+                                        {lead.source_page && (
+                                            <div className="pt-2 border-t border-gray-100">
+                                                <p className="text-[10px] font-black text-[#5271ff] uppercase tracking-widest mb-1">Lead Source Page</p>
+                                                <p className="text-[10px] text-gray-500 font-mono bg-white p-2 rounded-lg border border-gray-100 break-all">{lead.source_page}</p>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="mt-4 flex justify-between items-center">
                                         <p className="text-[10px] text-gray-300 font-bold uppercase">{new Date(lead.created_at).toLocaleString()}</p>

@@ -5,6 +5,7 @@ import { CheckCircle, ArrowLeft, Video, IndianRupee, Headphones, Clock } from "l
 import ServiceIcon from "@/components/ServiceIcon";
 import WorkProcess from "@/components/WorkProcess";
 import SuccessStats from "@/components/SuccessStats";
+import ZoomLeadForm from "@/components/zoom/ZoomLeadForm";
 
 export const metadata: Metadata = {
   title: "Official Zoom Reseller In India | Pricing, License & Support",
@@ -175,23 +176,7 @@ export default function ZoomResellerPage() {
             </div>
           </div>
 
-          <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-gray-50 sticky top-28">
-            <h3 className="text-2xl font-bold text-[#001341] mb-6">Get a Customized Zoom Quote</h3>
-            <p className="text-gray-500 text-sm mb-8 italic">Fill the form below and our Zoom Product Specialist will contact you within 30 minutes for Zoom reselling inquiries.</p>
-            
-            <form className="space-y-4">
-                <input type="text" placeholder="Full Name" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
-                <input type="email" placeholder="Work Email" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
-                <input type="tel" placeholder="Phone Number" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
-                <select className="w-full p-4 bg-gray-50 rounded-2xl outline-none text-gray-400">
-                    <option>Zoom Meetings (10-100 Licensed Users)</option>
-                    <option>Zoom Webinar (500+ Attendees)</option>
-                    <option>Zoom Rooms / Workspace</option>
-                    <option>Zoom Phone Implementation</option>
-                </select>
-                <button className="w-full py-4 bg-[#5271ff] text-white font-bold rounded-2xl hover:bg-blue-600 transition-all shadow-lg">Submit Request</button>
-            </form>
-          </div>
+          <ZoomLeadForm />
         </div>
       </section>
 

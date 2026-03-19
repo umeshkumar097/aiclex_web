@@ -27,7 +27,8 @@ export default function HomeLeadForm({
       phone: target.phone.value,
       email: target.email.value || "",
       type: target.service.value || type,
-      requirement: target.requirement.value || "Lead from Home Page section"
+      requirement: target.requirement.value || "Lead from Home Page section",
+      source_page: window.location.pathname
     };
 
     try {

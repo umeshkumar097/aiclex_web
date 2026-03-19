@@ -38,18 +38,18 @@ export async function GET(req: NextRequest) {
 // POST New Lead (From Front-end Forms)
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, phone, type, requirement } = await req.json();
+    const { name, email, phone, type, requirement, source_page } = await req.json();
 
     if (!name || !phone || !type) {
       return NextResponse.json({ error: "Required fields missing" }, { status: 400 });
     }
 
     const query = `
-      INSERT INTO leads (name, email, phone, type, requirement)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO leads (name, email, phone, type, requirement, source_page)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
     `;
-    const result = await pool.query(query, [name, email, phone, type, requirement]);
+    const result = await pool.query(query, [name, email, phone, type, requirement, source_page || 'Direct/Unknown']);
 
     return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
