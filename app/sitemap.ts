@@ -35,10 +35,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // dynamic blog routes from DB
   let blogRoutes: any[] = []
   try {
-    const blogs = await pool.query("SELECT slug, updated_at FROM blog_posts")
+    const blogs = await pool.query("SELECT slug, created_at FROM posts")
     blogRoutes = blogs.rows.map((blog: any) => ({
-      url: `${baseUrl}/blog/${blog.slug}`,
-      lastModified: new Date(blog.updated_at),
+      url: `${baseUrl}/${blog.slug}`,
+      lastModified: new Date(blog.created_at),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }))
@@ -47,10 +47,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // dynamic job routes from DB
   let jobRoutes: any[] = []
   try {
-    const jobs = await pool.query("SELECT slug, posted_at FROM jobs WHERE is_active = true")
+    const jobs = await pool.query("SELECT slug, created_at FROM jobs WHERE is_active = true")
     jobRoutes = jobs.rows.map((job: any) => ({
       url: `${baseUrl}/career/${job.slug}`,
-      lastModified: new Date(job.posted_at),
+      lastModified: new Date(job.created_at),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }))
