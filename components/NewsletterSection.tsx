@@ -51,12 +51,15 @@ export default function NewsletterSection() {
 
             {/* Input Form */}
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto w-full">
+              <label htmlFor="newsletter-email" className="sr-only">Email Address</label>
               <input
+                id="newsletter-email"
                 type="email"
                 placeholder="email address"
                 className="w-full sm:flex-1 py-4 px-6 rounded-lg text-gray-800 placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-[#5271ff] shadow-lg"
               />
               <button
+                aria-label="Subscribe to newsletter"
                 className="w-full sm:w-auto py-4 px-8 rounded-lg bg-gradient-to-r from-[#ff914d] to-[#ff6b6b] text-white font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 whitespace-nowrap"
               >
                 Subscribe

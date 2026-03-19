@@ -21,7 +21,7 @@ export default function ClientsSection() {
             <h3 className="text-3xl md:text-5xl font-black text-[#001341] leading-tight">
               Powering Growth for <br/> <span className="text-[#5271ff]">Industry Leaders</span>
             </h3>
-            <p className="text-gray-500 text-lg leading-relaxed">
+            <p className="text-gray-600 text-lg leading-relaxed">
               From top universities to leading tech companies, we've helped diverse organizations achieve their digital transformation goals with our AI and Marketing solutions.
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4">
@@ -53,7 +53,7 @@ export default function ClientsSection() {
                     >
                         <img 
                             src={`/partners/${num}.jpg`} 
-                            alt={`Partner ${num}`} 
+                            alt={`Partner logo ${num}`} 
                             className="max-h-12 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100" 
                         />
                     </motion.div>

@@ -181,17 +181,19 @@ export default function TestimonialSection() {
           {/* LEFT BUTTON */}
           <button
             onClick={prevSlide}
+            aria-label="Previous testimonial"
             className="absolute top-1/2 0 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-[#5271ff] hover:scale-110 transition-all border border-gray-100 z-30"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6" aria-hidden="true" />
           </button>
 
           {/* RIGHT BUTTON */}
           <button
             onClick={nextSlide}
+            aria-label="Next testimonial"
             className="absolute top-1/2 right-0 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-[#5271ff] hover:scale-110 transition-all border border-gray-100 z-30"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6" aria-hidden="true" />
           </button>
 
           {/* DOTS */}
@@ -200,6 +202,8 @@ export default function TestimonialSection() {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                aria-current={currentIndex % totalRealItems === index ? "true" : "false"}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   currentIndex % totalRealItems === index
                     ? "bg-[#5271ff] w-8"

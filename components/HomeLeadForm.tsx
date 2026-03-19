@@ -77,52 +77,72 @@ export default function HomeLeadForm({
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input 
-            name="name"
-            type="text" 
-            placeholder="Your Full Name" 
-            required
-            className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
-          />
-          <input 
-            name="phone"
-            type="tel" 
-            placeholder="Phone Number (+91...)" 
-            required
-            className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
-          />
+          <div className="space-y-1">
+            <label htmlFor="home-name" className="sr-only">Full Name</label>
+            <input 
+              id="home-name"
+              name="name"
+              type="text" 
+              placeholder="Your Full Name" 
+              required
+              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+            />
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="home-phone" className="sr-only">Phone Number</label>
+            <input 
+              id="home-phone"
+              name="phone"
+              type="tel" 
+              placeholder="Phone Number (+91...)" 
+              required
+              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+            />
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input 
-            name="email"
-            type="email" 
-            placeholder="Email Address (Optional)" 
-            className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
-          />
-          <select 
-            name="service"
-            className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm text-gray-500"
-          >
-            <option value="Website">Website/App Development</option>
-            <option value="Digital Marketing">Digital Marketing</option>
-            <option value="Zoom">Zoom Meeting Proposal</option>
-            <option value="Branding">Branding & UI/UX</option>
-          </select>
+          <div className="space-y-1">
+            <label htmlFor="home-email" className="sr-only">Email Address</label>
+            <input 
+              id="home-email"
+              name="email"
+              type="email" 
+              placeholder="Email Address (Optional)" 
+              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+            />
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="home-service" className="sr-only">Select Service</label>
+            <select 
+              id="home-service"
+              name="service"
+              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm text-gray-500"
+            >
+              <option value="Website">Website/App Development</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="Zoom">Zoom Meeting Proposal</option>
+              <option value="Branding">Branding & UI/UX</option>
+            </select>
+          </div>
         </div>
 
-        <textarea 
-          name="requirement"
-          placeholder="Tell us a bit about your project requirements..." 
-          rows={3}
-          className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
-        />
+        <div className="space-y-1">
+          <label htmlFor="home-requirement" className="sr-only">Project Requirements</label>
+          <textarea 
+            id="home-requirement"
+            name="requirement"
+            placeholder="Tell us a bit about your project requirements..." 
+            rows={3}
+            className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+          />
+        </div>
 
         <button 
           disabled={loading}
           className="w-full bg-[#001341] text-white py-4 rounded-2xl font-bold hover:bg-blue-900 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
         >
-          {loading ? <Loader2 className="animate-spin" /> : <Send size={18} />}
+          {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Send size={18} aria-hidden="true" />}
           Get Instant Proposal
         </button>
       </form>

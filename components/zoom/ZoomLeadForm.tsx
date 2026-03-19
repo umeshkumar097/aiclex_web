@@ -56,20 +56,32 @@ export default function ZoomLeadForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
-            <input name="name" type="text" placeholder="Full Name" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
-            <input name="email" type="email" placeholder="Work Email" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
-            <input name="phone" type="tel" placeholder="Phone Number" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
-            <select name="plan" className="w-full p-4 bg-gray-50 rounded-2xl outline-none text-gray-400">
-                <option>Zoom Meetings (10-100 Licensed Users)</option>
-                <option>Zoom Webinar (500+ Attendees)</option>
-                <option>Zoom Rooms / Workspace</option>
-                <option>Zoom Phone Implementation</option>
-            </select>
+            <div className="space-y-1">
+              <label htmlFor="zoom-name" className="sr-only">Full Name</label>
+              <input id="zoom-name" name="name" type="text" placeholder="Full Name" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
+            </div>
+            <div className="space-y-1">
+              <label htmlFor="zoom-email" className="sr-only">Work Email</label>
+              <input id="zoom-email" name="email" type="email" placeholder="Work Email" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
+            </div>
+            <div className="space-y-1">
+              <label htmlFor="zoom-phone" className="sr-only">Phone Number</label>
+              <input id="zoom-phone" name="phone" type="tel" placeholder="Phone Number" className="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-[#5271ff]" required />
+            </div>
+            <div className="space-y-1">
+              <label htmlFor="zoom-plan" className="sr-only">Select Zoom Plan</label>
+              <select id="zoom-plan" name="plan" className="w-full p-4 bg-gray-50 rounded-2xl outline-none text-gray-400">
+                  <option>Zoom Meetings (10-100 Licensed Users)</option>
+                  <option>Zoom Webinar (500+ Attendees)</option>
+                  <option>Zoom Rooms / Workspace</option>
+                  <option>Zoom Phone Implementation</option>
+              </select>
+            </div>
             <button 
               disabled={loading}
               className="w-full py-4 bg-[#5271ff] text-white font-bold rounded-2xl hover:bg-blue-600 transition-all shadow-lg flex items-center justify-center gap-2"
             >
-              {loading ? <Loader2 className="animate-spin" /> : <Send size={18} />}
+              {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Send size={18} aria-hidden="true" />}
               Submit Request
             </button>
         </form>

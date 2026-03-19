@@ -138,10 +138,11 @@ export default function ContactSection() {
                 {/* Name + Phone */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-gray-700">
+                    <label htmlFor="contact-name" className="text-sm font-semibold text-gray-700">
                       Your Name <span className="text-[#5271ff]">*</span>
                     </label>
                     <input 
+                      id="contact-name"
                       name="name"
                       type="text"
                       placeholder="John Doe"
@@ -151,10 +152,11 @@ export default function ContactSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-semibold text-gray-700">
+                    <label htmlFor="contact-phone" className="text-sm font-semibold text-gray-700">
                       Phone Number <span className="text-[#5271ff]">*</span>
                     </label>
                     <input 
+                      id="contact-phone"
                       name="phone"
                       type="tel"
                       placeholder="+91 00000 00000"
@@ -166,10 +168,11 @@ export default function ContactSection() {
 
                 {/* Email */}
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700">
+                  <label htmlFor="contact-email" className="text-sm font-semibold text-gray-700">
                     Email Address <span className="text-[#5271ff]">*</span>
                   </label>
                   <input 
+                    id="contact-email"
                     name="email"
                     type="email"
                     placeholder="john@example.com"
@@ -180,18 +183,18 @@ export default function ContactSection() {
 
                 {/* Service Dropdown */}
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700">
+                  <label htmlFor="contact-service" className="text-sm font-semibold text-gray-700">
                     Service Required <span className="text-[#5271ff]">*</span>
                   </label>
                   <div className="relative">
-                    <select name="service" className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-[#5271ff] outline-none cursor-pointer appearance-none text-gray-600">
+                    <select id="contact-service" name="service" className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-[#5271ff] outline-none cursor-pointer appearance-none text-gray-600">
                       <option value="Website">Website Design & Development</option>
                       <option value="Mobile">Mobile App Development</option>
                       <option value="Digital Marketing">Digital Marketing</option>
                       <option value="Zoom">Zoom Meeting Proposal</option>
                       <option value="SEO">SEO Optimization</option>
                     </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
                   </div>
                 </div>
 
@@ -219,10 +222,10 @@ export default function ContactSection() {
                   
                   {/* Captcha */}
                   <div className="w-full sm:w-auto px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl flex items-center gap-3 shadow-sm min-w-[200px] h-[52px]">
-                    <input type="checkbox" required className="w-5 h-5 rounded border-gray-300 text-[#5271ff]" />
-                    <span className="text-sm text-gray-600">I am human</span>
+                    <input id="contact-captcha" type="checkbox" required className="w-5 h-5 rounded border-gray-300 text-[#5271ff]" />
+                    <label htmlFor="contact-captcha" className="text-sm text-gray-600">I am human</label>
                     <div className="ml-auto pl-2 border-l border-gray-300">
-                      <ShieldCheck className="w-6 h-6 text-[#5271ff]" />
+                      <ShieldCheck className="w-6 h-6 text-[#5271ff]" aria-hidden="true" />
                     </div>
                   </div>
 
@@ -230,10 +233,11 @@ export default function ContactSection() {
                   <button 
                     type="submit"
                     disabled={loading}
+                    aria-label={loading ? "Sending Message" : "Send Message"}
                     className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-[#5271ff] to-[#3a5ccc] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#5271ff]/30 transition-all active:scale-95 h-[52px] disabled:opacity-50"
                   >
                     <span>{loading ? "Sending..." : "Send Message"}</span>
-                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Send className="w-4 h-4" aria-hidden="true" />}
                   </button>
                 </div>
 

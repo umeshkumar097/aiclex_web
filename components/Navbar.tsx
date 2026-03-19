@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -36,26 +36,26 @@ export default function Navbar() {
   const WHATSAPP_MESSAGE = "Hi, I would like to get a quote.";
 
   const menuItems = [
-    { name: "Home", href: "/", icon: <Home size={18} /> },
-    { name: "About Us", href: "/about", icon: <User size={18} /> },
-    { name: "Zoom", href: "/zoom", icon: <Video size={18} /> },
-    { name: "Services", href: "/services", icon: <Layers size={18} /> },
+    { name: "Home", href: "/", icon: <Home size={18} aria-hidden="true" /> },
+    { name: "About Us", href: "/about", icon: <User size={18} aria-hidden="true" /> },
+    { name: "Zoom", href: "/zoom", icon: <Video size={18} aria-hidden="true" /> },
+    { name: "Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
     {
       name: "Company",
       href: "#",
-      icon: <Building2 size={18} />,
+      icon: <Building2 size={18} aria-hidden="true" />,
       children: [
-        { name: "Our Team", href: "/team", icon: <Users size={18} /> },
+        { name: "Our Team", href: "/team", icon: <Users size={18} aria-hidden="true" /> },
         {
           name: "Brochure",
           href: "/brouchure.pdf",
-          icon: <FileText size={18} />,
+          icon: <FileText size={18} aria-hidden="true" />,
           isFile: true,
         },
-        { name: "Careers", href: "/career", icon: <Users size={18} /> },
+        { name: "Careers", href: "/career", icon: <Users size={18} aria-hidden="true" /> },
       ],
     },
-    { name: "Contact Us", href: "/contact", icon: <Phone size={18} /> },
+    { name: "Contact Us", href: "/contact", icon: <Phone size={18} aria-hidden="true" /> },
   ];
 
   useEffect(() => {
@@ -226,8 +226,13 @@ export default function Navbar() {
           </motion.button>
         </a>
 
-        <button className="md:hidden" onClick={() => setMobileOpen(true)}>
-          <Menu size={26} />
+        <button 
+          className="md:hidden p-2" 
+          onClick={() => setMobileOpen(true)}
+          aria-label="Open mobile menu"
+          aria-expanded={mobileOpen}
+        >
+          <Menu size={26} aria-hidden="true" />
         </button>
       </nav>
 
@@ -238,10 +243,11 @@ export default function Navbar() {
         }`}
       >
         <button
-          className="absolute top-4 right-4"
+          className="absolute top-4 right-4 p-2 focus:outline-none"
           onClick={() => setMobileOpen(false)}
+          aria-label="Close mobile menu"
         >
-          <X size={24} />
+          <X size={24} aria-hidden="true" />
         </button>
 
         <div className="flex items-center gap-2 mb-6 mt-2">
@@ -252,9 +258,10 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Search..."
-            className="w-full bg-gray-100 rounded-full py-2 px-4 pl-10 outline-none"
+            aria-label="Search site"
+            className="w-full bg-gray-100 rounded-full py-2 px-4 pl-10 outline-none focus:ring-2 focus:ring-orange-400"
           />
-          <Search className="absolute left-3 top-2.5" size={18} />
+          <Search className="absolute left-3 top-2.5 text-gray-500" size={18} aria-hidden="true" />
         </div>
 
         <div className="flex flex-col gap-4">

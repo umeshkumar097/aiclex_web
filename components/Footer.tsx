@@ -122,13 +122,15 @@ export default function Footer() {
               <input 
                   type="email" 
                   placeholder="Enter your email" 
+                  aria-label="Newsletter email"
                   className="w-full bg-white border border-gray-200 text-sm rounded-lg pl-4 pr-12 py-3 outline-none focus:border-[#5271FF] focus:ring-1 focus:ring-[#5271FF] transition-all shadow-sm"
               />
               <button 
                   type="submit" 
+                  aria-label="Subscribe to newsletter"
                   className="absolute right-1.5 top-1.5 bottom-1.5 bg-[#5271FF] hover:bg-blue-700 text-white px-3 rounded-md transition-all flex items-center justify-center"
               >
-                  <Send size={16} />
+                  <Send size={16} aria-hidden="true" />
               </button>
             </form>
           </div>
@@ -147,27 +149,27 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-6">Follow Us</h3>
             <div className="flex items-center gap-3">
               {/* Instagram */}
-              <Link href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy" target="_blank">
+              <Link href="https://www.instagram.com/aiclex_in?igsh=c3J6czRqZ3dmaWIy" target="_blank" aria-label="Follow us on Instagram">
                 <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                  <Instagram size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
+                  <Instagram size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" aria-hidden="true" />
                 </div>
               </Link>
               {/* Facebook */}
-              <Link href="#" target="_blank">
+              <Link href="#" target="_blank" aria-label="Follow us on Facebook">
                 <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                  <Facebook size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
+                  <Facebook size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" aria-hidden="true" />
                 </div>
               </Link>
               {/* Linkedin */}
-              <Link href="https://www.linkedin.com/company/aiclex/posts/?feedView=all" target="_blank">
+              <Link href="https://www.linkedin.com/company/aiclex/posts/?feedView=all" target="_blank" aria-label="Follow us on LinkedIn">
                 <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                  <Linkedin size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
+                  <Linkedin size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" aria-hidden="true" />
                 </div>
               </Link>
               {/* Twitter */}
-              <Link href="#" target="_blank">
+              <Link href="#" target="_blank" aria-label="Follow us on Twitter">
                 <div className="group h-10 w-10 rounded-full bg-[#EDEDED] flex items-center justify-center transition-all duration-300 hover:bg-[#5271FF] hover:scale-110">
-                  <Twitter size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" />
+                  <Twitter size={20} className="text-[#1D1D1D] transition-colors group-hover:text-white" aria-hidden="true" />
                 </div>
               </Link>
             </div>
@@ -195,6 +197,7 @@ export default function Footer() {
         href="https://wa.me/918449488090"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Contact us on WhatsApp"
         className="fixed bottom-24 right-6 h-14 w-14 rounded-full bg-white shadow-xl overflow-hidden flex items-center justify-center hover:scale-110 transition-all duration-300 z-[99999]"
       >
         <Image
@@ -210,9 +213,10 @@ export default function Footer() {
       {showButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Back to top"
           className="fixed bottom-6 right-6 h-12 w-12 cursor-pointer flex items-center justify-center rounded-full bg-[#0C0C0C] hover:bg-[#5271FF] transition-all z-[9999]"
         >
-          <ArrowUp size={22} className="text-white" />
+          <ArrowUp size={22} className="text-white" aria-hidden="true" />
         </button>
       )}
     </footer>
