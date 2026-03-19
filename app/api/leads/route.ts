@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
+import { sendLeadEmails } from "@/lib/mail";
 
 // GET All Leads (For Admin CRM)
 export async function GET(req: NextRequest) {
@@ -50,6 +51,9 @@ export async function POST(req: NextRequest) {
       RETURNING *
     `;
     const result = await pool.query(query, [name, email, phone, type, requirement, source_page || 'Direct/Unknown']);
+
+    // Trigger Email Notifications (Non-blocking)
+    sendLeadEmails({ name, email, phone, type, requirement, source_page });
 
     return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
