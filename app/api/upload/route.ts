@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ url });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Upload Error:", error);
     return NextResponse.json({ error: `Server Error: ${error.message}` }, { status: 500 });
   }
