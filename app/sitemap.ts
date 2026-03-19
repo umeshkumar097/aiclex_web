@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { servicesData } from '@/lib/servicesData'
 import pool from '@/lib/db'
+import { zoomKeywordsSolutions } from '@/lib/zoom-keywords'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://aiclex.in'
@@ -56,5 +57,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   } catch (err) { console.error("Sitemap: Failed to fetch jobs", err) }
 
-  return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...jobRoutes]
+  // dynamic keyword solution routes
+  const solutionRoutes = zoomKeywordsSolutions.map((solution) => ({
+    url: `${baseUrl}/solutions/${solution.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
+  return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...jobRoutes, ...solutionRoutes]
 }
