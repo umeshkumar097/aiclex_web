@@ -98,12 +98,11 @@ export default async function SingleBlogPage({ params }: Props) {
         </FadeInOnScroll>
       )}
 
-      <FadeInOnScroll delay={0.4}>
-          <div 
-            className="max-w-none prose prose-lg prose-blue prose-img:rounded-3xl prose-headings:text-[#001341] prose-a:text-blue-600 prose-strong:text-[#001341]"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-      </FadeInOnScroll>
+      {/* Content Area */}
+      <div 
+        className="max-w-none prose prose-lg md:prose-xl prose-blue prose-img:rounded-3xl prose-headings:text-[#001341] prose-a:text-blue-600 prose-strong:text-[#001341] transition-opacity duration-300"
+        dangerouslySetInnerHTML={{ __html: post.content || '<p class="text-gray-400">No content available for this post.</p>' }}
+      />
     </article>
   );
 }

@@ -158,14 +158,22 @@ export default function Dashboard() {
         method: "POST",
         body: formDataObj,
       });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || `Upload failed with status ${res.status}`);
+      }
+
       const data = await res.json();
       if (data.url) {
         setFormData((prev) => ({ ...prev, image: data.url }));
         alert("🖼️ Image uploaded to Cloudflare R2!");
+      } else {
+        throw new Error("No URL returned from server");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Upload failed", err);
-      alert("❌ Upload failed");
+      alert(`❌ Upload failed: ${err.message}`);
     } finally {
       setUploading(false);
     }
