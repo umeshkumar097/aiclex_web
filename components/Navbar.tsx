@@ -16,6 +16,9 @@ import {
   Users,
   FileText,
   ChevronDown,
+  Sparkles,
+  MessageSquare,
+  Image as ImageIcon,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -40,6 +43,15 @@ export default function Navbar() {
     { name: "About Us", href: "/about", icon: <User size={18} aria-hidden="true" /> },
     { name: "Zoom", href: "/zoom", icon: <Video size={18} aria-hidden="true" /> },
     { name: "Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
+    {
+      name: "Free Tools",
+      href: "#",
+      icon: <Sparkles size={18} aria-hidden="true" />,
+      children: [
+        { name: "AI Marketing Assistant", href: "/free-tools/ai-marketing-assistant", icon: <MessageSquare size={18} aria-hidden="true" /> },
+        { name: "Background Changer", href: "/free-tools/product-background-changer", icon: <ImageIcon size={18} aria-hidden="true" /> },
+      ],
+    },
     {
       name: "Company",
       href: "#",

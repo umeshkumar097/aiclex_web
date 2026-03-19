@@ -3,6 +3,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import React, { useState, useEffect } from 'react';
 
@@ -141,13 +142,15 @@ export default function AiSalesAgentHeroSplit() {
 
                     {/* CTA Button */}
                     <motion.div variants={itemVariants}>
-                        <motion.button 
-                            className="relative px-8 cursor-pointer py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mt-4"
-                            whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(255, 165, 0, 0.4)" }}
-                            whileTap={{ scale: 0.98 }}
-                        >
-                            REQUEST AI SALES PRICING <ArrowRight size={20} className="ml-2" aria-hidden="true" /> 
-                        </motion.button>
+                        <Link href="/contact">
+                            <motion.button 
+                                className="relative px-8 cursor-pointer py-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-lg font-bold rounded-full shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mt-4"
+                                whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(255, 165, 0, 0.4)" }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                REQUEST AI SALES PRICING <ArrowRight size={20} className="ml-2" aria-hidden="true" /> 
+                            </motion.button>
+                        </Link>
                     </motion.div>
                     
                 </motion.div>

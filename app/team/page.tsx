@@ -13,9 +13,16 @@
         try {
           const res = await fetch("/api/team");
           const data = await res.json();
-          setTeamMembers(data);
+          // Ensure data is an array before setting state
+          if (Array.isArray(data)) {
+            setTeamMembers(data);
+          } else if (data.error) {
+            console.error("API Error:", data.error);
+            setTeamMembers([]);
+          }
         } catch (error) {
-          console.error("Error loading team");
+          console.error("Fetch Error:", error);
+          setTeamMembers([]);
         } finally {
           setLoading(false);
         }

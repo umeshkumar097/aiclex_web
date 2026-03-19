@@ -137,14 +137,14 @@ export default function AboutUs() {
             </h3>
 
             <p className="text-lg text-gray-600 leading-relaxed">
-              At <strong className="text-gray-900">AICLEX TECHNOLOGIES LLP</strong>, we bring deep industry knowledge to every project we undertake. Our team is dedicated to designing exceptional digital experiences that not only meet but exceed your expectations. We combine innovation, creativity, and technical proficiency to deliver solutions that drive engagement and achieve your business goals.
+              At <strong className="text-gray-900">AICLEX TECHNOLOGIES</strong>, we bring deep industry knowledge to every project we undertake. Our team is dedicated to designing exceptional digital experiences that not only meet but exceed your expectations. We combine innovation, creativity, and technical proficiency to deliver solutions that drive engagement and achieve your business goals.
             </p>
           </div>
 
           {/* Image Content */}
           <div className="flex-1 relative w-full h-[400px] md:h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl group">
              <img 
-               src="https://aiclex.in/wp-content/uploads/2023/12/bg-team1.png" 
+               src="/assets/about/hero.png" 
                alt="Aiclex Team" 
                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
              />
@@ -160,9 +160,9 @@ export default function AboutUs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             {/* Left: Image/Graphic */}
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border-8 border-gray-50">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl border-8 border-gray-50 bg-gray-100 flex items-center justify-center">
                <img 
-                 src="https://aiclex.in/wp-content/uploads/2023/12/DALL·E-2024-07-21-06.56.29-A-professional-image-representing-logo-design.-The-image-features-various-logo-concepts-displayed-on-a-desk-with-design-tools-color-palettes-and-typ-800x800.webp" 
+                 src="/assets/about/expertise.png" 
                  alt="Digital Expertise" 
                  className="w-full h-auto object-cover"
                />

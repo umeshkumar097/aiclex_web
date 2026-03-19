@@ -3,6 +3,7 @@
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { motion } from "framer-motion";
 import { Star, Award } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -92,10 +93,12 @@ export default function Hero() {
               </div>
             </div>
 
-            <button className="group relative overflow-hidden px-8 py-3 bg-[#0A1A4A] text-white font-semibold rounded-lg shadow-md hover:shadow-xl transition-all">
-              <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-400 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300"></span>
-              <span className="relative">Hire Now</span>
-            </button>
+            <Link href="/contact">
+              <button className="group relative overflow-hidden px-8 py-3 bg-[#0A1A4A] text-white font-semibold rounded-lg shadow-md hover:shadow-xl transition-all">
+                <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-400 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300"></span>
+                <span className="relative">Hire Now</span>
+              </button>
+            </Link>
           </div>
         </motion.div>
 

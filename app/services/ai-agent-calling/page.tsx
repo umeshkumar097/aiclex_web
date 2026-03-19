@@ -1,16 +1,144 @@
-import React from "react";
-import { Metadata } from "next";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { CheckCircle, ArrowLeft, Mic, Brain, Zap, Cpu } from "lucide-react";
+import { CheckCircle, ArrowLeft, Mic, Brain, Zap, Cpu, Phone, PhoneOff, Volume2 } from "lucide-react";
 import WorkProcess from "@/components/WorkProcess";
 import SuccessStats from "@/components/SuccessStats";
+import { motion, AnimatePresence } from "framer-motion";
 
-export const metadata: Metadata = {
-  title: "AI Agent Calling Services | Indian Business Automation",
-  description: "Scale your customer outreach with AI Powered Calling Agents. Automate lead qualification, appointment setting, and support with human-like voice AI.",
-  keywords: ["AI Agent Calling", "Automated Calling Services", "Lead Qualification AI", "Voice AI India", "AICLEX AI solutions"],
+// --- Voice Agent Component ---
+const VoiceAgent = () => {
+    const [callState, setCallState] = useState<'idle' | 'calling' | 'connected' | 'speaking'>('idle');
+    const [script, setScript] = useState("");
+    const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    // Load Voices
+    useEffect(() => {
+        const loadVoices = () => {
+            const voices = window.speechSynthesis.getVoices();
+            // Try to find an Indian Female voice
+            const indianFemale = voices.find(v => (v.lang.includes('IN') || v.lang.includes('hi')) && (v.name.includes('Female') || v.name.includes('Heera') || v.name.includes('Google Hindi')));
+            setVoice(indianFemale || voices[0]);
+        };
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+    }, []);
+
+    const startCall = async () => {
+        setCallState('calling');
+        
+        try {
+            // Fetch Script from Gemini
+            const res = await fetch("/api/agent-script", { method: "POST" });
+            const data = await res.json();
+            setScript(data.script);
+
+            // Simulate Network Delay/Dialing
+            setTimeout(() => {
+                setCallState('connected');
+                speak(data.script);
+            }, 2000);
+        } catch (error) {
+            setCallState('idle');
+        }
+    };
+
+    const speak = (text: string) => {
+        if (!window.speechSynthesis) return;
+        
+        setCallState('speaking');
+        const utterance = new SpeechSynthesisUtterance(text);
+        if (voice) utterance.voice = voice;
+        utterance.rate = 0.9; // Slightly slower for clarity
+        utterance.pitch = 1.1; // Slightly higher for "female" feel if generic
+
+        utterance.onend = () => {
+            setTimeout(() => setCallState('idle'), 1000);
+        };
+
+        window.speechSynthesis.speak(utterance);
+    };
+
+    const endCall = () => {
+        window.speechSynthesis.cancel();
+        setCallState('idle');
+    };
+
+    return (
+        <div className="flex flex-col items-center">
+            <AnimatePresence mode="wait">
+                {callState === 'idle' ? (
+                    <motion.button
+                        key="call-btn"
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0.9, opacity: 0 }}
+                        onClick={startCall}
+                        className="group flex flex-col items-center gap-4"
+                    >
+                        <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center shadow-xl shadow-green-200 group-hover:scale-110 group-hover:bg-green-600 transition-all duration-300">
+                            <Phone className="text-white w-10 h-10 fill-current" />
+                        </div>
+                        <span className="font-bold text-[#001341] uppercase tracking-wider text-sm">Test Live Call</span>
+                    </motion.button>
+                ) : (
+                    <motion.div
+                        key="calling-ui"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 20, opacity: 0 }}
+                        className="w-full max-w-sm bg-white p-8 rounded-[2.5rem] shadow-2xl border border-blue-100 flex flex-col items-center gap-6"
+                    >
+                        <div className="relative">
+                            <div className={`w-28 h-28 rounded-full border-4 flex items-center justify-center ${callState === 'calling' ? 'border-blue-400 border-t-transparent animate-spin' : 'border-green-500'}`}>
+                                <UserIcon className={`w-14 h-14 ${callState === 'calling' ? 'text-blue-400' : 'text-green-500'}`} />
+                            </div>
+                            {callState === 'speaking' && (
+                                <motion.div 
+                                    animate={{ scale: [1, 1.2, 1] }} 
+                                    transition={{ repeat: Infinity, duration: 1 }}
+                                    className="absolute -top-2 -right-2 bg-pink-500 p-2 rounded-full text-white"
+                                >
+                                    <Volume2 size={16} />
+                                </motion.div>
+                            )}
+                        </div>
+
+                        <div className="text-center">
+                            <h4 className="text-xl font-bold text-gray-900 capitalize">{callState}...</h4>
+                            <p className="text-gray-500 text-sm">
+                                {callState === 'calling' ? 'Wait while we connect you' : 'Agent Aiclex is Speaking'}
+                            </p>
+                        </div>
+
+                        {callState === 'speaking' && (
+                             <div className="w-full bg-blue-50 p-4 rounded-2xl border border-blue-100 italic text-sm text-blue-800 text-center">
+                                "{script}"
+                             </div>
+                        )}
+
+                        <button 
+                            onClick={endCall}
+                            className="w-full py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 transition-colors"
+                        >
+                            <PhoneOff size={20} /> End Call
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
 };
 
+const UserIcon = ({ className }: { className?: string }) => (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+    </svg>
+);
+
+// --- Main Page Component ---
 export default function AIAgentCallingPage() {
   return (
     <div className="w-full mt-20 bg-white">
@@ -30,12 +158,17 @@ export default function AIAgentCallingPage() {
             <p className="text-lg md:text-xl text-blue-100 leading-relaxed mb-8">
               Automate lead qualification and customer support calls with state-of-the-art Natural Language Processing. Scale your voice operations without hiring more staff.
             </p>
-            <Link 
-              href="/contact"
-              className="inline-flex items-center px-10 py-4 rounded-full text-white font-bold shadow-lg bg-[#ff914d] hover:bg-orange-600 hover:scale-105 transition-all duration-300"
-            >
-              Book a Live Demo
-            </Link>
+            <div className="flex flex-wrap gap-4">
+                <Link 
+                href="/contact"
+                className="inline-flex items-center px-10 py-4 rounded-full text-white font-bold shadow-lg bg-[#ff914d] hover:bg-orange-600 hover:scale-105 transition-all duration-300"
+                >
+                Book a Live Demo
+                </Link>
+                <div className="hidden md:block">
+                     <VoiceAgent />
+                </div>
+            </div>
           </div>
           
           <div className="flex justify-center lg:justify-end">
@@ -50,6 +183,12 @@ export default function AIAgentCallingPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* MOBILE DEMO (Always Visible on Mobile) */}
+      <section className="md:hidden py-16 px-6 bg-blue-50 flex flex-col items-center italic">
+           <h3 className="text-xl font-bold text-[#001341] mb-8">Try Our AI Agent Live</h3>
+           <VoiceAgent />
       </section>
 
       {/* DETAILED CONTENT */}
