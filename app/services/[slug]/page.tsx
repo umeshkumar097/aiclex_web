@@ -216,5 +216,3 @@ export default async function ServiceDetailPage({ params }: Props) {
     </div>
   );
 }
-);
-}
