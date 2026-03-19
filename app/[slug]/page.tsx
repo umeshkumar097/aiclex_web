@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image"; // ✅ Import Next.js Image
 import pool from "@/lib/db"; 
