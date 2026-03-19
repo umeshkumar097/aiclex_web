@@ -3,6 +3,7 @@
 import React from "react";
 import { MapPin, Phone, Mail, ChevronDown, ShieldCheck, Send, Loader2 } from "lucide-react";
 
+export default function ContactSection() {
   const [loading, setLoading] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
 
