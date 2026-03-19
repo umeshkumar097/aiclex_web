@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle, ArrowLeft, Video, IndianRupee, headphones, Clock } from "lucide-react";
+import { CheckCircle, ArrowLeft, Video, IndianRupee, Headphones, Clock } from "lucide-react";
 import ServiceIcon from "@/components/ServiceIcon";
 import WorkProcess from "@/components/WorkProcess";
 import SuccessStats from "@/components/SuccessStats";
@@ -99,7 +99,7 @@ export default function ZoomResellerPage() {
                 <p className="text-xs text-gray-500 group-hover:text-green-100">Most licenses are provisioned and active within 60 minutes.</p>
             </div>
             <div className="p-8 bg-orange-50 rounded-3xl group hover:bg-orange-500 transition-all duration-500 shadow-sm">
-                <headphones className="mx-auto mb-4 text-orange-600 group-hover:text-white transition-colors" size={40} />
+                <Headphones className="mx-auto mb-4 text-orange-600 group-hover:text-white transition-colors" size={40} />
                 <h3 className="font-bold text-gray-900 group-hover:text-white mb-2">Expert Care</h3>
                 <p className="text-xs text-gray-500 group-hover:text-orange-100">Direct access to Zoom Certified Support Engineers in India.</p>
             </div>
