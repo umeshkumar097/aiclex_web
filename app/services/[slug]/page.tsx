@@ -1,16 +1,17 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import ServiceIcon from "@/components/ServiceIcon"; 
-import { CheckCircle, ArrowLeft, Loader2 } from "lucide-react";
+import { CheckCircle, ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
+import pool from "@/lib/db";
 
-// ✅ Import the bottom components
+// Updated components
 import WorkProcess from "@/components/WorkProcess";
 import SuccessStats from "@/components/SuccessStats";
 
-// Updated interface to match the new data structure
+export const dynamic = 'force-dynamic';
+
 interface ServiceDetail {
   id: number;
   title: string;
@@ -18,50 +19,46 @@ interface ServiceDetail {
   description: string;
   longDescription: string;
   features: string[];
-  benefits: { title: string; desc: string }[]; // Updated
+  benefits: { title: string; desc: string }[];
   process: { step: string; title: string; desc: string }[];
   icon: string;
   color: string;
 }
 
-export default function ServiceDetailPage() {
-  const params = useParams();
-  const [service, setService] = useState<ServiceDetail | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [allServices, setAllServices] = useState<ServiceDetail[]>([]);
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("/api/services");
-        if (!res.ok) throw new Error("Failed to fetch");
-        
-        const data: ServiceDetail[] = await res.json();
-        setAllServices(data);
-        const foundService = data.find((s) => s.slug === params.slug);
-        
-        if (foundService) {
-          setService(foundService);
-        } else {
-          setService(null);
-        }
-      } catch (error) {
-        console.error("Error loading service details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+async function getService(slug: string): Promise<ServiceDetail | null> {
+  const result = await pool.query("SELECT * FROM services WHERE slug = $1", [slug]);
+  return result.rows[0] || null;
+}
 
-    fetchData();
-  }, [params.slug]);
+async function getAllServices(): Promise<ServiceDetail[]> {
+  const result = await pool.query("SELECT * FROM services ORDER BY title ASC");
+  return result.rows;
+}
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
-      </div>
-    );
-  }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const service = await getService(slug);
+  
+  if (!service) return { title: "Service Not Found" };
+
+  return {
+    title: `${service.title} | AICLEX Services`,
+    description: service.description,
+    openGraph: {
+      title: service.title,
+      description: service.description,
+    }
+  };
+}
+
+export default async function ServiceDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const service = await getService(slug);
+  const allServices = await getAllServices();
 
   if (!service) {
     return notFound();
@@ -80,7 +77,7 @@ export default function ServiceDetailPage() {
             <Link href="/services" className="inline-flex items-center text-gray-500 hover:text-[#5271ff] mb-6 transition-colors font-medium">
               <ArrowLeft className="w-4 h-4 mr-2" /> Back to Services
             </Link>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-[#001341] mb-6 leading-tight">
               {service.title}
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
@@ -135,7 +132,7 @@ export default function ServiceDetailPage() {
               </div>
             </div>
 
-            {/* 3. Why Choose AICLEX? (Updated with your content) */}
+            {/* 3. Why Choose AICLEX? */}
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose AICLEX TECHNOLOGIES?</h3>
               <div className="grid grid-cols-1 gap-6">
@@ -145,9 +142,7 @@ export default function ServiceDetailPage() {
                          {index + 1}
                       </div>
                       <div>
-                        {/* Display the Title (e.g., Expert Team) */}
                         <h4 className="text-lg font-semibold text-gray-900">{benefit.title}</h4>
-                        {/* Display the Description */}
                         <p className="text-gray-600 text-sm mt-1">{benefit.desc}</p>
                       </div>
                    </div>
@@ -200,11 +195,11 @@ export default function ServiceDetailPage() {
                 </div>
               </div>
 
-              <div className="bg-[#1a1a1a] p-8 rounded-2xl text-center text-white relative overflow-hidden">
+              <div className="bg-[#001341] p-8 rounded-[2rem] text-center text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#5271ff] rounded-full blur-3xl opacity-20"></div>
-                <h3 className="text-xl font-bold mb-4">Ready to Grow?</h3>
-                <p className="text-gray-400 text-sm mb-6">Let's discuss how {service.title} can help your business.</p>
-                <Link href="/contact" className="inline-block w-full py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors">
+                <h3 className="text-xl font-bold mb-4 relative z-10">Ready to Grow?</h3>
+                <p className="text-blue-100 text-sm mb-6 relative z-10">Let's discuss how {service.title} can help your business.</p>
+                <Link href="/contact" className="inline-block w-full py-3 bg-[#ff914d] text-white font-bold rounded-full hover:bg-orange-600 transition-colors relative z-10">
                   Get a Free Quote
                 </Link>
               </div>
@@ -215,10 +210,11 @@ export default function ServiceDetailPage() {
         </div>
       </section>
 
-      {/* ✅ ADDED: Bottom Components */}
       <WorkProcess />
       <SuccessStats />
 
     </div>
   );
+}
+);
 }

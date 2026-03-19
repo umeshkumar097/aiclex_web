@@ -27,12 +27,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const job = await getJob(slug);
   if (!job) return { title: "Job Not Found" };
 
+  const description = job.description.substring(0, 160);
+
   return {
     title: `${job.title} | Careers at Aiclex Technologies`,
-    description: job.description.substring(0, 160),
+    description: description,
+    keywords: [job.title, job.department, "career", "job opening", "Aiclex Technologies", job.location],
     openGraph: {
       title: `${job.title} at Aiclex`,
-      description: job.description.substring(0, 160),
+      description: description,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${job.title} at Aiclex`,
+      description: description,
     }
   };
 }

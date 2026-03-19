@@ -26,8 +26,7 @@ export default async function BlogPage({ searchParams }: Props) {
 
   try {
     const query = `
-      SELECT id, title, slug, image_url, created_at, 
-      LEFT(content, 160) as excerpt 
+      SELECT id, title, slug, content, image_url, created_at
       FROM posts 
       ORDER BY created_at DESC
       LIMIT $1 OFFSET $2
@@ -60,63 +59,68 @@ export default async function BlogPage({ searchParams }: Props) {
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {posts.map((post: any) => (
-            <article 
-              key={post.id} 
-              className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
-            >
-              {/* Image */}
-              <div className="h-48 relative overflow-hidden bg-gray-200">
-                {post.image_url ? (
-                  <Image 
-                    src={post.image_url} 
-                    alt={post.title} 
-                    fill
-                    quality={100}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform backface-hidden"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
-                    No Image
-                  </div>
-                )}
-              </div>
+          {posts.map((post: any) => {
+            // Strip HTML for excerpt
+            const cleanExcerpt = post.content
+              ? post.content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').substring(0, 150)
+              : "";
 
-              {/* Content */}
-              <div className="p-6 flex flex-col flex-grow">
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                  <Calendar size={14} />
-                  <time dateTime={new Date(post.created_at).toISOString()}>
-                    {new Date(post.created_at).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric'
-                    })}
-                  </time>
+            return (
+              <article 
+                key={post.id} 
+                className="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
+              >
+                {/* Image */}
+                <div className="h-48 relative overflow-hidden bg-gray-200">
+                  {post.image_url ? (
+                    <Image 
+                      src={post.image_url} 
+                      alt={post.title} 
+                      fill
+                      quality={100}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 will-change-transform backface-hidden"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-100">
+                      No Image
+                    </div>
+                  )}
                 </div>
-                
-                <h3 className="text-xl font-bold text-[#001341] mb-3 line-clamp-2">
-                  {/* ✅ UPDATED LINK: Points to /[slug] instead of /blog/[slug] */}
-                  <Link href={`/${post.slug}`} className="hover:text-[#5271ff] transition-colors">
-                    {post.title}
-                  </Link>
-                </h3>
-                
-                <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
-                  {post.excerpt}...
-                </p>
 
-                {/* ✅ UPDATED LINK */}
-                <Link 
-                  href={`/${post.slug}`} 
-                  className="inline-flex items-center gap-2 text-[#5271ff] font-bold text-sm hover:text-[#001341] transition-colors mt-auto"
-                >
-                  Read More <ArrowRight size={16} />
-                </Link>
-              </div>
-            </article>
-          ))}
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-grow">
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                    <Calendar size={14} />
+                    <time dateTime={new Date(post.created_at).toISOString()}>
+                      {new Date(post.created_at).toLocaleDateString('en-US', {
+                          month: 'long',
+                          day: 'numeric',
+                          year: 'numeric'
+                      })}
+                    </time>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-[#001341] mb-3 line-clamp-2">
+                    <Link href={`/${post.slug}`} className="hover:text-[#5271ff] transition-colors">
+                      {post.title}
+                    </Link>
+                  </h3>
+                  
+                  <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
+                    {cleanExcerpt}...
+                  </p>
+
+                  <Link 
+                    href={`/${post.slug}`} 
+                    className="inline-flex items-center gap-2 text-[#5271ff] font-bold text-sm hover:text-[#001341] transition-colors mt-auto"
+                  >
+                    Read More <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* Empty State */}

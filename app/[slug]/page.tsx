@@ -3,8 +3,6 @@ import Image from "next/image"; // ✅ Import Next.js Image
 import pool from "@/lib/db"; 
 import { ArrowLeft, Calendar } from "lucide-react";
 import { notFound } from "next/navigation";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import FadeInOnScroll from "@/components/ui/FadeInOnScroll";
 
 export const dynamic = 'force-dynamic';
@@ -14,13 +12,30 @@ type Props = {
 };
 
 // ✅ Generate Metadata for SEO
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const result = await pool.query('SELECT title FROM posts WHERE slug = $1', [slug]);
+  const result = await pool.query('SELECT title, content, image_url FROM posts WHERE slug = $1', [slug]);
   const post = result.rows[0];
+  
+  if (!post) return { title: "Blog Post Not Found" };
+
+  // Strip HTML for description
+  const description = post.content.replace(/<[^>]*>/g, '').substring(0, 160);
 
   return {
-    title: post ? `${post.title} | AICLEX Blog` : "Blog Post Not Found",
+    title: `${post.title} | AICLEX Blog`,
+    description: description,
+    openGraph: {
+      title: post.title,
+      description: description,
+      images: post.image_url ? [{ url: post.image_url }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: description,
+      images: post.image_url ? [post.image_url] : [],
+    }
   };
 }
 
@@ -83,11 +98,10 @@ export default async function SingleBlogPage({ params }: Props) {
       )}
 
       <FadeInOnScroll delay={0.4}>
-          <div className="max-w-none prose prose-lg prose-blue prose-img:rounded-xl prose-headings:text-[#001341] prose-a:text-blue-600">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {post.content}
-            </ReactMarkdown>
-          </div>
+          <div 
+            className="max-w-none prose prose-lg prose-blue prose-img:rounded-3xl prose-headings:text-[#001341] prose-a:text-blue-600 prose-strong:text-[#001341]"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
       </FadeInOnScroll>
     </article>
   );
