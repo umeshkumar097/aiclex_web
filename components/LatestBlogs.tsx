@@ -9,8 +9,7 @@ export default async function LatestBlogs() {
 
   try {
     const query = `
-      SELECT id, title, slug, image_url, created_at, 
-      LEFT(content, 80) as excerpt 
+      SELECT id, title, slug, image_url, created_at, content
       FROM posts 
       ORDER BY created_at DESC 
       LIMIT 3
@@ -20,6 +19,15 @@ export default async function LatestBlogs() {
   } catch (error) {
     console.error("Failed to load latest blogs:", error);
   }
+
+  const stripHtml = (html: string) => {
+    if (!html) return "";
+    return html
+      .replace(/<[^>]*>?/gm, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
 
   if (latestPosts.length === 0) return null;
 
@@ -43,60 +51,63 @@ export default async function LatestBlogs() {
             md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:mx-0 md:px-0
             scrollbar-hide
         ">
-          {latestPosts.map((post: any, index: number) => (
-            <FadeInOnScroll key={post.id} delay={index * 0.1}>
-              <div 
-                className="
-                  bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group h-full
-                "
-              >
-                {/* Image */}
-                <div className="h-52 relative overflow-hidden bg-gray-200">
-                  {post.image_url ? (
-                    <Image
-                      src={post.image_url}
-                      alt={post.title}
-                      fill
-                      quality={100}
-                      className="object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
-                  )}
-                  
-                  {/* Date Badge */}
-                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold text-[#001341] shadow-sm flex items-center gap-1.5">
-                      <Calendar size={10} className="text-[#ff914d]" />
-                      {new Date(post.created_at).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                      })}
+          {latestPosts.map((post: any, index: number) => {
+            const cleanExcerpt = stripHtml(post.content).substring(0, 100);
+            return (
+              <FadeInOnScroll key={post.id} delay={index * 0.1}>
+                <div 
+                  className="
+                    bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group h-full
+                  "
+                >
+                  {/* Image */}
+                  <div className="h-52 relative overflow-hidden bg-gray-200">
+                    {post.image_url ? (
+                      <Image
+                        src={post.image_url}
+                        alt={post.title}
+                        fill
+                        quality={100}
+                        className="object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
+                    )}
+                    
+                    {/* Date Badge */}
+                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold text-[#001341] shadow-sm flex items-center gap-1.5">
+                        <Calendar size={10} className="text-[#ff914d]" />
+                        {new Date(post.created_at).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                        })}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 flex flex-col flex-grow">
+                    <h3 className="text-lg font-bold text-[#001341] mb-2 line-clamp-2 leading-tight group-hover:text-[#ff914d] transition-colors">
+                      <Link href={`/${post.slug}`}>
+                        {post.title}
+                      </Link>
+                    </h3>
+                    
+                    <p className="text-gray-500 text-sm line-clamp-3 mb-4 leading-relaxed">
+                      {cleanExcerpt}...
+                    </p>
+                    
+                    <Link 
+                      href={`/${post.slug}`} 
+                      className="mt-auto inline-flex items-center gap-2 text-[#001341] font-bold text-sm group-hover:gap-3 transition-all"
+                    >
+                      Read More <ArrowRight size={16} className="text-[#ff914d]" />
+                    </Link>
                   </div>
                 </div>
-
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-lg font-bold text-[#001341] mb-2 line-clamp-2 leading-tight group-hover:text-[#ff914d] transition-colors">
-                    <Link href={`/${post.slug}`}>
-                      {post.title}
-                    </Link>
-                  </h3>
-                  
-                  <p className="text-gray-500 text-sm line-clamp-2 mb-4 leading-relaxed">
-                    {post.excerpt}...
-                  </p>
-                  
-                  <Link 
-                    href={`/${post.slug}`} 
-                    className="mt-auto inline-flex items-center gap-2 text-[#001341] font-bold text-sm group-hover:gap-3 transition-all"
-                  >
-                    Read More <ArrowRight size={16} className="text-[#ff914d]" />
-                  </Link>
-                </div>
-              </div>
-            </FadeInOnScroll>
-          ))}
+              </FadeInOnScroll>
+            );
+          })}
         </div>
 
         {/* VIEW ALL BUTTON */}
