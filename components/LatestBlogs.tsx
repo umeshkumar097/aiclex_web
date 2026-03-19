@@ -99,9 +99,10 @@ export default async function LatestBlogs() {
                     
                     <Link 
                       href={`/${post.slug}`} 
+                      aria-label={`Read more about ${post.title}`}
                       className="mt-auto inline-flex items-center gap-2 text-[#001341] font-bold text-sm group-hover:gap-3 transition-all"
                     >
-                      Read More <ArrowRight size={16} className="text-[#ff914d]" />
+                      Read More <span className="sr-only">about {post.title}</span> <ArrowRight size={16} className="text-[#ff914d]" />
                     </Link>
                   </div>
                 </div>

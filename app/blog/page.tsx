@@ -113,9 +113,10 @@ export default async function BlogPage({ searchParams }: Props) {
 
                   <Link 
                     href={`/${post.slug}`} 
+                    aria-label={`Read more about ${post.title}`}
                     className="inline-flex items-center gap-2 text-[#5271ff] font-bold text-sm hover:text-[#001341] transition-colors mt-auto"
                   >
-                    Read More <ArrowRight size={16} />
+                    Read More <span className="sr-only">about {post.title}</span> <ArrowRight size={16} />
                   </Link>
                 </div>
               </article>
