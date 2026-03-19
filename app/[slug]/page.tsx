@@ -60,7 +60,7 @@ export default async function SingleBlogPage({ params }: Props) {
   }
 
   return (
-    <article className="max-w-4xl mx-auto py-20 px-6 font-sans mt-10 overflow-hidden">
+    <article className="max-w-4xl mx-auto py-20 px-6 font-sans mt-10">
       <FadeInOnScroll direction="right">
           <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 mb-8 transition-colors">
             <ArrowLeft size={20} /> Back to All Posts
@@ -98,11 +98,13 @@ export default async function SingleBlogPage({ params }: Props) {
         </FadeInOnScroll>
       )}
 
-      {/* Content Area */}
-      <div 
-        className="max-w-none prose prose-lg md:prose-xl prose-blue prose-img:rounded-3xl prose-headings:text-[#001341] prose-a:text-blue-600 prose-strong:text-[#001341] transition-opacity duration-300"
-        dangerouslySetInnerHTML={{ __html: post.content || '<p class="text-gray-400">No content available for this post.</p>' }}
-      />
+      {/* Content Area with Horizontal Scroll for Tables */}
+      <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
+        <div 
+          className="max-w-none prose prose-lg md:prose-xl prose-blue prose-img:rounded-3xl prose-headings:text-[#001341] prose-a:text-blue-600 prose-strong:text-[#001341] transition-opacity duration-300"
+          dangerouslySetInnerHTML={{ __html: post.content || '<p class="text-gray-400">No content available for this post.</p>' }}
+        />
+      </div>
     </article>
   );
 }
