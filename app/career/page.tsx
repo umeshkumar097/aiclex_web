@@ -48,6 +48,7 @@ const ApplicationModal = ({ job, onClose }: { job: any; onClose: () => void }) =
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,8 +72,7 @@ const ApplicationModal = ({ job, onClose }: { job: any; onClose: () => void }) =
       });
 
       if (res.ok) {
-        alert("Application Submitted Successfully!");
-        onClose();
+        setIsSubmitted(true);
       } else {
         const error = await res.json();
         alert(`Error: ${error.error || "Failed to submit application"}`);
@@ -84,6 +84,35 @@ const ApplicationModal = ({ job, onClose }: { job: any; onClose: () => void }) =
       setLoading(false);
     }
   };
+
+  if (isSubmitted) {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <motion.div 
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          onClick={onClose} className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        />
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-10 text-center"
+        >
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-10 h-10 text-green-600" />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">Application Sent!</h3>
+          <p className="text-gray-500 mb-8">
+            Thank you for applying for <strong>{job.title}</strong>. Our HR team will review your profile and get in touch with you soon.
+          </p>
+          <button 
+            onClick={onClose}
+            className="w-full py-3 bg-[#1967d2] text-white font-bold rounded-xl hover:bg-blue-700 transition-all"
+          >
+            Close
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">

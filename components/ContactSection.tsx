@@ -1,9 +1,35 @@
 "use client";
 
 import React from "react";
-import { MapPin, Phone, Mail, ChevronDown, ShieldCheck, Send } from "lucide-react";
+import { MapPin, Phone, Mail, ChevronDown, ShieldCheck, Send, Loader2 } from "lucide-react";
 
-export default function ContactSection() {
+  const [loading, setLoading] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
+
+  if (submitted) {
+    return (
+      <section className="relative w-full py-16 overflow-hidden min-h-[600px] flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl p-16 text-center animate-fade-in border border-blue-50">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
+              <ShieldCheck className="w-12 h-12 text-green-600" />
+            </div>
+            <h2 className="text-4xl font-bold text-[#0F0F29] mb-4">Message Received!</h2>
+            <p className="text-gray-500 text-xl max-w-2xl mx-auto">
+              Thank you for reaching out. We've sent a confirmation to your email, and our team will contact you shortly to discuss your project.
+            </p>
+            <button 
+              onClick={() => setSubmitted(false)}
+              className="mt-10 px-8 py-3 bg-[#5271ff] text-white font-bold rounded-xl hover:shadow-lg transition-all"
+            >
+              Back to Form
+            </button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative w-full py-16  overflow-hidden">
       
@@ -82,6 +108,7 @@ export default function ContactSection() {
                 className="space-y-6"
                 onSubmit={async (e) => {
                   e.preventDefault();
+                  setLoading(true);
                   const target = e.target as any;
                   const data = {
                     name: target.name.value,
@@ -98,9 +125,11 @@ export default function ContactSection() {
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify(data),
                     });
-                    if (res.ok) alert("✅ Proposal sent! Our team will contact you soon.");
+                    if (res.ok) setSubmitted(true);
                   } catch (err) {
                     alert("❌ Failed to send proposal.");
+                  } finally {
+                    setLoading(false);
                   }
                 }}
               >
@@ -199,10 +228,11 @@ export default function ContactSection() {
                   {/* Submit */}
                   <button 
                     type="submit"
-                    className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-[#5271ff] to-[#3a5ccc] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#5271ff]/30 transition-all active:scale-95 h-[52px]"
+                    disabled={loading}
+                    className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-[#5271ff] to-[#3a5ccc] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#5271ff]/30 transition-all active:scale-95 h-[52px] disabled:opacity-50"
                   >
-                    <span>Send Message</span>
-                    <Send className="w-4 h-4" />
+                    <span>{loading ? "Sending..." : "Send Message"}</span>
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                   </button>
                 </div>
 

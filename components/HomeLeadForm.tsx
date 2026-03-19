@@ -47,10 +47,23 @@ export default function HomeLeadForm({
 
   if (submitted) {
     return (
-      <div className="bg-[#001341] p-10 rounded-[2rem] text-center text-white shadow-2xl animate-fade-in">
-        <CheckCircle className="w-16 h-16 text-[#ff914d] mx-auto mb-4" />
-        <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
-        <p className="text-blue-200">Our success manager will reach out to you within 24 hours.</p>
+      <div className="bg-[#001341] p-12 rounded-[2.5rem] text-center text-white shadow-2xl animate-fade-in border border-blue-900/50 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff914d] rounded-full blur-[80px] opacity-20"></div>
+        <div className="relative z-10">
+          <div className="w-20 h-20 bg-[#ff914d]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-[#ff914d]" />
+          </div>
+          <h3 className="text-3xl font-bold mb-3">Submission Successful!</h3>
+          <p className="text-blue-100/80 text-lg mb-8">
+            Thank you for reaching out. Our success manager will review your details and contact you within 24 hours.
+          </p>
+          <button 
+            onClick={() => setSubmitted(false)}
+            className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl transition-all border border-white/10"
+          >
+            Send another message
+          </button>
+        </div>
       </div>
     );
   }

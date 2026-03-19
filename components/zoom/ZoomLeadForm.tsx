@@ -41,10 +41,18 @@ export default function ZoomLeadForm() {
       <p className="text-gray-500 text-sm mb-8 italic">Fill the form below and our Zoom Product Specialist will contact you within 30 minutes for Zoom reselling inquiries.</p>
       
       {submitted ? (
-        <div className="text-center py-10 animate-fade-in">
-          <CheckCircle size={60} className="text-green-500 mx-auto mb-4" />
+        <div className="text-center py-12 animate-fade-in">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle size={40} className="text-green-600" />
+          </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Quote Requested!</h3>
-          <p className="text-gray-500">Our Zoom specialist will call you shortly.</p>
+          <p className="text-gray-500 mb-8">Our Zoom specialist has received your request and will call you within 30 minutes.</p>
+          <button 
+            onClick={() => setSubmitted(false)}
+            className="text-[#5271ff] font-bold hover:underline"
+          >
+            Request another quote
+          </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
