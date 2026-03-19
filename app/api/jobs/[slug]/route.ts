@@ -3,10 +3,10 @@ import pool from "@/lib/db";
 
 export async function GET(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
     const result = await pool.query("SELECT * FROM jobs WHERE slug = $1", [slug]);
 
     if (result.rows.length === 0) {

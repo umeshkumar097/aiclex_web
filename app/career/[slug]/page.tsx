@@ -22,8 +22,9 @@ async function getJob(slug: string): Promise<Job | null> {
   return result.rows[0] || null;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const job = await getJob(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await getJob(slug);
   if (!job) return { title: "Job Not Found" };
 
   return {
@@ -36,8 +37,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function JobDetailPage({ params }: { params: { slug: string } }) {
-  const job = await getJob(params.slug);
+export default async function JobDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const job = await getJob(slug);
 
   if (!job) {
     return notFound();
