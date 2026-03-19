@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar } from "lucide-react";
 import { notFound } from "next/navigation";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import FadeInOnScroll from "@/components/ui/FadeInOnScroll";
 
 export const dynamic = 'force-dynamic';
 
@@ -43,43 +44,51 @@ export default async function SingleBlogPage({ params }: Props) {
   }
 
   return (
-    <article className="max-w-4xl mx-auto py-20 px-6 font-sans mt-10">
-      <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 mb-8 transition-colors">
-        <ArrowLeft size={20} /> Back to All Posts
-      </Link>
+    <article className="max-w-4xl mx-auto py-20 px-6 font-sans mt-10 overflow-hidden">
+      <FadeInOnScroll direction="right">
+          <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 mb-8 transition-colors">
+            <ArrowLeft size={20} /> Back to All Posts
+          </Link>
+      </FadeInOnScroll>
 
-      <header className="mb-10 text-center">
-        <div className="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4 font-semibold uppercase tracking-wide">
-          <Calendar size={16} />
-          {new Date(post.created_at).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#001341] leading-tight mb-6">
-          {post.title}
-        </h1>
-      </header>
+      <FadeInOnScroll>
+          <header className="mb-10 text-center">
+            <div className="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4 font-semibold uppercase tracking-wide">
+              <Calendar size={16} />
+              {new Date(post.created_at).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </div>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-[#001341] leading-tight mb-6">
+              {post.title}
+            </h1>
+          </header>
+      </FadeInOnScroll>
 
       {/* ✅ Optimized Image */}
       {post.image_url && (
-        <div className="relative w-full h-[400px] rounded-[2rem] overflow-hidden mb-12 shadow-2xl border border-gray-100 bg-gray-100">
-          <Image 
-            src={post.image_url} 
-            alt={post.title} 
-            fill
-            quality={100}
-            className="object-cover"
-          />
-        </div>
+        <FadeInOnScroll delay={0.2}>
+            <div className="relative w-full h-[300px] md:h-[450px] rounded-[2rem] overflow-hidden mb-12 shadow-2xl border border-gray-100 bg-gray-100">
+              <Image 
+                src={post.image_url} 
+                alt={post.title} 
+                fill
+                quality={100}
+                className="object-cover"
+              />
+            </div>
+        </FadeInOnScroll>
       )}
 
-      <div className="max-w-none prose prose-lg prose-blue prose-img:rounded-xl prose-headings:text-[#001341] prose-a:text-blue-600">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.content}
-        </ReactMarkdown>
-      </div>
+      <FadeInOnScroll delay={0.4}>
+          <div className="max-w-none prose prose-lg prose-blue prose-img:rounded-xl prose-headings:text-[#001341] prose-a:text-blue-600">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {post.content}
+            </ReactMarkdown>
+          </div>
+      </FadeInOnScroll>
     </article>
   );
 }

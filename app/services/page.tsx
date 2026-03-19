@@ -6,6 +6,7 @@ import WorkProcess from "@/components/WorkProcess";
 import SuccessStats from "@/components/SuccessStats";
 import ServiceIcon from "@/components/ServiceIcon"; // Import our new helper
 import { Loader2 } from "lucide-react";
+import FadeInOnScroll from "@/components/ui/FadeInOnScroll";
 
 // Define the type for the data we get from API
 interface Service {
@@ -74,35 +75,37 @@ export default function ServicesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service) => (
-              <Link href={`/services/${service.slug}`} key={service.id} className="block group">
-                <div className="h-full relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-2 overflow-hidden">
-                  
-                  {/* Hover Gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
-                  
-                  {/* Icon Box using Helper Component */}
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 shadow-md transform group-hover:scale-110 transition-transform duration-300 group-hover:rotate-3`}>
-                    <ServiceIcon iconName={service.icon} className="w-8 h-8 text-white" />
-                  </div>
+            {services.map((service, index) => (
+              <FadeInOnScroll key={service.id} delay={index * 0.1}>
+                <Link href={`/services/${service.slug}`} className="block group h-full">
+                  <div className="h-full relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-2 overflow-hidden">
+                    
+                    {/* Hover Gradient */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
+                    
+                    {/* Icon Box using Helper Component */}
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 shadow-md transform group-hover:scale-110 transition-transform duration-300 group-hover:rotate-3`}>
+                      <ServiceIcon iconName={service.icon} className="w-8 h-8 text-white" />
+                    </div>
 
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#5271ff] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm mb-6">
-                    {service.description}
-                  </p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#5271ff] transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed text-sm mb-6">
+                      {service.description}
+                    </p>
 
-                  <div className="flex items-center text-sm font-semibold text-gray-400 group-hover:text-[#5271ff] transition-colors">
-                    <span>Learn More</span>
-                    <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
+                    <div className="flex items-center text-sm font-semibold text-gray-400 group-hover:text-[#5271ff] transition-colors">
+                      <span>Learn More</span>
+                      <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                    
+                    <div className={`absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r ${service.color} group-hover:w-full transition-all duration-500`}></div>
                   </div>
-                  
-                  <div className={`absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r ${service.color} group-hover:w-full transition-all duration-500`}></div>
-                </div>
-              </Link>
+                </Link>
+              </FadeInOnScroll>
             ))}
           </div>
 

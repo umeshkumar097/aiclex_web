@@ -20,10 +20,10 @@ export default function Hero() {
       />
 
       {/* MAIN CONTENT */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start px-6 md:px-10 relative z-10">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-6 md:px-10 relative z-10">
         {/* LEFT CONTENT */}
         <motion.div
-          className="w-full md:w-1/2 flex flex-col justify-center space-y-6 mt-4 md:mt-20"
+          className="w-full md:w-1/2 flex flex-col justify-center space-y-6 mt-10 md:mt-20 text-center md:text-left"
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -101,18 +101,18 @@ export default function Hero() {
 
         {/* RIGHT IMAGE */}
         <motion.div
-          className="w-full  md:w-1/2 mt-2 hidden md:flex  justify-center relative"
-          initial={{ x: 120, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
+          className="w-full md:w-1/2 mt-12 md:mt-2 flex justify-center relative"
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <img
             src="/hero.webp"
             alt="Hero Image"
             width={650}
             height={550}
-            className="relative z-10 object-contain min-h-[450px]"
+            className="relative z-10 object-contain max-h-[350px] md:max-h-[550px]"
           />
         </motion.div>
       </div>

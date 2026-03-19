@@ -21,6 +21,7 @@ export default function Footer() {
     { name: "Zoom", href: "/zoom" },
     { name: "Blogs", href: "/blog" },
     { name: "Contact Us", href: "/contact" },
+    { name: "FAQs", href: "/faqs" },
   ];
 
   const [showButton, setShowButton] = useState(false);
@@ -57,7 +58,7 @@ export default function Footer() {
           <div className="space-y-4 text-[15px] font-semibold">
             <div className="flex items-center gap-3">
               <Phone size={18} className="text-[#5271FF]" />
-              +91 9871881183
+              +91 8449488090
             </div>
 
             <div className="flex gap-3">
@@ -99,9 +100,14 @@ export default function Footer() {
           
           {/* Terms moved to bottom of this column */}
           <div className="mt-auto pt-8">
-            <Link href="/terms" className="text-[15px] font-medium text-[#4A4A4A] hover:text-[#5271FF] transition-colors">
-               Terms & Conditions
-            </Link>
+            <div className="flex flex-col gap-2">
+              <Link href="/term-and-condition" className="text-[15px] font-medium text-[#4A4A4A] hover:text-[#5271FF] transition-colors">
+                 Terms & Conditions
+              </Link>
+              <Link href="/disclaimer" className="text-[15px] font-medium text-[#4A4A4A] hover:text-[#5271FF] transition-colors">
+                 Disclaimer
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -178,15 +184,15 @@ export default function Footer() {
       </div>
 
       {/* --- BOTTOM BAR --- */}
-      <div className="border-t border-gray-200 bg-[#eff1f9]">
-        <div className="max-w-7xl bg-[orange] mx-auto px-6 py-4 text-[14px] font-medium text-[#5A5A5A] text-center ">
+      <div className="border-t border-gray-200 bg-[#001341]">
+        <div className="max-w-7xl mx-auto px-6 py-6 text-[14px] font-medium text-white/80 text-center ">
              2025-26 © All rights reserved by Aiclex Technologies.
         </div>
       </div>
 
       {/* WHATSAPP BUTTON */}
       <Link
-        href="https://wa.me/919871881183"
+        href="https://wa.me/918449488090"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-24 right-6 h-14 w-14 rounded-full bg-white shadow-xl overflow-hidden flex items-center justify-center hover:scale-110 transition-all duration-300 z-[99999]"

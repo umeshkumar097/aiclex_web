@@ -51,7 +51,7 @@ const skills = [
 // Updated FAQs focusing on Ad Services
 const faqs: FAQItem[] = [
   {
-    question: "What services does AICLEX TECHNOLOGIES LLP offer?",
+    question: "What services does AICLEX TECHNOLOGIES offer?",
     answer:
       "We offer a wide range of digital solutions including website designing, digital marketing, automation, social media management, application development, brand development strategies, SEO, content writing, and comprehensive ad management.",
   },

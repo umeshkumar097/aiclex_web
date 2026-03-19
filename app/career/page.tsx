@@ -29,95 +29,59 @@ import {
 interface Job {
   id: number;
   title: string;
+  slug: string;
   department: string;
   location: string;
   type: string;
   salary: string;
-  desc: string;
+  description: string;
   requirements: string[];
-  postedAt: string;
+  posted_at: string;
 }
 
-// --- JOBS DATA ---
-const JOBS_DATA: Job[] = [
-  {
-    id: 1,
-    title: "MERN Stack Developer",
-    department: "Engineering",
-    location: "Remote",
-    type: "Full-time",
-    salary: "₹8L - ₹15L",
-    postedAt: "2 days ago",
-    desc: "We are looking for a full-stack wizard to build scalable web applications using MongoDB, Express, React, and Node.js. You will be responsible for the entire software development lifecycle, from conception to deployment. You should be comfortable working in an agile environment and ready to tackle complex technical challenges.",
-    requirements: [
-      "Strong proficiency in JavaScript, TypeScript, and modern ES6+ syntax.",
-      "Deep understanding of React.js workflows (Redux, Context API, Hooks).",
-      "Experience building RESTful APIs with Node.js and Express.",
-      "Familiarity with database design (MongoDB) and cloud services (AWS/Firebase)."
-    ]
-  },
-  {
-    id: 2,
-    title: "Sales Executive",
-    department: "Sales",
-    location: "Noida, India",
-    type: "Full-time",
-    salary: "₹4L - ₹8L + Comm.",
-    postedAt: "5 days ago",
-    desc: "Drive our business growth by identifying new opportunities and building strong relationships with clients. You will be the face of AICLEX for new partners and help expand our market reach. This role requires high energy and a passion for closing deals.",
-    requirements: [
-      "Proven experience in B2B sales or business development.",
-      "Excellent communication, negotiation, and presentation skills.",
-      "Ability to understand client needs and propose suitable technical solutions.",
-      "Self-motivated with a track record of meeting or exceeding sales targets."
-    ]
-  },
-  {
-    id: 3,
-    title: "Digital Marketing Specialist",
-    department: "Marketing",
-    location: "Remote",
-    type: "Full-time",
-    salary: "₹5L - ₹9L",
-    postedAt: "1 week ago",
-    desc: "Lead our digital presence by creating compelling campaigns across social media, SEO, and paid channels to increase brand awareness and lead generation. You will analyze metrics and adjust strategies to maximize ROI.",
-    requirements: [
-      "Experience in SEO, SEM, and social media marketing strategies.",
-      "Proficiency with Google Analytics, Google Ads, and Facebook Ads Manager.",
-      "Strong content creation skills for blogs, newsletters, and social posts.",
-      "Ability to analyze data trends and optimize campaigns for ROI."
-    ]
-  },
-  {
-    id: 4,
-    title: "UI/UX Designer",
-    department: "Design",
-    location: "Remote",
-    type: "Contract",
-    salary: "Project Based",
-    postedAt: "Just now",
-    desc: "Design intuitive and beautiful user interfaces that solve complex user problems. Work closely with the product team to create seamless experiences. You should have a keen eye for detail and a user-first mindset.",
-    requirements: [
-      "Proficiency in Figma, Adobe XD, or similar design tools.",
-      "Strong portfolio demonstrating user-centric design solutions.",
-      "Understanding of wireframing, prototyping, and design systems.",
-      "Ability to collaborate closely with developers to implement designs."
-    ]
-  }
-];
+// JOBS_DATA removed for dynamic fetch
 
 // --- APPLICATION MODAL COMPONENT ---
 const ApplicationModal = ({ job, onClose }: { job: any; onClose: () => void }) => {
-  const [loading, setLoading] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!file) {
+      alert("Please upload your resume/CV");
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const formData = new FormData();
+      formData.append("job_id", job.id.toString());
+      formData.append("full_name", fullName);
+      formData.append("email", email);
+      formData.append("message", message);
+      formData.append("resume", file);
+
+      const res = await fetch("/api/job-applications", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        alert("Application Submitted Successfully!");
+        onClose();
+      } else {
+        const error = await res.json();
+        alert(`Error: ${error.error || "Failed to submit application"}`);
+      }
+    } catch (err) {
+      console.error("Submission failed:", err);
+      alert("An unexpected error occurred. Please try again.");
+    } finally {
       setLoading(false);
-      alert("Application Submitted Successfully!");
-      onClose();
-    }, 1500);
+    }
   };
 
   return (
@@ -145,22 +109,44 @@ const ApplicationModal = ({ job, onClose }: { job: any; onClose: () => void }) =
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-1">
                 <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Full Name</label>
-                <input required type="text" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" />
+                <input required type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" />
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Email</label>
-                <input required type="email" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" />
+                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" />
               </div>
             </div>
             
             <div className="space-y-1 pt-2">
               <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Resume/CV</label>
-              <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-blue-500 hover:bg-blue-50 transition-colors cursor-pointer group">
-                <UploadCloud className="mx-auto h-8 w-8 text-gray-400 group-hover:text-blue-500 transition-colors mb-2" />
-                <span className="text-sm text-gray-600 font-medium group-hover:text-blue-600">Upload resume</span>
+              <div 
+                onClick={() => document.getElementById('resume-upload')?.click()}
+                className={`border-2 border-dashed ${file ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'} rounded-xl p-8 text-center transition-colors cursor-pointer group`}
+              >
+                <UploadCloud className={`mx-auto h-8 w-8 ${file ? 'text-green-500' : 'text-gray-400 group-hover:text-blue-500'} transition-colors mb-2`} />
+                <span className={`text-sm font-medium ${file ? 'text-green-700' : 'text-gray-600 group-hover:text-blue-600'}`}>
+                  {file ? file.name : "Upload resume"}
+                </span>
                 <span className="text-xs text-gray-400 block mt-1">PDF or DOCX</span>
-                <input type="file" className="hidden" accept=".pdf,.doc,.docx" />
+                <input 
+                  id="resume-upload"
+                  type="file" 
+                  className="hidden" 
+                  accept=".pdf,.doc,.docx" 
+                  onChange={(e) => setFile(e.target.files?.[0] || null)}
+                />
               </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Message (Optional)</label>
+              <textarea 
+                rows={3}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                placeholder="Briefly explain why you're a good fit..."
+              />
             </div>
 
             <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-6">
@@ -221,7 +207,7 @@ const JobDetailOverlay = ({ job, onClose, onApply }: { job: Job; onClose: () => 
 
               <h4 className="text-lg font-medium text-gray-900 mb-3">About the job</h4>
               <p className="text-gray-600 leading-relaxed mb-6">
-                 {job.desc}
+                 {job.description}
               </p>
               
               <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 mt-8">
@@ -239,31 +225,56 @@ const JobDetailOverlay = ({ job, onClose, onApply }: { job: Job; onClose: () => 
 
 // --- MAIN PAGE ---
 export default function CareerPage() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [filterDepartment, setFilterDepartment] = useState("All");
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await fetch("/api/jobs");
+        const data = await res.json();
+        setJobs(data);
+      } catch (err) {
+        console.error("Failed to fetch jobs:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchJobs();
+  }, []);
 
   const openJobDetails = (job: Job) => {
     setSelectedJob(job);
   };
 
   const filteredJobs = filterDepartment === "All" 
-    ? JOBS_DATA 
-    : JOBS_DATA.filter(j => j.department === filterDepartment);
+    ? jobs 
+    : jobs.filter(j => j.department === filterDepartment);
 
   return (
     <div className="min-h-screen bg-white pt-24 pb-12 font-sans text-gray-900">
       
       <AnimatePresence>
-        {isApplicationOpen && selectedJob && (
-          <ApplicationModal job={selectedJob} onClose={() => setIsApplicationOpen(false)} />
-        )}
-        {selectedJob && !isApplicationOpen && (
-          <JobDetailOverlay 
-            job={selectedJob} 
-            onClose={() => setSelectedJob(null)} 
-            onApply={() => setIsApplicationOpen(true)}
-          />
+        {loading ? (
+          <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+             <Loader2 className="animate-spin text-blue-600" size={40} />
+          </div>
+        ) : (
+          <>
+            {isApplicationOpen && selectedJob && (
+              <ApplicationModal job={selectedJob} onClose={() => setIsApplicationOpen(false)} />
+            )}
+            {selectedJob && !isApplicationOpen && (
+              <JobDetailOverlay 
+                job={selectedJob} 
+                onClose={() => setSelectedJob(null)} 
+                onApply={() => setIsApplicationOpen(true)}
+              />
+            )}
+          </>
         )}
       </AnimatePresence>
 
@@ -365,7 +376,9 @@ export default function CareerPage() {
                              <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
                              <span className="flex items-center gap-1">{job.location}</span>
                              <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                             <span className="text-gray-500">Posted {job.postedAt}</span>
+                             <span className="text-gray-500">
+                               Posted {new Date(job.posted_at).toLocaleDateString()}
+                             </span>
                           </div>
                        </div>
                        <button className="text-gray-400 hover:text-[#1967d2] transition-colors p-2">
@@ -374,7 +387,7 @@ export default function CareerPage() {
                     </div>
 
                     <p className="text-gray-600 text-sm line-clamp-2 mb-4 max-w-3xl">
-                       {job.desc}
+                       {job.description}
                     </p>
 
                     <div className="flex items-center gap-2">

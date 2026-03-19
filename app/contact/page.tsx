@@ -127,7 +127,7 @@ export default function ContactUs() {
                 </div>
                 <div>
                   <h4 className="font-bold text-[#001341] text-lg group-hover:text-purple-600 transition-colors">Visit Our Office</h4>
-                  <p className="text-gray-600 font-semibold text-sm">Sector 37, Faridabad</p>
+                  <p className="text-gray-600 font-semibold text-sm">Gaur City Mall, Greater Noida</p>
                 </div>
                 <ArrowRight className="ml-auto text-gray-300 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" size={20}/>
               </a>
@@ -279,7 +279,7 @@ export default function ContactUs() {
              height="100%" 
              frameBorder="0" 
              title="map" marginHeight={0} marginWidth={0} scrolling="no" 
-             src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=Sector%2037,%20Faridabad,%20Haryana,%20India&ie=UTF8&t=&z=14&iwloc=B&output=embed"
+             src="https://maps.google.com/maps?width=100%&height=600&hl=en&q=Gaur%20City%20Mall,%20Greater%20Noida,%20Uttar%20Pradesh,%20India&ie=UTF8&t=&z=14&iwloc=B&output=embed"
              className="filter grayscale-[30%] group-hover:grayscale-0 transition-all duration-700"
             ></iframe>
       </section>

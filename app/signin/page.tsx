@@ -19,7 +19,8 @@ export default function LoginPage() {
     // --- SIMPLE MOCK AUTHENTICATION ---
     // In a real app, you would fetch('/api/login') here.
     // For now, we hardcode the credentials for your access.
-    if (email === "admin@aiclex.in" && password === "admin123") {
+    if ((email === "admin@aiclex.in" && password === "admin123") || 
+        (email === "info@aiclex.in" && password === "Umesh@2003##")) {
       // Set a token in local storage to "remember" the user
       localStorage.setItem("admin_token", "secure-token-123");
       

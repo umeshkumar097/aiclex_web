@@ -9,18 +9,21 @@ const CARD_GRADIENT = "from-blue-600 to-indigo-600";
 const cards = [
   {
     title: "Zoom Reseller",
+    slug: "zoom-reseller",
     description:
       "Seamlessly connect with your team and clients through Zoom. Schedule meetings, webinars, and collaborate efficiently with a single platform.",
     imgSrc: "/services/zoom.jpg",
   },
   {
     title: "AI Agent Calling",
+    slug: "ai-agent-calling",
     description:
       "Automate customer interactions with AI-powered calling agents. Reduce manual effort, improve response time, and scale your outreach effectively.",
     imgSrc: "/services/sales-ajent.jpg",
   },
   {
     title: "Paid Media Advertisement",
+    slug: "paid-media-advertisement",
     description:
       "Quickly connect with customers through data-driven PPC campaigns. Our experts identify the exact keywords and audiences for maximum ROI and efficiency.",
     imgSrc: "/services/media.jpg",
@@ -35,11 +38,12 @@ const containerVariants: Variants = {
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0, y: 80, scale: 0.95 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 120, damping: 20 },
+    scale: 1,
+    transition: { type: "spring", stiffness: 100, damping: 20, duration: 0.8 },
   },
 };
 
@@ -60,11 +64,11 @@ export default function MarketingCards() {
 
         {/* Cards */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {cards.map((card, index) => (
             <motion.div
@@ -73,11 +77,12 @@ export default function MarketingCards() {
               className="relative rounded-xl cursor-pointer group p-0.5"
             >
               {/* Card Container */}
-              <div
+              <Link
+                href={`/services/${card.slug}`}
                 className="
                   relative bg-white dark:bg-gray-800 rounded-xl shadow-xl 
                   overflow-hidden transition-all duration-300 flex flex-col h-full
-                  group-hover:bg-[#5271ff]
+                  group-hover:bg-[#5271ff] block
                 "
               >
                 {/* Image */}
@@ -115,21 +120,18 @@ export default function MarketingCards() {
                   </p>
 
                   {/* Explore Button (Final Fixed Version) */}
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
+                  <div
                     className="
-                      mt-auto px-6 cursor-pointer py-2.5 rounded-full font-bold transition-all duration-300 shadow-md
+                      mt-auto px-6 py-2.5 rounded-full font-bold transition-all duration-300 shadow-md inline-block
                       bg-[#5271ff] text-white              /* Default */
                       group-hover:bg-[#ff914d]             /* Card Hover */
                       group-hover:text-black
-                      hover:bg-[#ff914d]                  /* Button Hover (same color) */
-                      hover:text-black
                     "
                   >
                     Explore
-                  </motion.button>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

@@ -32,7 +32,7 @@ export default function Navbar() {
   // 👇 REPLACE THIS WITH YOUR WHATSAPP NUMBER
   // Format: Country code + Number (No plus sign, no dashes)
   // Example: 919876543210 for India
-  const WHATSAPP_NUMBER = "919871881183"; 
+  const WHATSAPP_NUMBER = "918449488090"; 
   const WHATSAPP_MESSAGE = "Hi, I would like to get a quote.";
 
   const menuItems = [

@@ -78,7 +78,31 @@ export default function ContactSection() {
 
               <h3 className="text-3xl font-bold text-gray-900 mb-8">Get Started</h3>
               
-              <form className="space-y-6">
+              <form 
+                className="space-y-6"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const target = e.target as any;
+                  const data = {
+                    name: target.name.value,
+                    phone: target.phone.value,
+                    email: target.email.value,
+                    type: target.service.value,
+                    requirement: `Budget: ${target.budget.value || "Not specified"}`
+                  };
+                  
+                  try {
+                    const res = await fetch("/api/leads", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify(data),
+                    });
+                    if (res.ok) alert("✅ Proposal sent! Our team will contact you soon.");
+                  } catch (err) {
+                    alert("❌ Failed to send proposal.");
+                  }
+                }}
+              >
 
                 {/* Name + Phone */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -87,8 +111,10 @@ export default function ContactSection() {
                       Your Name <span className="text-[#5271ff]">*</span>
                     </label>
                     <input 
+                      name="name"
                       type="text"
                       placeholder="John Doe"
+                      required
                       className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-[#5271ff] outline-none transition-all"
                     />
                   </div>
@@ -98,8 +124,10 @@ export default function ContactSection() {
                       Phone Number <span className="text-[#5271ff]">*</span>
                     </label>
                     <input 
+                      name="phone"
                       type="tel"
                       placeholder="+91 00000 00000"
+                      required
                       className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-[#5271ff] outline-none transition-all"
                     />
                   </div>
@@ -111,8 +139,10 @@ export default function ContactSection() {
                     Email Address <span className="text-[#5271ff]">*</span>
                   </label>
                   <input 
+                    name="email"
                     type="email"
                     placeholder="john@example.com"
+                    required
                     className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-[#5271ff] outline-none transition-all"
                   />
                 </div>
@@ -123,27 +153,28 @@ export default function ContactSection() {
                     Service Required <span className="text-[#5271ff]">*</span>
                   </label>
                   <div className="relative">
-                    <select className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-[#5271ff] outline-none cursor-pointer appearance-none text-gray-600">
-                      <option>Website Design & Development</option>
-                      <option>Mobile App Development</option>
-                      <option>Digital Marketing</option>
-                      <option>SEO Optimization</option>
+                    <select name="service" className="w-full px-4 py-3 rounded-xl bg-gray-50 border-2 border-transparent focus:bg-white focus:border-[#5271ff] outline-none cursor-pointer appearance-none text-gray-600">
+                      <option value="Website">Website Design & Development</option>
+                      <option value="Mobile">Mobile App Development</option>
+                      <option value="Digital Marketing">Digital Marketing</option>
+                      <option value="Zoom">Zoom Meeting Proposal</option>
+                      <option value="SEO">SEO Optimization</option>
                     </select>
                     <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   </div>
                 </div>
 
-                {/* Project Budget (SPACING FIXED HERE) */}
+                {/* Project Budget */}
                 <div className="space-y-2 flex flex-col gap-2">
                   <label className="text-sm font-semibold text-gray-700">
                     Project Budget <span className="text-[#5271ff]">*</span>
                   </label>
-                 
+                  
 
                   <div className="flex flex-wrap gap-3 my-1">
                     {["1.5L - 2.5L", "2.5L - 8L", "8L+"].map((budget, idx) => (
                       <label key={idx} className="cursor-pointer">
-                        <input type="radio" name="budget" className="sr-only peer" />
+                        <input type="radio" value={budget} name="budget" className="sr-only peer" defaultChecked={idx === 0} />
                         <span className="px-4 py-3 rounded-xl border border-gray-200 text-gray-600 text-sm peer-checked:bg-[#5271ff] peer-checked:text-white peer-checked:border-[#5271ff] hover:bg-gray-50 transition-all">
                           {budget}
                         </span>
@@ -152,12 +183,12 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                {/* Captcha + Submit Row (SPACING FIXED) */}
+                {/* Captcha + Submit Row */}
                 <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                   
                   {/* Captcha */}
                   <div className="w-full sm:w-auto px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl flex items-center gap-3 shadow-sm min-w-[200px] h-[52px]">
-                    <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-[#5271ff]" />
+                    <input type="checkbox" required className="w-5 h-5 rounded border-gray-300 text-[#5271ff]" />
                     <span className="text-sm text-gray-600">I am human</span>
                     <div className="ml-auto pl-2 border-l border-gray-300">
                       <ShieldCheck className="w-6 h-6 text-[#5271ff]" />

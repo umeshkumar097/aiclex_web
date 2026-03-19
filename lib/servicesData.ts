@@ -41,7 +41,7 @@ export const servicesData: Service[] = [
     title: "Digital Marketing",
     slug: "digital-marketing",
     description: "Digital Marketing in Facebook, LinkedIn, Instagram, and Google can help generate leads and grow your business online.",
-    longDescription: "At AICLEX TECHNOLOGIES LLP, we understand the ever-evolving landscape of digital marketing and how critical it is for businesses to stay ahead. Our comprehensive digital marketing strategies are designed to enhance your online presence, engage your target audience, and drive significant business growth.",
+    longDescription: "At AICLEX TECHNOLOGIES, we understand the ever-evolving landscape of digital marketing and how critical it is for businesses to stay ahead. Our comprehensive digital marketing strategies are designed to enhance your online presence, engage your target audience, and drive significant business growth.",
     features: ["Search Engine Optimization (SEO)", "Pay-Per-Click (PPC)", "Email Marketing", "Conversion Rate Optimization"],
     benefits: commonBenefits, // Using your specific AICLEX benefits
     process: [
@@ -171,5 +171,71 @@ export const servicesData: Service[] = [
     ],
     icon: "Globe", 
     color: "from-indigo-500 to-purple-600",
+  },
+  {
+    id: 9,
+    title: "Zoom Reseller In India",
+    slug: "zoom-reseller",
+    description: "Official Zoom Reseller in India. Best pricing for Zoom Meetings, Webinars, and Rooms for businesses and educational institutions.",
+    longDescription: "As a leading Zoom Reseller in India, AICLEX TECHNOLOGIES provides end-to-end support for your video communication needs. Whether you need Zoom Meetings for a small team or Zoom Webinars for large-scale events, we offer customized licensing and technical integration to ensure seamless collaboration across your organization.",
+    features: ["Zoom Meetings & Webinars", "Zoom Rooms Integration", "Custom Discounted Pricing", "24/7 Priority Support"],
+    benefits: [
+      { title: "Localized Billing", desc: "Pay in INR with GST compliant invoices, simplifying your accounting process." },
+      { title: "Special Discounts", desc: "Access volume pricing and educational discounts not available on the global store." },
+      { title: "Expert Onboarding", desc: "We help you set up and configure your Zoom environment for maximum security and efficiency." },
+      ...commonBenefits.slice(0, 2)
+    ],
+    process: [
+      { step: "01", title: "Needs Assessment", desc: "Identifying the right mix of Zoom licenses for your team size." },
+      { step: "02", title: "Quote & Billing", desc: "Providing INR quotes with flexible payment options." },
+      { step: "03", title: "Activation", desc: "Instances are provisioned instantly upon order confirmation." },
+      { step: "04", title: "Support", desc: "Ongoing training and helpdesk for any technical queries." }
+    ],
+    icon: "Video",
+    color: "from-blue-400 to-blue-600",
+  },
+  {
+    id: 10,
+    title: "AI Agent Calling",
+    slug: "ai-agent-calling",
+    description: "Revolutionize your customer outreach with AI Powered Calling Agents. Automate lead qualification and customer support calls.",
+    longDescription: "Our AI Agent Calling services use state-of-the-art Natural Language Processing (NLP) to handle outbound and inbound calls just like a human. Ideal for lead qualification, appointment setting, and customer surveys, our AI agents scale your operations without increasing headcount.",
+    features: ["Natural Sounding Voice AI", "Lead Qualification Bots", "Multilingual Support", "Real-time CRM Integration"],
+    benefits: [
+      { title: "24/7 Availability", desc: "Your calling operations never sleep, capturing leads even outside business hours." },
+      { title: "Cost Efficiency", desc: "Reduce cost-per-lead by automating repetitive initial qualification calls." },
+      { title: "Infinite Scalability", desc: "Handle 10,000 calls simultaneously without hiring more staff." },
+      ...commonBenefits.slice(0, 2)
+    ],
+    process: [
+      { step: "01", title: "Script Design", desc: "Crafting a conversation flow that achieves your business goals." },
+      { step: "02", title: "Voice Training", desc: "Selecting and fine-tuning the AI voice to match your brand." },
+      { step: "03", title: "Integration", desc: "Connecting the dialer to your existing CRM system." },
+      { step: "04", title: "Launch & Iterate", desc: "Monitoring call performance and refining the AI model." }
+    ],
+    icon: "PhoneCall",
+    color: "from-indigo-600 to-blue-800",
+  },
+  {
+    id: 11,
+    title: "Paid Media Advertisement",
+    slug: "paid-media-advertisement",
+    description: "High-performance PPC campaigns on Google, Meta, and LinkedIn to drive targeted traffic and measurable ROI.",
+    longDescription: "Scale your business with data-driven Paid Media strategies. We go beyond simple ad placement, focusing on deep audience research, conversion-centric creative, and continuous bid optimization to ensure every rupee spent contributes to your bottom line.",
+    features: ["Google Search & Display Ads", "Meta (Facebook/Instagram) Ads", "LinkedIn B2B Campaigns", "Retargeting & Remarketing"],
+    benefits: [
+      { title: "ROI Focused", desc: "We prioritize actual conversions and sales over vanity metrics like impressions." },
+      { title: "Transparent Reporting", desc: "Get real-time insights into your campaign performance via our custom dashboards." },
+      { title: "Creative Excellence", desc: "High-impact visuals and ad-copy designed to stop the scroll and drive clicks." },
+      ...commonBenefits.slice(0, 2)
+    ],
+    process: [
+      { step: "01", title: "Audience Audit", desc: "Identifying exactly where your customers spend their time online." },
+      { step: "02", title: "Campaign Build", desc: "Setting up complex tracking and high-converting landing pages." },
+      { step: "03", title: "A/B Testing", desc: "Testing multiple creatives and headlines to find the winners." },
+      { step: "04", title: "Daily Scale", desc: "Increasing budget on winning ads to maximize growth." }
+    ],
+    icon: "BarChart",
+    color: "from-green-500 to-emerald-700",
   },
 ];
