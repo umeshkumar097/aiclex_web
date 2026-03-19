@@ -52,8 +52,12 @@ export async function POST(req: NextRequest) {
     `;
     const result = await pool.query(query, [name, email, phone, type, requirement, source_page || 'Direct/Unknown']);
 
-    // Trigger Email Notifications (Non-blocking)
-    sendLeadEmails({ name, email, phone, type, requirement, source_page });
+    // Trigger Email Notifications (Awaited for reliability)
+    try {
+      await sendLeadEmails({ name, email, phone, type, requirement, source_page });
+    } catch (e) {
+      console.error("Email trigger failed:", e);
+    }
 
     return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
