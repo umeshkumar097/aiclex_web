@@ -206,7 +206,12 @@ export default function Dashboard() {
       body: JSON.stringify(payload),
     });
 
-    setFormData({ title: "", slug: "", content: "", name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", image: "" });
+    setFormData({ 
+      title: "", slug: "", content: "", 
+      name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", 
+      image: "",
+      department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "" 
+    });
     setIsEditing(false);
     setEditId(null);
     setShowForm(false);
