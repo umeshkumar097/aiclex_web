@@ -47,6 +47,7 @@ const ApplicationModal = ({ job, onClose }: { job: any; onClose: () => void }) =
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
