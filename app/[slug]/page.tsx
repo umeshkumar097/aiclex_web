@@ -5,6 +5,7 @@ import pool from "@/lib/db";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { notFound } from "next/navigation";
 import FadeInOnScroll from "@/components/ui/FadeInOnScroll";
+import BlogLeadPopup from "@/components/BlogLeadPopup";
 
 export const dynamic = 'force-dynamic';
 

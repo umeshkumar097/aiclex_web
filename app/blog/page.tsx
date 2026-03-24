@@ -3,6 +3,7 @@ import Link from "next/link";
 import pool from "@/lib/db";
 import { Calendar, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Metadata } from "next";
+import BlogLeadPopup from "@/components/BlogLeadPopup";
 
 export const metadata: Metadata = {
   title: "Latest News & Insights | AICLEX Blog",
