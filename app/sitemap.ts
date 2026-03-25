@@ -3,6 +3,8 @@ import { servicesData } from '@/lib/servicesData'
 import pool from '@/lib/db'
 import { zoomKeywordsSolutions } from '@/lib/zoom-keywords'
 
+export const dynamic = 'force-dynamic';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://aiclex.in'
 

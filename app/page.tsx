@@ -15,6 +15,7 @@ import HomeLeadForm from "@/components/HomeLeadForm";
 import PortfolioSection from "@/components/PortfolioSection";
 import ClientsSection from "@/components/ClientsSection";
 
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
 

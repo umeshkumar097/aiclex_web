@@ -50,7 +50,7 @@ export default function Dashboard() {
   
   // Form State
   const [formData, setFormData] = useState({ 
-    title: "", slug: "", content: "",
+    title: "", slug: "", content: "", meta_description: "",
     name: "", role: "", bio: "", linkedin: "", twitter: "", email: "",
     image: "",
     department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: ""
@@ -196,7 +196,13 @@ export default function Dashboard() {
 
     let payload: any;
     if (activeTab === "blogs") {
-      payload = { title: formData.title, slug: formData.slug, content: formData.content, image_url: formData.image };
+      payload = { 
+        title: formData.title, 
+        slug: formData.slug, 
+        content: formData.content, 
+        image_url: formData.image,
+        meta_description: formData.meta_description
+      };
     } else if (activeTab === "team") {
       payload = { name: formData.name, role: formData.role, bio: formData.bio, linkedin: formData.linkedin, twitter: formData.twitter, email: formData.email, image_url: formData.image };
     } else {
@@ -215,7 +221,7 @@ export default function Dashboard() {
     });
 
     setFormData({ 
-      title: "", slug: "", content: "", 
+      title: "", slug: "", content: "", meta_description: "", 
       name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", 
       image: "",
       department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "" 
@@ -246,9 +252,26 @@ export default function Dashboard() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     if (activeTab === "blogs") {
-      setFormData({ ...formData, title: item.title, slug: item.slug, image: item.image_url || "", content: item.content });
+      setFormData({ 
+        ...formData, 
+        title: item.title, 
+        slug: item.slug, 
+        image: item.image_url || "", 
+        content: item.content,
+        meta_description: item.meta_description || ""
+      });
     } else {
-      setFormData({ ...formData, name: item.name, role: item.role, image: item.image_url || "", bio: item.bio, linkedin: item.linkedin || "", twitter: item.twitter || "", email: item.email || "" });
+      setFormData({ 
+        ...formData, 
+        name: item.name, 
+        role: item.role, 
+        image: item.image_url || "", 
+        bio: item.bio, 
+        linkedin: item.linkedin || "", 
+        twitter: item.twitter || "", 
+        email: item.email || "",
+        meta_description: ""
+      });
     }
   };
 
@@ -256,7 +279,7 @@ export default function Dashboard() {
     setShowForm(true);
     setIsEditing(false);
     setFormData({ 
-      title: "", slug: "", content: "", 
+      title: "", slug: "", content: "", meta_description: "", 
       name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", 
       image: "",
       department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "" 
@@ -455,6 +478,17 @@ export default function Dashboard() {
                                                       />
                                                       {uploading && <div className="flex items-center gap-2 text-[#ff914d] text-xs font-bold"><Loader2 size={12} className="animate-spin" /> Uploading to R2...</div>}
                                                   </div>
+                                              </div>
+
+                                              <div className="mt-4">
+                                                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Meta Description (SEO)</label>
+                                                  <textarea 
+                                                      rows={3}
+                                                      className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#001341] outline-none text-sm"
+                                                      placeholder="Enter a compelling description for Google search results..."
+                                                      value={formData.meta_description}
+                                                      onChange={(e) => setFormData({...formData, meta_description: e.target.value})}
+                                                  />
                                               </div>
                                           </div>
                                         )}
