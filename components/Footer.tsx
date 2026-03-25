@@ -42,6 +42,12 @@ export default function Footer() {
     { name: "Buy Zoom India", href: "/solutions/how-to-buy-zoom-subscription-india" },
   ];
 
+  const aiToolLinks = [
+    { name: "Marketing Assistant", href: "/free-tools/ai-marketing-assistant" },
+    { name: "Background Changer", href: "/free-tools/product-background-changer" },
+    { name: "AI SEO Checker", href: "/free-tools/ai-seo-checker" },
+  ];
+
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -137,8 +143,23 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+        </div>
+
+        {/* --- COLUMN 5: AI TOOLS --- */}
+        <div className="flex flex-col">
+            <h3 className="text-lg font-semibold mb-6">AI Tools</h3>
+            <ul className="space-y-3 text-[14px] font-medium text-[#4A4A4A]">
+              {aiToolLinks.map((item, i) => (
+                <li key={i}>
+                  <Link href={item.href} className="group flex items-center gap-1 transition-all">
+                    <ChevronRight size={16} className="text-[#5271FF]" />
+                    <span className="hover:text-[#5271FF] transition-colors">{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
             
-            {/* Newsletter moved under Solutions or we can keep it elsewhere */}
+            {/* Newsletter moved under AI Tools */}
             <div className="mt-8 pt-4 border-t border-gray-100">
                <div className="flex flex-wrap gap-x-4 gap-y-2">
                   <Link href="/term-and-condition" className="text-xs font-semibold text-gray-500 hover:text-[#5271FF]">Terms</Link>

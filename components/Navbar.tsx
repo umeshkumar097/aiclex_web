@@ -44,15 +44,6 @@ export default function Navbar() {
     { name: "Zoom", href: "/zoom", icon: <Video size={18} aria-hidden="true" /> },
     { name: "Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
     {
-      name: "Free Tools",
-      href: "#",
-      icon: <Sparkles size={18} aria-hidden="true" />,
-      children: [
-        { name: "AI Marketing Assistant", href: "/free-tools/ai-marketing-assistant", icon: <MessageSquare size={18} aria-hidden="true" /> },
-        { name: "Background Changer", href: "/free-tools/product-background-changer", icon: <ImageIcon size={18} aria-hidden="true" /> },
-      ],
-    },
-    {
       name: "Company",
       href: "#",
       icon: <Building2 size={18} aria-hidden="true" />,

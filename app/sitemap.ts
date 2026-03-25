@@ -19,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/free-tools',
     '/free-tools/ai-marketing-assistant',
     '/free-tools/product-background-changer',
+    '/free-tools/ai-seo-checker',
     '/term-and-condition',
     '/privacy-policy',
     '/refund-policy',
