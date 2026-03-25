@@ -23,12 +23,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/privacy-policy',
     '/refund-policy',
     '/disclaimer',
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1 : 0.8,
-  }))
+  ].map((route) => {
+    // Core pages get 1.0 or 0.9 and daily frequency
+    const isCore = ['', '/about', '/contact', '/career', '/blog', '/faqs'].includes(route);
+    return {
+      url: `${baseUrl}${route}`,
+      lastModified: new Date(),
+      changeFrequency: (isCore ? 'daily' : 'monthly') as any,
+      priority: isCore ? (route === '' ? 1 : 0.9) : 0.8,
+    };
+  })
 
   // dynamic service routes
   const serviceRoutes = servicesData.map((service) => ({
@@ -63,12 +67,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   } catch (err) { console.error("Sitemap: Failed to fetch jobs", err) }
 
   // dynamic keyword solution routes
-  const solutionRoutes = zoomKeywordsSolutions.map((solution) => ({
-    url: `${baseUrl}/solutions/${solution.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }))
+  const solutionRoutes = zoomKeywordsSolutions.map((solution) => {
+    // Assuming solutions are generally important but not 'core' like homepage
+    const isHighPrioritySolution = ['zoom-info-alternatives', 'zoominfo-competitors'].includes(solution.slug); // Example of prioritizing specific solutions
+    return {
+      url: `${baseUrl}/solutions/${solution.slug}`,
+      lastModified: new Date(),
+      changeFrequency: (isHighPrioritySolution ? 'weekly' : 'monthly') as any,
+      priority: isHighPrioritySolution ? 0.9 : 0.8,
+    };
+  })
 
   return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...jobRoutes, ...solutionRoutes]
 }

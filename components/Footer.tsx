@@ -17,11 +17,29 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Footer() {
-  const quickLinks = [
-    { name: "Zoom", href: "/zoom" },
-    { name: "Blogs", href: "/blog" },
+  const companyLinks = [
+    { name: "About Us", href: "/about" },
+    { name: "Careers", href: "/career" },
+    { name: "Services", href: "/services" },
+    { name: "Latest Blogs", href: "/blog" },
     { name: "Contact Us", href: "/contact" },
-    { name: "FAQs", href: "/faqs" },
+  ];
+
+  const serviceLinks = [
+    { name: "Digital Marketing", href: "/services/digital-marketing" },
+    { name: "AI Agent Calling", href: "/services/ai-agent-calling" },
+    { name: "Zoom Reseller", href: "/services/zoom-reseller" },
+    { name: "App Development", href: "/services/application-development" },
+    { name: "Brand Development", href: "/services/brand-development" },
+  ];
+
+  const solutionLinks = [
+    { name: "Zoom Partner India", href: "/solutions/zoom-partner-india" },
+    { name: "Zoom License Cost", href: "/solutions/zoom-license-cost-india" },
+    { name: "Zoom Distributor Delhi", href: "/solutions/zoom-distributor-delhi" },
+    { name: "Best Zoom Reseller", href: "/solutions/best-zoom-reseller-india" },
+    { name: "Zoom Pro Reseller", href: "/solutions/zoom-pro-reseller" },
+    { name: "Buy Zoom India", href: "/solutions/how-to-buy-zoom-subscription-india" },
   ];
 
   const [showButton, setShowButton] = useState(false);
@@ -76,71 +94,59 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* --- COLUMN 2: QUICK LINKS + TERMS --- */}
-        <div className="flex flex-col h-full">
-          <div>
-            <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
+        {/* --- COLUMN 2: COMPANY --- */}
+        <div className="flex flex-col">
+            <h3 className="text-lg font-semibold mb-6">Company</h3>
             <ul className="space-y-4 text-[15px] font-medium text-[#4A4A4A]">
-              {quickLinks.map((item, i) => (
+              {companyLinks.map((item, i) => (
                 <li key={i}>
                   <Link href={item.href} className="group flex items-center gap-2 transition-all">
-                    <ChevronRight
-                      size={18}
-                      className="text-[#5271FF] transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#5271FF]"
-                    />
-                    <span className="relative transition-all duration-300 group-hover:text-[#5271FF] group-hover:translate-x-1">
-                      {item.name}
-                      <span className="absolute left-0 -bottom-1 h-[2px] bg-[#5271FF] w-0 rounded-md transition-all duration-300 group-hover:w-full" />
-                    </span>
+                    <ChevronRight size={18} className="text-[#5271FF]" />
+                    <span className="hover:text-[#5271FF] transition-colors">{item.name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-          
-          {/* Terms moved to bottom of this column */}
-          <div className="mt-auto pt-8">
-            <div className="flex flex-col gap-2">
-              <Link href="/term-and-condition" className="text-[15px] font-medium text-[#4A4A4A] hover:text-[#5271FF] transition-colors">
-                 Terms & Conditions
-              </Link>
-              <Link href="/disclaimer" className="text-[15px] font-medium text-[#4A4A4A] hover:text-[#5271FF] transition-colors">
-                 Disclaimer
-              </Link>
-            </div>
-          </div>
         </div>
 
-        {/* --- COLUMN 3: SUBSCRIBE + REFUND --- */}
-        <div className="flex flex-col h-full">
-          <div>
-            <h3 className="text-lg font-semibold mb-6">Subscribe</h3>
-            <p className="text-[14px] text-[#5A5A5A] mb-4">
-              Join our newsletter to stay up to date on features and releases.
-            </p>
-            <form className="relative w-full max-w-sm">
-              <input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  aria-label="Newsletter email"
-                  className="w-full bg-white border border-gray-200 text-sm rounded-lg pl-4 pr-12 py-3 outline-none focus:border-[#5271FF] focus:ring-1 focus:ring-[#5271FF] transition-all shadow-sm"
-              />
-              <button 
-                  type="submit" 
-                  aria-label="Subscribe to newsletter"
-                  className="absolute right-1.5 top-1.5 bottom-1.5 bg-[#5271FF] hover:bg-blue-700 text-white px-3 rounded-md transition-all flex items-center justify-center"
-              >
-                  <Send size={16} aria-hidden="true" />
-              </button>
-            </form>
-          </div>
+        {/* --- COLUMN 3: OUR SERVICES --- */}
+        <div className="flex flex-col">
+            <h3 className="text-lg font-semibold mb-6">Our Services</h3>
+            <ul className="space-y-4 text-[15px] font-medium text-[#4A4A4A]">
+              {serviceLinks.map((item, i) => (
+                <li key={i}>
+                  <Link href={item.href} className="group flex items-center gap-2 transition-all">
+                    <ChevronRight size={18} className="text-[#5271FF]" />
+                    <span className="hover:text-[#5271FF] transition-colors">{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+        </div>
 
-          {/* Refund moved to bottom of this column */}
-          <div className="mt-auto pt-8">
-            <Link href="/refund-policy" className="text-[15px] font-medium text-[#4A4A4A] hover:text-[#5271FF] transition-colors">
-               Refund Policy
-            </Link>
-          </div>
+        {/* --- COLUMN 4: SOLUTIONS --- */}
+        <div className="flex flex-col">
+            <h3 className="text-lg font-semibold mb-6">Solutions</h3>
+            <ul className="space-y-3 text-[14px] font-medium text-[#4A4A4A]">
+              {solutionLinks.map((item, i) => (
+                <li key={i}>
+                  <Link href={item.href} className="group flex items-center gap-1 transition-all">
+                    <ChevronRight size={16} className="text-[#5271FF]" />
+                    <span className="hover:text-[#5271FF] transition-colors">{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            
+            {/* Newsletter moved under Solutions or we can keep it elsewhere */}
+            <div className="mt-8 pt-4 border-t border-gray-100">
+               <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  <Link href="/term-and-condition" className="text-xs font-semibold text-gray-500 hover:text-[#5271FF]">Terms</Link>
+                  <Link href="/privacy-policy" className="text-xs font-semibold text-gray-500 hover:text-[#5271FF]">Privacy</Link>
+                  <Link href="/refund-policy" className="text-xs font-semibold text-gray-500 hover:text-[#5271FF]">Refund</Link>
+                  <Link href="/disclaimer" className="text-xs font-semibold text-gray-500 hover:text-[#5271FF]">Disclaimer</Link>
+               </div>
+            </div>
         </div>
 
         {/* --- COLUMN 4: FOLLOW US + PRIVACY --- */}
