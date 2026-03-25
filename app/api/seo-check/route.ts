@@ -100,18 +100,18 @@ export async function POST(req: NextRequest) {
       }
     `;
 
-    const aiResult = await model.generateContent(prompt);
-    const responseText = aiResult.response.text();
-    
     // Clean JSON from markdown if necessary
     let auditReport;
     try {
+      const aiResult = await model.generateContent(prompt);
+      const responseText = aiResult.response.text();
+      
       // Find the first { and last } to handle any extra text from Gemini
       const jsonMatch = responseText.match(/\{[\s\S]*\}/);
       if (!jsonMatch) throw new Error("No JSON found in response");
       auditReport = JSON.parse(jsonMatch[0]);
-    } catch (parseErr) {
-      console.error("Gemini Parse Error:", parseErr, "Response:", responseText);
+    } catch (err: any) {
+      console.error("Gemini/Audit Error:", err);
       // Fallback report using extracted data
       auditReport = {
         score: 65,
