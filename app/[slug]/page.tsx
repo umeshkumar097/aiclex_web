@@ -126,7 +126,7 @@ export default async function SingleBlogPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: post.content || '<p class="text-gray-400">No content available for this post.</p>' }}
         />
       </div>
-      <BlogLeadPopup />
+      {post.show_popup !== false && <BlogLeadPopup />}
     </article>
   );
 }

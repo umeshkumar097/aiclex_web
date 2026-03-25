@@ -14,6 +14,7 @@ import LatestBlogs from "@/components/LatestBlogs";
 import HomeLeadForm from "@/components/HomeLeadForm";
 import PortfolioSection from "@/components/PortfolioSection";
 import ClientsSection from "@/components/ClientsSection";
+import BlogLeadPopup from "@/components/BlogLeadPopup";
 
 export const dynamic = 'force-dynamic';
 

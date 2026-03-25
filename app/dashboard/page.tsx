@@ -50,7 +50,7 @@ export default function Dashboard() {
   
   // Form State
   const [formData, setFormData] = useState({ 
-    title: "", slug: "", content: "", meta_description: "",
+    title: "", slug: "", content: "", meta_description: "", show_popup: true,
     name: "", role: "", bio: "", linkedin: "", twitter: "", email: "",
     image: "",
     department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: ""
@@ -201,7 +201,8 @@ export default function Dashboard() {
         slug: formData.slug, 
         content: formData.content, 
         image_url: formData.image,
-        meta_description: formData.meta_description
+        meta_description: formData.meta_description,
+        show_popup: formData.show_popup
       };
     } else if (activeTab === "team") {
       payload = { name: formData.name, role: formData.role, bio: formData.bio, linkedin: formData.linkedin, twitter: formData.twitter, email: formData.email, image_url: formData.image };
@@ -221,7 +222,7 @@ export default function Dashboard() {
     });
 
     setFormData({ 
-      title: "", slug: "", content: "", meta_description: "", 
+      title: "", slug: "", content: "", meta_description: "", show_popup: true, 
       name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", 
       image: "",
       department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "" 
@@ -258,7 +259,8 @@ export default function Dashboard() {
         slug: item.slug, 
         image: item.image_url || "", 
         content: item.content,
-        meta_description: item.meta_description || ""
+        meta_description: item.meta_description || "",
+        show_popup: item.show_popup !== false
       });
     } else {
       setFormData({ 
@@ -270,7 +272,8 @@ export default function Dashboard() {
         linkedin: item.linkedin || "", 
         twitter: item.twitter || "", 
         email: item.email || "",
-        meta_description: ""
+        meta_description: "",
+        show_popup: true
       });
     }
   };
@@ -279,7 +282,7 @@ export default function Dashboard() {
     setShowForm(true);
     setIsEditing(false);
     setFormData({ 
-      title: "", slug: "", content: "", meta_description: "", 
+      title: "", slug: "", content: "", meta_description: "", show_popup: true, 
       name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", 
       image: "",
       department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "" 
@@ -415,7 +418,7 @@ export default function Dashboard() {
                                                     onChange={(e) => setFormData({ 
                                                         ...formData, 
                                                         title: e.target.value, 
-                                                        slug: isEditing ? formData.slug : e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "") 
+                                                        slug: e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "") 
                                                     })} 
                                                     required 
                                                 />
@@ -480,15 +483,29 @@ export default function Dashboard() {
                                                   </div>
                                               </div>
 
-                                              <div className="mt-4">
-                                                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Meta Description (SEO)</label>
-                                                  <textarea 
-                                                      rows={3}
-                                                      className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#001341] outline-none text-sm"
-                                                      placeholder="Enter a compelling description for Google search results..."
-                                                      value={formData.meta_description}
-                                                      onChange={(e) => setFormData({...formData, meta_description: e.target.value})}
-                                                  />
+                                              <div className="mt-4 flex flex-col md:flex-row gap-6">
+                                                  <div className="flex-1">
+                                                      <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Meta Description (SEO)</label>
+                                                      <textarea 
+                                                          rows={3}
+                                                          className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#001341] outline-none text-sm"
+                                                          placeholder="Enter a compelling description for Google search results..."
+                                                          value={formData.meta_description}
+                                                          onChange={(e) => setFormData({...formData, meta_description: e.target.value})}
+                                                      />
+                                                  </div>
+                                                  <div className="md:w-64 flex items-center gap-3 bg-orange-50 p-4 rounded-xl border border-orange-100">
+                                                      <input 
+                                                          type="checkbox" 
+                                                          id="show_popup"
+                                                          className="w-5 h-5 accent-[#ff914d] cursor-pointer"
+                                                          checked={formData.show_popup}
+                                                          onChange={(e) => setFormData({...formData, show_popup: e.target.checked})}
+                                                      />
+                                                      <label htmlFor="show_popup" className="text-sm font-bold text-[#001341] cursor-pointer">
+                                                          Show Lead Popup
+                                                      </label>
+                                                  </div>
                                               </div>
                                           </div>
                                         )}

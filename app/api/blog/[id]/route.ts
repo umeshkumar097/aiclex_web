@@ -29,17 +29,17 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { title, slug, content, image_url } = await req.json();
+    const { title, slug, content, image_url, meta_description, show_popup } = await req.json();
 
-    // ✅ CHANGED: Table name is now 'posts'
+    // ✅ CHANGED: Added meta_description and show_popup
     const query = `
       UPDATE posts 
-      SET title = $1, slug = $2, content = $3, image_url = $4 
-      WHERE id = $5 
+      SET title = $1, slug = $2, content = $3, image_url = $4, meta_description = $5, show_popup = $6
+      WHERE id = $7 
       RETURNING *
     `;
     
-    const result = await pool.query(query, [title, slug, content, image_url, id]);
+    const result = await pool.query(query, [title, slug, content, image_url, meta_description, show_popup, id]);
     
     if (result.rowCount === 0) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
