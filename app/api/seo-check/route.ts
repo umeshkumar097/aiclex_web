@@ -112,28 +112,42 @@ export async function POST(req: NextRequest) {
       auditReport = JSON.parse(jsonMatch[0]);
     } catch (err: any) {
       console.error("Gemini/Audit Error:", err);
+      
+      // Calculate a dynamic score based on extracted markers
+      let dynamicScore = 30;
+      if (extractedData.title !== "Missing") dynamicScore += 15;
+      if (extractedData.description !== "Missing") dynamicScore += 15;
+      if (extractedData.h1s.length === 1) dynamicScore += 20;
+      if (extractedData.imagesWithoutAlt === 0) dynamicScore += 20;
+
       // Fallback report using extracted data
       auditReport = {
-        score: 65,
-        summary: "Automated analysis complete. Your site has fundamental SEO elements in place but requires strategic content optimization to rank in the Top 10.",
+        score: Math.min(dynamicScore, 95),
+        summary: `Technical analysis for ${url} complete. ${extractedData.title === "Missing" ? "Critical SEO markers are missing." : "Fundamental SEO structure is present but needs refinement."}`,
         detailedAnalysis: {
-           title: extractedData.title === "Missing" ? "CRITICAL: Your title tag is missing. This is the most important on-page SEO element." : `Title tag is present: "${extractedData.title}". Recommendation: Ensure primary keywords are at the beginning.`,
-           description: extractedData.description === "Missing" ? "Meta description is missing. This prevents Google from showing a compelling snippet in search results." : "Meta description found. Recommendation: Ensure it's under 160 characters and includes a clear Call to Action.",
-           headings: `Found ${extractedData.h1s.length} H1 tags. SEO Best practice is exactly one H1 per page for clarity.`,
-           images: `${extractedData.imagesWithoutAlt} images lack alt text. This is a major accessibility issue and prevents ranking in Google Images.`
+           title: extractedData.title === "Missing" 
+            ? "CRITICAL: Your title tag is missing. Google uses this to determine your page's topic." 
+            : `Title tag detected: "${extractedData.title}". ${extractedData.title.length > 60 ? "Warning: Title is too long (over 60 chars)." : "Good length."}`,
+           description: extractedData.description === "Missing" 
+            ? "MISSING: Meta description is absent. Google may generate its own snippet, which could reduce click-through rates." 
+            : `Meta description found (${extractedData.description.length} chars). Ensure it has a strong Call to Action.`,
+           headings: `We found ${extractedData.h1s.length} H1 tags. ${extractedData.h1s.length === 1 ? "Excellent structure." : "Warning: SEO best practice is exactly ONE H1 tag per page."}`,
+           images: extractedData.totalImages > 0 
+            ? `${extractedData.imagesWithoutAlt} out of ${extractedData.totalImages} images are missing 'alt' text. This blocks your site from ranking in Image Search.`
+            : "No images found on the homepage to analyze."
         },
         competitors: [
-           {name: "Industry Leader", strength: "High Domain Authority & Backlinks", link: "#"},
-           {name: "Niche Specialist", strength: "Targeted Keyword Consistency", link: "#"},
-           {name: "Direct Competitor", strength: "Optimized User Experience", link: "#"}
+           {name: "Market Leader", strength: "High Domain Authority & Content Depth", link: "#"},
+           {name: "Local Competitor", strength: "Optimized for Regional Keywords", link: "#"},
+           {name: "Niche Authority", strength: "Clean Technical SEO & Schema Markup", link: "#"}
         ],
         rankingTips: [
-           "Consolidate multiple H1 tags into a single, keyword-rich header.",
-           "Add descriptive 'alt' tags to all images to improve accessibility and image SEO.",
-           "Increase content depth for your main service pages to establish higher authority.",
-           "Ensure your website loads in under 2 seconds to reduce bounce rate."
+           extractedData.title === "Missing" ? "Add a unique <title> tag with your primary keyword at the start." : "Optimize your current title for high-intent 'Buy' or 'Services' keywords.",
+           extractedData.h1s.length !== 1 ? "Ensure you have exactly one H1 tag that matches your main page topic." : "Check your H2-H3 hierarchy for logical content flow.",
+           "Optimize all image filenames and add meaningful 'alt' text.",
+           "Create more high-quality backlinks from reputable industry blogs."
         ],
-        pdfMessage: "Technical audit identifies immediate opportunities in metadata and image optimization."
+        pdfMessage: "Technical Audit: Immediate improvements found for metadata and image accessibility."
       };
     }
 

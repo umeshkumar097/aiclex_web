@@ -133,7 +133,15 @@ export default function AiSeoChecker() {
     doc.setTextColor(150);
     doc.text("Copyright © AICLEX Technologies | info@aiclex.in", pageWidth / 2, pageHeight - 10, { align: "center" });
 
-    doc.save(`aiclex-seo-report-${url.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+    try {
+      doc.save(`aiclex-seo-report-${url.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+    } catch (pdfErr) {
+      console.error("PDF Generation Error:", pdfErr);
+      // Fallback: Open in new window if save fails
+      const blob = doc.output("blob");
+      const urlBlob = URL.createObjectURL(blob);
+      window.open(urlBlob);
+    }
   };
 
   return (
