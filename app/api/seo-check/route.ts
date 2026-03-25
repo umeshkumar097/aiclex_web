@@ -13,20 +13,39 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 });
     }
 
+    if (!process.env.GOOGLE_GEMINI_API_KEY) {
+      console.error("GOOGLE_GEMINI_API_KEY is missing from environment");
+      return NextResponse.json({ error: "System configuration error: API Key missing." }, { status: 500 });
+    }
+
     // 1. Fetch the website HTML
     let html = "";
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-      const response = await fetch(url.startsWith('http') ? url : `https://${url}`, { 
+      const timeoutId = setTimeout(() => controller.abort(), 12000); // 12s timeout
+      
+      const fetchUrl = url.startsWith('http') ? url : `https://${url}`;
+      console.log("Analyzing URL:", fetchUrl);
+
+      const response = await fetch(fetchUrl, { 
         signal: controller.signal,
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; AiclexBot/1.0; +https://aiclex.in)' }
+        redirect: 'follow', // Explicitly follow redirects
+        headers: { 
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9'
+        }
       });
+      
+      if (!response.ok && response.status !== 404) {
+          console.warn(`Fetch non-ok status: ${response.status} for ${fetchUrl}`);
+      }
+
       html = await response.text();
       clearTimeout(timeoutId);
     } catch (fetchErr) {
-      console.error("Fetch Error:", fetchErr);
-      return NextResponse.json({ error: "Could not fetch the website. Please check the URL." }, { status: 422 });
+      console.error("Fetch Error for", url, ":", fetchErr);
+      return NextResponse.json({ error: "Could not connect to the website. Please check the URL or try again later." }, { status: 422 });
     }
 
     // 2. Extract SEO markers (Basic Scrape)
