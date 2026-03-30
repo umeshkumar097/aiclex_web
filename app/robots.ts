@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/dashboard/'],
     },
-    sitemap: 'https://aiclex.in/sitemap.xml',
+    sitemap: 'https://www.aiclex.in/sitemap.xml',
   }
 }

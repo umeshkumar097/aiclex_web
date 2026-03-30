@@ -97,47 +97,78 @@ export default function AiSeoChecker() {
     // 5. Analysis Table
     autoTable(doc, {
       startY: 110,
-      head: [["Area", "AI Feedback"]],
+      head: [["Category", "Expert Auditor Feedback"]],
       body: [
-        ["Title Tag", auditReport.detailedAnalysis.title],
-        ["Meta Description", auditReport.detailedAnalysis.description],
-        ["Headings Structure", auditReport.detailedAnalysis.headings],
+        ["Technical SEO", auditReport.detailedAnalysis.technical],
+        ["On-Page SEO", auditReport.detailedAnalysis.onPage],
+        ["Content Quality", auditReport.detailedAnalysis.content],
         ["Image Optimization", auditReport.detailedAnalysis.images],
+        ["Social Signals", auditReport.detailedAnalysis.social],
       ],
       headStyles: { fillColor: [82, 113, 255] },
+      styles: { fontSize: 9, cellPadding: 5 }
     });
 
-    // 6. Competitors
-    const finalY = (doc as any).lastAutoTable.finalY + 15;
+    // 6. Critical Issues (New Page or Section)
+    const issuesY = (doc as any).lastAutoTable.finalY + 15;
     doc.setFontSize(14);
-    doc.text("Top 10 Competitors & Strategies", 20, finalY);
+    doc.setTextColor(220, 38, 38); // Red for critical
+    doc.text("Critical Issues Found (Fix Immediately)", 20, issuesY);
+    
+    doc.setFontSize(9);
+    doc.setTextColor(80);
+    auditReport.criticalIssues.forEach((issue: string, i: number) => {
+       doc.text(`[!] ${issue}`, 25, issuesY + 10 + (i * 7));
+    });
+
+    // 7. Competitors
+    doc.addPage();
+    doc.setTextColor(0, 19, 65);
+    doc.setFontSize(18);
+    doc.text("Strategic Competitor Insights", 20, 30);
     
     autoTable(doc, {
-      startY: finalY + 5,
-      head: [["Competitor", "Ranking Strength"]],
+      startY: 40,
+      head: [["Competitor", "Their Ranking Strength"]],
       body: auditReport.competitors.map((c: any) => [c.name, c.strength]),
-      theme: 'grid'
+      theme: 'grid',
+      headStyles: { fillColor: [0, 19, 65] }
     });
 
-    // 7. Tips
-    const tipsY = (doc as any).lastAutoTable.finalY + 15;
-    doc.setFontSize(14);
-    doc.text("Ranking Action Plan (Top 10 Strategy)", 20, tipsY);
+    // 8. Ranking Plan
+    const planY = (doc as any).lastAutoTable.finalY + 15;
+    doc.setFontSize(16);
+    doc.text("Rank Top 10 Action Plan", 20, planY);
+    
     doc.setFontSize(10);
     auditReport.rankingTips.forEach((tip: string, i: number) => {
-       doc.text(`• ${tip}`, 20, tipsY + 8 + (i * 6));
+       doc.text(`${i + 1}. ${tip}`, 20, planY + 10 + (i * 8));
     });
+
+    // 9. CTA Section in PDF
+    const ctaY = pageHeight - 60;
+    doc.setFillColor(248, 250, 255);
+    doc.roundedRect(20, ctaY, pageWidth - 40, 40, 5, 5, "F");
+    doc.setTextColor(82, 113, 255);
+    doc.setFontSize(14);
+    doc.text(auditReport.aiclexCTA.title, pageWidth / 2, ctaY + 15, { align: "center" });
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    const ctaText = doc.splitTextToSize(auditReport.aiclexCTA.description, pageWidth - 60);
+    doc.text(ctaText, pageWidth / 2, ctaY + 25, { align: "center" });
+    doc.setFontSize(10);
+    doc.setTextColor(0, 19, 65);
+    doc.text("Connect with us: info@aiclex.in | +91 9773725175", pageWidth / 2, ctaY + 35, { align: "center" });
 
     // Footer
     doc.setFontSize(8);
     doc.setTextColor(150);
-    doc.text("Copyright © AICLEX Technologies | info@aiclex.in", pageWidth / 2, pageHeight - 10, { align: "center" });
+    doc.text("Report by AICLEX Technologies - Proprietary AI Analysis", pageWidth / 2, pageHeight - 10, { align: "center" });
 
     try {
       doc.save(`aiclex-seo-report-${url.replace(/[^a-z0-9]/gi, '_')}.pdf`);
     } catch (pdfErr) {
       console.error("PDF Generation Error:", pdfErr);
-      // Fallback: Open in new window if save fails
       const blob = doc.output("blob");
       const urlBlob = URL.createObjectURL(blob);
       window.open(urlBlob);
@@ -163,7 +194,7 @@ export default function AiSeoChecker() {
       </section>
 
       {/* --- TOOL CONTAINER --- */}
-      <section className="max-w-4xl mx-auto px-6 relative overflow-visible">
+      <section className="max-w-5xl mx-auto px-6 relative overflow-visible">
          
          <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-blue-900/10 border border-gray-100 overflow-hidden min-h-[500px] flex flex-col">
             
@@ -273,62 +304,107 @@ export default function AiSeoChecker() {
                             {/* Score Card */}
                             <div className="flex flex-col md:flex-row items-center gap-8 justify-between bg-blue-600 p-8 rounded-[2rem] text-white">
                                 <div className="text-center md:text-left">
-                                    <h3 className="text-4xl font-black">{auditReport.score}/100</h3>
-                                    <p className="text-blue-100 font-bold uppercase tracking-widest text-xs">Aiclex SEO Health Score</p>
+                                    <h3 className="text-5xl font-black">{auditReport.score}/100</h3>
+                                    <p className="text-blue-100 font-black uppercase tracking-widest text-[10px]">Aiclex SEO Health Score</p>
                                 </div>
-                                <div className="text-center md:text-right max-w-md">
-                                    <p className="font-medium text-lg italic opacity-90">"{auditReport.summary}"</p>
+                                <div className="text-center md:text-left flex-1 border-l border-white/20 pl-0 md:pl-8">
+                                    <p className="font-bold text-lg leading-relaxed">"{auditReport.summary}"</p>
                                 </div>
-                                <button onClick={generatePDF} className="p-4 bg-white text-blue-600 rounded-2xl font-black shadow-xl hover:bg-blue-50 transition-all flex items-center gap-2">
-                                    <Download size={20} /> PDF REPORT
+                                <button onClick={generatePDF} className="shrink-0 p-5 bg-white text-blue-600 rounded-2xl font-black shadow-xl hover:bg-blue-50 transition-all flex items-center gap-2 group">
+                                    <Download size={20} className="group-hover:translate-y-1 transition-transform" /> DOWNLOAD PDF
                                 </button>
                             </div>
 
-                            {/* Detailed Drilldown */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-blue-600 font-black uppercase text-xs">
-                                        <TrendingUp size={16} /> Title Tag Audit
-                                    </div>
-                                    <p className="text-gray-700 font-medium leading-relaxed">{auditReport.detailedAnalysis.title}</p>
-                                </div>
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-blue-600 font-black uppercase text-xs">
-                                        <BarChart3 size={16} /> Meta Description
-                                    </div>
-                                    <p className="text-gray-700 font-medium leading-relaxed">{auditReport.detailedAnalysis.description}</p>
-                                </div>
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-blue-600 font-black uppercase text-xs">
-                                        <CheckCircle2 size={16} /> Header Structure
-                                    </div>
-                                    <p className="text-gray-700 font-medium leading-relaxed">{auditReport.detailedAnalysis.headings}</p>
-                                </div>
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-blue-600 font-black uppercase text-xs">
-                                        <Users size={16} /> Competitor Strategy
-                                    </div>
-                                    <p className="text-gray-700 font-medium leading-relaxed">AI detected {auditReport.competitors.length} key competitors ranking for your keywords.</p>
+                            {/* Critical Top Fixes */}
+                            <div className="bg-red-50 border-2 border-red-100 p-8 rounded-[2rem] space-y-4">
+                                <h4 className="text-red-600 font-black flex items-center gap-2 uppercase text-xs tracking-widest">
+                                    <AlertCircle size={18} /> Fix Immediately: Critical Technical Issues
+                                </h4>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {auditReport.criticalIssues?.map((issue: string, i: number) => (
+                                        <div key={i} className="flex gap-3 items-start text-red-900/80 font-bold text-sm">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-1.5 shrink-0" />
+                                            {issue}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 
-                            {/* Ranking Plan */}
-                            <div className="p-8 bg-[#001341] text-white rounded-[2rem] space-y-6">
-                                <h3 className="text-2xl font-black flex items-center gap-3">
-                                    <Zap className="text-yellow-400" /> Rank Top 10 Action Plan
-                                </h3>
-                                <div className="grid gap-4">
-                                   {auditReport.rankingTips.map((tip: string, i: number) => (
-                                       <div key={i} className="flex gap-4 items-start bg-white/5 p-4 rounded-xl border border-white/10">
-                                          <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-black text-sm shrink-0 mt-0.5">{i+1}</div>
-                                          <p className="text-white/80 font-medium text-sm leading-relaxed">{tip}</p>
-                                       </div>
-                                   ))}
+                            {/* Detailed Analysis Grill */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
+                                    <div className="flex items-center gap-2 text-blue-700 font-black uppercase text-[10px] tracking-widest">
+                                        <Zap size={14} /> Technical SEO
+                                    </div>
+                                    <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.technical}</p>
+                                </div>
+                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
+                                    <div className="flex items-center gap-2 text-indigo-700 font-black uppercase text-[10px] tracking-widest">
+                                        <TrendingUp size={14} /> On-Page Hierarchy
+                                    </div>
+                                    <p className="text-gray-700 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.onPage}</p>
+                                </div>
+                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
+                                    <div className="flex items-center gap-2 text-emerald-700 font-black uppercase text-[10px] tracking-widest">
+                                        <Sparkles size={14} /> Content Quality
+                                    </div>
+                                    <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.content}</p>
+                                </div>
+                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
+                                    <div className="flex items-center gap-2 text-orange-700 font-black uppercase text-[10px] tracking-widest">
+                                        <Search size={14} /> Image Optimization
+                                    </div>
+                                    <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.images}</p>
+                                </div>
+                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
+                                    <div className="flex items-center gap-2 text-purple-700 font-black uppercase text-[10px] tracking-widest">
+                                        <Globe size={14} /> Social Signals
+                                    </div>
+                                    <p className="text-gray-700 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.social}</p>
+                                </div>
+                                <div className="p-6 bg-blue-50 rounded-3xl space-y-3 border border-blue-100 flex flex-col justify-center text-center">
+                                    <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest">Report Depth</p>
+                                    <p className="text-blue-900 font-bold text-lg leading-tight">Comprehensive AI Audit Strategy</p>
                                 </div>
                             </div>
 
-                            <button onClick={() => setStep(1)} className="w-full text-center text-blue-600 font-black hover:underline">
-                                Run Another SEO Check
+                            {/* Managed Ranking Strategy */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="p-8 bg-[#001341] text-white rounded-[2rem] space-y-6">
+                                    <h3 className="text-xl font-black flex items-center gap-3">
+                                        <BarChart3 className="text-blue-400" /> Rank Top 10 Action Plan
+                                    </h3>
+                                    <div className="space-y-4">
+                                    {auditReport.rankingTips.map((tip: string, i: number) => (
+                                        <div key={i} className="flex gap-4 items-start bg-white/5 p-4 rounded-xl border border-white/10">
+                                            <div className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-black text-[10px] shrink-0 mt-0.5">{i+1}</div>
+                                            <p className="text-white/70 font-medium text-xs leading-relaxed">{tip}</p>
+                                        </div>
+                                    ))}
+                                    </div>
+                                </div>
+
+                                <div className="p-8 bg-gradient-to-br from-blue-700 to-indigo-800 text-white rounded-[2rem] space-y-6 flex flex-col justify-between shadow-2xl shadow-blue-900/20">
+                                    <div className="space-y-4">
+                                        <div className="inline-flex px-3 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase">Expert Intervention</div>
+                                        <h3 className="text-3xl font-black">{auditReport.aiclexCTA.title}</h3>
+                                        <p className="text-blue-100 font-medium leading-relaxed">
+                                            {auditReport.aiclexCTA.description}
+                                        </p>
+                                    </div>
+                                    
+                                    <a 
+                                        href="https://wa.me/919773725175?text=Hi, My website SEO score is low. Please help me fix it." 
+                                        target="_blank"
+                                        className="w-full py-4 bg-white text-blue-700 rounded-xl font-black text-center shadow-lg hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
+                                    >
+                                        {auditReport.aiclexCTA.action} <ArrowRight size={18} />
+                                    </a>
+                                </div>
+                            </div>
+
+                            <button onClick={() => setStep(1)} className="w-full text-center text-gray-400 font-bold hover:text-blue-600 transition-colors uppercase text-xs tracking-widest">
+                                ← Audit Another Website
                             </button>
                         </motion.div>
                     )}

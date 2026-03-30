@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} | AICLEX Blog`,
     description: description,
     alternates: {
-      canonical: `/${slug}`,
+      canonical: `https://www.aiclex.in/${slug}`,
     },
     openGraph: {
       title: post.title,

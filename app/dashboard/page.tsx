@@ -426,7 +426,7 @@ export default function Dashboard() {
                                             <div>
                                                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Permalink / Slug</label>
                                                 <div className="flex items-center gap-2 p-4 bg-gray-100 rounded-xl text-gray-500 text-sm overflow-hidden whitespace-nowrap">
-                                                    <Globe size={14} /> <span>{activeTab === 'blogs' ? 'aiclex.in/blog/' : 'aiclex.in/career/'}</span><strong>{formData.slug}</strong>
+                                                    <Globe size={14} /> <span>{activeTab === 'blogs' ? 'www.aiclex.in/' : 'www.aiclex.in/career/'}</span><strong>{formData.slug}</strong>
                                                 </div>
                                             </div>
                                         </div>

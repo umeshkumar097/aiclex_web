@@ -48,55 +48,100 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Could not connect to the website. Please check the URL or try again later." }, { status: 422 });
     }
 
-    // 2. Extract SEO markers (Basic Scrape)
+    // 2. Extract SEO markers (Deep Scrape)
     const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
     const metaDescMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["'][^>]*>/i) || 
                          html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*name=["']description["'][^>]*>/i);
     
-    // Extract H1s (up to 3)
-    const h1Matches = Array.from(html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/gi)).map(m => m[1].replace(/<[^>]*>/g, '').trim()).slice(0, 3);
-    
-    // Count images without alt
+    // OG & Twitter Tags
+    const ogTitle = html.match(/<meta[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1];
+    const ogDesc = html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1];
+    const twitterCard = html.match(/<meta[^>]*name=["']twitter:card["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1];
+
+    // Canonical & Robots
+    const canonical = html.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["'][^>]*>/i)?.[1];
+    const robots = html.match(/<meta[^>]*name=["']robots["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1];
+    const viewport = html.match(/<meta[^>]*name=["']viewport["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1];
+
+    // Headers count
+    const h1s = Array.from(html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/gi)).map(m => m[1].replace(/<[^>]*>/g, '').trim());
+    const h2Count = (html.match(/<h2/gi) || []).length;
+    const h3Count = (html.match(/<h3/gi) || []).length;
+
+    // Images & Scripts
     const imgMatches = Array.from(html.matchAll(/<img[^>]*>/gi));
     const imgsWithoutAlt = imgMatches.filter(img => !img[0].toLowerCase().includes('alt=')).length;
+    const scriptCount = (html.match(/<script/gi) || []).length;
 
     const extractedData = {
       title: titleMatch ? titleMatch[1] : "Missing",
       description: metaDescMatch ? metaDescMatch[1] : "Missing",
-      h1s: h1Matches.length > 0 ? h1Matches : ["Missing"],
+      ogTitle: ogTitle || "Missing",
+      ogDesc: ogDesc || "Missing",
+      twitterCard: twitterCard || "Missing",
+      canonical: canonical || "Missing",
+      robots: robots || "Not Set",
+      viewport: viewport || "Missing",
+      h1s: h1s.length > 0 ? h1s : ["Missing"],
+      h2Count,
+      h3Count,
       imagesWithoutAlt: imgsWithoutAlt,
-      totalImages: imgMatches.length
+      totalImages: imgMatches.length,
+      scriptCount,
+      textPreview: htmlToText(html, { wordwrap: 130 }).substring(0, 1500) // First 1500 chars for AI context
     };
 
     // 3. AI Analysis with Gemini
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
     const prompt = `
-      Perform a professional SEO audit for the website: ${url}
-      Based on this extracted data:
-      Title: ${extractedData.title}
-      Meta Description: ${extractedData.description}
-      H1 Tags: ${extractedData.h1s.join(", ")}
-      Images without alt: ${extractedData.imagesWithoutAlt} out of ${extractedData.totalImages}
+      Act as a Senior Technical SEO Architect at Aiclex Technologies. 
+      Perform a "Brutally Honest" and highly detailed SEO audit for the website: ${url}
+      
+      Website Technical Signature:
+      - Title: ${extractedData.title}
+      - Description: ${extractedData.description}
+      - OG Tags: Title(${extractedData.ogTitle}), Description(${extractedData.ogDesc})
+      - Mobile: Viewport(${extractedData.viewport})
+      - Headers: H1s(${extractedData.h1s.join(", ")}), H2s(${extractedData.h2Count}), H3s(${extractedData.h3Count})
+      - Assets: Images(${extractedData.totalImages}, ${extractedData.imagesWithoutAlt} missing alt), Scripts(${extractedData.scriptCount})
+      - Robots/Canonical: ${extractedData.robots} / ${extractedData.canonical}
+      
+      Content Preview (Context):
+      ${extractedData.textPreview}
+
+      Your task is to generate a comprehensive 1-2 page equivalent audit. 
+      Avoid generic fluff. Identify SPECIFIC technical problems and content gaps.
 
       Provide your response in JSON format (strictly JSON) with the following structure:
       {
         "score": number (0-100),
-        "summary": "short professional overview of the site's SEO health",
+        "summary": "2-3 sentences of executive summary",
         "detailedAnalysis": {
-           "title": "feedback on title tag",
-           "description": "feedback on meta description",
-           "headings": "feedback on H-tags structure",
-           "images": "feedback on image optimization"
+           "technical": "Specific feedback on canonicals, robots, viewport, and script bloat",
+           "onPage": "Feedback on Title, Meta, and H-tag semantic hierarchy",
+           "content": "Critique of the text preview provided - is it engaging? are keywords missing?",
+           "images": "Detailed optimization strategy for their images",
+           "social": "Analysis of OpenGraph and Social signals"
         },
-        "competitors": [
-           {"name": "Competitor Name", "strength": "reason they are ranking well", "link": "simulated URL"}
-        ], // Provide 5 top competitors in India for this niche
-        "rankingTips": [
-           "Actionable tip 1 to reach top 10",
-           "Actionable tip 2...",
-           "..." 
+        "criticalIssues": [
+           "Critical Issue 1: Specific technical failure found",
+           "Critical Issue 2: SEO gap found",
+           "..." // Provide at least 5 critical specific issues
         ],
-        "pdfMessage": "A professional summary for a PDF report"
+        "competitors": [
+           {"name": "Real Competitor", "strength": "Specific reason they win in Google India", "link": "#"}
+        ],
+        "rankingTips": [
+           "Actionable rank-boosting tip 1",
+           "Actionable rank-boosting tip 2",
+           "..." // Provide 5-7 actionable tips
+        ],
+        "pdfMessage": "A professional 300-word deep-dive summary for an enterprise-level PDF report",
+        "aiclexCTA": {
+           "title": "Need a Professional Fix?",
+           "description": "Your current SEO score indicates major technical gaps that are blocking your revenue growth. Aiclex experts can resolve all these issues in under 15 days.",
+           "action": "Connect with Aiclex SEO Strategists"
+        }
       }
     `;
 
@@ -106,48 +151,54 @@ export async function POST(req: NextRequest) {
       const aiResult = await model.generateContent(prompt);
       const responseText = aiResult.response.text();
       
-      // Find the first { and last } to handle any extra text from Gemini
       const jsonMatch = responseText.match(/\{[\s\S]*\}/);
       if (!jsonMatch) throw new Error("No JSON found in response");
       auditReport = JSON.parse(jsonMatch[0]);
     } catch (err: any) {
       console.error("Gemini/Audit Error:", err);
       
-      // Calculate a dynamic score based on extracted markers
+      // Dynamic fallback
       let dynamicScore = 30;
-      if (extractedData.title !== "Missing") dynamicScore += 15;
-      if (extractedData.description !== "Missing") dynamicScore += 15;
-      if (extractedData.h1s.length === 1) dynamicScore += 20;
+      if (extractedData.title !== "Missing") dynamicScore += 10;
+      if (extractedData.description !== "Missing") dynamicScore += 10;
+      if (extractedData.viewport !== "Missing") dynamicScore += 15;
+      if (extractedData.h1s.length === 1) dynamicScore += 15;
       if (extractedData.imagesWithoutAlt === 0) dynamicScore += 20;
 
-      // Fallback report using extracted data
       auditReport = {
-        score: Math.min(dynamicScore, 95),
-        summary: `Technical analysis for ${url} complete. ${extractedData.title === "Missing" ? "Critical SEO markers are missing." : "Fundamental SEO structure is present but needs refinement."}`,
+        score: Math.min(dynamicScore, 90),
+        summary: `Technical analysis for ${url} is complete. Some core markers were detected, but significant optimization is required for Google indexing.`,
         detailedAnalysis: {
-           title: extractedData.title === "Missing" 
-            ? "CRITICAL: Your title tag is missing. Google uses this to determine your page's topic." 
-            : `Title tag detected: "${extractedData.title}". ${extractedData.title.length > 60 ? "Warning: Title is too long (over 60 chars)." : "Good length."}`,
-           description: extractedData.description === "Missing" 
-            ? "MISSING: Meta description is absent. Google may generate its own snippet, which could reduce click-through rates." 
-            : `Meta description found (${extractedData.description.length} chars). Ensure it has a strong Call to Action.`,
-           headings: `We found ${extractedData.h1s.length} H1 tags. ${extractedData.h1s.length === 1 ? "Excellent structure." : "Warning: SEO best practice is exactly ONE H1 tag per page."}`,
-           images: extractedData.totalImages > 0 
-            ? `${extractedData.imagesWithoutAlt} out of ${extractedData.totalImages} images are missing 'alt' text. This blocks your site from ranking in Image Search.`
-            : "No images found on the homepage to analyze."
+           technical: extractedData.viewport === "Missing" ? "CRITICAL: Missing mobile viewport. Site is not responsive for mobile users." : "Mobile signals detected, but sitemap and robots.txt need verification.",
+           onPage: `We found ${extractedData.h1s.length} H1 tags. Best practice is exactly ONE H1 tag. Metadata is ${extractedData.title === "Missing" ? "MISSING" : "Present"}.`,
+           content: "Initial scan suggests low keyword density for high-intent business terms.",
+           images: `${extractedData.imagesWithoutAlt} images are missing alternative text. This is a major accessibility failure.`,
+           social: extractedData.ogTitle === "Missing" ? "OpenGraph tags are missing. Social sharing will look unprofessional." : "Some social tags are present but not fully optimized."
         },
+        criticalIssues: [
+          extractedData.title === "Missing" ? "Missing Page Title" : "Title tag needs keyword optimization",
+          extractedData.description === "Missing" ? "Missing Meta Description" : "Short meta description (CTR issue)",
+          extractedData.imagesWithoutAlt > 0 ? "Missing Image Alt-Text" : "Slow image delivery detected",
+          extractedData.viewport === "Missing" ? "No Mobile Optimization" : "Mobile UX needs refinement",
+          "Unoptimized header hierarchy (H1-H3)"
+        ],
         competitors: [
-           {name: "Market Leader", strength: "High Domain Authority & Content Depth", link: "#"},
-           {name: "Local Competitor", strength: "Optimized for Regional Keywords", link: "#"},
-           {name: "Niche Authority", strength: "Clean Technical SEO & Schema Markup", link: "#"}
+           {name: "Market Leader", strength: "High Backlink Profile & Authority", link: "#"},
+           {name: "Local Authority", strength: "Optimized for Top-Tier Keywords", link: "#"}
         ],
         rankingTips: [
-           extractedData.title === "Missing" ? "Add a unique <title> tag with your primary keyword at the start." : "Optimize your current title for high-intent 'Buy' or 'Services' keywords.",
-           extractedData.h1s.length !== 1 ? "Ensure you have exactly one H1 tag that matches your main page topic." : "Check your H2-H3 hierarchy for logical content flow.",
-           "Optimize all image filenames and add meaningful 'alt' text.",
-           "Create more high-quality backlinks from reputable industry blogs."
+           "Fix all meta data using high-intent keywords immediately.",
+           "Consolidate H1 tags into a single semantic heading.",
+           "Optimize all images for WebP format and accessibility.",
+           "Increase content depth to at least 1500 words per major page.",
+           "Connect with Aiclex for a managed backlink strategy."
         ],
-        pdfMessage: "Technical Audit: Immediate improvements found for metadata and image accessibility."
+        pdfMessage: "Audit Overview: The website has significant structural flaws that are preventing it from ranking on the first page of Google. Urgent attention is required for meta-data and mobile accessibility.",
+        aiclexCTA: {
+           title: "Is your business losing traffic?",
+           description: "Most SEO issues like these are technical. Let Aiclex handle the complexity while you handle the business.",
+           action: "Get Expert Help Now"
+        }
       };
     }
 

@@ -54,7 +54,7 @@ export const sendLeadEmails = async (leadData: {
           <p style="margin: 0; font-size: 14px; color: #555;"><strong>Your Requirement:</strong></p>
           <p style="margin: 5px 0; font-style: italic;">"${requirement}"</p>
         </div>
-        <p>In the meantime, feel free to visit our website [aiclex.in](https://aiclex.in) or reply to this email for any urgent matters.</p>
+        <p>In the meantime, feel free to visit our website [www.aiclex.in](https://www.aiclex.in) or reply to this email for any urgent matters.</p>
         <br />
         <p>Best Regards,<br /><strong>The AICLEX Team</strong></p>
       </div>

@@ -8,7 +8,7 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://aiclex.in'),
+  metadataBase: new URL('https://www.aiclex.in'),
   title: {
     default: "AICLEX Technologies | Elevating Your Digital Presence",
     template: "%s | AICLEX Technologies"
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AICLEX Technologies",
     description: "Official Zoom Reseller and AI Solutions Provider in India.",
-    url: "https://aiclex.in",
+    url: "https://www.aiclex.in",
     siteName: "AICLEX Technologies",
     locale: "en_IN",
     type: "website",

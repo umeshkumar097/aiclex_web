@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: data.description,
     keywords: [data.keyword, "Zoom Reseller India", "Zoom Partner", "AICLEX Technologies"],
     alternates: {
-       canonical: `/solutions/${slug}`
+       canonical: `https://www.aiclex.in/solutions/${slug}`
     }
   };
 }
