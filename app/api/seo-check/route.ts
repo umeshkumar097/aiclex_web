@@ -123,10 +123,16 @@ export async function POST(req: NextRequest) {
            "images": "Detailed optimization strategy for their images",
            "social": "Analysis of OpenGraph and Social signals"
         },
+        "premiumMetrics": {
+           "estimatedDA": number (1-100),
+           "linkingDomains": number (estimated backlink strength),
+           "spamScore": number (0-100),
+           "rankingKeywords": ["Keyword 1", "Keyword 2", "Keyword 3", "Keyword 4", "Keyword 5"],
+           "visibilityTrend": [number, number, number, number, number, number] 
+        },
         "criticalIssues": [
-           "Critical Issue 1: Specific technical failure found",
-           "Critical Issue 2: SEO gap found",
-           "..." // Provide at least 5 critical specific issues
+           "CRITICAL: Your website is losing customers due to [Problem Found]",
+           "..." // Provide 5-7 critical specific issues
         ],
         "competitors": [
            {"name": "Real Competitor", "strength": "Specific reason they win in Google India", "link": "#"}
@@ -138,9 +144,9 @@ export async function POST(req: NextRequest) {
         ],
         "pdfMessage": "A professional 300-word deep-dive summary for an enterprise-level PDF report",
         "aiclexCTA": {
-           "title": "Need a Professional Fix?",
+           "title": "Your website is losing customers ⚠️",
            "description": "Your current SEO score indicates major technical gaps that are blocking your revenue growth. Aiclex experts can resolve all these issues in under 15 days.",
-           "action": "Connect with Aiclex SEO Strategists"
+           "action": "Scale with Aiclex SEO™"
         }
       }
     `;

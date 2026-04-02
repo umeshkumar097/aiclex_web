@@ -61,7 +61,7 @@ export default function Hero() {
           </motion.div>
 
           <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-            At <span className="font-bold">AICLEX TECHNOLOGS</span>, we empower
+            At <span className="font-bold">AICLEX™ TECHNOLOGIES</span>, we empower
             businesses with innovative brand development strategies. Our expert
             team will help you build a strong presence.
           </p>

@@ -4,31 +4,74 @@ import { motion } from "framer-motion";
 import { 
   Sparkles, 
   MessageSquare, 
-  Image as ImageIcon, 
   ArrowRight,
   Search,
   CheckCircle,
-  Zap
+  Zap,
+  Calculator,
+  BarChart3,
+  TrendingUp,
+  Layers
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
 const TOOLS = [
   {
-    title: "AI Marketing Assistant",
-    description: "Generate high-converting social media captions and marketing strategy for the Indian market in seconds.",
-    href: "/free-tools/ai-marketing-assistant",
-    icon: <MessageSquare className="w-8 h-8 text-blue-500" />,
-    tag: "Marketing AI",
+    title: "Website SEO Audit (Moz-Style)",
+    description: "Deep technical analysis with DA prediction, keyword tracking, and spam risk score. Fix issues losing you customers.",
+    href: "/free-tools/ai-seo-checker",
+    icon: <BarChart3 className="w-8 h-8 text-blue-600" />,
+    tag: "Technical SEO",
     gradient: "from-blue-50 to-indigo-50"
   },
   {
-    title: "Product Background Changer",
-    description: "Instantly remove and change backgrounds from your product photos using advanced AI. Perfect for E-commerce.",
-    href: "/free-tools/product-background-changer",
-    icon: <ImageIcon className="w-8 h-8 text-orange-500" />,
-    tag: "E-commerce AI",
-    gradient: "from-orange-50 to-pink-50"
+    title: "Webinar Profit Calculator",
+    description: "Analyze your webinar's potential ROI. Calculate revenue, ad spend targets, and net profit in one click.",
+    href: "/free-tools/webinar-profit-calculator",
+    icon: <Calculator className="w-8 h-8 text-green-500" />,
+    tag: "Marketing Tool",
+    gradient: "from-green-50 to-emerald-50"
+  },
+  {
+    title: "WhatsApp Funnel Generator",
+    description: "Use AI to build a 5-day high-converting WhatsApp automation script for your specific business niche.",
+    href: "/free-tools/whatsapp-funnel-generator",
+    icon: <MessageSquare className="w-8 h-8 text-indigo-500" />,
+    tag: "Aiclex™ Exclusive",
+    gradient: "from-indigo-50 to-purple-50"
+  },
+  {
+    title: "Ads ROI Calculator",
+    description: "Are your ads profitable? Track ROAS, CAC, and Revenue leakage hooks to optimize your budget.",
+    href: "/free-tools/ads-roi-calculator",
+    icon: <TrendingUp className="w-8 h-8 text-purple-600" />,
+    tag: "Ads Growth",
+    gradient: "from-purple-50 to-fuchsia-50"
+  },
+  {
+    title: "Lead Cost (CPL) Checker",
+    description: "Stop overpaying for leads. Compare your CPL against Indian industry benchmarks and reduce leakage.",
+    href: "/free-tools/lead-cost-calculator",
+    icon: <Zap className="w-8 h-8 text-orange-500" />,
+    tag: "Benchmarking",
+    gradient: "from-orange-50 to-amber-50"
+  },
+  {
+    title: "Viral Headline Generator",
+    description: "Generate 10+ scroll-stopping headlines and reel hooks for your business niche using Gemini AI.",
+    href: "/free-tools/headline-generator",
+    icon: <Sparkles className="w-8 h-8 text-pink-500" />,
+    tag: "Copywriting AI",
+    gradient: "from-pink-50 to-rose-50"
+  },
+  {
+    title: "Funnel Builder Quiz",
+    description: "Answer 3 quick questions to discover the perfect marketing funnel strategy to scale your business.",
+    href: "/free-tools/funnel-builder-quiz",
+    icon: <Layers className="w-8 h-8 text-cyan-600" />,
+    tag: "Strategy Tool",
+    gradient: "from-cyan-50 to-sky-50"
   }
 ];
 

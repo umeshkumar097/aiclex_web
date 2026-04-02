@@ -74,7 +74,7 @@ export default function Footer() {
 
           <p className="text-[15px] leading-relaxed text-black">
             Elevate your brand with{" "}
-            <span className="font-bold">AICLEX TECHNOLOGIES!</span>
+            <span className="font-bold">AICLEX™ TECHNOLOGIES!</span>
             Our comprehensive brand development strategies are designed to make
             your business stand out.
           </p>

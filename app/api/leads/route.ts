@@ -1,67 +1,34 @@
-import { NextRequest, NextResponse } from "next/server";
-import pool from "@/lib/db";
-import { sendLeadEmails } from "@/lib/mail";
+import { NextResponse } from "next/server";
+import { saveLead } from "@/lib/leads";
 
-// GET All Leads (For Admin CRM)
-export async function GET(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const { searchParams } = new URL(req.url);
-    const name = searchParams.get("name") || "";
-    const phone = searchParams.get("phone") || "";
-    const date = searchParams.get("date") || "";
+    const body = await req.json();
+    const { name, email, whatsapp, requirement, source } = body;
 
-    let query = "SELECT * FROM leads WHERE 1=1";
-    const params: any[] = [];
-
-    if (name) {
-      params.push(`%${name}%`);
-      query += ` AND name ILIKE $${params.length}`;
-    }
-    if (phone) {
-      params.push(`%${phone}%`);
-      query += ` AND phone ILIKE $${params.length}`;
-    }
-    if (date) {
-      params.push(date);
-      query += ` AND created_at::date = $${params.length}`;
+    if (!name || !whatsapp || !requirement || !source) {
+      return NextResponse.json(
+        { error: "Missing required fields: name, whatsapp, requirement, source" },
+        { status: 400 }
+      );
     }
 
-    query += " ORDER BY created_at DESC";
+    const result = await saveLead({
+      name,
+      email,
+      whatsapp,
+      requirement,
+      source,
+      status: "new"
+    });
 
-    const result = await pool.query(query, params);
-    return NextResponse.json(result.rows);
+    if (result.success) {
+      return NextResponse.json({ success: true, id: result.id });
+    } else {
+      return NextResponse.json({ error: result.error }, { status: 500 });
+    }
   } catch (error) {
-    console.error("Database Error:", error);
-    return NextResponse.json({ error: "Failed to fetch leads" }, { status: 500 });
-  }
-}
-
-// POST New Lead (From Front-end Forms)
-export async function POST(req: NextRequest) {
-  try {
-    const { name, email, phone, type, requirement, source_page } = await req.json();
-
-    if (!name || !phone || !type) {
-      return NextResponse.json({ error: "Required fields missing" }, { status: 400 });
-    }
-
-    const query = `
-      INSERT INTO leads (name, email, phone, type, requirement, source_page)
-      VALUES ($1, $2, $3, $4, $5, $6)
-      RETURNING *
-    `;
-    const result = await pool.query(query, [name, email, phone, type, requirement, source_page || 'Direct/Unknown']);
-
-    // Trigger Email Notifications (Awaited for reliability)
-    try {
-      await sendLeadEmails({ name, email, phone, type, requirement, source_page });
-    } catch (e) {
-      console.error("Email trigger failed:", e);
-    }
-
-    return NextResponse.json(result.rows[0], { status: 201 });
-  } catch (error) {
-    console.error("Submission Error:", error);
-    return NextResponse.json({ error: "Failed to submit lead" }, { status: 500 });
+    console.error("API Lead Error:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

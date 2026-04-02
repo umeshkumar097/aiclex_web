@@ -94,9 +94,23 @@ export default function AiSeoChecker() {
     const summaryLines = doc.splitTextToSize(auditReport.summary, pageWidth - 40);
     doc.text(summaryLines, 20, 92);
 
-    // 5. Analysis Table
+    // 5. Premium Metrics Table
     autoTable(doc, {
       startY: 110,
+      head: [["Metric", "Aiclex™ AI Prediction", "Status"]],
+      body: [
+        ["Domain Authority (DA)", `${auditReport.premiumMetrics?.estimatedDA || "N/A"}/100`, auditReport.premiumMetrics?.estimatedDA > 50 ? "Healthy" : "Needs Growth"],
+        ["Linking Domains", auditReport.premiumMetrics?.linkingDomains || "0", "Analysis Complete"],
+        ["Spam Risk Score", `${auditReport.premiumMetrics?.spamScore || "1"}%`, auditReport.premiumMetrics?.spamScore < 10 ? "Safe" : "High Risk"],
+        ["Ranking Keywords", auditReport.premiumMetrics?.rankingKeywords?.length || "0", "Top 50 Results"],
+      ],
+      headStyles: { fillColor: [0, 19, 65] },
+      styles: { fontSize: 9, cellPadding: 5 }
+    });
+
+    // 6. Analysis Table
+    autoTable(doc, {
+      startY: (doc as any).lastAutoTable.finalY + 10,
       head: [["Category", "Expert Auditor Feedback"]],
       body: [
         ["Technical SEO", auditReport.detailedAnalysis.technical],
@@ -293,121 +307,193 @@ export default function AiSeoChecker() {
                         </motion.form>
                     )}
 
-                    {/* STEP 3: RESULT DASHBOARD */}
-                    {step === 3 && auditReport && (
-                        <motion.div 
-                            key="step3" 
-                            initial={{ opacity: 0, scale: 0.95 }} 
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="space-y-12"
-                        >
-                            {/* Score Card */}
-                            <div className="flex flex-col md:flex-row items-center gap-8 justify-between bg-blue-600 p-8 rounded-[2rem] text-white">
-                                <div className="text-center md:text-left">
-                                    <h3 className="text-5xl font-black">{auditReport.score}/100</h3>
-                                    <p className="text-blue-100 font-black uppercase tracking-widest text-[10px]">Aiclex SEO Health Score</p>
-                                </div>
-                                <div className="text-center md:text-left flex-1 border-l border-white/20 pl-0 md:pl-8">
-                                    <p className="font-bold text-lg leading-relaxed">"{auditReport.summary}"</p>
-                                </div>
-                                <button onClick={generatePDF} className="shrink-0 p-5 bg-white text-blue-600 rounded-2xl font-black shadow-xl hover:bg-blue-50 transition-all flex items-center gap-2 group">
-                                    <Download size={20} className="group-hover:translate-y-1 transition-transform" /> DOWNLOAD PDF
-                                </button>
-                            </div>
-
-                            {/* Critical Top Fixes */}
-                            <div className="bg-red-50 border-2 border-red-100 p-8 rounded-[2rem] space-y-4">
-                                <h4 className="text-red-600 font-black flex items-center gap-2 uppercase text-xs tracking-widest">
-                                    <AlertCircle size={18} /> Fix Immediately: Critical Technical Issues
-                                </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {auditReport.criticalIssues?.map((issue: string, i: number) => (
-                                        <div key={i} className="flex gap-3 items-start text-red-900/80 font-bold text-sm">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-red-400 mt-1.5 shrink-0" />
-                                            {issue}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Detailed Analysis Grill */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-blue-700 font-black uppercase text-[10px] tracking-widest">
-                                        <Zap size={14} /> Technical SEO
-                                    </div>
-                                    <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.technical}</p>
-                                </div>
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-indigo-700 font-black uppercase text-[10px] tracking-widest">
-                                        <TrendingUp size={14} /> On-Page Hierarchy
-                                    </div>
-                                    <p className="text-gray-700 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.onPage}</p>
-                                </div>
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-emerald-700 font-black uppercase text-[10px] tracking-widest">
-                                        <Sparkles size={14} /> Content Quality
-                                    </div>
-                                    <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.content}</p>
-                                </div>
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-orange-700 font-black uppercase text-[10px] tracking-widest">
-                                        <Search size={14} /> Image Optimization
-                                    </div>
-                                    <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.images}</p>
-                                </div>
-                                <div className="p-6 bg-gray-50 rounded-3xl space-y-3">
-                                    <div className="flex items-center gap-2 text-purple-700 font-black uppercase text-[10px] tracking-widest">
-                                        <Globe size={14} /> Social Signals
-                                    </div>
-                                    <p className="text-gray-700 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.social}</p>
-                                </div>
-                                <div className="p-6 bg-blue-50 rounded-3xl space-y-3 border border-blue-100 flex flex-col justify-center text-center">
-                                    <p className="text-blue-600 font-black uppercase text-[10px] tracking-widest">Report Depth</p>
-                                    <p className="text-blue-900 font-bold text-lg leading-tight">Comprehensive AI Audit Strategy</p>
-                                </div>
-                            </div>
-
-                            {/* Managed Ranking Strategy */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="p-8 bg-[#001341] text-white rounded-[2rem] space-y-6">
-                                    <h3 className="text-xl font-black flex items-center gap-3">
-                                        <BarChart3 className="text-blue-400" /> Rank Top 10 Action Plan
-                                    </h3>
-                                    <div className="space-y-4">
-                                    {auditReport.rankingTips.map((tip: string, i: number) => (
-                                        <div key={i} className="flex gap-4 items-start bg-white/5 p-4 rounded-xl border border-white/10">
-                                            <div className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-black text-[10px] shrink-0 mt-0.5">{i+1}</div>
-                                            <p className="text-white/70 font-medium text-xs leading-relaxed">{tip}</p>
-                                        </div>
-                                    ))}
-                                    </div>
-                                </div>
-
-                                <div className="p-8 bg-gradient-to-br from-blue-700 to-indigo-800 text-white rounded-[2rem] space-y-6 flex flex-col justify-between shadow-2xl shadow-blue-900/20">
-                                    <div className="space-y-4">
-                                        <div className="inline-flex px-3 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase">Expert Intervention</div>
-                                        <h3 className="text-3xl font-black">{auditReport.aiclexCTA.title}</h3>
-                                        <p className="text-blue-100 font-medium leading-relaxed">
-                                            {auditReport.aiclexCTA.description}
-                                        </p>
-                                    </div>
-                                    
-                                    <a 
-                                        href="https://wa.me/919773725175?text=Hi, My website SEO score is low. Please help me fix it." 
-                                        target="_blank"
-                                        className="w-full py-4 bg-white text-blue-700 rounded-xl font-black text-center shadow-lg hover:scale-[1.02] transition-transform flex items-center justify-center gap-2"
-                                    >
-                                        {auditReport.aiclexCTA.action} <ArrowRight size={18} />
-                                    </a>
-                                </div>
-                            </div>
-
-                            <button onClick={() => setStep(1)} className="w-full text-center text-gray-400 font-bold hover:text-blue-600 transition-colors uppercase text-xs tracking-widest">
-                                ← Audit Another Website
-                            </button>
-                        </motion.div>
+            {/* STEP 3: RESULT DASHBOARD */}
+            {step === 3 && auditReport && (
+                <motion.div 
+                    key="step3" 
+                    initial={{ opacity: 0, scale: 0.95 }} 
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="space-y-10"
+                >
+                    {/* Urgency Alert Hook */}
+                    {auditReport.score < 70 && (
+                      <div className="bg-orange-50 border-2 border-orange-100 p-6 rounded-2xl flex items-center gap-4 animate-pulse">
+                        <div className="h-12 w-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center shrink-0">
+                          <AlertCircle size={28} />
+                        </div>
+                        <div>
+                          <h4 className="text-orange-900 font-black text-lg">Your website is losing customers ⚠️</h4>
+                          <p className="text-orange-700 text-sm font-medium">Critical technical gaps are preventing potential clients from finding you on Google.</p>
+                        </div>
+                      </div>
                     )}
+
+                    {/* Moz-Style Premium Summary Cards */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl transition-all group">
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Domain Authority</p>
+                            <div className="flex items-end gap-2">
+                                <h3 className="text-4xl font-black text-[#001341]">{auditReport.premiumMetrics?.estimatedDA || "N/A"}</h3>
+                                <span className="text-[10px] font-bold text-gray-400 mb-1.5 italic">Aiclex™ Prediction</span>
+                            </div>
+                            <div className="mt-4 h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
+                                <motion.div initial={{ width: 0 }} animate={{ width: `${auditReport.premiumMetrics?.estimatedDA}%` }} className="h-full bg-blue-600" />
+                            </div>
+                        </div>
+                        <div className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl transition-all">
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Linking Domains</p>
+                            <h3 className="text-4xl font-black text-[#001341]">{auditReport.premiumMetrics?.linkingDomains || "0"}</h3>
+                            <p className="text-[10px] font-bold text-green-600 mt-2 flex items-center gap-1"><TrendingUp size={12} /> High growth potential</p>
+                        </div>
+                        <div className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl transition-all">
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Ranking Keywords</p>
+                            <h3 className="text-4xl font-black text-[#001341]">{auditReport.premiumMetrics?.rankingKeywords?.length || "0"}</h3>
+                            <p className="text-[10px] font-bold text-gray-400 mt-2">Identified in top 50 Results</p>
+                        </div>
+                        <div className="bg-white border border-gray-100 p-6 rounded-3xl shadow-sm hover:shadow-xl transition-all">
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Spam Risk Score</p>
+                            <h3 className={`text-4xl font-black ${auditReport.premiumMetrics?.spamScore > 20 ? "text-red-500" : "text-green-500"}`}>
+                                {auditReport.premiumMetrics?.spamScore || "1"}%
+                            </h3>
+                            <p className="text-[10px] font-bold text-gray-400 mt-2">Backlink profile health</p>
+                        </div>
+                    </div>
+
+                    {/* Visibility Chart & Score Section */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div className="lg:col-span-4 bg-[#001341] p-10 rounded-[2.5rem] text-white flex flex-col justify-center text-center md:text-left relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-8 opacity-10">
+                              <Zap size={120} />
+                            </div>
+                            <h3 className="text-6xl font-black mb-2">{auditReport.score}/100</h3>
+                            <p className="text-blue-300 font-black uppercase tracking-widest text-xs mb-6">Aggregate SEO Score</p>
+                            <p className="text-lg font-bold leading-relaxed mb-8">"{auditReport.summary}"</p>
+                            <button onClick={generatePDF} className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black shadow-xl hover:bg-blue-500 transition-all flex items-center justify-center gap-3 active:scale-95">
+                                <Download size={20} /> Get Full Report Tool
+                            </button>
+                        </div>
+
+                        <div className="lg:col-span-8 bg-white border border-gray-100 p-10 rounded-[2.5rem] space-y-6">
+                            <div className="flex justify-between items-center">
+                                <h4 className="text-xl font-black text-[#001341] flex items-center gap-2">
+                                  <BarChart3 className="text-blue-600" /> Potential Visibility Trend
+                                </h4>
+                                <span className="px-3 py-1 bg-green-50 text-green-600 rounded-full text-[10px] font-black uppercase">Optimized Growth</span>
+                            </div>
+                            <div className="h-48 w-full bg-gray-50 rounded-3xl relative p-6 flex items-end justify-between overflow-hidden">
+                                {auditReport.premiumMetrics?.visibilityTrend?.map((val: number, i: number) => (
+                                  <motion.div 
+                                    key={i}
+                                    initial={{ height: 0 }}
+                                    animate={{ height: `${val}%` }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className="w-[12%] bg-gradient-to-t from-blue-600 to-indigo-400 rounded-t-xl relative group"
+                                  >
+                                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#001341] text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                      {val}%
+                                    </div>
+                                  </motion.div>
+                                ))}
+                            </div>
+                            <div className="flex justify-between text-[10px] font-black text-gray-400 uppercase tracking-widest px-2">
+                                <span>Month 1</span>
+                                <span>Month 3</span>
+                                <span>Month 6 (Projected)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Critical Issues & Competitors */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="bg-red-50 border-2 border-red-100 p-10 rounded-[2.5rem] space-y-6">
+                            <h4 className="text-red-700 font-black flex items-center gap-2 uppercase text-xs tracking-widest">
+                                <AlertCircle size={20} /> Losing Revenue: Critical Fixes
+                            </h4>
+                            <div className="space-y-4">
+                                {auditReport.criticalIssues?.slice(0, 5).map((issue: string, i: number) => (
+                                    <div key={i} className="flex gap-4 items-start bg-white/50 p-4 rounded-xl border border-red-50">
+                                        <div className="h-2 w-2 rounded-full bg-red-500 mt-1.5 shrink-0" />
+                                        <p className="text-red-900/80 font-bold text-sm leading-relaxed">{issue}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="bg-white border-2 border-gray-100 p-10 rounded-[2.5rem] space-y-6">
+                            <h4 className="text-[#001341] font-black flex items-center gap-2 uppercase text-xs tracking-widest">
+                                <Users size={20} className="text-blue-500" /> Regional Competitors
+                            </h4>
+                            <div className="space-y-4">
+                                {auditReport.competitors?.map((comp: any, i: number) => (
+                                    <div key={i} className="flex justify-between items-center p-5 bg-gray-50 rounded-2xl group hover:bg-[#001341] hover:text-white transition-all cursor-pointer border border-transparent hover:border-blue-500">
+                                        <div className="space-y-1">
+                                            <p className="font-black text-sm">{comp.name}</p>
+                                            <p className="text-[10px] font-bold text-gray-400 group-hover:text-blue-200 uppercase">{comp.strength}</p>
+                                        </div>
+                                        <ArrowRight size={18} className="text-gray-300 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                                    </div>
+                                ))}
+                            </div>
+                            <p className="text-[10px] text-gray-400 text-center font-bold italic pt-2">Competitors identified based on shared technical keywords</p>
+                        </div>
+                    </div>
+
+                    {/* Detailed Analysis Grill */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="p-8 bg-gray-50 rounded-[2rem] space-y-3 hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-blue-50">
+                            <div className="flex items-center gap-2 text-blue-700 font-black uppercase text-[10px] tracking-widest">
+                                <Zap size={14} /> Technical SEO
+                            </div>
+                            <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.technical}</p>
+                        </div>
+                        <div className="p-8 bg-gray-50 rounded-[2rem] space-y-3 hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-indigo-50">
+                            <div className="flex items-center gap-2 text-indigo-700 font-black uppercase text-[10px] tracking-widest">
+                                <TrendingUp size={14} /> On-Page Hierarchy
+                            </div>
+                            <p className="text-gray-700 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.onPage}</p>
+                        </div>
+                        <div className="p-8 bg-gray-50 rounded-[2rem] space-y-3 hover:bg-white hover:shadow-xl transition-all border border-transparent hover:border-emerald-50">
+                            <div className="flex items-center gap-2 text-emerald-700 font-black uppercase text-[10px] tracking-widest">
+                                <Sparkles size={14} /> Content Gap
+                            </div>
+                            <p className="text-gray-600 font-medium text-sm leading-relaxed">{auditReport.detailedAnalysis.content}</p>
+                        </div>
+                    </div>
+
+                    {/* Expert Intervention CTA */}
+                    <div className="bg-gradient-to-br from-blue-700 to-indigo-800 p-12 rounded-[3rem] text-white space-y-8 shadow-2xl relative overflow-hidden">
+                        <div className="absolute bottom-0 right-0 p-12 opacity-10">
+                          <CheckCircle2 size={180} />
+                        </div>
+                        <div className="max-w-2xl relative z-10">
+                            <div className="inline-flex px-4 py-1 bg-white/20 rounded-full text-[10px] font-black uppercase mb-4 tracking-widest">Expert Ranking Intervention</div>
+                            <h3 className="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                                {auditReport.aiclexCTA.title}
+                            </h3>
+                            <p className="text-blue-100 text-lg font-medium leading-relaxed mb-10">
+                                {auditReport.aiclexCTA.description}
+                            </p>
+                        </div>
+                        
+                        <div className="flex flex-col sm:flex-row gap-4 relative z-10">
+                            <a 
+                                href={`https://wa.me/918449488090?text=Hi Aiclex Team, My SEO Score for ${url} is ${auditReport.score}. I want to fix my 'losing customers' issues.`} 
+                                target="_blank"
+                                className="px-10 py-5 bg-white text-blue-700 rounded-2xl font-black text-center shadow-2xl hover:scale-[1.03] transition-all flex items-center justify-center gap-2"
+                            >
+                                {auditReport.aiclexCTA.action} <ArrowRight size={22} />
+                            </a>
+                            <button onClick={generatePDF} className="px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-2xl font-black text-center hover:bg-white/20 transition-all">
+                                View Full Strategy Roadmap
+                            </button>
+                        </div>
+                    </div>
+
+                    <button onClick={() => setStep(1)} className="w-full text-center text-gray-400 font-bold hover:text-[#001341] transition-colors uppercase text-[10px] tracking-[0.2em] pt-8">
+                        ← Analyze Another Property
+                    </button>
+                </motion.div>
+            )}
 
                 </AnimatePresence>
             </div>
