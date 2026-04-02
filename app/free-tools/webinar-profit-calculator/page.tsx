@@ -36,8 +36,10 @@ export default function WebinarProfitCalculator() {
   const sales = Math.round((attendees * conversionRate) / 100);
   const grossRevenue = sales * ticketPrice;
   const netProfit = grossRevenue - adSpend;
-  const roas = adSpend > 0 ? (grossRevenue / adSpend).toFixed(2) : "0.00";
-  const costPerAcquisition = sales > 0 ? (adSpend / sales).toFixed(2) : "0";
+  const roasNum = adSpend > 0 ? (grossRevenue / adSpend) : 0;
+  const roas = roasNum.toFixed(2);
+  const cpaNum = sales > 0 ? (adSpend / sales) : 0;
+  const costPerAcquisition = cpaNum.toFixed(2);
 
   const handleCalculate = () => {
     setLoading(true);
@@ -345,7 +347,7 @@ export default function WebinarProfitCalculator() {
                           </li>
                           <li className="flex items-center gap-3 text-sm font-bold text-[#001341]">
                             <div className="h-6 w-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-[10px]">3</div> 
-                            Reduce CPA to ₹{Math.round(Number(costPerAcquisition) * 0.8)}
+                            Reduce CPA to ₹{Math.round(cpaNum * 0.8)}
                           </li>
                        </ul>
                     </div>

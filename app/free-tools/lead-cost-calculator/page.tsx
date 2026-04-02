@@ -33,11 +33,12 @@ export default function LeadCostCalculator() {
   const [email, setEmail] = useState("");
 
   // Calculations
-  const cpl = leads > 0 ? (adSpend / leads).toFixed(2) : "0";
+  const cplNum = leads > 0 ? (adSpend / leads) : 0;
+  const cpl = cplNum.toFixed(2);
   
   // Benchmark logic (simplified for India)
   const getStatus = () => {
-    const val = Number(cpl);
+    const val = cplNum;
     if (val < 50) return { label: "Excellent", color: "text-green-600", bg: "bg-green-50" };
     if (val < 150) return { label: "Good", color: "text-blue-600", bg: "bg-blue-50" };
     if (val < 400) return { label: "High", color: "text-orange-600", bg: "bg-orange-50" };
@@ -263,7 +264,7 @@ export default function LeadCostCalculator() {
               </div>
 
               {/* Hook: You are overpaying */}
-              {Number(cpl) > 200 && (
+              {cplNum > 200 && (
                 <div className="bg-red-50 border-2 border-red-100 p-10 rounded-[2.5rem] flex items-start gap-6 animate-pulse">
                    <div className="h-16 w-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center shrink-0">
                       <AlertCircle size={32} />

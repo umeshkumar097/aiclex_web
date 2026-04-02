@@ -35,7 +35,8 @@ export default function AdsRoiCalculator() {
 
   // Calculations
   const profit = totalRevenue - adSpend;
-  const roas = adSpend > 0 ? (totalRevenue / adSpend).toFixed(2) : "0.00";
+  const roasNum = adSpend > 0 ? (totalRevenue / adSpend) : 0;
+  const roas = roasNum.toFixed(2);
   const roi = adSpend > 0 ? (((totalRevenue - adSpend) / adSpend) * 100).toFixed(1) : "0";
   const cpl = leads > 0 ? (adSpend / leads).toFixed(2) : "0";
   const cac = sales > 0 ? (adSpend / sales).toFixed(2) : "0";
@@ -164,13 +165,13 @@ export default function AdsRoiCalculator() {
           {step === 2 && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-10 text-center">
               <div className="inline-block p-4 bg-purple-50 text-purple-600 rounded-full font-black text-xs uppercase tracking-widest mb-4">
-                 Analysis Result: {roas > 2 ? "Healthy" : "Low Efficiency"} Campaign
+                 Analysis Result: {roasNum > 2 ? "Healthy" : "Low Efficiency"} Campaign
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="p-8 bg-purple-50 rounded-3xl border border-purple-100">
                   <p className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2">Campaign ROAS</p>
-                  <h3 className={`text-4xl font-black ${roas > 2 ? "text-green-600" : "text-red-600"}`}>{roas}x</h3>
+                  <h3 className={`text-4xl font-black ${roasNum > 2 ? "text-green-600" : "text-red-600"}`}>{roas}x</h3>
                 </div>
                 <div className="p-8 bg-blue-50 rounded-3xl border border-blue-100">
                   <p className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Lead Cost (CPL)</p>
@@ -278,7 +279,7 @@ export default function AdsRoiCalculator() {
               </div>
 
               {/* Hook: Your ads are leaking budget */}
-              {Number(roas) < 3 && (
+              {roasNum < 3 && (
                 <div className="bg-orange-50 border-2 border-orange-100 p-8 rounded-[2rem] flex items-center gap-6">
                    <div className="h-16 w-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center shrink-0">
                       <AlertCircle size={32} />
