@@ -58,6 +58,11 @@ export default function Navbar() {
         { name: "Careers", href: "/career", icon: <Users size={18} aria-hidden="true" /> },
       ],
     },
+    {
+      name: "AI Tools Suite™",
+      href: "/ai-tools",
+      icon: <Sparkles size={18} aria-hidden="true" className="text-orange-500" />,
+    },
     { name: "Contact Us", href: "/contact", icon: <Phone size={18} aria-hidden="true" /> },
   ];
 
