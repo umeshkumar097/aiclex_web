@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar"; // Ensure these match your actual file names
 import Footer from "./Footer"; 
+import CookieConsent from "./CookieConsent";
 
 export default function ClientLayout({
   children,
@@ -16,6 +17,7 @@ export default function ClientLayout({
 
   return (
     <>
+      <CookieConsent />
       {/* 1. Only show Navbar on public pages */}
       {!isDashboard && <Navbar />}
       
