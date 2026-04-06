@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import ZoomLeadForm from "@/components/zoom/ZoomLeadForm";
 import PricingComparison from "@/components/zoom/PricingComparison";
-
 import { 
   Video, 
   Users, 
@@ -31,14 +32,15 @@ import {
   CalendarCheck,
   UserCheck,
   Languages,
-  Monitor
+  Monitor,
+  X as CloseIcon
 } from "lucide-react";
 
 // --- Data: Content Updated According to Your Request ---
 const pricingPlans = [
   {
     id: "basic",
-    title: "Basic",
+    title: "Zoom Basic",
     price: "Free",
     description: "Best for personal use.",
     frequency: "Forever free",
@@ -62,7 +64,7 @@ const pricingPlans = [
   },
   {
     id: "pro",
-    title: "Pro",
+    title: "Zoom Pro",
     price: "Best Discount",
     description: "Best for personal use or small teams.",
     frequency: "Contact sales for pricing",
@@ -89,7 +91,7 @@ const pricingPlans = [
   },
   {
     id: "business",
-    title: "Business",
+    title: "Zoom Business",
     price: "Best Discount",
     description: "Best for larger teams.",
     frequency: "Contact sales for pricing",
@@ -108,7 +110,7 @@ const pricingPlans = [
   },
   {
     id: "enterprise",
-    title: "Enterprise",
+    title: "Zoom Enterprise",
     price: "Custom",
     description: "Best for even larger teams.",
     frequency: "Contact sales for pricing",
@@ -129,9 +131,46 @@ const pricingPlans = [
 ];
 
 export default function PricingSection() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState("");
+
+  const handleOpenModal = (plan: string) => {
+    setSelectedPlan(plan);
+    setModalOpen(true);
+  };
+
   return (
     <section className="w-full py-20 bg-gray-50 mt-8 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden">
       
+      {/* Lead Capture Modal */}
+      <AnimatePresence>
+        {modalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+               onClick={() => setModalOpen(false)}
+               className="absolute inset-0 bg-[#001341]/60 backdrop-blur-md"
+            />
+            <motion.div 
+               initial={{ opacity: 0, scale: 0.9, y: 20 }}
+               animate={{ opacity: 1, scale: 1, y: 0 }}
+               exit={{ opacity: 0, scale: 0.9, y: 20 }}
+               className="relative w-full max-w-xl z-10"
+            >
+              <button 
+                onClick={() => setModalOpen(false)}
+                className="absolute top-6 right-6 text-gray-400 hover:text-[#001341] transition-colors z-20"
+              >
+                <CloseIcon size={24} />
+              </button>
+              <ZoomLeadForm initialPlan={selectedPlan} />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Decorative Blur Backgrounds using Brand Colors */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-96 h-96 bg-[#5271ff]/10 rounded-full blur-[100px]"></div>
@@ -170,7 +209,7 @@ export default function PricingSection() {
               {/* Popular Badge */}
               {plan.isPopular && (
                 <div className="absolute top-6 right-6 bg-gradient-to-r from-[#5271ff] to-[#ff914d] text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-md">
-                  Most Popular
+                   Most Popular
                 </div>
               )}
 
@@ -192,6 +231,7 @@ export default function PricingSection() {
 
                 {/* Main Action Button */}
                 <button
+                  onClick={() => handleOpenModal(plan.title)}
                   className={`w-full py-4 rounded-full font-bold cursor-pointer text-sm transition-all duration-300 active:scale-95 shadow-lg ${
                     plan.theme === "brand"
                       ? "bg-[#5271ff] text-white hover:bg-[#001341]"
@@ -205,7 +245,7 @@ export default function PricingSection() {
               </div>
 
               {/* Divider */}
-              <div className="w-full h-px bg-gray-100 mb-8"></div>
+              <div className="w-full h-px bg-gray-100 mb-8 mt-8"></div>
 
               {/* Features List with Specific Icons */}
               <div className="flex-grow">

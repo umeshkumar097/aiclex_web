@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { CheckCircle, Send, Loader2 } from "lucide-react";
 
-export default function ZoomLeadForm() {
+export default function ZoomLeadForm({ initialPlan }: { initialPlan?: string }) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -18,6 +18,7 @@ export default function ZoomLeadForm() {
       phone: target.phone.value,
       type: "Zoom",
       requirement: `Plan: ${target.plan.value}`,
+      source: "zoom_reseller",
       source_page: window.location.pathname
     };
 
@@ -36,7 +37,7 @@ export default function ZoomLeadForm() {
   };
 
   return (
-    <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-gray-50 sticky top-28">
+    <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-gray-50">
       <h3 className="text-2xl font-bold text-[#001341] mb-6">Get a Customized Zoom Quote</h3>
       <p className="text-gray-500 text-sm mb-8 italic">Fill the form below and our Zoom Product Specialist will contact you within 30 minutes for Zoom reselling inquiries.</p>
       
@@ -70,11 +71,15 @@ export default function ZoomLeadForm() {
             </div>
             <div className="space-y-1">
               <label htmlFor="zoom-plan" className="sr-only">Select Zoom Plan</label>
-              <select id="zoom-plan" name="plan" className="w-full p-4 bg-gray-50 rounded-2xl outline-none text-gray-400">
-                  <option>Zoom Meetings (10-100 Licensed Users)</option>
-                  <option>Zoom Webinar (500+ Attendees)</option>
-                  <option>Zoom Rooms / Workspace</option>
-                  <option>Zoom Phone Implementation</option>
+              <select id="zoom-plan" name="plan" defaultValue={initialPlan || "Zoom Meetings (10-100 Licensed Users)"} className="w-full p-4 bg-gray-50 rounded-2xl outline-none text-gray-400">
+                  <option value="Zoom Meetings (10-100 Licensed Users)">Zoom Meetings (10-100 Licensed Users)</option>
+                  <option value="Zoom Webinar (500+ Attendees)">Zoom Webinar (500+ Attendees)</option>
+                  <option value="Zoom Rooms / Workspace">Zoom Rooms / Workspace</option>
+                  <option value="Zoom Phone Implementation">Zoom Phone Implementation</option>
+                  <option value="Zoom Basic">Zoom Basic</option>
+                  <option value="Zoom Pro">Zoom Pro</option>
+                  <option value="Zoom Business">Zoom Business</option>
+                  <option value="Zoom Enterprise">Zoom Enterprise</option>
               </select>
             </div>
             <button 
