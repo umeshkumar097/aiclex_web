@@ -42,6 +42,9 @@ export const metadata: Metadata = {
     title: "AICLEX Technologies",
     description: "Official Zoom Reseller and AI Solutions Provider in India.",
   },
+  verification: {
+    google: "UmwQdEsVEUPUkavhn1dpxw8NcABZMiWunsWpQBpKjTo",
+  },
 };
 
 export default function RootLayout({
