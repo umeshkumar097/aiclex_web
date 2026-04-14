@@ -30,40 +30,38 @@ export default function Hero() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-5xl md:text-6xl font-bold leading-[1.05]">
-            We Help to <br />
-            Grow Your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-6xl md:text-7xl lg:text-8xl">
-              Business
+          <h1 className="text-4xl md:text-6xl font-black leading-[1.05] tracking-tight">
+            We Build <br />
+            AI-Powered <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-6xl md:text-8xl">
+              Products
             </span>
           </h1>
 
-          <p className="text-3xl md:text-4xl font-semibold flex items-center gap-4 text-orange-600 tracking-tight">
+          <p className="text-2xl md:text-3xl font-bold flex items-center gap-4 text-orange-600 tracking-tight">
             <span className="w-10 md:w-14 h-2 mt-1 rounded-full bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-300"></span>
-            Marketing Solution
+            & Scale Businesses
           </p>
 
           <motion.div
-            initial={{ x: -50, opacity: 0 }}
+            initial={{ x: -100, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <LayoutTextFlip
-              text=""
+              text="with"
               words={[
-                "Google Ads",
-                "Facebook Ads",
-                "Snapchat Ads",
-                "Web Development",
+                "AI Development",
+                "SaaS Solutions",
+                "Lead Intelligence",
+                "Zoom Integration",
               ]}
             />
           </motion.div>
 
-          <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-            At <span className="font-bold">AICLEX™ TECHNOLOGIES</span>, we empower
-            businesses with innovative brand development strategies. Our expert
-            team will help you build a strong presence.
+          <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed max-w-xl">
+            Aiclex Technologies is an <span className="font-bold text-[#001341]">AI-First Product Studio</span>. We leverage the same logic and intelligence layer used in our own global SaaS ventures to help your business dominate the digital landscape.
           </p>
 
           {/* REVIEWS + CTA */}

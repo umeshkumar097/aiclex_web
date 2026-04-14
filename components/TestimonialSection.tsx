@@ -14,15 +14,6 @@ const testimonials = [
     rating: 5,
   },
   {
-    id: 2,
-    name: "Eric S. Yuan ",
-    type: "Zoom Services ",
-    company: "Zoom CEO ",
-    image: "/testimonial/yuan.webp",
-    quote: "Aiclex has shown impressive understanding and execution of Zoom-related services. Their team handles integrations and setup with great accuracy and reliability. It’s always good to see partners who maintain such high standards. ",
-    rating: 5,
-  },
-  {
     id: 3,
     name: "Sachin Gupta ",
     type: "Lead Generation",

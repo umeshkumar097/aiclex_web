@@ -23,9 +23,9 @@ type FAQItem = {
 const features = [
   {
     icon: <Clock className="w-8 h-8 text-white" />,
-    title: "Decade of Expertise",
+    title: "AI-First Innovation",
     description:
-      "With extensive industry experience, we have honed our skills to provide top-tier digital design and marketing strategies.",
+      "We build and scale businesses using the same advanced AI technologies and data-driven strategies that power our own high-growth products.",
   },
   {
     icon: <Zap className="w-8 h-8 text-white" />,

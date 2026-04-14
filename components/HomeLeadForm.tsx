@@ -145,6 +145,25 @@ export default function HomeLeadForm({
           {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Send size={18} aria-hidden="true" />}
           Get Instant Proposal
         </button>
+
+        <div className="relative flex items-center py-2">
+            <div className="flex-grow border-t border-gray-100"></div>
+            <span className="flex-shrink mx-4 text-xs font-bold text-gray-300 uppercase tracking-widest">OR</span>
+            <div className="flex-grow border-t border-gray-100"></div>
+        </div>
+
+        <a 
+          href="https://calendly.com/aiclex/discovery-call" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="w-full bg-blue-50 text-[#5271ff] py-4 rounded-2xl font-bold hover:bg-blue-100 transition-all flex items-center justify-center gap-2 group"
+        >
+          <span className="group-hover:scale-110 transition-transform">📅</span>
+          Schedule a Strategy Call
+        </a>
+        <p className="text-[10px] text-center text-gray-400 font-bold uppercase tracking-tighter mt-2">
+          Pick a time that works for you. No initial email required.
+        </p>
       </form>
     </div>
   );

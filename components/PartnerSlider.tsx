@@ -7,16 +7,18 @@ import React, { memo } from "react";
 const logos = Array.from({ length: 7 }, (_, i) => `/partners/${i + 1}.jpg`);
 
 const PartnerSlider = () => {
-  // Optimization: We triple the list to ensure the loop is seamless even on
-  // very wide screens (e.g., 4k or ultrawide monitors) where a double list might show gaps.
-  const sliderItems = [...logos, ...logos, ...logos];
+  // Optimization: 2x loop is standard for seamless horizontal marquee without looking like 'padding'
+  const sliderItems = [...logos, ...logos];
 
   return (
-    <section className="w-full py-12 bg-gray-50 overflow-hidden">
+    <section className="w-full py-16 bg-gray-50/50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-          Our Partners
+        <h2 className="text-base font-bold text-[#5271ff] text-center uppercase tracking-widest mb-3">
+          Our Network
         </h2>
+        <h3 className="text-3xl md:text-4xl font-black text-center mb-12 text-[#001341]">
+          Strategic Partners & <span className="text-[#ff914d]">Clients</span>
+        </h3>
 
         <div className="relative w-full overflow-hidden">
           {/* Gradients: Adds a fade effect to the sides for a smoother look */}

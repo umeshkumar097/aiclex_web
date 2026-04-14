@@ -14,9 +14,9 @@ interface StatItem {
 // --- DATA: Statistics ---
 const stats: StatItem[] = [
   { id: 1, value: "50+", label: "Happy Clients", icon: <Users className="w-8 h-8 text-[#5271ff]" aria-hidden="true" /> },
-  { id: 2, value: "98%", label: "Success Rate", icon: <CheckCircle className="w-8 h-8 text-[#ff914d]" aria-hidden="true" /> },
-  { id: 3, value: "100+", label: "Projects Done", icon: <Award className="w-8 h-8 text-[#5271ff]" aria-hidden="true" /> },
-  { id: 4, value: "10+", label: "Years Experience", icon: <Coffee className="w-8 h-8 text-[#ff914d]" aria-hidden="true" /> },
+  { id: 2, value: "Proven", label: "ROI Growth", icon: <CheckCircle className="w-8 h-8 text-[#ff914d]" aria-hidden="true" /> },
+  { id: 3, value: "50+", label: "Projects Done", icon: <Award className="w-8 h-8 text-[#5271ff]" aria-hidden="true" /> },
+  { id: 4, value: "2+", label: "Years Experience", icon: <Coffee className="w-8 h-8 text-[#ff914d]" aria-hidden="true" /> },
 ];
 
 export default function SuccessStats() {

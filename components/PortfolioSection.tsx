@@ -7,27 +7,27 @@ import { ExternalLink, Globe, Smartphone, BarChart3, Building2 } from "lucide-re
 const projects = [
   {
     title: "Siteboard.in",
-    description: "Advanced Real Estate & Plots Management software. Streamlining lead generation and property administration for developers.",
+    description: "Enterprise SaaS for Real Estate developers. Currently powering 50+ premium townships and developers across India with automated inventory management.",
     url: "https://siteboard.in",
     image: "/siteboard.png",
     icon: <Building2 className="text-blue-500" />,
-    tag: "Real Estate SaaS"
+    tag: "LIVE: Enterprise SaaS"
   },
   {
     title: "DhandaLeads.com",
-    description: "A high-performance B2B Lead Generation platform. Helping businesses acquire quality leads through data-driven automation.",
+    description: "Smart B2B Lead Intelligence platform. Helping agencies and sales teams scale with 5,000+ verified business leads across 12+ industry categories.",
     url: "https://dhandaleads.com",
     image: "/dhandaleads.png",
     icon: <BarChart3 className="text-purple-500" />,
-    tag: "B2B Lead Gen"
+    tag: "GROWING: Lead Gen"
   },
   {
     title: "Passfit.in",
-    description: "India's premium Gym Marketplace. Connecting fitness enthusiasts with the best gyms and health centers in their city.",
+    description: "India's massive Gym Marketplace. Connecting 10,000+ monthly active users with the best 200+ premium fitness centers in Delhi-NCR.",
     url: "https://passfit.in",
     image: "/passfit.png",
     icon: <Smartphone className="text-orange-500" />,
-    tag: "Marketplace App"
+    tag: "SCALE: Marketplace"
   }
 ];
 
