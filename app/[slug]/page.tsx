@@ -167,5 +167,3 @@ export default async function SingleBlogPage({ params }: Props) {
     </article>
   );
 }
-  );
-}
