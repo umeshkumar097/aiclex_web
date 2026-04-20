@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/ClientLayout"; // 👈 Import our new wrapper
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });

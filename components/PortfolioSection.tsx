@@ -11,7 +11,8 @@ const projects = [
     url: "https://siteboard.in",
     image: "/siteboard.png",
     icon: <Building2 className="text-blue-500" />,
-    tag: "LIVE: Enterprise SaaS"
+    tag: "LIVE: Enterprise SaaS",
+    impact: "Powering 50+ Real Estate Projects Safely"
   },
   {
     title: "DhandaLeads.com",
@@ -19,7 +20,8 @@ const projects = [
     url: "https://dhandaleads.com",
     image: "/dhandaleads.png",
     icon: <BarChart3 className="text-purple-500" />,
-    tag: "GROWING: Lead Gen"
+    tag: "GROWING: Lead Gen",
+    impact: "Generated 100k+ Verified B2B Leads"
   },
   {
     title: "Passfit.in",
@@ -27,7 +29,8 @@ const projects = [
     url: "https://passfit.in",
     image: "/passfit.png",
     icon: <Smartphone className="text-orange-500" />,
-    tag: "SCALE: Marketplace"
+    tag: "SCALE: Marketplace",
+    impact: "20k+ Active Monthly Workout Sessions"
   }
 ];
 
@@ -96,6 +99,11 @@ export default function PortfolioSection() {
               </div>
 
               <div className="mt-8 px-4">
+                 <div className="flex items-center gap-2 mb-3">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span className="text-[10px] font-black uppercase tracking-tighter text-gray-400">Impact Traction:</span>
+                    <span className="text-[10px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">{project.impact}</span>
+                 </div>
                  <p className="text-gray-600 leading-relaxed text-sm italic">
                     {project.description}
                  </p>

@@ -9,6 +9,7 @@ import pool from "@/lib/db";
 // Updated components
 import WorkProcess from "@/components/WorkProcess";
 import SuccessStats from "@/components/SuccessStats";
+import ServiceSchema from "@/components/seo/ServiceSchema";
 
 export const dynamic = 'force-dynamic';
 
@@ -66,6 +67,11 @@ export default async function ServiceDetailPage({ params }: Props) {
 
   return (
     <div className="w-full mt-20 bg-white">
+      <ServiceSchema 
+        title={service.title} 
+        description={service.description} 
+        url={`https://www.aiclex.in/services/${slug}`} 
+      />
       
       {/* ==================== HERO SECTION ==================== */}
       <section className="relative w-full py-24 overflow-hidden bg-gray-50">
