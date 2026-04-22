@@ -1,7 +1,7 @@
 "use client";
 
 import { Heading } from "@/lib/blog-utils";
-import { ListIcon, ArrowRight } from "lucide-react";
+import { List, ArrowRight } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 interface ToCProps {
@@ -14,13 +14,12 @@ export default function TableOfContents({ headings }: ToCProps) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
+        const intersecting = entries.filter(e => e.isIntersecting);
+        if (intersecting.length > 0) {
+          setActiveId(intersecting[0].target.id);
+        }
       },
-      { rootMargin: "-100px 0px -70% 0px" }
+      { rootMargin: "-80px 0px -65% 0px", threshold: 0 }
     );
 
     headings.forEach((heading) => {
@@ -34,46 +33,54 @@ export default function TableOfContents({ headings }: ToCProps) {
   if (!headings || headings.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-gray-100 hover:border-blue-100 transition-all duration-300 sticky top-28 h-fit">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
-          <ListIcon size={20} />
+    <div className="bg-white rounded-[1.5rem] border border-gray-100 shadow-lg overflow-hidden">
+      {/* Header */}
+      <div className="bg-[#001341] px-5 py-4 flex items-center gap-3">
+        <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+          <List size={16} className="text-white" />
         </div>
-        <h3 className="text-xl font-black text-[#001341] tracking-tight">Table of Contents</h3>
+        <h3 className="text-sm font-black text-white uppercase tracking-widest">Table of Contents</h3>
       </div>
 
-      <nav className="space-y-1">
-        {headings.map((heading) => (
-          <a
-            key={heading.id}
-            href={`#${heading.id}`}
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById(heading.id)?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-              // Update URL without jump
-              window.history.pushState(null, "", `#${heading.id}`);
-            }}
-            className={`
-              block py-2.5 px-4 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-2 group
-              ${heading.level === 3 ? "ml-6 text-gray-400 border-l border-gray-100 pl-6" : ""}
-              ${activeId === heading.id 
-                ? "bg-blue-50 text-blue-600 shadow-sm" 
-                : "text-gray-500 hover:bg-gray-50 hover:text-[#001341]"}
-            `}
-          >
-            {activeId === heading.id && <ArrowRight size={14} className="animate-in slide-in-from-left-1 duration-300" />}
-            <span className="line-clamp-2">{heading.text}</span>
-          </a>
-        ))}
+      {/* Links */}
+      <nav className="p-4 space-y-0.5 max-h-[60vh] overflow-y-auto">
+        {headings.map((heading) => {
+          const isActive = activeId === heading.id;
+          const isH3 = heading.level === 3;
+
+          return (
+            <a
+              key={heading.id}
+              href={`#${heading.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById(heading.id)?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+                window.history.pushState(null, "", `#${heading.id}`);
+                setActiveId(heading.id);
+              }}
+              className={`
+                flex items-start gap-2.5 py-2 px-3 rounded-xl text-sm transition-all duration-200
+                ${isH3 ? "ml-4" : ""}
+                ${isActive
+                  ? "bg-blue-50 text-[#5271ff] font-bold"
+                  : "text-gray-500 hover:bg-gray-50 hover:text-[#001341] font-medium"}
+              `}
+            >
+              <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all ${isActive ? "bg-[#ff914d] scale-125" : isH3 ? "bg-gray-200" : "bg-gray-300"}`} />
+              <span className="line-clamp-2 leading-snug">{heading.text}</span>
+            </a>
+          );
+        })}
       </nav>
 
-      <div className="mt-8 pt-6 border-t border-gray-50">
-          <p className="text-[10px] font-black text-gray-300 uppercase tracking-widest text-center">
-              Quick Navigation Box
-          </p>
+      {/* Footer CTA */}
+      <div className="px-4 pb-4">
+        <div className="bg-orange-50 border border-orange-100 rounded-xl p-3 text-center">
+          <p className="text-[10px] font-black text-[#ff914d] uppercase tracking-widest">Quick Navigation</p>
+        </div>
       </div>
     </div>
   );
