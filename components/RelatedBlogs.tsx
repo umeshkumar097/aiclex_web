@@ -42,7 +42,7 @@ export default function RelatedBlogs({ posts }: RelatedBlogsProps) {
             className="group flex flex-col bg-white rounded-[1.5rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
           >
             {/* Image */}
-            <div className="relative h-[180px] sm:h-[200px] overflow-hidden bg-gray-100 flex-shrink-0">
+            <div className="relative w-full aspect-video overflow-hidden bg-gray-100 flex-shrink-0">
               {post.image_url ? (
                 <Image
                   src={post.image_url}

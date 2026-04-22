@@ -119,12 +119,12 @@ export default async function SingleBlogPage({ params }: Props) {
 
         {/* ===================== HERO BANNER ===================== */}
         <div className="bg-gradient-to-br from-[#001341] via-[#0a1f5e] to-[#001341] text-white">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
 
             {/* Back link */}
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-blue-300 hover:text-white mb-8 transition-colors text-sm font-bold"
+              className="inline-flex items-center gap-2 text-blue-300 hover:text-white mb-6 md:mb-8 transition-colors text-sm font-bold"
             >
               <ArrowLeft size={16} />
               Back to All Posts
@@ -132,7 +132,7 @@ export default async function SingleBlogPage({ params }: Props) {
 
             {/* Date + reading time */}
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="inline-flex items-center gap-2 text-[#ff914d] text-xs font-black uppercase tracking-widest bg-orange-500/10 border border-orange-500/20 px-4 py-1.5 rounded-full">
+              <span className="inline-flex items-center gap-2 text-[#ff914d] text-[10px] sm:text-xs font-black uppercase tracking-widest bg-orange-500/10 border border-orange-500/20 px-3 py-1 md:px-4 md:py-1.5 rounded-full">
                 <Calendar size={12} />
                 {new Date(post.created_at).toLocaleDateString('en-US', {
                   year: 'numeric',
@@ -140,14 +140,14 @@ export default async function SingleBlogPage({ params }: Props) {
                   day: 'numeric'
                 })}
               </span>
-              <span className="inline-flex items-center gap-2 text-blue-300 text-xs font-bold bg-white/5 border border-white/10 px-4 py-1.5 rounded-full">
+              <span className="inline-flex items-center gap-2 text-blue-300 text-[10px] sm:text-xs font-bold bg-white/5 border border-white/10 px-3 py-1 md:px-4 md:py-1.5 rounded-full">
                 <Clock size={12} />
                 {readingTime} min read
               </span>
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-tight text-white mb-8">
               {post.title}
             </h1>
 
@@ -166,15 +166,15 @@ export default async function SingleBlogPage({ params }: Props) {
 
         {/* ===================== FEATURED IMAGE ===================== */}
         {post.image_url && (
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-0">
-            <div className="relative w-full h-[220px] sm:h-[320px] md:h-[450px] rounded-b-[2rem] overflow-hidden shadow-2xl">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-b-[2rem] overflow-hidden shadow-2xl border-x-4 border-b-4 border-white">
               <Image
                 src={post.image_url}
                 alt={post.title}
                 fill
                 quality={100}
                 priority
-                className="object-cover"
+                className="object-cover object-center"
               />
             </div>
           </div>
