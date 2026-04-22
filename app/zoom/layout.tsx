@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Zoom Reseller In India | AICLEX™ Technologies",
     description: "Official Zoom Reseller in India. Enterprise pricing and local support for Zoom users.",
-    url: "https://www.aiclex.in/zoom",
+    url: "https://aiclex.in/zoom",
     siteName: "AICLEX™ Technologies",
     locale: "en_IN",
     type: "website",

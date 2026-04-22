@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Product Background Changer | AICLEX™ Technologies",
     description: "Upload a photo and let our AI generate the perfect studio background for your product.",
-    url: "https://www.aiclex.in/free-tools/product-background-changer",
+    url: "https://aiclex.in/free-tools/product-background-changer",
     type: "website",
   },
 };

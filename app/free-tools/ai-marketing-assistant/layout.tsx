@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free AI Marketing Assistant | AICLEX™ Technologies",
     description: "Generate viral marketing content and seasonal strategies instantly with our AI-powered assistant.",
-    url: "https://www.aiclex.in/free-tools/ai-marketing-assistant",
+    url: "https://aiclex.in/free-tools/ai-marketing-assistant",
     type: "website",
   },
 };

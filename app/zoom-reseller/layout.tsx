@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Buy Zoom Licenses in India | Official Reseller | AICLEX",
     description: "Get genuine Zoom Pro, Business & Enterprise licenses with INR billing, GST invoice & local support. Authorized Zoom reseller in India.",
-    url: "https://www.aiclex.in/zoom-reseller",
+    url: "https://aiclex.in/zoom-reseller",
     type: "website",
   },
 };

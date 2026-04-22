@@ -70,7 +70,7 @@ export default async function ServiceDetailPage({ params }: Props) {
       <ServiceSchema 
         title={service.title} 
         description={service.description} 
-        url={`https://www.aiclex.in/services/${slug}`} 
+        url={`https://aiclex.in/services/${slug}`} 
       />
       
       {/* ==================== HERO SECTION ==================== */}

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Plot Management Software India | Township & Builder Tool",
     description: "Real-time plot availability, booking lock, payment tracking & document management for builders and township developers in India.",
-    url: "https://www.aiclex.in/plot-management-software",
+    url: "https://aiclex.in/plot-management-software",
     type: "website",
   },
 };

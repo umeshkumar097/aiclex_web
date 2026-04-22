@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
 
         <div className="prose prose-lg max-w-none text-gray-600 space-y-8">
           <p className="text-lg">
-            At <strong className="text-gray-900">AICLEX TECHNOLOGIES</strong>, accessible from www.aiclex.in, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by AICLEX TECHNOLOGIES and how we use it.
+            At <strong className="text-gray-900">AICLEX TECHNOLOGIES</strong>, accessible from aiclex.in, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by AICLEX TECHNOLOGIES and how we use it.
           </p>
 
           <section>

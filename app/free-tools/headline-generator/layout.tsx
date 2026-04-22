@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Viral Headline Generator | AICLEX™ Technologies",
     description: "Generate 10+ high-converting headlines for any topic in seconds using AI psychology.",
-    url: "https://www.aiclex.in/free-tools/headline-generator",
+    url: "https://aiclex.in/free-tools/headline-generator",
     type: "website",
   },
 };

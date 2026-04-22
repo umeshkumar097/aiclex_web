@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Webinar Profit Predictor | AICLEX™ Technologies",
     description: "Input your registration costs and offer price to see your projected webinar profit instantly.",
-    url: "https://www.aiclex.in/free-tools/webinar-profit-calculator",
+    url: "https://aiclex.in/free-tools/webinar-profit-calculator",
     type: "website",
   },
 };

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI WhatsApp Funnel Architect | AICLEX™ Technologies",
     description: "Map out your entire customer journey on WhatsApp with AI-generated templates and automation logic.",
-    url: "https://www.aiclex.in/free-tools/whatsapp-funnel-generator",
+    url: "https://aiclex.in/free-tools/whatsapp-funnel-generator",
     type: "website",
   },
 };

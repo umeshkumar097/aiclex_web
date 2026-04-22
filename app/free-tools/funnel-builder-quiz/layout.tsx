@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Funnel Strategy Quiz | AICLEX™ Technologies",
     description: "Discover the exact funnel model you need to scale your business with our AI-powered quiz.",
-    url: "https://www.aiclex.in/free-tools/funnel-builder-quiz",
+    url: "https://aiclex.in/free-tools/funnel-builder-quiz",
     type: "website",
   },
 };

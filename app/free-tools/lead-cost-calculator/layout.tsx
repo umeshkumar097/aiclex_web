@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Lead Cost Benchmarker | AICLEX™ Technologies",
     description: "Compare your lead costs with current market data and find opportunities to save on your marketing budget.",
-    url: "https://www.aiclex.in/free-tools/lead-cost-calculator",
+    url: "https://aiclex.in/free-tools/lead-cost-calculator",
     type: "website",
   },
 };

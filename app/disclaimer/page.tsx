@@ -15,7 +15,7 @@ export default function Disclaimer() {
 
         <div className="prose prose-lg max-w-none text-gray-600 space-y-8">
           <p className="text-lg">
-            The information provided by <strong className="text-gray-900">AICLEX TECHNOLOGIES</strong> on www.aiclex.in is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.
+            The information provided by <strong className="text-gray-900">AICLEX TECHNOLOGIES</strong> on aiclex.in is for general informational purposes only. All information on the site is provided in good faith, however we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.
           </p>
 
           <section>

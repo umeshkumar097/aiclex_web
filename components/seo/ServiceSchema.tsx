@@ -18,7 +18,7 @@ export default function ServiceSchema({ title, description, url }: ServiceSchema
     "provider": {
       "@type": "Organization",
       "name": "AICLEX Technologies",
-      "url": "https://www.aiclex.in"
+      "url": "https://aiclex.in"
     },
     "description": description,
     "url": url,

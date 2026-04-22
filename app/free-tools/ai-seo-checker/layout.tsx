@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free AI SEO Checker | AICLEX™ Technologies",
     description: "Scan your website for SEO errors and get actionable AI-generated recommendations to rank on Page 1.",
-    url: "https://www.aiclex.in/free-tools/ai-seo-checker",
+    url: "https://aiclex.in/free-tools/ai-seo-checker",
     type: "website",
   },
 };

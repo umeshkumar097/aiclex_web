@@ -10,8 +10,8 @@ export default function OrganizationSchema() {
     "@type": "Organization",
     "name": "AICLEX Technologies",
     "alternateName": "AICLEX",
-    "url": "https://www.aiclex.in",
-    "logo": "https://www.aiclex.in/logo.svg",
+    "url": "https://aiclex.in",
+    "logo": "https://aiclex.in/logo.svg",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+918449488090",

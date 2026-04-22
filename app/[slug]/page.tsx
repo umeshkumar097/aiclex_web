@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} | AICLEX Blog`,
     description: description,
     alternates: {
-      canonical: `https://www.aiclex.in/${slug}`,
+      canonical: `https://aiclex.in/${slug}`,
     },
     openGraph: {
       title: post.title,
@@ -95,14 +95,14 @@ export default async function SingleBlogPage({ params }: Props) {
     "author": {
       "@type": "Organization",
       "name": "AICLEX Technologies",
-      "url": "https://www.aiclex.in"
+      "url": "https://aiclex.in"
     },
     "publisher": {
       "@type": "Organization",
       "name": "AICLEX Technologies",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.aiclex.in/logo.png"
+        "url": "https://aiclex.in/logo.png"
       }
     },
     "description": post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 160)
@@ -237,7 +237,7 @@ export default async function SingleBlogPage({ params }: Props) {
                 </div>
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href={`https://wa.me/?text=${encodeURIComponent(post.title + ' - https://www.aiclex.in/' + slug)}`}
+                    href={`https://wa.me/?text=${encodeURIComponent(post.title + ' - https://aiclex.in/' + slug)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-green-600 transition-all"
@@ -246,7 +246,7 @@ export default async function SingleBlogPage({ params }: Props) {
                     WhatsApp
                   </a>
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.aiclex.in/${slug}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=https://aiclex.in/${slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 bg-[#0077b5] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-800 transition-all"
@@ -254,7 +254,7 @@ export default async function SingleBlogPage({ params }: Props) {
                     LinkedIn
                   </a>
                   <a
-                    href={`https://twitter.com/intent/tweet?url=https://www.aiclex.in/${slug}&text=${encodeURIComponent(post.title)}`}
+                    href={`https://twitter.com/intent/tweet?url=https://aiclex.in/${slug}&text=${encodeURIComponent(post.title)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-gray-800 transition-all"

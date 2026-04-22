@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Real Estate CRM India | Built for Builders & Brokers",
     description: "Manage leads, site visits, follow-ups & payments in one CRM built for Indian real estate teams. Portal integrations, GST invoices & agent tracking.",
-    url: "https://www.aiclex.in/real-estate-crm",
+    url: "https://aiclex.in/real-estate-crm",
     type: "website",
   },
 };

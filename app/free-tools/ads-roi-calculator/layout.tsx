@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free Ads ROI Calculator | AICLEX™ Technologies",
     description: "Input your budget and expected metrics to see your projected ROI in real-time.",
-    url: "https://www.aiclex.in/free-tools/ads-roi-calculator",
+    url: "https://aiclex.in/free-tools/ads-roi-calculator",
     type: "website",
   },
 };
