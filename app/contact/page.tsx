@@ -121,7 +121,7 @@ export default function ContactUs() {
               </a>
 
               {/* 3. NEW: Visit Us Card */}
-              <a href="https://maps.google.com/?q=Sector+37+Faridabad" target="_blank" rel="noreferrer" className="flex items-center gap-5 p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+              <a href="https://maps.google.com/?q=Gaur+City+Mall+Greater+Noida+201318+Uttar+Pradesh" target="_blank" rel="noreferrer" className="flex items-center gap-5 p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                 <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center text-purple-600 group-hover:from-purple-600 group-hover:to-indigo-600 group-hover:text-white transition-all duration-300 shadow-inner">
                   <MapPin size={24} />
                 </div>

@@ -11,24 +11,27 @@ const testimonials = [
     company: "KW Academy",
     image: "/testimonial/lalit.webp",
     quote: "Our digital presence improved noticeably after working with Aiclex. The marketing strategies they provided were practical and result-driven. We started seeing better engagement and more leads within weeks.",
+    metric: "Leads grew 3x in 6 weeks",
     rating: 5,
   },
   {
     id: 3,
-    name: "Sachin Gupta ",
+    name: "Sachin Gupta",
     type: "Lead Generation",
-    company: "UC Property ",
+    company: "UC Property",
     image: "/testimonial/Sachin-gupta.webp",
     quote: "The lead generation support from Aiclex has helped us reach more serious buyers. The leads were relevant and the process was very well managed. Great teamwork and timely updates.",
+    metric: "40+ serious buyer leads in first month",
     rating: 5,
   },
   {
     id: 4,
-    name: "Mohit Kumar ",
+    name: "Mohit Kumar",
     type: "Zoom Meeting Support",
     company: "ProEditorsClub",
     image: "/testimonial/mohit.webp",
     quote: "We conduct frequent Zoom sessions, and Aiclex made the entire setup effortless for us. Everything works perfectly, and their support team is quick and reliable. Excellent service overall.",
+    metric: "Zero downtime in 100+ Zoom sessions",
     rating: 5,
   },
 ];
@@ -159,9 +162,17 @@ export default function TestimonialSection() {
                         ))}
                       </div>
 
-                      <blockquote className="text-gray-700 italic text-lg leading-relaxed flex-grow">
+                      <blockquote className="text-gray-700 italic text-base leading-relaxed flex-grow">
                         "{item.quote}"
                       </blockquote>
+
+                      {/* Result Metric Badge */}
+                      {item.metric && (
+                        <div className="mt-4 flex items-center gap-2 bg-green-50 border border-green-100 rounded-xl px-4 py-2 w-fit">
+                          <span className="text-green-500 text-lg">✅</span>
+                          <span className="text-green-700 text-xs font-bold">{item.metric}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

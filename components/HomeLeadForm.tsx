@@ -143,7 +143,7 @@ export default function HomeLeadForm({
           className="w-full bg-[#001341] text-white py-4 rounded-2xl font-bold hover:bg-blue-900 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
         >
           {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Send size={18} aria-hidden="true" />}
-          Get Instant Proposal
+          Talk to Our Team, Free
         </button>
 
         <div className="relative flex items-center py-2">

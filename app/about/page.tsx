@@ -41,11 +41,25 @@ const features = [
   },
 ];
 
-const skills = [
-  { name: "SEO & Content Marketing", percentage: 85 },
-  { name: "Google Ads (PPC) Management", percentage: 90 },
-  { name: "Meta (Facebook/Instagram) Ads", percentage: 88 },
-  { name: "Web & App Development", percentage: 92 },
+const proofPoints = [
+  {
+    icon: "🎯",
+    metric: "100K+",
+    label: "B2B Leads Generated",
+    desc: "Verified business leads delivered via DhandaLeads.com across 12+ industry categories."
+  },
+  {
+    icon: "🏢",
+    metric: "50+",
+    label: "Real Estate Projects",
+    desc: "Live townships and developers powered by Siteboard.in — India's enterprise property SaaS."
+  },
+  {
+    icon: "🏆",
+    metric: "Certified",
+    label: "HubSpot + Zoom Authorized",
+    desc: "Official Zoom Reseller in India and HubSpot Certified Partner — verified credentials."
+  },
 ];
 
 // Updated FAQs focusing on Ad Services
@@ -154,7 +168,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* ==================== 2. SKILLS & EXPERTISE SECTION ==================== */}
+      {/* ==================== 2. PROOF POINTS SECTION ==================== */}
       <section className="w-full py-16 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -168,25 +182,23 @@ export default function AboutUs() {
                />
             </div>
 
-            {/* Right: Skills Progress Bars */}
+            {/* Right: Concrete Proof Points */}
             <div>
-              <span className="text-[#5271ff] font-bold tracking-wider uppercase text-sm mb-2 block">Our Expertise</span>
+              <span className="text-[#5271ff] font-bold tracking-wider uppercase text-sm mb-2 block">Our Track Record</span>
               <h2 className="text-3xl font-extrabold text-[#001341] mb-8">
-                Professional Skills & <br/> <span className="text-[#ff914d]">Digital Mastery</span>
+                Proven Results, <br/> <span className="text-[#ff914d]">Not Just Claims</span>
               </h2>
 
-              <div className="space-y-8">
-                {skills.map((skill, index) => (
-                  <div key={index} className="relative">
-                    <div className="flex justify-between mb-2">
-                      <span className="text-[#001341] font-bold">{skill.name}</span>
-                      <span className="text-gray-500 font-medium">{skill.percentage}%</span>
-                    </div>
-                    <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-[#5271ff] to-[#ff914d] rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.percentage}%` }}
-                      ></div>
+              <div className="space-y-6">
+                {proofPoints.map((point, index) => (
+                  <div key={index} className="flex items-start gap-5 p-5 rounded-2xl bg-gray-50 border border-gray-100 hover:border-blue-100 hover:shadow-md transition-all">
+                    <div className="text-4xl flex-shrink-0">{point.icon}</div>
+                    <div>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-2xl font-black text-[#001341]">{point.metric}</span>
+                        <span className="text-sm font-bold text-[#ff914d] uppercase tracking-wider">{point.label}</span>
+                      </div>
+                      <p className="text-gray-500 text-sm leading-relaxed">{point.desc}</p>
                     </div>
                   </div>
                 ))}

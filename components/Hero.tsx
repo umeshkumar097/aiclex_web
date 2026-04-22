@@ -30,38 +30,22 @@ export default function Hero() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-4xl md:text-6xl font-black leading-[1.05] tracking-tight">
-            We Build <br />
-            AI-Powered <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400 text-6xl md:text-8xl">
-              Products
+          <h1 className="text-3xl md:text-5xl font-black leading-[1.1] tracking-tight">
+            India's AI & Digital Agency for{" "}<br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400">
+              Real Estate, EdTech
+            </span>{" "}&{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-400">
+              Enterprises
             </span>
           </h1>
 
-          <p className="text-2xl md:text-3xl font-bold flex items-center gap-4 text-orange-600 tracking-tight">
-            <span className="w-10 md:w-14 h-2 mt-1 rounded-full bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-300"></span>
-            & Scale Businesses
+          <p className="text-base md:text-lg font-semibold text-gray-500 tracking-tight">
+            Zoom Licenses · Performance Ads · Custom SaaS · AI Voice Agents
           </p>
 
-          <motion.div
-            initial={{ x: -100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <LayoutTextFlip
-              text="with"
-              words={[
-                "AI Development",
-                "SaaS Solutions",
-                "Lead Intelligence",
-                "Zoom Integration",
-              ]}
-            />
-          </motion.div>
-
-          <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed max-w-xl">
-            Aiclex Technologies is an <span className="font-bold text-[#001341]">AI-First Product Studio</span>. We leverage the same logic and intelligence layer used in our own global SaaS ventures to help your business dominate the digital landscape.
+          <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed max-w-xl">
+            Trusted by <span className="font-bold text-[#001341]">50+ businesses</span> across Real Estate, Education, and Enterprise sectors. We bring the tech stack that dominates your market.
           </p>
 
           {/* REVIEWS + CTA */}
