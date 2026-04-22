@@ -229,6 +229,17 @@ export default async function SingleBlogPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: processedContent || '<p class="text-gray-400">No content available for this post.</p>' }}
               />
 
+              {/* Internal Linking CTA for Zoom */}
+              <div className="mt-12 p-8 bg-blue-50 rounded-3xl border border-blue-100 text-center">
+                <p className="text-lg font-black text-[#001341] mb-4">Need Official Zoom Licenses in India?</p>
+                <Link 
+                  href="/zoom"
+                  className="inline-block bg-[#5271ff] hover:bg-[#001341] text-white px-8 py-4 rounded-2xl font-black text-sm transition-all hover:scale-105 shadow-xl shadow-blue-200"
+                >
+                  Buy Zoom License in India, AICLEX Official Zoom Reseller
+                </Link>
+              </div>
+
               {/* Share bar */}
               <div className="mt-12 p-6 bg-gray-50 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-center gap-4">
                 <div className="flex items-center gap-2 text-gray-500 font-bold text-sm flex-shrink-0">

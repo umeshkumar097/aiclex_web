@@ -101,7 +101,7 @@ export default function AiSalesAgentHeroSplit() {
                 >
                     <Image
                         src="/ajent.jpg"
-                        alt="AI Sales Agent"
+                        alt="AI Sales Agent for Business Automation, AICLEX Technologies India"
                         width={450} 
                         height={450} 
                         className="w-[350px] md:w-[450px] h-auto object-contain drop-shadow-xl" 

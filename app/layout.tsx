@@ -6,15 +6,17 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import Script from "next/script";
 
+import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://aiclex.in'),
   title: {
-    default: "AICLEX Technologies | Zoom Reseller, CRM & Web Apps India",
+    default: "AI Agency India, Zoom Reseller & Digital Marketing | AICLEX Technologies",
     template: "%s | AICLEX Technologies"
   },
-  description: "AICLEX is an official Zoom reseller, Real Estate CRM provider & custom web app studio based in Greater Noida. HubSpot Certified. 50+ clients. Get a free consultation.",
+  description: "AICLEX Technologies is an AI-first product studio in India. Official Zoom reseller, digital marketing experts, and custom SaaS builders based in Greater Noida.",
   keywords: ["Zoom Reseller India", "Real Estate CRM India", "Buy Zoom License India", "AI Agent Calling", "Web App Development India", "AICLEX Technologies Greater Noida"],
   alternates: {
     canonical: '/',
@@ -70,6 +72,8 @@ export default function RootLayout({
             });
           `}
         </Script>
+        <LocalBusinessSchema />
+        <OrganizationSchema />
         {/* Wrap the app in ClientLayout so it controls the Header/Footer */}
         <ClientLayout>
           {children}

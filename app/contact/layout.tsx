@@ -1,8 +1,13 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Get a Free Consultation | AICLEX",
-  description: "Get in touch with AICLEX Technologies for Zoom Reselling, AI Agent development, or Digital Marketing services. We provide 24/7 support for Indian businesses.",
+  title: {
+    absolute: "Contact AICLEX Technologies, Zoom Reseller & Digital Marketing India",
+  },
+  description: "Get in touch with AICLEX Technologies for Zoom licensing, digital marketing, custom SaaS, and AI solutions. Book a free strategy call today.",
+  alternates: {
+    canonical: "/contact",
+  },
   keywords: ["Contact AICLEX", "Zoom Support India", "Business Consultation", "AI Agent Demo"],
 };
 

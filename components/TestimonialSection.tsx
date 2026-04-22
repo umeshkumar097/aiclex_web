@@ -137,7 +137,7 @@ export default function TestimonialSection() {
                         <div className="flex-shrink-0">
                           <img
                             src={item.image}
-                            alt={item.name}
+                            alt={`${item.name} - Client Testimonial for AICLEX Technologies`}
                             className="w-16 h-16 rounded-2xl object-cover shadow-sm bg-gray-100"
                             onError={(e) =>
                               (e.currentTarget.src = `https://placehold.co/150/f3f4f6/666?text=${item.name.charAt(

@@ -5,7 +5,6 @@ import AiSalesAgentHero from "@/components/AISalesHero";
 import ValueMarqueeSection from "@/components/ValueMarqueeSection";
 import BentoServices from "@/components/BentoServices";
 import ProcessSteps from "@/components/ProcessSteps";
-import PartnerSlider from "@/components/PartnerSlider";
 import TestimonialSection from "@/components/TestimonialSection";
 import TeamSection from "@/components/TeamSection";
 import NewsletterSection from "@/components/NewsletterSection";
@@ -57,8 +56,8 @@ export default function Home() {
         </div>
       </section>
 
-      <PartnerSlider />
       <LatestBlogs />
+      <BlogLeadPopup />
       <TestimonialSection />
       <TeamSection />
       {/* <NewsletterSection /> */}

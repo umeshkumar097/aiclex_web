@@ -4,6 +4,7 @@ import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { motion } from "framer-motion";
 import { Star, Award } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -94,7 +95,7 @@ export default function Hero() {
         >
           <img
             src="/hero.webp"
-            alt="Hero Image"
+            alt="Digital Marketing and AI Agency India, AICLEX Technologies"
             width={650}
             height={550}
             className="relative z-10 object-contain max-h-[350px] md:max-h-[550px]"

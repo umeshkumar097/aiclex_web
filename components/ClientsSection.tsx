@@ -45,15 +45,15 @@ export default function ClientsSection() {
             className="lg:w-1/2"
           >
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+                {["Shoolini University", "Aditech", "Total Solutions", "Crux Management", "Sannam S4", "Clever", "Plum Insight"].map((name, index) => (
                     <motion.div 
-                        key={num}
+                        key={index}
                         whileHover={{ y: -5, scale: 1.05 }}
                         className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center group transition-all hover:shadow-xl hover:border-blue-100"
                     >
                         <img 
-                            src={`/partners/${num}.jpg`} 
-                            alt={`Partner logo ${num}`} 
+                            src={`/partners/${index + 1}.jpg`} 
+                            alt={`${name} - Trusted Partner of AICLEX Technologies`} 
                             className="max-h-12 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100" 
                         />
                     </motion.div>
