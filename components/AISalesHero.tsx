@@ -79,7 +79,7 @@ export default function AiSalesAgentHeroSplit() {
     };
 
     return (
-        <section className="relative w-full min-h-screen flex items-center mt-20   bg-gray-50 text-gray-900 overflow-hidden">
+        <section className="relative w-full py-16 md:py-28 bg-gray-50 text-gray-900 overflow-hidden">
             
             {/* BACKGROUND DECORATION */}
             <div className="absolute inset-0 pointer-events-none opacity-50">

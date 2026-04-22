@@ -9,7 +9,7 @@ export default function Hero() {
   return (
     <section
       className="
-        relative w-full min-h-screen mt-22 md:mt-20 overflow-hidden  bg-gradient-to-r from-pink-100 to-orange-100 md:bg-none md:bg-white md:dark:bg-black
+        relative w-full py-12 md:py-24 mt-22 md:mt-20 overflow-hidden bg-gradient-to-r from-pink-100 to-orange-100 md:bg-none md:bg-white md:dark:bg-black
       "
     >
       <motion.div
