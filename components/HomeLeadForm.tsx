@@ -69,55 +69,58 @@ export default function HomeLeadForm({
   }
 
   return (
-    <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-gray-100">
-      <div className="mb-8">
-        <h3 className="text-2xl md:text-3xl font-bold text-[#001341] mb-2">{title}</h3>
-        <p className="text-gray-500 text-sm">{subtitle}</p>
+    <div className="bg-white p-8 md:p-14 rounded-[3rem] shadow-[0_20px_50px_rgba(0,19,65,0.1)] border border-gray-100 relative overflow-hidden group">
+      {/* Decorative Gradient Background Elements */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#ff914d] rounded-full blur-[100px] opacity-[0.08] pointer-events-none group-hover:opacity-[0.12] transition-opacity"></div>
+      <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#5271ff] rounded-full blur-[100px] opacity-[0.08] pointer-events-none"></div>
+
+      <div className="mb-10 text-center md:text-left relative z-10">
+        <div className="inline-block px-3 py-1 bg-orange-50 text-[#ff914d] text-[10px] font-black rounded-full uppercase tracking-[0.2em] mb-4">
+          Free Strategy Session
+        </div>
+        <h3 className="text-3xl md:text-4xl font-black text-[#001341] mb-3 tracking-tight">{title}</h3>
+        <p className="text-gray-500 font-medium max-w-md">{subtitle}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label htmlFor="home-name" className="sr-only">Full Name</label>
+      <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Full Name</label>
             <input 
-              id="home-name"
               name="name"
               type="text" 
-              placeholder="Your Full Name" 
+              placeholder="e.g. Rahul Sharma" 
               required
-              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+              className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#5271ff]/10 focus:border-[#5271ff] outline-none text-sm transition-all placeholder:text-gray-300 font-medium"
             />
           </div>
-          <div className="space-y-1">
-            <label htmlFor="home-phone" className="sr-only">Phone Number</label>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Phone Number</label>
             <input 
-              id="home-phone"
               name="phone"
               type="tel" 
-              placeholder="Phone Number (+91...)" 
+              placeholder="+91-9999999999" 
               required
-              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+              className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#5271ff]/10 focus:border-[#5271ff] outline-none text-sm transition-all placeholder:text-gray-300 font-medium"
             />
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label htmlFor="home-email" className="sr-only">Email Address</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
             <input 
-              id="home-email"
               name="email"
               type="email" 
-              placeholder="Email Address (Optional)" 
-              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+              placeholder="name@company.com" 
+              className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#5271ff]/10 focus:border-[#5271ff] outline-none text-sm transition-all placeholder:text-gray-300 font-medium"
             />
           </div>
-          <div className="space-y-1">
-            <label htmlFor="home-service" className="sr-only">Select Service</label>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Desired Service</label>
             <select 
-              id="home-service"
               name="service"
-              className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm text-gray-500"
+              className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#5271ff]/10 focus:border-[#5271ff] outline-none text-sm transition-all text-gray-600 font-medium cursor-pointer"
             >
               <option value="Website">Website/App Development</option>
               <option value="Digital Marketing">Digital Marketing</option>
@@ -127,28 +130,28 @@ export default function HomeLeadForm({
           </div>
         </div>
 
-        <div className="space-y-1">
-          <label htmlFor="home-requirement" className="sr-only">Project Requirements</label>
+        <div className="space-y-1.5">
+          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Brief Requirements</label>
           <textarea 
-            id="home-requirement"
             name="requirement"
-            placeholder="Tell us a bit about your project requirements..." 
+            placeholder="Tell us about your project or business challenges..." 
             rows={3}
-            className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-[#5271ff] outline-none text-sm"
+            className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#5271ff]/10 focus:border-[#5271ff] outline-none text-sm transition-all placeholder:text-gray-300 font-medium resize-none"
           />
         </div>
 
         <button 
           disabled={loading}
-          className="w-full bg-[#001341] text-white py-4 rounded-2xl font-bold hover:bg-blue-900 transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
+          className="group/btn w-full bg-[#001341] hover:bg-[#001e6a] text-white py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-[0_10px_25px_-5px_rgba(0,19,65,0.4)] hover:shadow-[0_20px_35px_-10px_rgba(0,19,65,0.5)] hover:-translate-y-1 disabled:opacity-50 relative overflow-hidden"
         >
-          {loading ? <Loader2 className="animate-spin" aria-hidden="true" /> : <Send size={18} aria-hidden="true" />}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000"></div>
+          {loading ? <Loader2 className="animate-spin" size={20} /> : <Send size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />}
           Talk to Our Team, Free
         </button>
 
-        <div className="relative flex items-center py-2">
+        <div className="relative flex items-center py-4">
             <div className="flex-grow border-t border-gray-100"></div>
-            <span className="flex-shrink mx-4 text-xs font-bold text-gray-300 uppercase tracking-widest">OR</span>
+            <span className="flex-shrink mx-4 text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">OR</span>
             <div className="flex-grow border-t border-gray-100"></div>
         </div>
 
@@ -156,14 +159,16 @@ export default function HomeLeadForm({
           href="https://calendly.com/aiclex/discovery-call" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="w-full bg-blue-50 text-[#5271ff] py-4 rounded-2xl font-bold hover:bg-blue-100 transition-all flex items-center justify-center gap-2 group"
+          className="w-full bg-slate-50 border border-slate-200 text-slate-600 py-5 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-100 transition-all flex items-center justify-center gap-3 group/cal"
         >
-          <span className="group-hover:scale-110 transition-transform">📅</span>
+          <span className="text-lg group-hover/cal:scale-125 transition-transform">📅</span>
           Schedule a Strategy Call
         </a>
-        <p className="text-[10px] text-center text-gray-400 font-bold uppercase tracking-tighter mt-2">
-          Pick a time that works for you. No initial email required.
-        </p>
+        
+        <div className="flex items-center justify-center gap-2 mt-4 opacity-50">
+           <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 4.925-3.467 9.47-9.065 10.955a1.196 1.196 0 01-.568 0C2.735 16.47 0 11.925 0 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
+           <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Secure & 256-bit Encrypted</span>
+        </div>
       </form>
     </div>
   );
