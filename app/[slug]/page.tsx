@@ -167,7 +167,7 @@ export default async function SingleBlogPage({ params }: Props) {
         {/* ===================== FEATURED IMAGE ===================== */}
         {post.image_url && (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 md:-mt-20 relative z-20">
-            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 md:border-8 border-white bg-white">
+            <div className="relative w-full aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl border-4 md:border-8 border-white bg-white">
               <Image
                 src={post.image_url}
                 alt={post.title}
