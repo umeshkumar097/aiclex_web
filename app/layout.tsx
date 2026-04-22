@@ -11,11 +11,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.aiclex.in'),
   title: {
-    default: "AICLEX™ Technologies | Elevating Your Digital Presence",
-    template: "%s | AICLEX™ Technologies"
+    default: "AICLEX Technologies | Zoom Reseller, CRM & Web Apps India",
+    template: "%s | AICLEX Technologies"
   },
-  description: "Official Zoom Reseller in India. AICLEX Technologies provides high-performance Digital Marketing, AI Agent Calling, and custom Software Development solutions.",
-  keywords: ["Zoom Reseller In India", "Digital Marketing Agency", "AI Agent Calling", "App Development India", "AICLEX Technologies"],
+  description: "AICLEX is an official Zoom reseller, Real Estate CRM provider & custom web app studio based in Greater Noida. HubSpot Certified. 50+ clients. Get a free consultation.",
+  keywords: ["Zoom Reseller India", "Real Estate CRM India", "Buy Zoom License India", "AI Agent Calling", "Web App Development India", "AICLEX Technologies Greater Noida"],
   alternates: {
     canonical: '/',
   },
