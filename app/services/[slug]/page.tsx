@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import ServiceIcon from "@/components/ServiceIcon"; 
 import { CheckCircle, ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
-import pool from "@/lib/db";
+import { servicesData } from "@/lib/servicesData";
 
 // Updated components
 import WorkProcess from "@/components/WorkProcess";
@@ -31,13 +31,12 @@ type Props = {
 };
 
 async function getService(slug: string): Promise<ServiceDetail | null> {
-  const result = await pool.query("SELECT * FROM services WHERE slug = $1", [slug]);
-  return result.rows[0] || null;
+  const service = servicesData.find((s) => s.slug === slug);
+  return (service as ServiceDetail) || null;
 }
 
 async function getAllServices(): Promise<ServiceDetail[]> {
-  const result = await pool.query("SELECT * FROM services ORDER BY title ASC");
-  return result.rows;
+  return servicesData as ServiceDetail[];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
