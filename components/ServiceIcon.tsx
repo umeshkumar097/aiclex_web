@@ -3,7 +3,8 @@
 import React from "react";
 import { 
   Megaphone, Smartphone, PenTool, LayoutGrid, 
-  ShoppingCart, Palette, Monitor, Globe, HelpCircle 
+  ShoppingCart, Palette, Monitor, Globe, HelpCircle,
+  Video, PhoneCall, BarChart, MessageCircle
 } from "lucide-react";
 
 interface ServiceIconProps {
@@ -22,6 +23,10 @@ const ServiceIcon: React.FC<ServiceIconProps> = ({ iconName, className }) => {
     Palette: <Palette className={className} />,
     Monitor: <Monitor className={className} />,
     Globe: <Globe className={className} />,
+    Video: <Video className={className} />,
+    PhoneCall: <PhoneCall className={className} />,
+    BarChart: <BarChart className={className} />,
+    MessageCircle: <MessageCircle className={className} />
   };
 
   // Return the matching icon, or a default one if not found

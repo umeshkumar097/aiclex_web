@@ -238,4 +238,26 @@ export const servicesData: Service[] = [
     icon: "BarChart",
     color: "from-green-500 to-emerald-700",
   },
+  {
+    id: 12,
+    title: "WhatsApp Marketing & Automations",
+    slug: "whatsapp-marketing-automations",
+    description: "Engage your customers directly on WhatsApp with targeted broadcast campaigns and smart AI chatbot automations.",
+    longDescription: "Transform how you communicate with your audience using our enterprise WhatsApp Marketing & Automation solutions. We build sophisticated WhatsApp flows that nurture leads, provide instant customer support, and drive sales directly through the world's most popular messaging app.",
+    features: ["Automated Chatbot Workflows", "Bulk WhatsApp Broadcasting", "CRM & API Integrations", "Green Tick Verification Support"],
+    benefits: [
+      { title: "Incredible Open Rates", desc: "WhatsApp messages boast a 98% open rate, guaranteeing your message is seen." },
+      { title: "24/7 Instant Support", desc: "Automate FAQs and customer service to provide immediate responses around the clock." },
+      { title: "Conversational Commerce", desc: "Guide users through the purchasing journey seamlessly within their chat window." },
+      ...commonBenefits.slice(0, 2)
+    ],
+    process: [
+      { step: "01", title: "API Setup", desc: "Configuring the WhatsApp Business API and securing approvals." },
+      { step: "02", title: "Flow Design", desc: "Mapping out the conversational logic and user journeys." },
+      { step: "03", title: "Integration", desc: "Connecting the WhatsApp bots to your CRM and backend systems." },
+      { step: "04", title: "Campaign Launch", desc: "Executing broadcast campaigns and monitoring engagement." }
+    ],
+    icon: "MessageCircle",
+    color: "from-emerald-400 to-green-600",
+  }
 ];
