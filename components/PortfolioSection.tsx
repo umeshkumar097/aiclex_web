@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Globe, Smartphone, BarChart3, Building2 } from "lucide-react";
+import { ExternalLink, Globe, Smartphone, BarChart3, Building2, MessageCircle } from "lucide-react";
 
 const projects = [
   {
@@ -34,6 +34,16 @@ const projects = [
     icon: <Smartphone className="text-orange-500" />,
     tag: "SCALE: Marketplace",
     impact: "20k+ Active Monthly Workout Sessions"
+  },
+  {
+    title: "WhatsPilot",
+    description: "Enterprise WhatsApp Marketing and Automation platform. Engage your customers with smart chatbots and broadcast campaigns with ZERO conversation charges.",
+    url: "https://whatspilot.online",
+    image: "/whatspilot.png",
+    alt: "WhatsPilot, WhatsApp Marketing Automation Platform by AICLEX",
+    icon: <MessageCircle className="text-green-500" />,
+    tag: "NEW: Marketing SaaS",
+    impact: "Zero Conversation Cost"
   }
 ];
 
@@ -56,7 +66,7 @@ export default function PortfolioSection() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project, index) => (
             <motion.div
               key={index}
