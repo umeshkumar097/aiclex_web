@@ -179,7 +179,7 @@ export default function HomeLeadForm({
 
         <motion.a 
           whileHover={{ y: -2 }}
-          href="https://calendly.com/aiclex/discovery-call" 
+          href="https://scheduler.zoom.us/aiclex-technologies" 
           target="_blank" 
           rel="noopener noreferrer"
           className="w-full bg-white border-2 border-gray-50 text-[#001341] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:border-blue-100 hover:bg-blue-50/30 transition-all flex items-center justify-center gap-3 group/cal"

@@ -71,7 +71,7 @@ export default function PlotManagementPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://calendly.com/aiclex/discovery-call"
+                href="https://scheduler.zoom.us/aiclex-technologies"
                 target="_blank" rel="noopener noreferrer"
                 className="group inline-flex items-center gap-3 bg-[#ff914d] hover:bg-orange-500 text-white px-8 py-4 rounded-2xl font-black text-lg transition-all shadow-2xl hover:scale-105"
               >
@@ -234,7 +234,7 @@ export default function PlotManagementPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://calendly.com/aiclex/discovery-call"
+              href="https://scheduler.zoom.us/aiclex-technologies"
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-[#ff914d] hover:bg-orange-500 text-white px-8 py-4 rounded-2xl font-black text-lg transition-all hover:scale-105 shadow-xl"
             >

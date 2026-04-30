@@ -72,7 +72,7 @@ export default function ZoomResellerPage() {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="https://calendly.com/aiclex/discovery-call"
+                href="https://scheduler.zoom.us/aiclex-technologies"
                 target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all"
               >
@@ -231,7 +231,7 @@ export default function ZoomResellerPage() {
               Request a Zoom Quote
             </a>
             <a
-              href="https://calendly.com/aiclex/discovery-call"
+              href="https://scheduler.zoom.us/aiclex-technologies"
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all"
             >
