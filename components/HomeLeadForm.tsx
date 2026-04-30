@@ -8,12 +8,14 @@ interface HomeLeadFormProps {
   title?: string;
   subtitle?: string;
   type?: string;
+  isEmbedded?: boolean;
 }
 
 export default function HomeLeadForm({ 
   title = "Ready to transform your business?", 
   subtitle = "Drop your details and we'll send you a custom proposal.",
-  type = "Website" 
+  type = "Website",
+  isEmbedded = false
 }: HomeLeadFormProps) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -83,7 +85,10 @@ export default function HomeLeadForm({
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white p-10 md:p-16 rounded-[4rem] shadow-[0_32px_80px_rgba(0,19,65,0.12)] border border-gray-100 relative overflow-hidden group"
+      className={isEmbedded 
+        ? "relative overflow-hidden group" 
+        : "bg-white p-10 md:p-16 rounded-[4rem] shadow-[0_32px_80px_rgba(0,19,65,0.12)] border border-gray-100 relative overflow-hidden group"
+      }
     >
       {/* Premium Decorative Elements */}
       <div className="absolute -top-32 -right-32 w-80 h-80 bg-gradient-to-br from-[#ff914d] to-orange-300 rounded-full blur-[120px] opacity-[0.05] pointer-events-none group-hover:opacity-[0.1] transition-opacity duration-1000"></div>
