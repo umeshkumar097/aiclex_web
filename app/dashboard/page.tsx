@@ -36,7 +36,7 @@ export default function Dashboard() {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   // --- APP STATE ---
-  const [activeTab, setActiveTab] = useState("overview"); 
+  const [activeTab, setActiveTab] = useState<"overview" | "blogs" | "team" | "jobs" | "applications" | "crm" | "links">("overview"); 
   const [posts, setPosts] = useState<any[]>([]);
   const [team, setTeam] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
@@ -239,7 +239,7 @@ export default function Dashboard() {
       title: "", slug: "", content: "", meta_description: "", show_popup: true, 
       name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", 
       image: "",
-      department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "" 
+      department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "", short_slug: "", target_url: ""
     });
     setIsEditing(false);
     setEditId(null);
@@ -299,7 +299,7 @@ export default function Dashboard() {
       title: "", slug: "", content: "", meta_description: "", show_popup: true, 
       name: "", role: "", bio: "", linkedin: "", twitter: "", email: "", 
       image: "",
-      department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "" 
+      department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "", short_slug: "", target_url: ""
     });
   };
 
@@ -434,11 +434,11 @@ export default function Dashboard() {
         )}
 
         {/* --- BLOGS, TEAM, OR JOBS TAB --- */}
-        {(activeTab === "blogs" || activeTab === "team" || activeTab === "jobs") && (
+        {(activeTab === "blogs" || activeTab === "team" || activeTab === "jobs" || activeTab === "links") && (
             <div className="animate-fade-in space-y-6">
                 <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold text-[#001341]">
-                      {activeTab === 'blogs' ? "Premium Blog Editor" : activeTab === 'team' ? "Team Directory" : "Job Listings"}
+                      {activeTab === 'blogs' ? "Premium Blog Editor" : activeTab === 'team' ? "Team Directory" : activeTab === 'jobs' ? "Job Listings" : "Short Link Manager"}
                     </h2>
                     {!showForm && (
                         <button onClick={openNewForm} className="bg-[#ff914d] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-600 transition flex items-center gap-2 shadow-md cursor-pointer">
@@ -456,12 +456,12 @@ export default function Dashboard() {
                             </button>
                             
                             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                                {(activeTab === "blogs" || activeTab === "jobs") && (
+                                {(activeTab === "blogs" || activeTab === "jobs" || activeTab === "links") && (
                                     <>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                             <div>
                                                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                                  {activeTab === 'blogs' ? 'Post Title' : 'Job Title'}
+                                                  {activeTab === 'blogs' ? 'Post Title' : activeTab === 'jobs' ? 'Job Title' : 'Link Reference Name'}
                                                 </label>
                                                 <input 
                                                     type="text" 
@@ -479,7 +479,7 @@ export default function Dashboard() {
                                             <div>
                                                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Permalink / Slug</label>
                                                 <div className="flex items-center gap-2 p-4 bg-gray-100 rounded-xl text-gray-500 text-sm overflow-hidden whitespace-nowrap">
-                                                    <Globe size={14} /> <span>{activeTab === 'blogs' ? 'aiclex.in/' : 'aiclex.in/career/'}</span><strong>{formData.slug}</strong>
+                                                    <Globe size={14} /> <span>{activeTab === 'blogs' ? 'aiclex.in/' : activeTab === 'jobs' ? 'aiclex.in/career/' : 'aiclex.in/'}</span><strong>{activeTab === 'links' ? formData.short_slug : formData.slug}</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -565,7 +565,7 @@ export default function Dashboard() {
 
                                         <div>
                                             <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                              {activeTab === 'blogs' ? 'Article Content' : 'Job Description'}
+                                              {activeTab === 'blogs' ? 'Article Content' : activeTab === 'jobs' ? 'Job Description' : 'Description'}
                                             </label>
                                             <div className="bg-white rounded-xl overflow-hidden border border-gray-100 min-h-[400px]">
                                                 <ReactQuill 
@@ -639,16 +639,16 @@ export default function Dashboard() {
                             <thead className="bg-gray-50/50 border-b border-gray-100 text-gray-400 text-[10px] font-black uppercase tracking-widest">
                                 <tr>
                                     <th className="p-6">
-                                      {activeTab === 'blogs' ? 'Publication' : activeTab === 'team' ? 'Identity' : 'Job Title'}
+                                      {activeTab === 'blogs' ? 'Publication' : activeTab === 'team' ? 'Identity' : activeTab === 'jobs' ? 'Job Title' : 'Short Link'}
                                     </th>
                                     <th className="p-6">
-                                      {activeTab === 'blogs' ? 'Status/Date' : activeTab === 'team' ? 'Position' : 'Department/Loc'}
+                                      {activeTab === 'blogs' ? 'Status/Date' : activeTab === 'team' ? 'Position' : activeTab === 'jobs' ? 'Department/Loc' : 'Clicks'}
                                     </th>
                                     <th className="p-6 text-right">Settings</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">
-                                {(activeTab === 'blogs' ? posts : activeTab === 'team' ? team : jobs).map((item) => (
+                                {(activeTab === 'blogs' ? posts : activeTab === 'team' ? team : activeTab === 'jobs' ? jobs : links).map((item) => (
                                     <tr key={item.id} className="hover:bg-gray-50/50 transition-colors group">
                                         <td className="p-6">
                                             <div className="flex items-center gap-4">
@@ -675,6 +675,8 @@ export default function Dashboard() {
                                                 </div>
                                             ) : activeTab === 'team' ? (
                                                 <span className="px-3 py-1 bg-blue-50 text-[#001341] text-[10px] font-black rounded-lg uppercase tracking-wide">{item.role}</span>
+                                            ) : activeTab === 'links' ? (
+                                                <span className="px-3 py-1 bg-orange-50 text-orange-700 text-[10px] font-black rounded-lg uppercase tracking-wide">{item.clicks} Clicks</span>
                                             ) : (
                                               <div className="flex flex-col">
                                                 <span className="text-xs font-bold text-gray-600">{item.department}</span>
