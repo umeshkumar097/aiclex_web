@@ -42,6 +42,7 @@ export default function Dashboard() {
   const [leads, setLeads] = useState<any[]>([]);
   const [jobs, setJobs] = useState<any[]>([]);
   const [applications, setApplications] = useState<any[]>([]);
+  const [links, setLinks] = useState<any[]>([]);
   const [loading, setLoading] = useState(false); 
   const [uploading, setUploading] = useState(false);
   
@@ -53,7 +54,8 @@ export default function Dashboard() {
     title: "", slug: "", content: "", meta_description: "", show_popup: true,
     name: "", role: "", bio: "", linkedin: "", twitter: "", email: "",
     image: "",
-    department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: ""
+    department: "Engineering", location: "Remote", type: "Full-time", salary: "", experience: "", requirements: "",
+    short_slug: "", target_url: ""
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -74,7 +76,7 @@ export default function Dashboard() {
   }, [router]);
 
   const fetchData = async () => {
-    await Promise.all([fetchPosts(), fetchTeam(), fetchLeads(), fetchJobs(), fetchApplications()]);
+    await Promise.all([fetchPosts(), fetchTeam(), fetchLeads(), fetchJobs(), fetchApplications(), fetchLinks()]);
   };
 
   // --- DATA FETCHING ---
@@ -113,6 +115,13 @@ export default function Dashboard() {
       const res = await fetch("/api/job-applications");
       if(res.ok) setApplications(await res.json());
     } catch (error) { console.error("Failed to fetch applications"); }
+  };
+
+  const fetchLinks = async () => {
+    try {
+      const res = await fetch("/api/short-links");
+      if(res.ok) setLinks(await res.json());
+    } catch (error) { console.error("Failed to fetch links"); }
   };
 
   useEffect(() => {
@@ -190,7 +199,7 @@ export default function Dashboard() {
     e.preventDefault();
     setLoading(true);
 
-    const endpoint = activeTab === "blogs" ? "blog" : activeTab === "team" ? "team" : "jobs";
+    const endpoint = activeTab === "blogs" ? "blog" : activeTab === "team" ? "team" : activeTab === "jobs" ? "jobs" : "short-links";
     const url = isEditing && editId ? `/api/${endpoint}/${editId}` : `/api/${endpoint}`;
     const method = isEditing && editId ? "PUT" : "POST";
 
@@ -206,12 +215,17 @@ export default function Dashboard() {
       };
     } else if (activeTab === "team") {
       payload = { name: formData.name, role: formData.role, bio: formData.bio, linkedin: formData.linkedin, twitter: formData.twitter, email: formData.email, image_url: formData.image };
+    } else if (activeTab === "links") {
+      payload = { 
+        slug: formData.short_slug, 
+        target_url: formData.target_url 
+      };
     } else {
       payload = { 
         title: formData.title, slug: formData.slug, department: formData.department, 
         location: formData.location, type: formData.type, salary: formData.salary, 
         description: formData.content, experience: formData.experience,
-        requirements: formData.requirements.split(",").map(r => r.trim())
+        requirements: typeof formData.requirements === 'string' ? formData.requirements.split(",").map(r => r.trim()) : formData.requirements
       };
     }
 
@@ -240,8 +254,8 @@ export default function Dashboard() {
   // --- DELETE LOGIC ---
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this item?")) return;
-    const endpoint = activeTab === "blogs" ? "blog" : activeTab === "team" ? "team" : "jobs";
-    await fetch(`/api/${endpoint}/${id}`, { method: "DELETE" });
+    const endpoint = activeTab === "blogs" ? "blog" : activeTab === "team" ? "team" : activeTab === "jobs" ? "jobs" : "short-links";
+    await fetch(`/api/${endpoint}?id=${id}`, { method: "DELETE" });
     fetchData();
     router.refresh();
   };
@@ -318,6 +332,7 @@ export default function Dashboard() {
             { id: "jobs", icon: Briefcase, label: "Job Management" },
             { id: "applications", icon: FileText, label: "Applications" },
             { id: "crm", icon: Phone, label: "CRM / Leads" },
+            { id: "links", icon: Globe, label: "Short Links" },
           ].map((tab) => (
             <button 
               key={tab.id}
@@ -359,7 +374,7 @@ export default function Dashboard() {
                     <div className="relative z-10">
                         <h2 className="text-3xl font-bold mb-2">Welcome back! 👋</h2>
                         <p className="text-blue-100 max-w-xl">
-                            You have <span className="font-bold text-[#ff914d]">{posts.length}</span> blogs, <span className="font-bold text-[#ff914d]">{jobs.length}</span> jobs, and <span className="font-bold text-[#ff914d]">{leads.length}</span> active leads.
+                            You have <span className="font-bold text-[#ff914d]">{posts.length}</span> blogs, <span className="font-bold text-[#ff914d]">{jobs.length}</span> jobs, <span className="font-bold text-[#ff914d]">{leads.length}</span> leads, and <span className="font-bold text-[#ff914d]">{links.length}</span> short links.
                         </p>
                         <div className="flex gap-4 mt-6">
                             <button onClick={() => { setActiveTab("blogs"); openNewForm(); }} className="bg-[#ff914d] text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-600 transition shadow-lg flex items-center gap-2 cursor-pointer">
@@ -372,9 +387,10 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <StatsCard title="Total Posts" count={posts.length} icon={FileText} color="blue" />
                     <StatsCard title="Inbound Leads" count={leads.length} icon={Briefcase} color="green" />
+                    <StatsCard title="Short Links" count={links.length} icon={Globe} color="blue" />
                     <StatsCard title="Team Members" count={team.length} icon={Users} color="orange" />
                 </div>
 
@@ -565,6 +581,30 @@ export default function Dashboard() {
                                           <div>
                                              <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Requirements (Comma separated)</label>
                                              <textarea rows={3} className="w-full p-4 bg-gray-50 border-none rounded-xl" placeholder="React.js, Node.js, TypeScript..." value={formData.requirements} onChange={(e) => setFormData({...formData, requirements: e.target.value})} />
+                                          </div>
+                                        )}
+                                        {activeTab === "links" && (
+                                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                              <div className="space-y-2">
+                                                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest">Desired Slug (aiclex.in/x)</label>
+                                                  <input 
+                                                      type="text" 
+                                                      placeholder="e.g. promo-2024" 
+                                                      className="w-full p-4 bg-gray-50 border-none rounded-xl" 
+                                                      value={formData.short_slug} 
+                                                      onChange={(e) => setFormData({...formData, short_slug: e.target.value})} 
+                                                  />
+                                              </div>
+                                              <div className="space-y-2">
+                                                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest">Destination URL</label>
+                                                  <input 
+                                                      type="text" 
+                                                      placeholder="https://google.com/..." 
+                                                      className="w-full p-4 bg-gray-50 border-none rounded-xl" 
+                                                      value={formData.target_url} 
+                                                      onChange={(e) => setFormData({...formData, target_url: e.target.value})} 
+                                                  />
+                                              </div>
                                           </div>
                                         )}
                                     </>
@@ -801,6 +841,57 @@ export default function Dashboard() {
                                 </div>
                             )}
                         </div>
+                    </div>
+                </div>
+            </div>
+        )}
+
+        {/* --- SHORT LINKS TAB --- */}
+        {activeTab === "links" && (
+            <div className="animate-fade-in space-y-6">
+                <div className="flex justify-between items-center">
+                    <h2 className="text-2xl font-bold text-[#001341]">Short Link Manager</h2>
+                    {!showForm && (
+                        <button onClick={openNewForm} className="bg-[#ff914d] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-orange-600 transition flex items-center gap-2 shadow-md cursor-pointer">
+                            <Plus size={18} /> Create Link
+                        </button>
+                    )}
+                </div>
+
+                <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
+                    <div className="divide-y divide-gray-50">
+                        {links.map((link) => (
+                            <div key={link.id} className="p-6 hover:bg-gray-50 transition-colors">
+                                <div className="flex justify-between items-center">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-[#ff914d] font-bold shadow-sm">
+                                            <Globe size={24} />
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-[#001341] text-lg leading-tight flex items-center gap-2">
+                                                aiclex.in/{link.slug}
+                                                <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-black rounded uppercase tracking-widest">{link.clicks} clicks</span>
+                                            </p>
+                                            <p className="text-xs text-gray-400 mt-1">Redirects to: <span className="text-blue-500 font-mono break-all">{link.target_url}</span></p>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button 
+                                            onClick={() => handleDelete(link.id)}
+                                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                                        >
+                                            <Trash2 size={18} />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                        {links.length === 0 && (
+                            <div className="p-20 text-center flex flex-col items-center gap-4">
+                                <Globe size={48} className="text-gray-100" />
+                                <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">No short links created yet.</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

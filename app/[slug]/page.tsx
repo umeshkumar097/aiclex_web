@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import pool from "@/lib/db"; 
 import { ArrowLeft, Calendar, Clock, Share2 } from "lucide-react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import BlogLeadPopup from "@/components/BlogLeadPopup";
 import TableOfContents from "@/components/TableOfContents";
 import RelatedBlogs from "@/components/RelatedBlogs";
@@ -18,10 +18,17 @@ type Props = {
 // ✅ Generate Metadata for SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const result = await pool.query('SELECT title, content, image_url, meta_description FROM posts WHERE slug = $1', [slug]);
-  const post = result.rows[0];
+  const blogResult = await pool.query('SELECT title, content, image_url, meta_description FROM posts WHERE slug = $1', [slug]);
+  const post = blogResult.rows[0];
   
-  if (!post) return { title: "Blog Post Not Found" };
+  if (!post) {
+    // Check if it's a short link (short links don't need rich metadata usually)
+    const linkResult = await pool.query('SELECT target_url FROM short_links WHERE slug = $1', [slug]);
+    if (linkResult.rows.length > 0) {
+      return { title: "Redirecting... | AICLEX" };
+    }
+    return { title: "Page Not Found" };
+  }
 
   const description = post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 160);
 
@@ -52,6 +59,16 @@ export default async function SingleBlogPage({ params }: Props) {
   let relatedPosts = [];
 
   try {
+    // 1. Check if it's a short link first
+    const linkResult = await pool.query('SELECT id, target_url FROM short_links WHERE slug = $1', [slug]);
+    if (linkResult.rows.length > 0) {
+      const { id, target_url } = linkResult.rows[0];
+      // Increment clicks asynchronously (don't await if you want speed, but for consistency we can)
+      await pool.query('UPDATE short_links SET clicks = clicks + 1 WHERE id = $1', [id]);
+      redirect(target_url);
+    }
+
+    // 2. If not a short link, check for blog post
     const query = 'SELECT * FROM posts WHERE slug = $1';
     const result = await pool.query(query, [slug]);
     
