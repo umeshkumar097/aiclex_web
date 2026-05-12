@@ -21,7 +21,11 @@ import {
   Image as ImageIcon,
   Phone,
   BarChart3,
-  Globe
+  Globe,
+  Download,
+  Save,
+  MessageSquare,
+  Filter
 } from "lucide-react";
 import dynamic from "next/dynamic";
 
@@ -261,6 +265,38 @@ export default function Dashboard() {
     await fetch(deleteUrl, { method: "DELETE" });
     fetchData();
     router.refresh();
+  };
+
+  const handleLeadUpdate = async (id: number, updates: any) => {
+    try {
+      const res = await fetch(`/api/leads?id=${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      });
+      if (res.ok) {
+        fetchLeads();
+      }
+    } catch (error) {
+      console.error("Failed to update lead", error);
+    }
+  };
+
+  const exportToCSV = () => {
+    if (leads.length === 0) return;
+    const headers = ["Name", "Email", "WhatsApp", "Status", "Requirement", "Source", "Date"];
+    const rows = leads.map(l => [
+      `"${l.name}"`, `"${l.email || ''}"`, `"${l.whatsapp}"`, `"${l.status}"`, `"${l.requirement?.replace(/"/g, '""')}"`, `"${l.source}"`, `"${new Date(l.created_at).toLocaleDateString()}"`
+    ]);
+    const csvContent = headers.join(",") + "\n" + rows.map(e => e.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `aiclex_leads_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleEdit = (item: any) => {
@@ -740,12 +776,42 @@ export default function Dashboard() {
         {activeTab === "crm" && (
             <div className="animate-fade-in space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* CRM STATS */}
+                    <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Leads</p>
+                            <p className="text-3xl font-black text-[#001341]">{leads.length}</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">New Leads</p>
+                            <p className="text-3xl font-black text-[#5271ff]">{leads.filter(l => l.status === 'new' || !l.status).length}</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <p className="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-1">In Progress</p>
+                            <p className="text-3xl font-black text-[#ff914d]">{leads.filter(l => l.status === 'contacted' || l.status === 'qualified').length}</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                            <p className="text-[10px] font-black text-green-400 uppercase tracking-widest mb-1">Converted</p>
+                            <p className="text-3xl font-black text-green-500">{leads.filter(l => l.status === 'closed').length}</p>
+                        </div>
+                    </div>
+
                     {/* FILTERS */}
-                    <div className="lg:col-span-1 space-y-4">
-                        <div className="bg-white p-6 rounded-3xl shadow-lg border border-gray-100 h-full">
-                            <h3 className="text-lg font-bold text-[#001341] mb-6 flex items-center gap-2">
-                                <Search size={20} className="text-[#ff914d]" /> Filter Leads
-                            </h3>
+                    <div className="lg:col-span-1">
+                        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6 sticky top-24">
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="font-black text-[#001341] text-sm flex items-center gap-2">
+                                    <Filter size={16} className="text-[#5271ff]" />
+                                    Filter Leads
+                                </h3>
+                                <button 
+                                    onClick={exportToCSV}
+                                    className="p-2 bg-blue-50 text-[#5271ff] rounded-lg hover:bg-[#5271ff] hover:text-white transition"
+                                    title="Export to CSV"
+                                >
+                                    <Download size={16} />
+                                </button>
+                            </div>
                             
                             <div className="space-y-4">
                                 <div>
@@ -806,62 +872,98 @@ export default function Dashboard() {
 
                     {/* LEADS LIST */}
                     <div className="lg:col-span-2 bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
-                        <div className="p-6 border-b border-gray-50 flex justify-between items-center">
-                            <h3 className="font-bold text-[#001341]">Recent Submissions</h3>
-                            <span className="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-black rounded-lg uppercase tracking-wider">{leads.length} Leads Found</span>
+                        <div className="p-6 border-b border-gray-50 flex justify-between items-center bg-gray-50/50">
+                            <div>
+                                <h3 className="font-black text-[#001341]">Lead Management</h3>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Real-time submission pipeline</p>
+                            </div>
+                            <span className="px-3 py-1 bg-[#001341] text-white text-[10px] font-black rounded-lg uppercase tracking-wider">{leads.length} Active Leads</span>
                         </div>
                         
-                        <div className="divide-y divide-gray-50 max-h-[600px] overflow-y-auto">
-                            {leads.map((lead) => (
-                                <div key={lead.id} className="p-6 hover:bg-gray-50 transition-colors group">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div>
-                                            <p className="font-bold text-[#001341] text-lg leading-tight">{lead.name}</p>
-                                            <div className="flex items-center gap-3 mt-1">
-                                                <a href={`mailto:${lead.email}`} className="text-xs text-gray-400 hover:text-[#001341] flex items-center gap-1"><Globe size={10} /> {lead.email}</a>
-                                                <a href={`tel:${lead.phone}`} className="text-xs text-gray-400 hover:text-[#001341] flex items-center gap-1 font-semibold"><Phone size={10} /> {lead.phone}</a>
+                        <div className="divide-y divide-gray-100 max-h-[800px] overflow-y-auto">
+                            {leads.length === 0 ? (
+                                <div className="p-20 text-center">
+                                    <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <Users className="text-gray-200" size={40} />
+                                    </div>
+                                    <p className="text-gray-400 font-bold">No leads found matching your criteria.</p>
+                                </div>
+                            ) : leads.map((lead) => (
+                                <div key={lead.id} className="p-8 hover:bg-gray-50/50 transition-colors group border-l-4 border-transparent hover:border-l-[#5271ff]">
+                                    <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-3 mb-2">
+                                                <p className="font-black text-[#001341] text-xl leading-tight">{lead.name}</p>
+                                                <select 
+                                                    value={lead.status || 'new'} 
+                                                    onChange={(e) => handleLeadUpdate(lead.id, { status: e.target.value })}
+                                                    className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border-none outline-none cursor-pointer ${
+                                                        lead.status === 'closed' ? 'bg-green-100 text-green-700' :
+                                                        lead.status === 'qualified' ? 'bg-blue-100 text-blue-700' :
+                                                        lead.status === 'contacted' ? 'bg-orange-100 text-orange-700' :
+                                                        'bg-gray-100 text-gray-500'
+                                                    }`}
+                                                >
+                                                    <option value="new">New</option>
+                                                    <option value="contacted">Contacted</option>
+                                                    <option value="qualified">Qualified</option>
+                                                    <option value="closed">Closed / Converted</option>
+                                                    <option value="junk">Junk / Spam</option>
+                                                </select>
                                             </div>
-                                        </div>
-                                         <div className="flex flex-col items-end gap-2">
-                                            <span className={`px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${
-                                                lead.type === 'Zoom' ? 'bg-purple-100 text-purple-700' :
-                                                lead.type === 'Website' ? 'bg-blue-100 text-blue-700' :
-                                                lead.type === 'Mobile' ? 'bg-green-100 text-green-700' :
-                                                'bg-orange-100 text-orange-700'
-                                            }`}>
-                                                {lead.type} Lead
-                                            </span>
-                                            {lead.source && (
-                                                <span className="px-3 py-0.5 bg-gray-100 text-gray-500 text-[9px] font-black rounded border border-gray-200 uppercase tracking-tighter">
-                                                    Via: {lead.source.replace(/-/g, ' ')}
+                                            <div className="flex flex-wrap items-center gap-4">
+                                                {lead.email && (
+                                                    <a href={`mailto:${lead.email}`} className="text-xs text-gray-500 hover:text-[#5271ff] flex items-center gap-1.5 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100 transition">
+                                                        <Globe size={12} className="text-gray-400" /> {lead.email}
+                                                    </a>
+                                                )}
+                                                <a href={`https://wa.me/${lead.whatsapp?.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-xs text-green-600 hover:text-green-700 flex items-center gap-1.5 bg-green-50 px-3 py-1.5 rounded-full border border-green-100 transition font-bold">
+                                                    <Phone size={12} /> {lead.whatsapp}
+                                                </a>
+                                                <span className="text-[10px] text-gray-400 font-bold flex items-center gap-1.5">
+                                                    <CalendarIcon size={12} />
+                                                    {new Date(lead.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                                                 </span>
-                                            )}
-                                        </div>
-                                    </div>
-                                    <div className="bg-gray-50 p-4 rounded-2xl space-y-3">
-                                        <div>
-                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Requirement</p>
-                                            <p className="text-xs text-gray-600 italic leading-relaxed">"{lead.requirement || 'No detailed requirement provided.'}"</p>
-                                        </div>
-                                        {lead.source_page && (
-                                            <div className="pt-2 border-t border-gray-100">
-                                                <p className="text-[10px] font-black text-[#5271ff] uppercase tracking-widest mb-1">Lead Source Page</p>
-                                                <p className="text-[10px] text-gray-500 font-mono bg-white p-2 rounded-lg border border-gray-100 break-all">{lead.source_page}</p>
                                             </div>
-                                        )}
+                                        </div>
+                                         <div className="flex flex-col items-end gap-2 shrink-0">
+                                            <span className="px-3 py-1 bg-blue-50 text-[#5271ff] text-[10px] font-black rounded-lg border border-blue-100 uppercase tracking-widest">
+                                                {lead.source?.replace(/-/g, ' ') || 'Direct'}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="mt-4 flex justify-between items-center">
-                                        <p className="text-[10px] text-gray-300 font-bold uppercase">{new Date(lead.created_at).toLocaleString()}</p>
-                                        <button className="text-[#ff914d] text-[10px] font-black uppercase tracking-widest hover:underline cursor-pointer">View CRM Record →</button>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="bg-gray-50/80 p-5 rounded-2xl border border-gray-100">
+                                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                                <MessageSquare size={12} className="text-[#5271ff]" />
+                                                User Requirement
+                                            </p>
+                                            <p className="text-xs text-gray-700 leading-relaxed font-medium italic">"{lead.requirement || 'No detailed requirement provided.'}"</p>
+                                        </div>
+                                        
+                                        <div className="bg-blue-50/30 p-5 rounded-2xl border border-blue-100/50">
+                                            <p className="text-[10px] font-black text-[#5271ff] uppercase tracking-widest mb-2 flex items-center gap-2">
+                                                <Pencil size={12} />
+                                                Internal Remarks
+                                            </p>
+                                            <textarea 
+                                                className="w-full bg-transparent border-none outline-none text-xs text-gray-600 placeholder:text-gray-300 resize-none min-h-[60px]"
+                                                placeholder="Add internal notes about this lead..."
+                                                defaultValue={lead.remarks || ''}
+                                                onBlur={(e) => handleLeadUpdate(lead.id, { remarks: e.target.value })}
+                                            />
+                                        </div>
                                     </div>
+                                    
+                                    {lead.source_page && (
+                                        <div className="mt-4 flex items-center gap-3">
+                                            <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest shrink-0">Captured At:</p>
+                                            <p className="text-[9px] text-gray-400 font-mono bg-gray-50 px-2 py-1 rounded truncate hover:text-[#5271ff] cursor-pointer transition" title={lead.source_page}>{lead.source_page}</p>
+                                        </div>
+                                    )}
                                 </div>
                             ))}
-                            {leads.length === 0 && (
-                                <div className="p-20 text-center flex flex-col items-center gap-4">
-                                    <Search size={48} className="text-gray-100" />
-                                    <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">No leads found.</p>
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>

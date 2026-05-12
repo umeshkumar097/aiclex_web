@@ -79,3 +79,34 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
+export async function PUT(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    const body = await req.json();
+    const { status, remarks, assigned_to } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "Lead ID is required" }, { status: 400 });
+    }
+
+    const query = `
+      UPDATE leads 
+      SET status = $1, remarks = $2, assigned_to = $3
+      WHERE id = $4
+      RETURNING *
+    `;
+    
+    const result = await pool.query(query, [status, remarks, assigned_to, id]);
+    
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(result.rows[0]);
+  } catch (error: any) {
+    console.error("API Lead PUT Error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
