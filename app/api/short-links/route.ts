@@ -27,7 +27,11 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     await ensureTableExists();
-    const { slug, target_url } = await request.json();
+    let { slug, target_url } = await request.json();
+    
+    if (target_url && !target_url.startsWith('http')) {
+      target_url = `https://${target_url}`;
+    }
     
     if (!slug || !target_url) {
       return NextResponse.json({ error: "Slug and Target URL are required" }, { status: 400 });
@@ -62,6 +66,36 @@ export async function DELETE(request: Request) {
 
     await pool.query('DELETE FROM short_links WHERE id = $1', [id]);
     return NextResponse.json({ message: "Link deleted successfully" });
+  } catch (error: any) {
+    console.error("Database error:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    let { slug, target_url } = await request.json();
+    
+    if (target_url && !target_url.startsWith('http')) {
+      target_url = `https://${target_url}`;
+    }
+    
+    if (!id || !slug || !target_url) {
+      return NextResponse.json({ error: "ID, Slug and Target URL are required" }, { status: 400 });
+    }
+
+    const result = await pool.query(
+      'UPDATE short_links SET slug = $1, target_url = $2 WHERE id = $3 RETURNING *',
+      [slug, target_url, id]
+    );
+    
+    if (result.rows.length === 0) {
+      return NextResponse.json({ error: "Link not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(result.rows[0]);
   } catch (error: any) {
     console.error("Database error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

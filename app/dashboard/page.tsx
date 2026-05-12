@@ -200,7 +200,9 @@ export default function Dashboard() {
     setLoading(true);
 
     const endpoint = activeTab === "blogs" ? "blog" : activeTab === "team" ? "team" : activeTab === "jobs" ? "jobs" : "short-links";
-    const url = isEditing && editId ? `/api/${endpoint}/${editId}` : `/api/${endpoint}`;
+    const url = isEditing && editId 
+      ? (activeTab === "links" ? `/api/${endpoint}?id=${editId}` : `/api/${endpoint}/${editId}`)
+      : `/api/${endpoint}`;
     const method = isEditing && editId ? "PUT" : "POST";
 
     let payload: any;
@@ -255,7 +257,8 @@ export default function Dashboard() {
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this item?")) return;
     const endpoint = activeTab === "blogs" ? "blog" : activeTab === "team" ? "team" : activeTab === "jobs" ? "jobs" : "short-links";
-    await fetch(`/api/${endpoint}?id=${id}`, { method: "DELETE" });
+    const deleteUrl = activeTab === "links" ? `/api/${endpoint}?id=${id}` : `/api/${endpoint}/${id}`;
+    await fetch(deleteUrl, { method: "DELETE" });
     fetchData();
     router.refresh();
   };
@@ -276,7 +279,7 @@ export default function Dashboard() {
         meta_description: item.meta_description || "",
         show_popup: item.show_popup !== false
       });
-    } else {
+    } else if (activeTab === "team") {
       setFormData({ 
         ...formData, 
         name: item.name, 
@@ -286,8 +289,25 @@ export default function Dashboard() {
         linkedin: item.linkedin || "", 
         twitter: item.twitter || "", 
         email: item.email || "",
-        meta_description: "",
-        show_popup: true
+      });
+    } else if (activeTab === "jobs") {
+      setFormData({ 
+        ...formData, 
+        title: item.title, 
+        slug: item.slug, 
+        department: item.department,
+        location: item.location,
+        type: item.type,
+        salary: item.salary,
+        content: item.description,
+        experience: item.experience,
+        requirements: Array.isArray(item.requirements) ? item.requirements.join(", ") : item.requirements
+      });
+    } else if (activeTab === "links") {
+      setFormData({ 
+        ...formData, 
+        short_slug: item.slug, 
+        target_url: item.target_url 
       });
     }
   };

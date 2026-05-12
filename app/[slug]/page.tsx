@@ -65,7 +65,8 @@ export default async function SingleBlogPage({ params }: Props) {
       const { id, target_url } = linkResult.rows[0];
       // Increment clicks asynchronously (don't await if you want speed, but for consistency we can)
       await pool.query('UPDATE short_links SET clicks = clicks + 1 WHERE id = $1', [id]);
-      redirect(target_url);
+      const finalUrl = target_url.startsWith('http') ? target_url : `https://${target_url}`;
+      redirect(finalUrl);
     }
 
     // 2. If not a short link, check for blog post
