@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!post) {
     // Check if it's a short link (short links don't need rich metadata usually)
-    const linkResult = await pool.query('SELECT target_url FROM short_links WHERE slug = $1', [slug]);
+    const linkResult = await pool.query('SELECT target_url FROM short_links WHERE LOWER(slug) = LOWER($1)', [slug]);
     if (linkResult.rows.length > 0) {
       return { title: "Redirecting... | AICLEX" };
     }
@@ -60,7 +60,7 @@ export default async function SingleBlogPage({ params }: Props) {
 
   let targetUrl = null;
   try {
-    const linkResult = await pool.query('SELECT id, target_url FROM short_links WHERE slug = $1', [slug]);
+    const linkResult = await pool.query('SELECT id, target_url FROM short_links WHERE LOWER(slug) = LOWER($1)', [slug]);
     if (linkResult.rows.length > 0) {
       const { id, target_url } = linkResult.rows[0];
       await pool.query('UPDATE short_links SET clicks = clicks + 1 WHERE id = $1', [id]);

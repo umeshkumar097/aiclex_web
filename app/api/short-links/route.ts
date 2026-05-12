@@ -37,8 +37,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Slug and Target URL are required" }, { status: 400 });
     }
 
-    // Check if slug already exists
-    const existing = await pool.query('SELECT id FROM short_links WHERE slug = $1', [slug]);
+    // Check if slug already exists (case-insensitive)
+    const existing = await pool.query('SELECT id FROM short_links WHERE LOWER(slug) = LOWER($1)', [slug]);
     if (existing.rows.length > 0) {
       return NextResponse.json({ error: "Slug already exists" }, { status: 400 });
     }
@@ -84,6 +84,12 @@ export async function PUT(request: Request) {
     
     if (!id || !slug || !target_url) {
       return NextResponse.json({ error: "ID, Slug and Target URL are required" }, { status: 400 });
+    }
+
+    // Check if new slug already exists elsewhere (case-insensitive)
+    const existing = await pool.query('SELECT id FROM short_links WHERE LOWER(slug) = LOWER($1) AND id != $2', [slug, id]);
+    if (existing.rows.length > 0) {
+      return NextResponse.json({ error: "Slug already exists" }, { status: 400 });
     }
 
     const result = await pool.query(
