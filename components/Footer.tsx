@@ -28,18 +28,18 @@ export default function Footer() {
   const serviceLinks = [
     { name: "Digital Marketing", href: "/services/digital-marketing" },
     { name: "AI Agent Calling", href: "/services/ai-agent-calling" },
-    { name: "Zoom Reseller", href: "/services/zoom-reseller" },
-    { name: "App Development", href: "/services/application-development" },
+    { name: "Application Development", href: "/services/application-development" },
     { name: "Brand Development", href: "/services/brand-development" },
+    { name: "WhatsApp Marketing", href: "/services/whatsapp-marketing-automations" },
   ];
 
   const solutionLinks = [
-    { name: "Zoom Partner India", href: "/solutions/zoom-partner-india" },
-    { name: "Zoom License Cost", href: "/solutions/zoom-license-cost-india" },
-    { name: "Zoom Distributor Delhi", href: "/solutions/zoom-distributor-delhi" },
-    { name: "Best Zoom Reseller", href: "/solutions/best-zoom-reseller-india" },
-    { name: "Zoom Pro Reseller", href: "/solutions/zoom-pro-reseller" },
-    { name: "Buy Zoom India", href: "/solutions/how-to-buy-zoom-subscription-india" },
+    { name: "Real Estate CRM", href: "/real-estate-crm" },
+    { name: "Plot Management Software", href: "/plot-management-software" },
+    { name: "B2B Lead Generation", href: "/services/paid-media-advertisement" },
+    { name: "Zoom Business Solutions", href: "/services/zoom-reseller" },
+    { name: "AI Customer Support", href: "/services/ai-agent-calling" },
+    { name: "Enterprise WhatsApp API", href: "/services/whatsapp-marketing-automations" },
   ];
 
   const aiToolLinks = [

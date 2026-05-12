@@ -205,6 +205,26 @@ export default async function ServiceDetailPage({ params }: Props) {
               </div>
             </div>
 
+            {/* 5. Location-based FAQ */}
+            {city && (
+              <div className="bg-blue-50/50 p-8 rounded-3xl border border-blue-100 mt-12">
+                <h3 className="text-2xl font-bold text-[#001341] mb-6">Frequently Asked Questions in {city}</h3>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-2">Why is AICLEX the best {service.title} agency in {city}?</h4>
+                    <p className="text-gray-600 text-sm leading-relaxed font-medium">AICLEX TECHNOLOGIES combines deep industry expertise with local market insights in {city}. We focus on ROI-driven strategies that help businesses in {city} scale faster and more efficiently than competitors by leveraging cutting-edge AI tools.</p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-2">How long does it take to see results for {service.title} in {city}?</h4>
+                    <p className="text-gray-600 text-sm leading-relaxed font-medium">While timelines vary based on your specific goals, most of our clients in {city} start seeing significant engagement and lead flow within the first 4-8 weeks. Our specialized {city} outreach strategies are designed for rapid impact.</p>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-2">Do you offer customized packages for small businesses in {city}?</h4>
+                    <p className="text-gray-600 text-sm leading-relaxed font-medium">Absolutely! We understand the unique challenges of the {city} business ecosystem. We offer scalable packages that cater to startups, SMEs, and large enterprises in {city}, ensuring world-class digital solutions are accessible to everyone.</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* --- RIGHT COLUMN (Sidebar) --- */}
