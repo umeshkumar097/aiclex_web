@@ -112,6 +112,28 @@ export default function ServicesPage() {
         </div>
       </section>
             
+      {/* ==================== SECTION: LOCATIONS ==================== */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#001341] mb-4">Major Cities We Serve</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto">Providing world-class digital solutions across all major business hubs in India.</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Pune", "Chennai", "Kolkata", "Ahmedabad", "Noida", "Gurgaon", "Jaipur", "Lucknow"].map((city) => (
+              <Link 
+                key={city}
+                href={`/services/digital-marketing-in-${city.toLowerCase().replace(/\s+/g, '-')}`}
+                className="px-6 py-2 rounded-full border border-gray-100 bg-gray-50 text-gray-600 text-sm font-medium hover:border-[#5271ff] hover:text-[#5271ff] transition-all"
+              >
+                {city}
+              </Link>
+            ))}
+          </div>
+          <p className="text-center mt-8 text-xs text-gray-400 font-medium">And 50+ other cities across India.</p>
+        </div>
+      </section>
+
       <WorkProcess />
       <SuccessStats />
     </div>

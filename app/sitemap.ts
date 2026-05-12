@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { servicesData } from '@/lib/servicesData'
 import pool from '@/lib/db'
 import { zoomKeywordsSolutions } from '@/lib/zoom-keywords'
+import { citySlugs } from '@/lib/citiesData'
 
 export const dynamic = 'force-dynamic';
 
@@ -79,5 +80,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   })
 
-  return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...jobRoutes, ...solutionRoutes]
+  // dynamic location-based service routes
+  const locationServiceRoutes = servicesData.flatMap((service) => 
+    citySlugs.map((citySlug) => ({
+      url: `${baseUrl}/services/${service.slug}-in-${citySlug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }))
+  )
+
+  return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...jobRoutes, ...solutionRoutes, ...locationServiceRoutes]
 }

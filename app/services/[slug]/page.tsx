@@ -5,6 +5,7 @@ import ServiceIcon from "@/components/ServiceIcon";
 import { CheckCircle, ArrowLeft } from "lucide-react";
 import { Metadata } from "next";
 import { servicesData } from "@/lib/servicesData";
+import { getCityName } from "@/lib/citiesData";
 
 // Updated components
 import WorkProcess from "@/components/WorkProcess";
@@ -30,9 +31,24 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-async function getService(slug: string): Promise<ServiceDetail | null> {
+async function getService(slug: string): Promise<{ service: ServiceDetail | null, city: string | null }> {
+  // Pattern: service-slug-in-city-slug
+  if (slug.includes("-in-")) {
+    const parts = slug.split("-in-");
+    const serviceSlug = parts[0];
+    const citySlug = parts[1];
+    const cityName = getCityName(citySlug);
+    
+    if (cityName) {
+      const service = servicesData.find((s) => s.slug === serviceSlug);
+      if (service) {
+        return { service: service as ServiceDetail, city: cityName };
+      }
+    }
+  }
+
   const service = servicesData.find((s) => s.slug === slug);
-  return (service as ServiceDetail) || null;
+  return { service: (service as ServiceDetail) || null, city: null };
 }
 
 async function getAllServices(): Promise<ServiceDetail[]> {
@@ -41,23 +57,31 @@ async function getAllServices(): Promise<ServiceDetail[]> {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const service = await getService(slug);
+  const { service, city } = await getService(slug);
   
   if (!service) return { title: "Service Not Found" };
 
+  const title = city 
+    ? `Best ${service.title} in ${city} | AICLEX Technologies`
+    : `${service.title} | AICLEX Services`;
+
+  const description = city
+    ? `Looking for top-rated ${service.title} in ${city}? AICLEX Technologies provides expert ${service.title.toLowerCase()} solutions tailored for businesses in ${city}.`
+    : service.description;
+
   return {
-    title: `${service.title} | AICLEX Services`,
-    description: service.description,
+    title,
+    description,
     openGraph: {
-      title: service.title,
-      description: service.description,
+      title,
+      description,
     }
   };
 }
 
 export default async function ServiceDetailPage({ params }: Props) {
   const { slug } = await params;
-  const service = await getService(slug);
+  const { service, city } = await getService(slug);
   const allServices = await getAllServices();
 
   if (!service) {
@@ -83,10 +107,13 @@ export default async function ServiceDetailPage({ params }: Props) {
               <ArrowLeft className="w-4 h-4 mr-2" /> Back to Services
             </Link>
             <h1 className="text-4xl md:text-6xl font-extrabold text-[#001341] mb-6 leading-tight">
-              {service.title}
+              {service.title} {city && <span className="text-[#5271ff]">in {city}</span>}
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
-              {service.description}
+              {city 
+                ? `Scale your business with the most reliable ${service.title.toLowerCase()} services in ${city}. AICLEX Technologies brings world-class AI and digital solutions to local businesses.`
+                : service.description
+              }
             </p>
             <Link 
               href="/contact"
@@ -139,7 +166,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
             {/* 3. Why Choose AICLEX? */}
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose AICLEX TECHNOLOGIES?</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose AICLEX for {service.title} {city && `in ${city}`}?</h3>
               <div className="grid grid-cols-1 gap-6">
                 {service.benefits?.map((benefit, index) => (
                    <div key={index} className="flex items-start gap-4">
@@ -202,8 +229,8 @@ export default async function ServiceDetailPage({ params }: Props) {
 
               <div className="bg-[#001341] p-8 rounded-[2rem] text-center text-white relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#5271ff] rounded-full blur-3xl opacity-20"></div>
-                <h3 className="text-xl font-bold mb-4 relative z-10">Ready to Grow?</h3>
-                <p className="text-blue-100 text-sm mb-6 relative z-10">Let's discuss how {service.title} can help your business.</p>
+                <h3 className="text-xl font-bold mb-4 relative z-10">Ready to Grow{city && ` in ${city}`}?</h3>
+                <p className="text-blue-100 text-sm mb-6 relative z-10">Let's discuss how {service.title} can help your business{city && ` in ${city}`}.</p>
                 <Link href="/contact" className="inline-block w-full py-3 bg-[#ff914d] text-white font-bold rounded-full hover:bg-orange-600 transition-colors relative z-10">
                   Get a Free Quote
                 </Link>
