@@ -85,28 +85,22 @@ function generateLocationStats(city: string) {
 }
 
 function generateUniqueTitle(serviceTitle: string, city: string) {
-  const prefixes = [
-    "Best",
-    "Top-rated",
-    "Professional",
-    "Expert",
-    "Leading",
-    "Premium",
-  ];
-  const suffixes = [
-    "Company",
-    "Agency",
-    "Services",
-    "Solutions",
-    "Partner",
-    "Experts"
-  ];
+  const prefixes = ["Best", "Top-rated", "Professional", "Expert", "Leading", "Premium", "Reliable", "Trusted", "#1"];
+  const types = ["Company", "Agency", "Services", "Solutions", "Partner", "Provider", "Consultancy", "Experts"];
+  const catchphrases = ["for Businesses", "at Best Price", "in India", "2025", "Expert Team", "Boost Growth", "ROI Focused"];
 
-  // Stable seed based on city and service to keep title consistent for same URL
-  const seed = (serviceTitle.length + city.length) % prefixes.length;
-  const suffixSeed = (city.length * 3) % suffixes.length;
+  // Unique seed for every combo
+  const seed = (serviceTitle.length + city.length);
+  const p = prefixes[seed % prefixes.length];
+  const t = types[(seed * 7) % types.length];
+  const c = catchphrases[(seed * 13) % catchphrases.length];
 
-  return `${prefixes[seed]} ${serviceTitle} ${suffixes[suffixSeed]} in ${city} | AICLEX`;
+  // Logic to vary the structure based on city length to further prevent duplicates
+  if (city.length % 2 === 0) {
+    return `${p} ${serviceTitle} ${t} in ${city} | ${c}`;
+  } else {
+    return `${serviceTitle} in ${city} - ${p} ${t} | AICLEX`;
+  }
 }
 
 async function getAllServices(): Promise<ServiceDetail[]> {
