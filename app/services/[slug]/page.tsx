@@ -84,6 +84,31 @@ function generateLocationStats(city: string) {
   return { projects, clients, growth };
 }
 
+function generateUniqueTitle(serviceTitle: string, city: string) {
+  const prefixes = [
+    "Best",
+    "Top-rated",
+    "Professional",
+    "Expert",
+    "Leading",
+    "Premium",
+  ];
+  const suffixes = [
+    "Company",
+    "Agency",
+    "Services",
+    "Solutions",
+    "Partner",
+    "Experts"
+  ];
+
+  // Stable seed based on city and service to keep title consistent for same URL
+  const seed = (serviceTitle.length + city.length) % prefixes.length;
+  const suffixSeed = (city.length * 3) % suffixes.length;
+
+  return `${prefixes[seed]} ${serviceTitle} ${suffixes[suffixSeed]} in ${city} | AICLEX`;
+}
+
 async function getAllServices(): Promise<ServiceDetail[]> {
   return servicesData as ServiceDetail[];
 }
@@ -95,7 +120,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!service) return { title: "Service Not Found" };
 
   const title = city 
-    ? `Best ${service.title} in ${city} | AICLEX Technologies`
+    ? generateUniqueTitle(service.title, city)
     : `${service.title} | AICLEX Services`;
 
   const description = city
