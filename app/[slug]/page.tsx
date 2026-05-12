@@ -58,17 +58,23 @@ export default async function SingleBlogPage({ params }: Props) {
   let post = null;
   let relatedPosts = [];
 
+  let targetUrl = null;
   try {
-    // 1. Check if it's a short link first
     const linkResult = await pool.query('SELECT id, target_url FROM short_links WHERE slug = $1', [slug]);
     if (linkResult.rows.length > 0) {
       const { id, target_url } = linkResult.rows[0];
-      // Increment clicks asynchronously (don't await if you want speed, but for consistency we can)
       await pool.query('UPDATE short_links SET clicks = clicks + 1 WHERE id = $1', [id]);
-      const finalUrl = target_url.startsWith('http') ? target_url : `https://${target_url}`;
-      redirect(finalUrl);
+      targetUrl = target_url.startsWith('http') ? target_url : `https://${target_url}`;
     }
+  } catch (error) {
+    console.error("Link Redirect Error:", error);
+  }
 
+  if (targetUrl) {
+    redirect(targetUrl);
+  }
+
+  try {
     // 2. If not a short link, check for blog post
     const query = 'SELECT * FROM posts WHERE slug = $1';
     const result = await pool.query(query, [slug]);
