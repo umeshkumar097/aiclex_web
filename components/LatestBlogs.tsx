@@ -54,7 +54,11 @@ export default async function LatestBlogs() {
           {latestPosts.map((post: any, index: number) => {
             const cleanExcerpt = stripHtml(post.content).substring(0, 100);
             return (
-              <FadeInOnScroll key={post.id} delay={index * 0.1}>
+              <FadeInOnScroll 
+                key={post.id} 
+                delay={index * 0.1}
+                className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-auto snap-center"
+              >
                 <div 
                   className="
                     bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group h-full
