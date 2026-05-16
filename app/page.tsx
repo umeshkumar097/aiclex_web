@@ -14,6 +14,7 @@ import HomeLeadForm from "@/components/HomeLeadForm";
 import PortfolioSection from "@/components/PortfolioSection";
 import ClientsSection from "@/components/ClientsSection";
 import BlogLeadPopup from "@/components/BlogLeadPopup";
+import VideoShowcase from "@/components/VideoShowcase";
 
 export const dynamic = 'force-dynamic';
 
@@ -36,6 +37,7 @@ export default function Home() {
       <BentoServices />
       <PortfolioSection />
       <ClientsSection />
+      <VideoShowcase />
       <ProcessSteps />
 
       <section className="py-20 bg-gray-50">
