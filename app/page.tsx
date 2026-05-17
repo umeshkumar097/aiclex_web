@@ -15,6 +15,7 @@ import PortfolioSection from "@/components/PortfolioSection";
 import ClientsSection from "@/components/ClientsSection";
 import BlogLeadPopup from "@/components/BlogLeadPopup";
 import VideoShowcase from "@/components/VideoShowcase";
+import InstagramReels from "@/components/InstagramReels";
 
 export const dynamic = 'force-dynamic';
 
@@ -61,6 +62,7 @@ export default function Home() {
         </div>
       </section>
 
+      <InstagramReels />
       <LatestBlogs />
       <BlogLeadPopup />
       <TestimonialSection />
