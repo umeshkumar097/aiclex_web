@@ -113,20 +113,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!service) return { title: "Service Not Found" };
 
+  // CRITICAL SEO FIX: Prevent cannibalization of "In India" keywords for local city pages
+  const cleanServiceTitle = city 
+    ? service.title.replace(/ In India| in India| in india/gi, '') 
+    : service.title;
+
   const title = city 
-    ? generateUniqueTitle(service.title, city)
+    ? generateUniqueTitle(cleanServiceTitle, city)
     : `${service.title} | AICLEX Services`;
 
   const description = city
-    ? `Looking for top-rated ${service.title} in ${city}? AICLEX Technologies provides expert ${service.title.toLowerCase()} solutions tailored for businesses in ${city}.`
+    ? `Looking for top-rated ${cleanServiceTitle} in ${city}? AICLEX Technologies provides expert ${cleanServiceTitle.toLowerCase()} solutions tailored for businesses in ${city}.`
     : service.description;
+
+  const currentUrl = `https://aiclex.in/services/${slug}`;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: currentUrl,
+    },
     openGraph: {
       title,
       description,
+      url: currentUrl,
     }
   };
 }
@@ -140,7 +151,12 @@ export default async function ServiceDetailPage({ params }: Props) {
     return notFound();
   }
 
-  const locationContent = city ? generateLocationContent(service.title, city) : null;
+  // Use clean title for local pages to prevent national keyword cannibalization
+  const cleanServiceTitle = city 
+    ? service.title.replace(/ In India| in India| in india/gi, '') 
+    : service.title;
+
+  const locationContent = city ? generateLocationContent(cleanServiceTitle, city) : null;
   const locationStats = city ? generateLocationStats(city) : null;
 
   return (
@@ -162,7 +178,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               <ArrowLeft className="w-4 h-4 mr-2" /> Back to Services
             </Link>
             <h1 className="text-4xl md:text-6xl font-extrabold text-[#001341] mb-6 leading-tight">
-              {service.title} {city && <span className="text-[#5271ff]">in {city}</span>}
+              {cleanServiceTitle} {city && <span className="text-[#5271ff]">in {city}</span>}
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8">
               {locationContent 

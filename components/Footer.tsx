@@ -38,7 +38,7 @@ export default function Footer() {
     { name: "Real Estate CRM", href: "/real-estate-crm" },
     { name: "Plot Management Software", href: "/plot-management-software" },
     { name: "B2B Lead Generation", href: "/services/paid-media-advertisement" },
-    { name: "Zoom Business Solutions", href: "/services/zoom-reseller" },
+    { name: "Zoom Reseller in India", href: "/services/zoom-reseller" },
     { name: "AI Customer Support", href: "/services/ai-agent-calling" },
     { name: "Enterprise WhatsApp API", href: "/services/whatsapp-marketing-automations" },
   ];
