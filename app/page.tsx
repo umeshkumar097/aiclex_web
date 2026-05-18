@@ -15,6 +15,7 @@ import PortfolioSection from "@/components/PortfolioSection";
 import ClientsSection from "@/components/ClientsSection";
 import BlogLeadPopup from "@/components/BlogLeadPopup";
 import VideoShowcase from "@/components/VideoShowcase";
+import WhatsAppShowcase from "@/components/WhatsAppShowcase";
 import InstagramReels from "@/components/InstagramReels";
 
 export const dynamic = 'force-dynamic';
@@ -39,6 +40,7 @@ export default function Home() {
       <PortfolioSection />
       <ClientsSection />
       <VideoShowcase />
+      <WhatsAppShowcase />
       <ProcessSteps />
 
       <section className="py-20 bg-gray-50">
