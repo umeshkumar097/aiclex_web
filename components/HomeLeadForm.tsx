@@ -82,125 +82,185 @@ export default function HomeLeadForm({
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       className={isEmbedded 
-        ? "relative overflow-hidden group" 
-        : "bg-white p-10 md:p-16 rounded-[4rem] shadow-[0_32px_80px_rgba(0,19,65,0.12)] border border-gray-100 relative overflow-hidden group"
+        ? "relative w-full" 
+        : "relative w-full rounded-[2.5rem] md:rounded-[3.5rem] bg-[#001341] p-8 md:p-14 lg:p-16 shadow-[0_40px_100px_-20px_rgba(0,19,65,0.4)] border border-[#5271ff]/20 overflow-hidden"
       }
     >
-      {/* Premium Decorative Elements */}
-      <div className="absolute -top-32 -right-32 w-80 h-80 bg-gradient-to-br from-[#ff914d] to-orange-300 rounded-full blur-[120px] opacity-[0.05] pointer-events-none group-hover:opacity-[0.1] transition-opacity duration-1000"></div>
-      <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-gradient-to-tr from-[#5271ff] to-blue-300 rounded-full blur-[120px] opacity-[0.05] pointer-events-none group-hover:opacity-[0.1] transition-opacity duration-1000"></div>
+      {/* Decorative Glows (Only for Standalone) */}
+      {!isEmbedded && (
+        <>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff914d]/10 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#5271ff]/10 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3"></div>
+          
+          {/* Subtle Grid Pattern */}
+          <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none mix-blend-overlay"></div>
+        </>
+      )}
 
-      <div className="mb-12 relative z-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-50 border border-orange-100 text-[#ff914d] text-[10px] font-black rounded-full uppercase tracking-[0.25em] mb-5">
-           <Sparkles size={12} fill="currentColor" /> Premium Strategy Session
-        </div>
-        <h3 className="text-4xl md:text-5xl font-black text-[#001341] mb-4 tracking-tighter leading-none">{title}</h3>
-        <p className="text-gray-400 font-medium text-lg max-w-md leading-relaxed">{subtitle}</p>
+      <div className={`mb-10 relative z-10 ${!isEmbedded ? 'text-center max-w-2xl mx-auto' : ''}`}>
+        {!isEmbedded && (
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#5271ff]/10 border border-[#5271ff]/20 text-[#5271ff] text-[10px] font-black rounded-full uppercase tracking-[0.25em] mb-6">
+             <Sparkles size={12} fill="currentColor" /> Premium Strategy Session
+          </div>
+        )}
+        <h3 className={`text-3xl md:text-5xl font-black mb-4 tracking-tighter leading-tight ${isEmbedded ? 'text-[#001341]' : 'text-white'}`}>
+          {title}
+        </h3>
+        <p className={`font-medium text-base md:text-lg leading-relaxed ${isEmbedded ? 'text-gray-500' : 'text-blue-100/70'}`}>
+          {subtitle}
+        </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Partnership Name</label>
+      <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Name Input */}
+          <div className="relative group/input">
             <input 
               name="name"
               type="text" 
               placeholder="Full Name" 
               required
-              className="w-full p-5 bg-gray-50/50 border border-gray-100 rounded-[1.5rem] focus:ring-4 focus:ring-[#5271ff]/5 focus:border-[#5271ff] focus:bg-white outline-none text-sm transition-all placeholder:text-gray-300 font-bold"
+              className={`w-full px-6 py-5 rounded-[1.5rem] outline-none text-sm font-bold transition-all ${
+                isEmbedded 
+                ? 'bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#5271ff] focus:ring-4 focus:ring-[#5271ff]/10 text-[#001341] placeholder:text-gray-400' 
+                : 'bg-white/5 border border-white/10 focus:bg-white/10 focus:border-[#5271ff] text-white placeholder:text-blue-200/50 backdrop-blur-md'
+              }`}
             />
+            {/* Minimal Label */}
+            <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+              Your Name
+            </div>
           </div>
-          <div className="space-y-2">
-            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Contact Link (Phone)</label>
+
+          {/* Phone Input */}
+          <div className="relative group/input">
             <input 
               name="phone"
               type="tel" 
-              placeholder="+91" 
+              placeholder="e.g. +91 9876543210" 
               required
-              className="w-full p-5 bg-gray-50/50 border border-gray-100 rounded-[1.5rem] focus:ring-4 focus:ring-[#5271ff]/5 focus:border-[#5271ff] focus:bg-white outline-none text-sm transition-all placeholder:text-gray-300 font-bold"
+              className={`w-full px-6 py-5 rounded-[1.5rem] outline-none text-sm font-bold transition-all ${
+                isEmbedded 
+                ? 'bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#5271ff] focus:ring-4 focus:ring-[#5271ff]/10 text-[#001341] placeholder:text-gray-400' 
+                : 'bg-white/5 border border-white/10 focus:bg-white/10 focus:border-[#5271ff] text-white placeholder:text-blue-200/50 backdrop-blur-md'
+              }`}
             />
+            <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+              Phone / WhatsApp
+            </div>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Business Email</label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Email Input */}
+          <div className="relative group/input">
             <input 
               name="email"
               type="email" 
               placeholder="name@company.com" 
-              className="w-full p-5 bg-gray-50/50 border border-gray-100 rounded-[1.5rem] focus:ring-4 focus:ring-[#5271ff]/5 focus:border-[#5271ff] focus:bg-white outline-none text-sm transition-all placeholder:text-gray-300 font-bold"
+              className={`w-full px-6 py-5 rounded-[1.5rem] outline-none text-sm font-bold transition-all ${
+                isEmbedded 
+                ? 'bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#5271ff] focus:ring-4 focus:ring-[#5271ff]/10 text-[#001341] placeholder:text-gray-400' 
+                : 'bg-white/5 border border-white/10 focus:bg-white/10 focus:border-[#5271ff] text-white placeholder:text-blue-200/50 backdrop-blur-md'
+              }`}
             />
+             <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+              Business Email
+            </div>
           </div>
-          <div className="space-y-2">
-            <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Growth Pillar</label>
-            <div className="relative">
-              <select 
-                name="service"
-                className="w-full p-5 bg-gray-50/50 border border-gray-100 rounded-[1.5rem] focus:ring-4 focus:ring-[#5271ff]/5 focus:border-[#5271ff] focus:bg-white outline-none text-sm transition-all text-gray-700 font-bold cursor-pointer appearance-none"
-              >
-                <option value="Website">Website/App Development</option>
-                <option value="Digital Marketing">Digital Marketing</option>
-                <option value="Zoom">Zoom Meeting Proposal</option>
-                <option value="Branding">Branding & UI/UX</option>
-              </select>
-              <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                <Send size={14} className="rotate-90" />
-              </div>
+
+          {/* Service Dropdown */}
+          <div className="relative group/input">
+            <select 
+              name="service"
+              className={`w-full px-6 py-5 rounded-[1.5rem] outline-none text-sm font-bold transition-all cursor-pointer appearance-none ${
+                isEmbedded 
+                ? 'bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#5271ff] focus:ring-4 focus:ring-[#5271ff]/10 text-[#001341]' 
+                : 'bg-[#0a1f5e]/80 border border-white/10 focus:bg-[#0f2a7a] focus:border-[#5271ff] text-white backdrop-blur-md'
+              }`}
+            >
+              <option value="Website">Website/App Development</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="Zoom">Zoom Meeting Proposal</option>
+              <option value="Branding">Branding & UI/UX</option>
+            </select>
+             <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+              Growth Pillar
+            </div>
+            <div className={`absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none ${isEmbedded ? 'text-gray-400' : 'text-blue-300'}`}>
+              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </div>
           </div>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-2">Project Vision / Requirements</label>
+        {/* Textarea */}
+        <div className="relative group/input pt-2">
           <textarea 
             name="requirement"
-            placeholder="How can we help your business dominate?" 
-            rows={4}
-            className="w-full p-6 bg-gray-50/50 border border-gray-100 rounded-[2rem] focus:ring-4 focus:ring-[#5271ff]/5 focus:border-[#5271ff] focus:bg-white outline-none text-sm transition-all placeholder:text-gray-300 font-bold resize-none"
+            placeholder="Tell us about your goals..." 
+            rows={3}
+            className={`w-full px-6 py-5 rounded-[1.5rem] outline-none text-sm font-bold transition-all resize-none ${
+              isEmbedded 
+              ? 'bg-gray-50 border border-gray-200 focus:bg-white focus:border-[#5271ff] focus:ring-4 focus:ring-[#5271ff]/10 text-[#001341] placeholder:text-gray-400' 
+              : 'bg-white/5 border border-white/10 focus:bg-white/10 focus:border-[#5271ff] text-white placeholder:text-blue-200/50 backdrop-blur-md'
+            }`}
           />
+           <div className={`absolute top-0 left-5 px-2 text-[10px] font-black uppercase tracking-widest -translate-y-1/2 ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+              Project Vision
+            </div>
         </div>
 
-        <motion.button 
-          whileHover={{ y: -4, scale: 1.01 }}
-          whileTap={{ scale: 0.98 }}
-          disabled={loading}
-          className="group/btn w-full bg-[#001341] text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-[0_20px_40px_-10px_rgba(0,19,65,0.3)] hover:shadow-[0_30px_60px_-10px_rgba(0,19,65,0.4)] disabled:opacity-50 relative overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
-          {loading ? <Loader2 className="animate-spin" size={20} /> : <Send size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />}
-          Finalize Proposal Request
-        </motion.button>
+        {/* Actions Container */}
+        <div className="pt-4 flex flex-col sm:flex-row gap-4">
+          <motion.button 
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            disabled={loading}
+            className={`group/btn w-full sm:w-2/3 py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl disabled:opacity-50 overflow-hidden relative ${
+              isEmbedded 
+              ? 'bg-[#001341] text-white hover:bg-[#ff914d] hover:shadow-orange-500/20' 
+              : 'bg-[#ff914d] text-white hover:bg-orange-500 hover:shadow-orange-500/30'
+            }`}
+          >
+            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"></div>
+            <span className="relative z-10 flex items-center gap-2">
+              {loading ? <Loader2 className="animate-spin" size={18} /> : 'Request Proposal'}
+              {!loading && <Send size={16} className="group-hover/btn:translate-x-1 transition-transform" />}
+            </span>
+          </motion.button>
 
-        <div className="relative flex items-center py-6">
-            <div className="flex-grow border-t border-gray-50"></div>
-            <span className="flex-shrink mx-6 text-[10px] font-black text-gray-200 uppercase tracking-[0.4em]">Fast Track</span>
-            <div className="flex-grow border-t border-gray-50"></div>
+          <motion.a 
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            href="https://scheduler.zoom.us/aiclex-technologies" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`w-full sm:w-1/3 py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 border-2 ${
+              isEmbedded 
+              ? 'bg-transparent border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50' 
+              : 'bg-transparent border-white/10 text-white hover:border-white/30 hover:bg-white/5'
+            }`}
+          >
+            <Calendar size={16} />
+            Meet Now
+          </motion.a>
         </div>
-
-        <motion.a 
-          whileHover={{ y: -2 }}
-          href="https://scheduler.zoom.us/aiclex-technologies" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="w-full bg-white border-2 border-gray-50 text-[#001341] py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:border-blue-100 hover:bg-blue-50/30 transition-all flex items-center justify-center gap-3 group/cal"
-        >
-          <Calendar size={18} className="text-blue-500 group-hover/cal:scale-110 transition-transform" />
-          Instant Discovery Call
-        </motion.a>
         
-        <div className="flex items-center justify-center gap-3 mt-8 pt-6 border-t border-gray-50">
-           <div className="flex items-center gap-2 px-3 py-1 bg-green-50 rounded-full">
-              <ShieldCheck size={12} className="text-green-600" />
-              <span className="text-[9px] font-black text-green-700 uppercase tracking-widest">End-to-End Encrypted</span>
+        {/* Trust Badges */}
+        <div className={`flex flex-wrap items-center justify-center gap-4 mt-6 pt-6 border-t ${isEmbedded ? 'border-gray-100' : 'border-white/10'}`}>
+           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${isEmbedded ? 'bg-green-50' : 'bg-green-500/10 border border-green-500/20'}`}>
+              <ShieldCheck size={12} className={isEmbedded ? 'text-green-600' : 'text-green-400'} />
+              <span className={`text-[9px] font-black uppercase tracking-widest ${isEmbedded ? 'text-green-700' : 'text-green-400'}`}>100% Secure</span>
            </div>
-           <div className="flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full">
-              <Sparkles size={12} className="text-blue-600" />
-              <span className="text-[9px] font-black text-blue-700 uppercase tracking-widest">AI Audit Included</span>
+           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${isEmbedded ? 'bg-blue-50' : 'bg-blue-500/10 border border-blue-500/20'}`}>
+              <Sparkles size={12} className={isEmbedded ? 'text-blue-600' : 'text-blue-400'} />
+              <span className={`text-[9px] font-black uppercase tracking-widest ${isEmbedded ? 'text-blue-700' : 'text-blue-400'}`}>No Spam Promise</span>
            </div>
         </div>
       </form>
