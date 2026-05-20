@@ -94,7 +94,7 @@ export default function Hero() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <img
-            src="/hero.webp"
+            src="/media__1779285825112.jpg"
             alt="Digital Marketing and AI Agency India, AICLEX Technologies"
             width={650}
             height={550}
