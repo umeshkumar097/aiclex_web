@@ -33,7 +33,7 @@ const teamMembers: {
   {
     id: 2,
     name: "Krishika Gupta",
-    role: "Co-Founder & Social Media Head",
+    role: "Social Media Manager",
     image:
       "/our-members/co-founder.jpg",
     socials: {
