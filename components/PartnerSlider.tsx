@@ -2,7 +2,7 @@
 
 import React, { memo } from "react";
 
-// Real client list provided by AICLEX team
+// Real client list provided by AICLEX™ team
 const clients = [
   { name: "Shoolini University", industry: "Education", initial: "SU" },
   { name: "Aditech", industry: "Technology", initial: "AT" },
@@ -52,7 +52,7 @@ const PartnerSlider = () => {
           Trusted by <span className="text-[#ff914d]">Industry Leaders</span>
         </h2>
         <p className="text-gray-400 mt-3 font-medium text-sm max-w-xl mx-auto">
-          From EdTech unicorns to manufacturing exporters — 15+ companies rely on AICLEX for growth.
+          From EdTech unicorns to manufacturing exporters — 15+ companies rely on AICLEX™ for growth.
         </p>
       </div>
 

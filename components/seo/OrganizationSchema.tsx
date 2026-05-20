@@ -1,15 +1,15 @@
 import React from "react";
 
 /**
- * Organization Schema for AICLEX Technologies.
+ * Organization Schema for AICLEX™ Technologies.
  * Helps with Knowledge Graph and general authority.
  */
 export default function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "AICLEX Technologies",
-    "alternateName": "AICLEX",
+    "name": "AICLEX™ Technologies",
+    "alternateName": "AICLEX™",
     "url": "https://aiclex.in",
     "logo": "https://aiclex.in/logo.svg",
     "contactPoint": {

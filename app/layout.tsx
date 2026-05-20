@@ -13,11 +13,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL('https://aiclex.in'),
   title: {
-    default: "AI Agency India, Zoom Reseller & Digital Marketing | AICLEX Technologies",
-    template: "%s | AICLEX Technologies"
+    default: "AI Agency India, Zoom Reseller & Digital Marketing | AICLEX™ Technologies",
+    template: "%s | AICLEX™ Technologies"
   },
-  description: "AICLEX Technologies is an AI-first product studio in India. Official Zoom reseller, digital marketing experts, and custom SaaS builders based in Greater Noida.",
-  keywords: ["Zoom Reseller India", "Real Estate CRM India", "Buy Zoom License India", "AI Agent Calling", "Web App Development India", "AICLEX Technologies Greater Noida"],
+  description: "AICLEX™ Technologies is an AI-first product studio in India. Official Zoom reseller, digital marketing experts, and custom SaaS builders based in Greater Noida.",
+  keywords: ["Zoom Reseller India", "Real Estate CRM India", "Buy Zoom License India", "AI Agent Calling", "Web App Development India", "AICLEX™ Technologies Greater Noida"],
   alternates: {
     canonical: '/',
   },
@@ -33,16 +33,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AICLEX Technologies",
+    title: "AICLEX™ Technologies",
     description: "Official Zoom Reseller and AI Solutions Provider in India.",
     url: "https://aiclex.in",
-    siteName: "AICLEX Technologies",
+    siteName: "AICLEX™ Technologies",
     locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AICLEX Technologies",
+    title: "AICLEX™ Technologies",
     description: "Official Zoom Reseller and AI Solutions Provider in India.",
   },
   verification: {

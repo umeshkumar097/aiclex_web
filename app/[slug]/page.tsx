@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Check if it's a short link (short links don't need rich metadata usually)
     const linkResult = await pool.query('SELECT target_url FROM short_links WHERE LOWER(slug) = LOWER($1)', [slug]);
     if (linkResult.rows.length > 0) {
-      return { title: "Redirecting... | AICLEX" };
+      return { title: "Redirecting... | AICLEX™" };
     }
     return { title: "Page Not Found" };
   }
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = post.meta_description || post.content.replace(/<[^>]*>/g, '').substring(0, 160);
 
   return {
-    title: `${post.title} | AICLEX Blog`,
+    title: `${post.title} | AICLEX™ Blog`,
     description: description,
     alternates: {
       canonical: `https://aiclex.in/${slug}`,
@@ -118,12 +118,12 @@ export default async function SingleBlogPage({ params }: Props) {
     "datePublished": new Date(post.created_at).toISOString(),
     "author": {
       "@type": "Organization",
-      "name": "AICLEX Technologies",
+      "name": "AICLEX™ Technologies",
       "url": "https://aiclex.in"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "AICLEX Technologies",
+      "name": "AICLEX™ Technologies",
       "logo": {
         "@type": "ImageObject",
         "url": "https://aiclex.in/logo.png"
@@ -181,7 +181,7 @@ export default async function SingleBlogPage({ params }: Props) {
                 A
               </div>
               <div>
-                <p className="font-bold text-white text-sm">AICLEX Technologies</p>
+                <p className="font-bold text-white text-sm">AICLEX™ Technologies</p>
                 <p className="text-blue-300 text-xs">Official Blog · Greater Noida, India</p>
               </div>
             </div>
@@ -260,7 +260,7 @@ export default async function SingleBlogPage({ params }: Props) {
                   href="/zoom"
                   className="inline-block bg-[#5271ff] hover:bg-[#001341] text-white px-8 py-4 rounded-2xl font-black text-sm transition-all hover:scale-105 shadow-xl shadow-blue-200"
                 >
-                  Buy Zoom License in India, AICLEX Official Zoom Reseller
+                  Buy Zoom License in India, AICLEX™ Official Zoom Reseller
                 </Link>
               </div>
 

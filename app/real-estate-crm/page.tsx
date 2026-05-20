@@ -182,7 +182,7 @@ export default function RealEstateCRMPage() {
               {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
             </div>
             <blockquote className="text-gray-700 text-lg md:text-xl italic leading-relaxed mb-6">
-              "The lead generation support from Aiclex has helped us reach more serious buyers. The leads were relevant and the process was very well managed."
+              "The lead generation support from Aiclex™ has helped us reach more serious buyers. The leads were relevant and the process was very well managed."
             </blockquote>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-[#5271ff] flex items-center justify-center text-white font-black">SG</div>

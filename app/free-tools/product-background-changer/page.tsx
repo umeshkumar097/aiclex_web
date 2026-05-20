@@ -24,7 +24,7 @@ const BACKGROUND_COLORS = [
   { name: "White", value: "#ffffff" },
   { name: "Soft Gray", value: "#f3f4f6" },
   { name: "Business Blue", value: "#001341" },
-  { name: "Aiclex Orange", value: "#ff914d" },
+  { name: "Aiclex™ Orange", value: "#ff914d" },
   { name: "Cyan", value: "#06b6d4" }
 ];
 
@@ -325,7 +325,7 @@ export default function BackgroundChangerPage() {
                           <div className="p-6 bg-blue-50 rounded-3xl space-y-4 border border-blue-100 shadow-sm">
                              <h3 className="text-[#001341] font-black text-lg">Want professional editing?</h3>
                              <p className="text-blue-900/60 text-xs font-medium leading-relaxed">
-                                AI is great, but human touch is premium. Get your full catalog edited by Aiclex experts with custom shadows and professional retouching.
+                                AI is great, but human touch is premium. Get your full catalog edited by Aiclex™ experts with custom shadows and professional retouching.
                              </p>
                              <a 
                                href="https://wa.me/918449488090" 

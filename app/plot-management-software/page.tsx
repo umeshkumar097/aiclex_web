@@ -183,7 +183,7 @@ export default function PlotManagementPage() {
           </span>
           <h2 className="text-3xl font-black mb-6">Built by a Team Already Running Real Estate SaaS at Scale</h2>
           <p className="text-blue-100/80 text-lg leading-relaxed mb-8">
-            AICLEX Technologies powers <strong className="text-[#ff914d]">Siteboard.in</strong> — an enterprise SaaS platform already managing <strong className="text-white">50+ premium township and developer projects</strong> across India. Plot Management Software is built on the same foundation, battle-tested at scale.
+            AICLEX™ Technologies powers <strong className="text-[#ff914d]">Siteboard.in</strong> — an enterprise SaaS platform already managing <strong className="text-white">50+ premium township and developer projects</strong> across India. Plot Management Software is built on the same foundation, battle-tested at scale.
           </p>
           <div className="grid grid-cols-3 gap-4">
             {[

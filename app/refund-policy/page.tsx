@@ -50,7 +50,7 @@ export default function RefundPolicy() {
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>Most projects require an advance payment before work begins</li>
               <li>This advance is non-refundable once the project is formally initiated (kickoff call completed or work started)</li>
-              <li>If AICLEX cancels the engagement before initiation, full advance is refunded</li>
+              <li>If AICLEX™ cancels the engagement before initiation, full advance is refunded</li>
             </ul>
           </section>
 
@@ -58,7 +58,7 @@ export default function RefundPolicy() {
             <h2 className="text-2xl font-bold text-[#001341] mb-4">4. Digital Marketing &amp; Ad Spend</h2>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>Any amount spent on Google Ads, Meta Ads, or other ad platforms is non-refundable. These are third-party platforms and payments are made on your behalf</li>
-              <li>AICLEX&apos;s management fee may be partially refunded on a pro-rata basis if the campaign is cancelled mid-month with valid reason</li>
+              <li>AICLEX™&apos;s management fee may be partially refunded on a pro-rata basis if the campaign is cancelled mid-month with valid reason</li>
             </ul>
           </section>
 
@@ -106,7 +106,7 @@ export default function RefundPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">9. Changes to This Policy</h2>
             <p>
-              AICLEX reserves the right to modify this policy at any time. Updated policy will be posted on this page with a revised date.
+              AICLEX™ reserves the right to modify this policy at any time. Updated policy will be posted on this page with a revised date.
             </p>
           </section>
 

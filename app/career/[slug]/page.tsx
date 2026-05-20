@@ -30,12 +30,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const description = job.description.substring(0, 160);
 
   return {
-    title: `${job.title} | Careers at Aiclex Technologies`,
+    title: `${job.title} | Careers at Aiclex™ Technologies`,
     description: description,
     alternates: {
       canonical: `/career/${slug}`,
     },
-    keywords: [job.title, job.department, "career", "job opening", "Aiclex Technologies", job.location],
+    keywords: [job.title, job.department, "career", "job opening", "Aiclex™ Technologies", job.location],
     openGraph: {
       title: `${job.title} at Aiclex`,
       description: description,

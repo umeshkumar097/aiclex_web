@@ -59,7 +59,7 @@ export default function ZoomResellerPage() {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-blue-100/80 max-w-3xl mx-auto leading-relaxed mb-10">
-              AICLEX Technologies is an authorized Zoom reseller based in Greater Noida. Get genuine Zoom Pro, Business, or Enterprise plans with Indian billing — no dollar payments, no international credit card needed.
+              AICLEX™ Technologies is an authorized Zoom reseller based in Greater Noida. Get genuine Zoom Pro, Business, or Enterprise plans with Indian billing — no dollar payments, no international credit card needed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -90,7 +90,7 @@ export default function ZoomResellerPage() {
           <div className="text-center mb-12">
             <span className="text-[#5271ff] font-black uppercase tracking-widest text-xs mb-3 block">Why AICLEX</span>
             <h2 className="text-3xl md:text-4xl font-black text-[#001341]">
-              Why 200+ Organizations Buy Zoom Through AICLEX
+              Why 200+ Organizations Buy Zoom Through AICLEX™
             </h2>
           </div>
 
@@ -100,7 +100,7 @@ export default function ZoomResellerPage() {
                 <tr className="bg-[#001341] text-white">
                   <th className="p-5 text-left font-bold text-xs uppercase tracking-widest w-1/3">Feature</th>
                   <th className="p-5 text-center font-bold text-xs uppercase tracking-widest">Zoom Direct</th>
-                  <th className="p-5 text-center font-bold text-xs uppercase tracking-widest text-[#ff914d]">AICLEX (Zoom Reseller)</th>
+                  <th className="p-5 text-center font-bold text-xs uppercase tracking-widest text-[#ff914d]">AICLEX™ (Zoom Reseller)</th>
                 </tr>
               </thead>
               <tbody>
@@ -189,7 +189,7 @@ export default function ZoomResellerPage() {
               {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />)}
             </div>
             <blockquote className="text-gray-700 text-lg italic leading-relaxed mb-6">
-              "We conduct frequent Zoom sessions, and Aiclex made the entire setup effortless for us. Everything works perfectly, and their support team is quick and reliable."
+              "We conduct frequent Zoom sessions, and Aiclex™ made the entire setup effortless for us. Everything works perfectly, and their support team is quick and reliable."
             </blockquote>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-[#ff914d] flex items-center justify-center text-white font-black">MK</div>

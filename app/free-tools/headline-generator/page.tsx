@@ -267,7 +267,7 @@ export default function HeadlineGenerator() {
                     >
                       Scale My Brand Fast <ArrowRight className="inline ml-2" />
                     </a>
-                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-300">Aiclex Managed Services - Limited Spots Only</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-300">Aiclex™ Managed Services - Limited Spots Only</p>
                  </div>
               </div>
             </motion.div>

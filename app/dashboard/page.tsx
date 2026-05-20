@@ -377,7 +377,7 @@ export default function Dashboard() {
       <aside className="w-64 bg-[#001341] text-white hidden md:flex flex-col h-screen fixed left-0 top-0 z-50">
         <div className="p-6 border-b border-white/10 flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab("overview")}>
           <div className="h-8 w-8 bg-[#ff914d] rounded-lg flex items-center justify-center font-bold text-white">A</div>
-          <span className="text-xl font-bold tracking-wide">AICLEX Admin</span>
+          <span className="text-xl font-bold tracking-wide">AICLEX™ Admin</span>
         </div>
 
         <nav className="flex-1 p-4 space-y-2">

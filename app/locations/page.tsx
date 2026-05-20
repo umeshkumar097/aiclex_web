@@ -5,8 +5,8 @@ import { servicesData } from "@/lib/servicesData";
 import { majorCities } from "@/lib/citiesData";
 
 export const metadata: Metadata = {
-  title: "Areas We Serve | AICLEX Service Locations",
-  description: "Explore the major cities across India where AICLEX provides top-tier digital marketing, AI development, and Zoom solutions.",
+  title: "Areas We Serve | AICLEX™ Service Locations",
+  description: "Explore the major cities across India where AICLEX™ provides top-tier digital marketing, AI development, and Zoom solutions.",
 };
 
 export default function LocationsDirectory() {
@@ -22,7 +22,7 @@ export default function LocationsDirectory() {
             Areas We Serve
           </h1>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-            AICLEX Technologies is proud to deliver world-class digital solutions across India. Browse our comprehensive list of service locations below to find tailored expertise in your city.
+            AICLEX™ Technologies is proud to deliver world-class digital solutions across India. Browse our comprehensive list of service locations below to find tailored expertise in your city.
           </p>
         </div>
 

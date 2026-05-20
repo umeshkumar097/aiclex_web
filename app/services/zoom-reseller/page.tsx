@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "how to buy zoom subscription in india", "zoom meeting reseller", "zoom pro reseller", "zoom license cost india",
     "zoom distributor in delhi", "zoom reseller in india", "zoom reseller in india price", "list of zoom reseller in india",
     "best zoom reseller in india", "zoom reseller in india cost", "zoom partner portal", "zoom license distributor",
-    "zoom partner portal login", "zoom partner registration", "AICLEX Zoom services"
+    "zoom partner portal login", "zoom partner registration", "AICLEX™ Zoom services"
   ],
 };
 
@@ -24,7 +24,7 @@ export default function ZoomResellerPage() {
     title: "Official Zoom Reseller In India",
     slug: "zoom-reseller",
     description: "Empowering Indian businesses with seamless video communication. Get specialized Zoom licensing, local support, and INR billing.",
-    longDescription: "As the premier Zoom Reseller in India, AICLEX Technologies understands the unique requirements of the Indian market. We bridge the gap between global technology and local business needs, offering compliant GST invoicing, competitive INR pricing, and dedicated implementation support for Zoom Meetings, Zoom Webinars, Zoom Rooms, and Zoom Phone.",
+    longDescription: "As the premier Zoom Reseller in India, AICLEX™ Technologies understands the unique requirements of the Indian market. We bridge the gap between global technology and local business needs, offering compliant GST invoicing, competitive INR pricing, and dedicated implementation support for Zoom Meetings, Zoom Webinars, Zoom Rooms, and Zoom Phone.",
     features: [
       "Official Zoom Partner in India",
       "GST Compliant INR Billing",
@@ -49,7 +49,7 @@ export default function ZoomResellerPage() {
     "name": "Zoom Reseller In India",
     "provider": {
       "@type": "LocalBusiness",
-      "name": "AICLEX Technologies",
+      "name": "AICLEX™ Technologies",
       "image": "https://ai.siteboard.in/aiclex-logo.png",
       "address": {
         "@type": "PostalAddress",
@@ -75,10 +75,10 @@ export default function ZoomResellerPage() {
   };
 
   const faqs = [
-    { q: "How to buy Zoom subscription in India?", a: "You can buy Zoom subscriptions directly through AICLEX Technologies, an authorized Zoom Reseller in India. We provide INR invoicing, GST compliance, and local payment methods like UPI and Bank Transfer." },
+    { q: "How to buy Zoom subscription in India?", a: "You can buy Zoom subscriptions directly through AICLEX™ Technologies, an authorized Zoom Reseller in India. We provide INR invoicing, GST compliance, and local payment methods like UPI and Bank Transfer." },
     { q: "What is the Zoom license cost in India?", a: "Zoom license costs vary based on the plan (Pro, Business, Enterprise) and number of users. As a leading Zoom reseller in India, we offer competitive pricing and special discounts for annual subscriptions." },
-    { q: "Are you a Zoom distributor in Delhi NCR?", a: "Yes, AICLEX Technologies is a prominent Zoom distributor in Delhi and Noida, providing localized support and implementation services for corporate and educational clients." },
-    { q: "Is AICLEX an official Zoom Partner in India?", a: "Absolutely. We are an official Zoom partner in India, registered on the Zoom Partner Portal, ensuring you get authentic licenses and direct support." },
+    { q: "Are you a Zoom distributor in Delhi NCR?", a: "Yes, AICLEX™ Technologies is a prominent Zoom distributor in Delhi and Noida, providing localized support and implementation services for corporate and educational clients." },
+    { q: "Is AICLEX™ an official Zoom Partner in India?", a: "Absolutely. We are an official Zoom partner in India, registered on the Zoom Partner Portal, ensuring you get authentic licenses and direct support." },
     { q: "Can I get Zoom reseller in India price list?", a: "Yes, contact our sales team at +91 8449488090 for the latest list of Zoom reseller prices in India, including specific costs for Zoom Meetings, Webinars, and Rooms." }
   ];
 
@@ -128,7 +128,7 @@ export default function ZoomResellerPage() {
       {/* SEARCH INDEXING RICH CONTENT */}
       <section className="py-20 max-w-7xl mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">Why Companies Trust AICLEX as their <br/>Authorized Zoom Reseller?</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">Why Companies Trust AICLEX™ as their <br/>Authorized Zoom Reseller?</h2>
             <p className="text-gray-600 text-lg">We don't just sell licenses; we build communication bridges for the digital-first Indian economy. As a leading Zoom license distributor, we ensure 100% compliance.</p>
         </div>
 

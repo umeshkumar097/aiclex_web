@@ -227,7 +227,7 @@ export default function FunnelBuilderQuiz() {
                        <h3 className="font-black text-blue-900 text-xl">Let's build this for you.</h3>
                        <p className="text-blue-700 font-bold mb-6 italic text-sm">Most businesses fail by building the funnel wrong. We guarantee 2x higher conversion rate.</p>
                        <a 
-                        href={`https://wa.me/918449488090?text=Hi, I just finished the Aiclex Funnel Quiz. My recommended strategy is ${getStrategy()}. Let's discuss implementing this.`}
+                        href={`https://wa.me/918449488090?text=Hi, I just finished the Aiclex™ Funnel Quiz. My recommended strategy is ${getStrategy()}. Let's discuss implementing this.`}
                         className="w-full py-4 bg-blue-600 text-white rounded-xl font-black text-center hover:scale-105 transition-all text-sm"
                        >
                          Talk to Growth Architect

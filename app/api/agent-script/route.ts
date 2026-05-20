@@ -8,8 +8,8 @@ export async function POST(req: Request) {
     }
 
     const prompt = `
-      You are an AI Sales Agent for a company named "Aiclex". 
-      Aiclex provides AI-driven business automation solutions like AI Calling Agents, Marketing Assistants, and Custom AI Tools.
+      You are an AI Sales Agent for a company named "Aiclex™". 
+      Aiclex™ provides AI-driven business automation solutions like AI Calling Agents, Marketing Assistants, and Custom AI Tools.
       
       Generate a short, professional, and welcoming introduction script (max 40 words) that an AI agent would say when a potential client calls.
       The tone should be helpful, professional, and have a slight Indian business etiquette feel (e.g., Namaste or Hello).
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
     const data = await response.json();
     const script = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || 
-      "Namaste! I am your Aiclex AI assistant. We help businesses scale with intelligent automation and AI-powered solutions. How can I assist you today?";
+      "Namaste! I am your Aiclex™ AI assistant. We help businesses scale with intelligent automation and AI-powered solutions. How can I assist you today?";
 
     return NextResponse.json({ script });
   } catch (error) {

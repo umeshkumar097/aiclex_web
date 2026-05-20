@@ -358,8 +358,8 @@ export default function AiToolPage() {
 
             {/* Bottom Branding */}
             <div className="bg-gray-50 p-4 border-t border-gray-100 flex items-center justify-center gap-2">
-                 <img src="/logo.svg" alt="Aiclex Logo" width={80} className="opacity-50" />
-                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">POWERED BY AICLEX AI</span>
+                 <img src="/logo.svg" alt="Aiclex™ Logo" width={80} className="opacity-50" />
+                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">POWERED BY AICLEX™ AI</span>
             </div>
           </div>
         </div>

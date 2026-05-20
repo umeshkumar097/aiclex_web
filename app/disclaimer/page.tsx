@@ -39,11 +39,11 @@ export default function Disclaimer() {
 
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">3. AI Services Disclaimer</h2>
-            <p>AICLEX provides AI-powered services including AI Voice Agents and AI Workflow Automation. Please note:</p>
+            <p>AICLEX™ provides AI-powered services including AI Voice Agents and AI Workflow Automation. Please note:</p>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>AI-generated outputs, calls, and recommendations are not infallible and may contain errors.</li>
               <li>AI Voice Agents should be monitored and reviewed by a human supervisor.</li>
-              <li>AICLEX is not liable for any business decision made solely on the basis of AI output.</li>
+              <li>AICLEX™ is not liable for any business decision made solely on the basis of AI output.</li>
               <li>Performance estimates for AI agents (call success rate, conversion rate, etc.) are projections based on averages and not guaranteed outcomes.</li>
               <li>Clients are solely responsible for ensuring their use of AI calling technology complies with TRAI regulations, telemarketing laws, and any jurisdiction-specific rules.</li>
             </ul>
@@ -53,7 +53,7 @@ export default function Disclaimer() {
             <h2 className="text-2xl font-bold text-[#001341] mb-4">4. Digital Marketing Disclaimer</h2>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>Results from Google Ads, Meta Ads, or SEO campaigns vary significantly based on industry, competition, budget, and timing.</li>
-              <li>AICLEX does not guarantee specific lead volumes, ROAS (Return on Ad Spend), or ranking positions.</li>
+              <li>AICLEX™ does not guarantee specific lead volumes, ROAS (Return on Ad Spend), or ranking positions.</li>
               <li>Ad spend is managed on the client&apos;s behalf and is subject to platform policies of Google and Meta.</li>
             </ul>
           </section>
@@ -61,16 +61,16 @@ export default function Disclaimer() {
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">5. Zoom Reseller Disclaimer</h2>
             <ul className="list-disc pl-6 space-y-2 mt-4">
-              <li>AICLEX is an authorized Zoom reseller in India but is an independent entity from Zoom Video Communications, Inc.</li>
+              <li>AICLEX™ is an authorized Zoom reseller in India but is an independent entity from Zoom Video Communications, Inc.</li>
               <li>Zoom&apos;s platform performance, uptime, features, and pricing are subject to Zoom&apos;s own terms and may change without notice.</li>
-              <li>AICLEX is not liable for any disruption, data loss, or service issue caused by Zoom&apos;s platform.</li>
+              <li>AICLEX™ is not liable for any disruption, data loss, or service issue caused by Zoom&apos;s platform.</li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">6. Third-Party Links</h2>
             <p>
-              Our website may contain links to third-party websites (HubSpot, Calendly, Zoom, Google, Meta, LinkedIn, etc.). These links are provided for convenience only. AICLEX does not endorse or take responsibility for the content, privacy policies, or practices of any third-party site.
+              Our website may contain links to third-party websites (HubSpot, Calendly, Zoom, Google, Meta, LinkedIn, etc.). These links are provided for convenience only. AICLEX™ does not endorse or take responsibility for the content, privacy policies, or practices of any third-party site.
             </p>
           </section>
 

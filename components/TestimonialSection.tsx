@@ -20,7 +20,7 @@ const testimonials = [
     type: "Lead Generation",
     company: "UC Property",
     image: "/testimonial/Sachin-gupta.webp",
-    quote: "The lead generation support from Aiclex has helped us reach more serious buyers. The leads were relevant and the process was very well managed. Great teamwork and timely updates.",
+    quote: "The lead generation support from Aiclex™ has helped us reach more serious buyers. The leads were relevant and the process was very well managed. Great teamwork and timely updates.",
     metric: "40+ serious buyer leads in first month",
     rating: 5,
   },
@@ -30,7 +30,7 @@ const testimonials = [
     type: "Zoom Meeting Support",
     company: "ProEditorsClub",
     image: "/testimonial/mohit.webp",
-    quote: "We conduct frequent Zoom sessions, and Aiclex made the entire setup effortless for us. Everything works perfectly, and their support team is quick and reliable. Excellent service overall.",
+    quote: "We conduct frequent Zoom sessions, and Aiclex™ made the entire setup effortless for us. Everything works perfectly, and their support team is quick and reliable. Excellent service overall.",
     metric: "Zero downtime in 100+ Zoom sessions",
     rating: 5,
   },
@@ -137,7 +137,7 @@ export default function TestimonialSection() {
                         <div className="flex-shrink-0">
                           <img
                             src={item.image}
-                            alt={`${item.name} - Client Testimonial for AICLEX Technologies`}
+                            alt={`${item.name} - Client Testimonial for AICLEX™ Technologies`}
                             className="w-16 h-16 rounded-2xl object-cover shadow-sm bg-gray-100"
                             onError={(e) =>
                               (e.currentTarget.src = `https://placehold.co/150/f3f4f6/666?text=${item.name.charAt(

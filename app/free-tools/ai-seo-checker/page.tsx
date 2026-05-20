@@ -67,12 +67,12 @@ export default function AiSeoChecker() {
     doc.setTextColor(240, 240, 240);
     doc.setFontSize(60);
     doc.setFont("helvetica", "bold");
-    doc.text("AICLEX TECHNOLOGIES", pageWidth / 2, pageHeight / 2, { align: "center", angle: 45 });
+    doc.text("AICLEX™ TECHNOLOGIES", pageWidth / 2, pageHeight / 2, { align: "center", angle: 45 });
 
     // 2. Header
     doc.setTextColor(0, 19, 65);
     doc.setFontSize(22);
-    doc.text("AICLEX AI SEO Audit Report", 20, 30);
+    doc.text("AICLEX™ AI SEO Audit Report", 20, 30);
     
     doc.setFontSize(12);
     doc.setTextColor(100);
@@ -177,7 +177,7 @@ export default function AiSeoChecker() {
     // Footer
     doc.setFontSize(8);
     doc.setTextColor(150);
-    doc.text("Report by AICLEX Technologies - Proprietary AI Analysis", pageWidth / 2, pageHeight - 10, { align: "center" });
+    doc.text("Report by AICLEX™ Technologies - Proprietary AI Analysis", pageWidth / 2, pageHeight - 10, { align: "center" });
 
     try {
       doc.save(`aiclex-seo-report-${url.replace(/[^a-z0-9]/gi, '_')}.pdf`);
@@ -477,7 +477,7 @@ export default function AiSeoChecker() {
                         
                         <div className="flex flex-col sm:flex-row gap-4 relative z-10">
                             <a 
-                                href={`https://wa.me/918449488090?text=Hi Aiclex Team, My SEO Score for ${url} is ${auditReport.score}. I want to fix my 'losing customers' issues.`} 
+                                href={`https://wa.me/918449488090?text=Hi Aiclex™ Team, My SEO Score for ${url} is ${auditReport.score}. I want to fix my 'losing customers' issues.`} 
                                 target="_blank"
                                 className="px-10 py-5 bg-white text-blue-700 rounded-2xl font-black text-center shadow-2xl hover:scale-[1.03] transition-all flex items-center justify-center gap-2"
                             >
@@ -501,7 +501,7 @@ export default function AiSeoChecker() {
             {/* Bottom Branding */}
             <div className="bg-gray-50 p-6 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                    <img src="/logo.svg" alt="Aiclex Logo" width={100} className="opacity-70" />
+                    <img src="/logo.svg" alt="Aiclex™ Logo" width={100} className="opacity-70" />
                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-l pl-4 border-gray-200">Built with Gemini 1.5 Pro</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-400">
@@ -515,7 +515,7 @@ export default function AiSeoChecker() {
       {/* --- SEO CONTENT SEC FOR INDEXING --- */}
       <section className="max-w-4xl mx-auto px-6 mt-24 space-y-12">
           <div className="prose prose-lg max-w-none text-gray-600">
-             <h2 className="text-3xl font-black text-[#001341]">Why Use AICLEX AI SEO Checker?</h2>
+             <h2 className="text-3xl font-black text-[#001341]">Why Use AICLEX™ AI SEO Checker?</h2>
              <p>
                 In today's digital landscape, ranking on the first page of Google is not just about keywords; it's about providing the best experience and most relevant content. Our **AI SEO Audit Tool** uses advanced machine learning models (Gemini 1.5 Pro) to analyze your website's fundamental SEO structure across Title Tags, Meta Descriptions, Heading Hierarchies, and Image Accessibility.
              </p>
@@ -534,7 +534,7 @@ export default function AiSeoChecker() {
                 </div>
                 <div className="flex gap-4">
                    <div className="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center shrink-0">4</div>
-                   <p>Official AICLEX Support: Get human expert review of your AI-generated report for enterprise growth.</p>
+                   <p>Official AICLEX™ Support: Get human expert review of your AI-generated report for enterprise growth.</p>
                 </div>
              </div>
              <p className="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-600 text-blue-900 font-medium">

@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: data.title,
     description: data.description,
-    keywords: [data.keyword, "Zoom Reseller India", "Zoom Partner", "AICLEX Technologies"],
+    keywords: [data.keyword, "Zoom Reseller India", "Zoom Partner", "AICLEX™ Technologies"],
     alternates: {
        canonical: `https://aiclex.in/solutions/${slug}`
     }
@@ -66,7 +66,7 @@ export default async function SolutionPage({ params }: Props) {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Expert Guide on {data.keyword}</h2>
               <p className="mb-6">{data.content}</p>
               <p>
-                At AICLEX Technologies, we specialize in providing end-to-end solutions for organizations searching for **{data.keyword}**. 
+                At AICLEX™ Technologies, we specialize in providing end-to-end solutions for organizations searching for **{data.keyword}**. 
                 Whether you are a small startup or a large enterprise, our team in India ensures that your Zoom deployment is seamless, 
                 compliant, and cost-effective.
               </p>

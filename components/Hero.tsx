@@ -95,7 +95,7 @@ export default function Hero() {
         >
           <img
             src="/hero-new.jpg"
-            alt="Digital Marketing and AI Agency India, AICLEX Technologies"
+            alt="Digital Marketing and AI Agency India, AICLEX™ Technologies"
             width={650}
             height={550}
             className="relative z-10 object-contain max-h-[350px] md:max-h-[550px]"

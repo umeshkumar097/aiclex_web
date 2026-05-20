@@ -4,7 +4,7 @@ export default function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "AICLEX Technologies",
+    "name": "AICLEX™ Technologies",
     "url": "https://aiclex.in",
     "logo": "https://aiclex.in/logo.svg",
     "description": "AI-first product studio offering Zoom Reselling, Digital Marketing, Custom SaaS and AI solutions in India.",

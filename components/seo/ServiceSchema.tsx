@@ -7,7 +7,7 @@ interface ServiceSchemaProps {
 }
 
 /**
- * Service Schema for AICLEX Services.
+ * Service Schema for AICLEX™ Services.
  * Helps search engines understand specific service offerings.
  */
 export default function ServiceSchema({ title, description, url }: ServiceSchemaProps) {
@@ -17,7 +17,7 @@ export default function ServiceSchema({ title, description, url }: ServiceSchema
     "serviceType": title,
     "provider": {
       "@type": "Organization",
-      "name": "AICLEX Technologies",
+      "name": "AICLEX™ Technologies",
       "url": "https://aiclex.in"
     },
     "description": description,
@@ -25,7 +25,7 @@ export default function ServiceSchema({ title, description, url }: ServiceSchema
     "areaServed": "IN",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "AICLEX Premium AI & Digital Solutions",
+      "name": "AICLEX™ Premium AI & Digital Solutions",
       "itemListElement": [
         {
           "@type": "Offer",

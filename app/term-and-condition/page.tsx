@@ -31,7 +31,7 @@ export default function TermsAndConditions() {
 
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">2. Services Offered</h2>
-            <p>AICLEX Technologies provides the following services:</p>
+            <p>AICLEX™ Technologies provides the following services:</p>
             <div className="overflow-x-auto mt-4">
               <table className="min-w-full border-collapse border border-gray-200">
                 <thead className="bg-gray-50">
@@ -60,7 +60,7 @@ export default function TermsAndConditions() {
               <li>Provide accurate and complete information in all forms and communications</li>
               <li>Respond to our team in a timely manner to avoid project delays</li>
               <li>Not use our services for any unlawful, fraudulent, or harmful purpose</li>
-              <li>Not reverse-engineer, copy, or resell any deliverable, tool, or AI system built by AICLEX without written permission</li>
+              <li>Not reverse-engineer, copy, or resell any deliverable, tool, or AI system built by AICLEX™ without written permission</li>
               <li>Ensure that content, data, or materials you provide to us do not violate any third-party rights</li>
             </ul>
           </section>
@@ -80,9 +80,9 @@ export default function TermsAndConditions() {
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">5. Intellectual Property</h2>
             <ul className="list-disc pl-6 space-y-2 mt-4">
-              <li>All work delivered by AICLEX (code, design, content, AI models) remains the property of AICLEX until full payment is received</li>
+              <li>All work delivered by AICLEX™ (code, design, content, AI models) remains the property of AICLEX™ until full payment is received</li>
               <li>Upon full payment, intellectual property for custom deliverables transfers to the client, unless otherwise stated in the project agreement</li>
-              <li>AICLEX retains the right to showcase completed work in our portfolio, case studies, and marketing materials unless the client requests confidentiality in writing</li>
+              <li>AICLEX™ retains the right to showcase completed work in our portfolio, case studies, and marketing materials unless the client requests confidentiality in writing</li>
               <li>Our brand assets, logo, name, &quot;AICLEX™&quot;, &quot;AI Tools Suite™&quot;, are proprietary and may not be used without written consent</li>
             </ul>
           </section>
@@ -92,7 +92,7 @@ export default function TermsAndConditions() {
             <p>Given the nature of our AI Voice Agents and AI Workflow services:</p>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>AI outputs are not guaranteed to be error-free and should be reviewed by a human before critical business decisions</li>
-              <li>AICLEX is not liable for any decisions made based on AI-generated outputs</li>
+              <li>AICLEX™ is not liable for any decisions made based on AI-generated outputs</li>
               <li>Performance metrics (e.g., call success rate, conversion rate) are estimates based on historical data and may vary</li>
               <li>Client is responsible for ensuring their use of AI calling agents complies with applicable TRAI regulations and telemarketing laws in their jurisdiction</li>
             </ul>
@@ -103,9 +103,9 @@ export default function TermsAndConditions() {
             <p>As an official Zoom reseller in India:</p>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>Zoom licenses are provided subject to Zoom&apos;s End User License Agreement (EULA)</li>
-              <li>AICLEX is the billing and support point of contact, not Zoom directly</li>
+              <li>AICLEX™ is the billing and support point of contact, not Zoom directly</li>
               <li>License cancellations and refunds are subject to our Refund Policy and Zoom&apos;s own policies</li>
-              <li>AICLEX is not liable for any downtime, outage, or service disruption caused by Zoom&apos;s platform</li>
+              <li>AICLEX™ is not liable for any downtime, outage, or service disruption caused by Zoom&apos;s platform</li>
             </ul>
           </section>
 
@@ -113,7 +113,7 @@ export default function TermsAndConditions() {
             <h2 className="text-2xl font-bold text-[#001341] mb-4">8. Limitation of Liability</h2>
             <p>To the maximum extent permitted by applicable Indian law:</p>
             <ul className="list-disc pl-6 space-y-2 mt-4">
-              <li>AICLEX&apos;s total liability to any client shall not exceed the amount paid by that client in the 3 months preceding the claim</li>
+              <li>AICLEX™&apos;s total liability to any client shall not exceed the amount paid by that client in the 3 months preceding the claim</li>
               <li>We are not liable for any indirect, incidental, or consequential damages, including loss of revenue, data, or business opportunities, arising from use of our services</li>
               <li>We do not guarantee specific outcomes such as lead volumes, ad ROI, or sales conversions. All performance claims on our website are based on past results and are not a promise of future performance</li>
             </ul>
@@ -128,7 +128,7 @@ export default function TermsAndConditions() {
             <h2 className="text-2xl font-bold text-[#001341] mb-4">10. Termination</h2>
             <ul className="list-disc pl-6 space-y-2 mt-4">
               <li>Either party may terminate a service engagement with 15 days written notice via email</li>
-              <li>AICLEX reserves the right to immediately terminate services if the client breaches these Terms, engages in abusive behaviour, or fails to make payment</li>
+              <li>AICLEX™ reserves the right to immediately terminate services if the client breaches these Terms, engages in abusive behaviour, or fails to make payment</li>
               <li>Upon termination, any outstanding payments for work completed remain due</li>
               <li>Zoom license terminations are subject to separate notice periods per Zoom&apos;s policy</li>
             </ul>
@@ -147,7 +147,7 @@ export default function TermsAndConditions() {
 
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">12. Disclaimer of Warranties</h2>
-            <p>Our services are provided &quot;as is&quot; and &quot;as available&quot;. AICLEX makes no warranties, express or implied, regarding fitness for a particular purpose, uninterrupted service, or specific business outcomes.</p>
+            <p>Our services are provided &quot;as is&quot; and &quot;as available&quot;. AICLEX™ makes no warranties, express or implied, regarding fitness for a particular purpose, uninterrupted service, or specific business outcomes.</p>
           </section>
 
           <section>

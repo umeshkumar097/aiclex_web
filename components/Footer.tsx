@@ -66,7 +66,7 @@ export default function Footer() {
           <Link href="/">
             <Image
               src="/logo.svg"
-              alt="Aiclex Logo"
+              alt="Aiclex™ Logo"
               width={180}
               height={80}
               className="select-none cursor-pointer"
@@ -216,7 +216,7 @@ export default function Footer() {
       {/* --- BOTTOM BAR --- */}
       <div className="border-t border-gray-200 bg-[#001341]">
         <div className="max-w-7xl mx-auto px-6 py-6 text-[14px] font-medium text-white/80 text-center ">
-             2025-26 © All rights reserved by Aiclex Technologies.
+             2025-26 © All rights reserved by Aiclex™ Technologies.
         </div>
       </div>
 

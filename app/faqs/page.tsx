@@ -10,7 +10,7 @@ type FAQItem = {
 
 const faqs: FAQItem[] = [
   {
-    question: "What services does AICLEX TECHNOLOGIES offer?",
+    question: "What services does AICLEX™ TECHNOLOGIES offer?",
     answer: "We offer a wide range of digital solutions including website design, digital marketing, automation, social media management, mobile application development, brand strategy, SEO, and content writing.",
   },
   {

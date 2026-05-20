@@ -21,7 +21,7 @@ const processSteps: ProcessStep[] = [
     id: 1,
     title: "Contact us first",
     description:
-      "Contact AICLEX TECHNOLOGIES today to discover how our expert team can help your business achieve unparalleled growth and success.",
+      "Contact AICLEX™ TECHNOLOGIES today to discover how our expert team can help your business achieve unparalleled growth and success.",
     icon: Phone,
     ctaText: "CONTACT US >",
     ctaLink: "/contact",
@@ -32,7 +32,7 @@ const processSteps: ProcessStep[] = [
     id: 2,
     title: "Consult with us",
     description:
-      "Unlock your business's potential with expert guidance from AICLEX TECHNOLOGIES. Our consultation services are designed to provide you with tailored strategies.",
+      "Unlock your business's potential with expert guidance from AICLEX™ TECHNOLOGIES. Our consultation services are designed to provide you with tailored strategies.",
     icon: UserCheck,
     ctaText: "APPOINTMENT >",
     ctaLink: "/appointment",
@@ -54,7 +54,7 @@ const processSteps: ProcessStep[] = [
     id: 4,
     title: "Make Payment",
     description:
-      "Securely make your payment to AICLEX TECHNOLOGIES to get started with our exceptional services.",
+      "Securely make your payment to AICLEX™ TECHNOLOGIES to get started with our exceptional services.",
     icon: Heart,
     ctaText: "PAYMENT >",
     ctaLink: "/payment",

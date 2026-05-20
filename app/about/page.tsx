@@ -65,7 +65,7 @@ const proofPoints = [
 // Updated FAQs focusing on Ad Services
 const faqs: FAQItem[] = [
   {
-    question: "What services does AICLEX TECHNOLOGIES offer?",
+    question: "What services does AICLEX™ TECHNOLOGIES offer?",
     answer:
       "We offer a wide range of digital solutions including website designing, digital marketing, automation, social media management, application development, brand development strategies, SEO, content writing, and comprehensive ad management.",
   },
@@ -151,7 +151,7 @@ export default function AboutUs() {
             </h3>
 
             <p className="text-lg text-gray-600 leading-relaxed">
-              At <strong className="text-gray-900">AICLEX TECHNOLOGIES</strong>, we bring deep industry knowledge to every project we undertake. Our team is dedicated to designing exceptional digital experiences that not only meet but exceed your expectations. We combine innovation, creativity, and technical proficiency to deliver solutions that drive engagement and achieve your business goals.
+              At <strong className="text-gray-900">AICLEX™ TECHNOLOGIES</strong>, we bring deep industry knowledge to every project we undertake. Our team is dedicated to designing exceptional digital experiences that not only meet but exceed your expectations. We combine innovation, creativity, and technical proficiency to deliver solutions that drive engagement and achieve your business goals.
             </p>
           </div>
 
@@ -159,7 +159,7 @@ export default function AboutUs() {
           <div className="flex-1 relative w-full h-[400px] md:h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl group">
              <img 
                src="/assets/about/hero.png" 
-               alt="Aiclex Team" 
+               alt="Aiclex™ Team" 
                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
              />
              {/* Overlay Gradient (Clean, no video button) */}

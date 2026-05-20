@@ -35,7 +35,7 @@ export async function POST(req: Request) {
             contents: [{
               parts: [{
                 text: `
-                  You are an expert Social Media Marketer for the Indian market, working for a premium agency called "Aiclex".
+                  You are an expert Social Media Marketer for the Indian market, working for a premium agency called "Aiclex™".
                   Generate highly engaging ${platform} content for the following topic: ${topic}.
                   The tone should be ${tone}.
                   

@@ -10,7 +10,7 @@ const projects = [
     description: "Enterprise SaaS for Real Estate developers. Currently powering 50+ premium townships and developers across India with automated inventory management.",
     url: "https://siteboard.in",
     image: "/siteboard.png",
-    alt: "Siteboard.in, Real Estate SaaS Platform by AICLEX Technologies",
+    alt: "Siteboard.in, Real Estate SaaS Platform by AICLEX™ Technologies",
     icon: <Building2 className="text-blue-500" />,
     tag: "LIVE: Enterprise SaaS",
     impact: "Powering 50+ Real Estate Projects Safely"
@@ -20,7 +20,7 @@ const projects = [
     description: "Smart B2B Lead Intelligence platform. Helping agencies and sales teams scale with 5,000+ verified business leads across 12+ industry categories.",
     url: "https://dhandaleads.com",
     image: "/dhandaleads.png",
-    alt: "DhandaLeads.com, B2B Lead Generation Platform by AICLEX",
+    alt: "DhandaLeads.com, B2B Lead Generation Platform by AICLEX™",
     icon: <BarChart3 className="text-purple-500" />,
     tag: "GROWING: Lead Gen",
     impact: "Generated 100k+ Verified B2B Leads"
@@ -30,7 +30,7 @@ const projects = [
     description: "India's massive Gym Marketplace. Connecting 10,000+ monthly active users with the best 200+ premium fitness centers in Delhi-NCR.",
     url: "https://passfit.in",
     image: "/passfit.png",
-    alt: "Passfit.in, Gym Marketplace App by AICLEX Technologies",
+    alt: "Passfit.in, Gym Marketplace App by AICLEX™ Technologies",
     icon: <Smartphone className="text-orange-500" />,
     tag: "SCALE: Marketplace",
     impact: "20k+ Active Monthly Workout Sessions"
@@ -40,7 +40,7 @@ const projects = [
     description: "Enterprise WhatsApp Marketing and Automation platform. Engage your customers with smart chatbots and broadcast campaigns with ZERO conversation charges.",
     url: "https://whatspilot.online",
     image: "/whatspilot.png",
-    alt: "WhatsPilot, WhatsApp Marketing Automation Platform by AICLEX",
+    alt: "WhatsPilot, WhatsApp Marketing Automation Platform by AICLEX™",
     icon: <MessageCircle className="text-green-500" />,
     tag: "NEW: Marketing SaaS",
     impact: "Zero Conversation Cost"

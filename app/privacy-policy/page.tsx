@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">1. Introduction</h2>
             <p>
-              AICLEX Technologies (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;), operated by AICLEX™ Technologies, Gaur City Mall, Greater Noida – 201318, India, is committed to protecting your personal information. This Privacy Policy explains how we collect, use, store, and share your data when you visit <a href="https://aiclex.in" className="text-blue-600 font-bold">aiclex.in</a> or use our services.
+              AICLEX™ Technologies (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;), operated by AICLEX™ Technologies, Gaur City Mall, Greater Noida – 201318, India, is committed to protecting your personal information. This Privacy Policy explains how we collect, use, store, and share your data when you visit <a href="https://aiclex.in" className="text-blue-600 font-bold">aiclex.in</a> or use our services.
             </p>
             <p>By using our website or submitting any form, you agree to this policy.</p>
           </section>
@@ -132,7 +132,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-2xl font-bold text-[#001341] mb-4">10. International Data Transfers</h2>
             <p>
-              AICLEX serves clients across 15+ nations. If you are located outside India, your data may be transferred to and processed in India. By using our services, you consent to this transfer. We ensure adequate safeguards are in place for cross-border data flows.
+              AICLEX™ serves clients across 15+ nations. If you are located outside India, your data may be transferred to and processed in India. By using our services, you consent to this transfer. We ensure adequate safeguards are in place for cross-border data flows.
             </p>
           </section>
 

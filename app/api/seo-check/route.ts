@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
     // 3. AI Analysis with Gemini
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
     const prompt = `
-      Act as a Senior Technical SEO Architect at Aiclex Technologies. 
+      Act as a Senior Technical SEO Architect at Aiclex™ Technologies. 
       Perform a "Brutally Honest" and highly detailed SEO audit for the website: ${url}
       
       Website Technical Signature:
@@ -145,8 +145,8 @@ export async function POST(req: NextRequest) {
         "pdfMessage": "A professional 300-word deep-dive summary for an enterprise-level PDF report",
         "aiclexCTA": {
            "title": "Your website is losing customers ⚠️",
-           "description": "Your current SEO score indicates major technical gaps that are blocking your revenue growth. Aiclex experts can resolve all these issues in under 15 days.",
-           "action": "Scale with Aiclex SEO™"
+           "description": "Your current SEO score indicates major technical gaps that are blocking your revenue growth. Aiclex™ experts can resolve all these issues in under 15 days.",
+           "action": "Scale with Aiclex™ SEO™"
         }
       }
     `;
@@ -197,12 +197,12 @@ export async function POST(req: NextRequest) {
            "Consolidate H1 tags into a single semantic heading.",
            "Optimize all images for WebP format and accessibility.",
            "Increase content depth to at least 1500 words per major page.",
-           "Connect with Aiclex for a managed backlink strategy."
+           "Connect with Aiclex™ for a managed backlink strategy."
         ],
         pdfMessage: "Audit Overview: The website has significant structural flaws that are preventing it from ranking on the first page of Google. Urgent attention is required for meta-data and mobile accessibility.",
         aiclexCTA: {
            title: "Is your business losing traffic?",
-           description: "Most SEO issues like these are technical. Let Aiclex handle the complexity while you handle the business.",
+           description: "Most SEO issues like these are technical. Let Aiclex™ handle the complexity while you handle the business.",
            action: "Get Expert Help Now"
         }
       };

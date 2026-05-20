@@ -56,7 +56,7 @@ function generateLocationContent(serviceTitle: string, city: string) {
     `Transforming the business landscape in ${city} with world-class ${serviceTitle.toLowerCase()} solutions.`,
     `Empowering ${city}-based enterprises to dominate their niche using data-driven ${serviceTitle.toLowerCase()} strategies.`,
     `Your trusted local partner for premium ${serviceTitle.toLowerCase()} in ${city}, delivering measurable growth and ROI.`,
-    `AICLEX Technologies brings cutting-edge ${serviceTitle.toLowerCase()} expertise directly to the doorstep of businesses in ${city}.`
+    `AICLEX™ Technologies brings cutting-edge ${serviceTitle.toLowerCase()} expertise directly to the doorstep of businesses in ${city}.`
   ];
 
   const cityContexts = [
@@ -120,10 +120,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = city 
     ? generateUniqueTitle(cleanServiceTitle, city)
-    : `${service.title} | AICLEX Services`;
+    : `${service.title} | AICLEX™ Services`;
 
   const description = city
-    ? `Looking for top-rated ${cleanServiceTitle} in ${city}? AICLEX Technologies provides expert ${cleanServiceTitle.toLowerCase()} solutions tailored for businesses in ${city}.`
+    ? `Looking for top-rated ${cleanServiceTitle} in ${city}? AICLEX™ Technologies provides expert ${cleanServiceTitle.toLowerCase()} solutions tailored for businesses in ${city}.`
     : service.description;
 
   const currentUrl = `https://aiclex.in/services/${slug}`;
@@ -258,7 +258,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
             {/* 3. Why Choose AICLEX? */}
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose AICLEX for {service.title} {city && `in ${city}`}?</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Choose AICLEX™ for {service.title} {city && `in ${city}`}?</h3>
               <div className="grid grid-cols-1 gap-6">
                 {service.benefits?.map((benefit, index) => (
                    <div key={index} className="flex items-start gap-4">
@@ -303,8 +303,8 @@ export default async function ServiceDetailPage({ params }: Props) {
                 <h3 className="text-2xl font-bold text-[#001341] mb-6">Frequently Asked Questions in {city}</h3>
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900 mb-2">Why is AICLEX the best {service.title} agency in {city}?</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed font-medium">AICLEX TECHNOLOGIES combines deep industry expertise with local market insights in {city}. We focus on ROI-driven strategies that help businesses in {city} scale faster and more efficiently than competitors by leveraging cutting-edge AI tools.</p>
+                    <h4 className="text-lg font-bold text-gray-900 mb-2">Why is AICLEX™ the best {service.title} agency in {city}?</h4>
+                    <p className="text-gray-600 text-sm leading-relaxed font-medium">AICLEX™ TECHNOLOGIES combines deep industry expertise with local market insights in {city}. We focus on ROI-driven strategies that help businesses in {city} scale faster and more efficiently than competitors by leveraging cutting-edge AI tools.</p>
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-gray-900 mb-2">How long does it take to see results for {service.title} in {city}?</h4>

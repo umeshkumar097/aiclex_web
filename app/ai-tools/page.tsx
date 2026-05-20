@@ -232,7 +232,7 @@ export default function AiToolsHub() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
                 <a 
-                  href="https://wa.me/918449488090?text=Hi Aiclex Team, I am interested in custom AI Marketing Solutions for my business." 
+                  href="https://wa.me/918449488090?text=Hi Aiclex™ Team, I am interested in custom AI Marketing Solutions for my business." 
                   target="_blank"
                   className="px-12 py-6 bg-[#ff914d] text-white rounded-2xl font-black text-xl hover:scale-[1.03] transition-all shadow-2xl flex items-center gap-3"
                 >

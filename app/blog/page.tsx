@@ -6,8 +6,8 @@ import { Metadata } from "next";
 import BlogLeadPopup from "@/components/BlogLeadPopup";
 
 export const metadata: Metadata = {
-  title: "Latest News & Insights | AICLEX Blog",
-  description: "Explore the latest updates, tech tutorials, and insights from the AICLEX team.",
+  title: "Latest News & Insights | AICLEX™ Blog",
+  description: "Explore the latest updates, tech tutorials, and insights from the AICLEX™ team.",
 };
 
 export const dynamic = "force-dynamic";

@@ -53,7 +53,7 @@ export default function ClientsSection() {
                     >
                         <img 
                             src={`/partners/${index + 1}.jpg`} 
-                            alt={`${name} - Trusted Partner of AICLEX Technologies`} 
+                            alt={`${name} - Trusted Partner of AICLEX™ Technologies`} 
                             className="max-h-12 w-auto grayscale group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100" 
                         />
                     </motion.div>

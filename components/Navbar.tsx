@@ -88,7 +88,7 @@ export default function Navbar() {
       <nav className="w-full px-6 py-4 flex items-center top-0 fixed justify-between bg-white z-50 shadow-sm">
         <Link href="/">
           <div className="flex items-center gap-2 mb-6 mt-2">
-            <img src="/logo.svg" alt="AICLEX Technologies Logo" width={150} height={60} />
+            <img src="/logo.svg" alt="AICLEX™ Technologies Logo" width={150} height={60} />
           </div>
         </Link>
 
@@ -259,7 +259,7 @@ export default function Navbar() {
         </button>
 
         <div className="flex items-center gap-2 mb-6 mt-2">
-          <img src="/logo.svg" alt="AICLEX Logo" width={150} height={60} />
+          <img src="/logo.svg" alt="AICLEX™ Logo" width={150} height={60} />
         </div>
 
         <div className="relative mb-6">

@@ -109,7 +109,7 @@ const VoiceAgent = () => {
                         <div className="text-center">
                             <h4 className="text-xl font-bold text-gray-900 capitalize">{callState}...</h4>
                             <p className="text-gray-500 text-sm">
-                                {callState === 'calling' ? 'Wait while we connect you' : 'Agent Aiclex is Speaking'}
+                                {callState === 'calling' ? 'Wait while we connect you' : 'Agent Aiclex™ is Speaking'}
                             </p>
                         </div>
 
