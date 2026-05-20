@@ -120,7 +120,7 @@ export default function AiSalesAgentHeroSplit() {
                         
                     </motion.p>
                     
-                    <motion.h1
+                    <motion.h2
                         className="text-3xl  sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-tight"
                         variants={itemVariants}
                     >
@@ -131,7 +131,7 @@ export default function AiSalesAgentHeroSplit() {
                                     words={["Sales", "Growth", "Revenue"]} 
                                     speed={120} 
                                     />
-                    </motion.h1>
+                    </motion.h2>
 
                     <motion.p
             className="text-base text-gray-700 font-medium pt-2"

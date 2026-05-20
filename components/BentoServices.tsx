@@ -136,7 +136,7 @@ export default function BentoServices() {
                 </div>
                 
                 <div className="space-y-2">
-                  <div className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-1 ${service.size === "large" ? "text-blue-300" : "text-blue-400"}`}>
+                  <div className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-1 ${service.size === "large" ? "text-blue-300" : "text-blue-600"}`}>
                     {service.subtitle}
                   </div>
                   <h3 className={`font-black tracking-tighter ${service.size === "large" ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl"} leading-tight`}>

@@ -20,6 +20,8 @@ export default function HomeLeadForm({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const idPrefix = isEmbedded ? "embedded-" : "standalone-";
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -120,6 +122,7 @@ export default function HomeLeadForm({
           {/* Name Input */}
           <div className="relative group/input">
             <input 
+              id={idPrefix + "name"}
               name="name"
               type="text" 
               placeholder="Full Name" 
@@ -131,14 +134,18 @@ export default function HomeLeadForm({
               }`}
             />
             {/* Minimal Label */}
-            <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+            <label 
+              htmlFor={idPrefix + "name"}
+              className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-600' : 'bg-[#001341] text-blue-300'}`}
+            >
               Your Name
-            </div>
+            </label>
           </div>
 
           {/* Phone Input */}
           <div className="relative group/input">
             <input 
+              id={idPrefix + "phone"}
               name="phone"
               type="tel" 
               placeholder="e.g. +91 9876543210" 
@@ -149,9 +156,12 @@ export default function HomeLeadForm({
                 : 'bg-white/5 border border-white/10 focus:bg-white/10 focus:border-[#5271ff] text-white placeholder:text-blue-200/50 backdrop-blur-md'
               }`}
             />
-            <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+            <label 
+              htmlFor={idPrefix + "phone"}
+              className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-600' : 'bg-[#001341] text-blue-300'}`}
+            >
               Phone / WhatsApp
-            </div>
+            </label>
           </div>
         </div>
         
@@ -159,6 +169,7 @@ export default function HomeLeadForm({
           {/* Email Input */}
           <div className="relative group/input">
             <input 
+              id={idPrefix + "email"}
               name="email"
               type="email" 
               placeholder="name@company.com" 
@@ -168,14 +179,18 @@ export default function HomeLeadForm({
                 : 'bg-white/5 border border-white/10 focus:bg-white/10 focus:border-[#5271ff] text-white placeholder:text-blue-200/50 backdrop-blur-md'
               }`}
             />
-             <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+             <label 
+              htmlFor={idPrefix + "email"}
+              className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-600' : 'bg-[#001341] text-blue-300'}`}
+             >
               Business Email
-            </div>
+            </label>
           </div>
 
           {/* Service Dropdown */}
           <div className="relative group/input">
             <select 
+              id={idPrefix + "service"}
               name="service"
               className={`w-full px-6 py-5 rounded-[1.5rem] outline-none text-sm font-bold transition-all cursor-pointer appearance-none ${
                 isEmbedded 
@@ -188,9 +203,12 @@ export default function HomeLeadForm({
               <option value="Zoom">Zoom Meeting Proposal</option>
               <option value="Branding">Branding & UI/UX</option>
             </select>
-             <div className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+             <label 
+              htmlFor={idPrefix + "service"}
+              className={`absolute -top-2.5 left-5 px-2 text-[10px] font-black uppercase tracking-widest ${isEmbedded ? 'bg-white text-gray-600' : 'bg-[#001341] text-blue-300'}`}
+             >
               Growth Pillar
-            </div>
+            </label>
             <div className={`absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none ${isEmbedded ? 'text-gray-400' : 'text-blue-300'}`}>
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -202,6 +220,7 @@ export default function HomeLeadForm({
         {/* Textarea */}
         <div className="relative group/input pt-2">
           <textarea 
+            id={idPrefix + "requirement"}
             name="requirement"
             placeholder="Tell us about your goals..." 
             rows={3}
@@ -211,9 +230,12 @@ export default function HomeLeadForm({
               : 'bg-white/5 border border-white/10 focus:bg-white/10 focus:border-[#5271ff] text-white placeholder:text-blue-200/50 backdrop-blur-md'
             }`}
           />
-           <div className={`absolute top-0 left-5 px-2 text-[10px] font-black uppercase tracking-widest -translate-y-1/2 ${isEmbedded ? 'bg-white text-gray-500' : 'bg-[#001341] text-[#5271ff]'}`}>
+           <label 
+            htmlFor={idPrefix + "requirement"}
+            className={`absolute top-0 left-5 px-2 text-[10px] font-black uppercase tracking-widest -translate-y-1/2 ${isEmbedded ? 'bg-white text-gray-600' : 'bg-[#001341] text-blue-300'}`}
+           >
               Project Vision
-            </div>
+            </label>
         </div>
 
         {/* Actions Container */}
@@ -262,7 +284,7 @@ export default function HomeLeadForm({
               <Sparkles size={12} className={isEmbedded ? 'text-blue-600' : 'text-blue-400'} />
               <span className={`text-[9px] font-black uppercase tracking-widest ${isEmbedded ? 'text-blue-700' : 'text-blue-400'}`}>No Spam Promise</span>
            </div>
-        </div>
+         </div>
       </form>
     </motion.div>
   );
