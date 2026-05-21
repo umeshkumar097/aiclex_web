@@ -23,7 +23,7 @@ export const sendLeadEmails = async (leadData: {
   // 1. Send Notification to Admin
   const adminMailOptions = {
     from: `"AICLEX System" <${process.env.SMTP_USER}>`,
-    to: "info@aiclex.in",
+    to: process.env.ADMIN_EMAIL || "info@aiclex.co.in",
     subject: `🚀 New Lead: ${name} (${type})`,
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { saveLead } from "@/lib/leads";
+import { sendLeadEmails } from "@/lib/mail";
 import pool from "@/lib/db";
 
 export async function POST(req: Request) {
@@ -24,6 +25,16 @@ export async function POST(req: Request) {
     });
 
     if (result.success) {
+      // Trigger email alert in the background
+      sendLeadEmails({
+        name,
+        email: email || "",
+        phone: whatsapp,
+        type: source,
+        requirement,
+        source_page: source
+      }).catch(err => console.error("Email sending failed:", err));
+
       return NextResponse.json({ success: true, id: result.id });
     } else {
       return NextResponse.json({ error: result.error }, { status: 500 });
