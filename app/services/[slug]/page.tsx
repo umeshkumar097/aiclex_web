@@ -2,7 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ServiceIcon from "@/components/ServiceIcon"; 
-import { CheckCircle, ArrowLeft } from "lucide-react";
+import { 
+  CheckCircle, ArrowLeft, Home, Factory, 
+  Store, HeartPulse, GraduationCap, Briefcase 
+} from "lucide-react";
 import { Metadata } from "next";
 import { servicesData } from "@/lib/servicesData";
 import { getCityName } from "@/lib/citiesData";
@@ -239,6 +242,63 @@ export default async function ServiceDetailPage({ params }: Props) {
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#5271ff]">{locationStats.growth}%</div>
                   <div className="text-xs text-gray-500 font-medium">Success Rate</div>
+                </div>
+              </div>
+            )}
+
+            {/* ERP Custom Industry Showcase Section */}
+            {service.slug === "erp-software-solutions" && (
+              <div className="bg-gradient-to-br from-indigo-50/40 to-purple-50/40 p-8 rounded-3xl border border-indigo-100/50">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Industries We Serve</h3>
+                <p className="text-slate-500 text-sm mb-8">Custom modules and workflows engineered to fit the unique operational needs of your specific industry sector.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Home className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold text-slate-800 mb-2">Real Estate & Plot Management</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">Integrated billing, property listings, plot status trackers, customer lead mapping, and real-time agent/broker commission modules.</p>
+                  </div>
+
+                  <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Factory className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold text-slate-800 mb-2">Manufacturing & Inventory</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">Material resources planning (MRP), stock tracking with automated low-stock alerts, warehouse syncing, and vendor supply chain analytics.</p>
+                  </div>
+
+                  <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Store className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold text-slate-800 mb-2">Retail & E-commerce</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">Multi-outlet Point of Sale (POS) synchronization, centralized inventory management, digital invoice generation, and customer loyalty flows.</p>
+                  </div>
+
+                  <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <HeartPulse className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold text-slate-800 mb-2">Healthcare & Clinics</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">Secure Electronic Health Records (EHR), OPD/IPD billing system, digital doctor rosters, automated patient appointment reminders, and clinic analytics.</p>
+                  </div>
+
+                  <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <GraduationCap className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold text-slate-800 mb-2">EdTech & School Management</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">End-to-end fee collection schedules, automatic parent alert dispatch, digital library cards, student/staff attendance, and dynamic report generators.</p>
+                  </div>
+
+                  <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
+                    <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Briefcase className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold text-slate-800 mb-2">Professional Services & HRMS</h4>
+                    <p className="text-slate-500 text-xs leading-relaxed">Employee payroll processing, dynamic attendance tracking, leaves workflow management, project timesheets, and staff portals.</p>
+                  </div>
                 </div>
               </div>
             )}

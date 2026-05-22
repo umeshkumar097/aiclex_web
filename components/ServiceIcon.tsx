@@ -4,7 +4,7 @@ import React from "react";
 import { 
   Megaphone, Smartphone, PenTool, LayoutGrid, 
   ShoppingCart, Palette, Monitor, Globe, HelpCircle,
-  Video, PhoneCall, BarChart, MessageCircle
+  Video, PhoneCall, BarChart, MessageCircle, Database
 } from "lucide-react";
 
 interface ServiceIconProps {
@@ -26,7 +26,8 @@ const ServiceIcon: React.FC<ServiceIconProps> = ({ iconName, className }) => {
     Video: <Video className={className} />,
     PhoneCall: <PhoneCall className={className} />,
     BarChart: <BarChart className={className} />,
-    MessageCircle: <MessageCircle className={className} />
+    MessageCircle: <MessageCircle className={className} />,
+    Database: <Database className={className} />
   };
 
   // Return the matching icon, or a default one if not found
