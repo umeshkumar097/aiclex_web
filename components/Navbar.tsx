@@ -43,6 +43,7 @@ export default function Navbar() {
     { name: "About Us", href: "/about", icon: <User size={18} aria-hidden="true" /> },
     { name: "Zoom", href: "/zoom", icon: <Video size={18} aria-hidden="true" /> },
     { name: "Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
+    { name: "Pricing", href: "/pricing", icon: <FileText size={18} aria-hidden="true" /> },
     {
       name: "Company",
       href: "#",

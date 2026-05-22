@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ServiceIcon from "@/components/ServiceIcon"; 
+import LeadForm from "@/components/LeadForm";
 import { 
   CheckCircle, ArrowLeft, Home, Factory, 
   Store, HeartPulse, GraduationCap, Briefcase 
@@ -727,14 +728,11 @@ export default async function ServiceDetailPage({ params }: Props) {
                 </div>
               </div>
 
-              <div className="bg-[#001341] p-8 rounded-[2rem] text-center text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#5271ff] rounded-full blur-3xl opacity-20"></div>
-                <h3 className="text-xl font-bold mb-4 relative z-10">Ready to Grow{city && ` in ${city}`}?</h3>
-                <p className="text-blue-100 text-sm mb-6 relative z-10">Let's discuss how {service.title} can help your business{city && ` in ${city}`}.</p>
-                <Link href="/contact" className="inline-block w-full py-3 bg-[#ff914d] text-white font-bold rounded-full hover:bg-orange-600 transition-colors relative z-10">
-                  Get a Free Quote
-                </Link>
-              </div>
+              <LeadForm 
+                defaultService={service.title}
+                defaultCity={city || "global"}
+                isEmbedded={true}
+              />
 
             </div>
           </div>

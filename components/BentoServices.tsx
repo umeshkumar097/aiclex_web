@@ -106,62 +106,66 @@ export default function BentoServices() {
         {/* Bento Grid - Fixed internal alignment */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[240px] gap-6 md:gap-8">
           {services.map((service, index) => (
-            <motion.div
+            <Link 
               key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`
-                group relative rounded-[2.5rem] p-8 md:p-10 border transition-all duration-700 flex flex-col justify-between overflow-hidden
-                ${service.className}
-              `}
+              href={`/services/${service.slug}`}
+              className="block h-full outline-none group focus:outline-none"
             >
-              {/* Primary AI Card Visuals (Mesh/Noise) */}
-              {service.size === "large" && (
-                <>
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-400/30 transition-colors"></div>
-                    <div className="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-black/20 to-transparent"></div>
-                    <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]"></div>
-                </>
-              )}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className={`
+                  relative rounded-[2.5rem] p-8 md:p-10 border transition-all duration-700 flex flex-col justify-between overflow-hidden h-full
+                  ${service.className}
+                `}
+              >
+                {/* Primary AI Card Visuals (Mesh/Noise) */}
+                {service.size === "large" && (
+                  <>
+                      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-400/30 transition-colors"></div>
+                      <div className="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-black/20 to-transparent"></div>
+                      <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]"></div>
+                  </>
+                )}
 
-              {/* Card Header (Icon + Stacked Text) */}
-              <div className="relative z-10">
-                <div className={`
-                  mb-8 w-fit p-4 rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6
-                  ${service.size === "large" ? "bg-white/10 text-white border border-white/10" : "bg-white text-[#5271ff] shadow-xl shadow-blue-500/5"}
-                `}>
-                  {service.icon}
-                </div>
-                
-                <div className="space-y-2">
-                  <div className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-1 ${service.size === "large" ? "text-blue-300" : "text-blue-600"}`}>
-                    {service.subtitle}
+                {/* Card Header (Icon + Stacked Text) */}
+                <div className="relative z-10">
+                  <div className={`
+                    mb-8 w-fit p-4 rounded-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6
+                    ${service.size === "large" ? "bg-white/10 text-white border border-white/10" : "bg-white text-[#5271ff] shadow-xl shadow-blue-500/5"}
+                  `}>
+                    {service.icon}
                   </div>
-                  <h3 className={`font-black tracking-tighter ${service.size === "large" ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl"} leading-tight`}>
-                    {service.title}
-                  </h3>
+                  
+                  <div className="space-y-2">
+                    <div className={`text-[10px] md:text-xs font-black uppercase tracking-[0.2em] mb-1 ${service.size === "large" ? "text-blue-300" : "text-blue-600"}`}>
+                      {service.subtitle}
+                    </div>
+                    <h3 className={`font-black tracking-tighter ${service.size === "large" ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl"} leading-tight`}>
+                      {service.title}
+                    </h3>
+                  </div>
                 </div>
-              </div>
 
-              {/* Card Footer (Description + Link) - Better Bottom Alignment */}
-              <div className="relative z-10 flex items-end justify-between gap-4">
-                <p className={`text-sm font-semibold max-w-[220px] leading-relaxed line-clamp-2 ${service.size === "large" ? "text-blue-100/70" : "text-slate-500"}`}>
-                   {service.desc}
-                </p>
-                
-                <Link 
-                  href={`/services/${service.slug}`}
-                  className={`
-                    flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 group-hover:gap-2
-                    ${service.size === "large" ? "bg-white text-[#001341] hover:bg-[#ff914d] hover:text-white" : "bg-[#001341] text-white hover:scale-110 shadow-xl shadow-blue-900/10"}
-                  `}
-                >
-                  <ArrowRight size={20} />
-                </Link>
-              </div>
-            </motion.div>
+                {/* Card Footer (Description + Link) - Better Bottom Alignment */}
+                <div className="relative z-10 flex items-end justify-between gap-4">
+                  <p className={`text-sm font-semibold max-w-[220px] leading-relaxed line-clamp-2 ${service.size === "large" ? "text-blue-100/70" : "text-slate-500"}`}>
+                     {service.desc}
+                  </p>
+                  
+                  <div 
+                    className={`
+                      flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 group-hover:gap-2
+                      ${service.size === "large" ? "bg-white text-[#001341] hover:bg-[#ff914d] hover:text-white" : "bg-[#001341] text-white hover:scale-110 shadow-xl shadow-blue-900/10"}
+                    `}
+                  >
+                    <ArrowRight size={20} />
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
           ))}
 
           {/* Stats Card - Upgraded Elite Feel */}

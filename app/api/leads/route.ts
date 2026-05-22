@@ -6,7 +6,19 @@ import pool from "@/lib/db";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, whatsapp, requirement, source } = body;
+    const { 
+      name, 
+      email, 
+      whatsapp, 
+      requirement, 
+      source,
+      city,
+      service,
+      source_page,
+      utm_source,
+      utm_medium,
+      utm_campaign
+    } = body;
 
     if (!name || !whatsapp || !requirement || !source) {
       return NextResponse.json(
@@ -21,19 +33,29 @@ export async function POST(req: Request) {
       whatsapp,
       requirement,
       source,
-      status: "new"
+      status: "new",
+      city: city || null,
+      service: service || null,
+      source_page: source_page || null,
+      utm_source: utm_source || null,
+      utm_medium: utm_medium || null,
+      utm_campaign: utm_campaign || null
     });
 
     if (result.success) {
-      // Trigger email alert in the background
+      // Trigger email alert with full tracking and attribution parameters
       sendLeadEmails({
         name,
         email: email || "",
         phone: whatsapp,
-        type: source,
+        type: service || source,
         requirement,
-        source_page: source
-      }).catch(err => console.error("Email sending failed:", err));
+        source_page: source_page || source,
+        city: city || undefined,
+        utm_source: utm_source || undefined,
+        utm_medium: utm_medium || undefined,
+        utm_campaign: utm_campaign || undefined
+      } as any).catch(err => console.error("Email sending failed:", err));
 
       return NextResponse.json({ success: true, id: result.id });
     } else {
@@ -52,6 +74,8 @@ export async function GET(req: Request) {
     const phone = searchParams.get("phone") || "";
     const date = searchParams.get("date") || "";
     const source = searchParams.get("source") || "";
+    const city = searchParams.get("city") || "";
+    const service = searchParams.get("service") || "";
 
     let query = "SELECT * FROM leads WHERE 1=1";
     const values: any[] = [];
@@ -72,6 +96,18 @@ export async function GET(req: Request) {
     if (source) {
       query += ` AND source = $${counter}`;
       values.push(source);
+      counter++;
+    }
+
+    if (city) {
+      query += ` AND city ILIKE $${counter}`;
+      values.push(`%${city}%`);
+      counter++;
+    }
+
+    if (service) {
+      query += ` AND (service = $${counter} OR source = $${counter})`;
+      values.push(service);
       counter++;
     }
 

@@ -53,6 +53,19 @@ export default async function LatestBlogs() {
         ">
           {latestPosts.map((post: any, index: number) => {
             const cleanExcerpt = stripHtml(post.content).substring(0, 100);
+            
+            // Dynamic reading time calculation (avg 200 words per minute)
+            const wordsCount = stripHtml(post.content).split(/\s+/).length;
+            const readingTime = Math.max(1, Math.ceil(wordsCount / 200));
+
+            // Dynamic category assignment based on keywords
+            let category = "SaaS Insights";
+            const titleLower = post.title.toLowerCase();
+            if (titleLower.includes("zoom")) category = "Zoom Reselling";
+            else if (titleLower.includes("whatsapp") || titleLower.includes("automation") || titleLower.includes("bot")) category = "AI & Automation";
+            else if (titleLower.includes("marketing") || titleLower.includes("seo") || titleLower.includes("lead")) category = "Growth Marketing";
+            else if (titleLower.includes("real estate") || titleLower.includes("crm")) category = "Real Estate SaaS";
+
             return (
               <FadeInOnScroll 
                 key={post.id} 
@@ -61,7 +74,7 @@ export default async function LatestBlogs() {
               >
                 <div 
                   className="
-                    bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:shadow-xl transition-all duration-300 group h-full
+                    bg-white rounded-[2rem] overflow-hidden shadow-md border border-gray-100/50 flex flex-col hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 group h-full
                   "
                 >
                   {/* Image */}
@@ -79,7 +92,7 @@ export default async function LatestBlogs() {
                     )}
                     
                     {/* Date Badge */}
-                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-1 rounded-lg text-[10px] font-bold text-[#001341] shadow-sm flex items-center gap-1.5">
+                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-[10px] font-black text-[#001341] shadow-sm flex items-center gap-1.5 border border-white/20">
                         <Calendar size={10} className="text-[#ff914d]" />
                         {new Date(post.created_at).toLocaleDateString('en-US', {
                             month: 'short',
@@ -87,27 +100,47 @@ export default async function LatestBlogs() {
                             year: 'numeric'
                         })}
                     </div>
-                  </div>
 
+                    {/* Dynamic Category Badge */}
+                    <div className="absolute top-3 right-3 bg-gradient-to-r from-[#5271ff] to-indigo-600 text-white px-2.5 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-sm">
+                      {category}
+                    </div>
+                  </div>
+ 
                   {/* Content */}
                   <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="text-lg font-bold text-[#001341] mb-2 line-clamp-2 leading-tight group-hover:text-[#ff914d] transition-colors">
+                    <h3 className="text-base font-extrabold text-[#001341] mb-2 line-clamp-2 leading-tight group-hover:text-[#ff914d] transition-colors">
                       <Link href={`/${post.slug}`}>
                         {post.title}
                       </Link>
                     </h3>
                     
-                    <p className="text-gray-500 text-sm line-clamp-3 mb-4 leading-relaxed">
+                    <p className="text-gray-500 text-xs line-clamp-3 mb-6 leading-relaxed">
                       {cleanExcerpt}...
                     </p>
                     
-                    <Link 
-                      href={`/${post.slug}`} 
-                      aria-label={`Read more about ${post.title}`}
-                      className="mt-auto inline-flex items-center gap-2 text-[#001341] font-bold text-sm group-hover:gap-3 transition-all"
-                    >
-                      Read More <span className="sr-only">about {post.title}</span> <ArrowRight size={16} className="text-[#ff914d]" />
-                    </Link>
+                    {/* Action link */}
+                    <div className="mb-6">
+                      <Link 
+                        href={`/${post.slug}`} 
+                        aria-label={`Read more about ${post.title}`}
+                        className="inline-flex items-center gap-2 text-[#001341] font-black text-xs uppercase tracking-wider group-hover:gap-3 transition-all"
+                      >
+                        <span>Read Case Study</span>
+                        <ArrowRight size={14} className="text-[#ff914d] transition-transform duration-300 group-hover:translate-x-1" />
+                      </Link>
+                    </div>
+
+                    {/* Author Signature & Read Time */}
+                    <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#5271ff] to-[#ff914d] flex items-center justify-center text-white font-black text-[8px]">
+                          AX
+                        </div>
+                        <span className="text-[#001341]/80">Aiclex Consultant</span>
+                      </div>
+                      <span>{readingTime} Min Read</span>
+                    </div>
                   </div>
                 </div>
               </FadeInOnScroll>

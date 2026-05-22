@@ -26,8 +26,6 @@ const teamMembers: {
     image: "/our-members/ceo.webp",
     socials: {
       linkedin: "https://www.linkedin.com/in/iukbsr/",
-      
-      
     },
   },
   {
@@ -38,7 +36,24 @@ const teamMembers: {
       "/our-members/co-founder.jpg",
     socials: {
       linkedin: "https://www.linkedin.com/in/gkrishika/",
-      
+    },
+  },
+  {
+    id: 3,
+    name: "Deepak Sharma",
+    role: "Head of AI Engineering",
+    image: "/our-members/ai-head.webp",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/deepak-sharma/",
+    },
+  },
+  {
+    id: 4,
+    name: "Siddharth Verma",
+    role: "Principal SEO & Growth Architect",
+    image: "/our-members/seo-head.webp",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/siddharth-verma/",
     },
   },
 ];

@@ -17,25 +17,73 @@ export const sendLeadEmails = async (leadData: {
   type: string;
   requirement: string;
   source_page?: string;
+  city?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
 }) => {
-  const { name, email, phone, type, requirement, source_page } = leadData;
+  const { 
+    name, 
+    email, 
+    phone, 
+    type, 
+    requirement, 
+    source_page,
+    city,
+    utm_source,
+    utm_medium,
+    utm_campaign
+  } = leadData;
 
   // 1. Send Notification to Admin
   const adminMailOptions = {
     from: `"AICLEX System" <${process.env.SMTP_USER}>`,
     to: process.env.ADMIN_EMAIL || "info@aiclex.co.in",
-    subject: `🚀 New Lead: ${name} (${type})`,
+    subject: `🚀 New Lead: ${name} (${city ? `${city} | ` : ''}${type})`,
     html: `
-      <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-        <h2 style="color: #001341;">New Lead Submission</h2>
-        <table style="width: 100%; border-collapse: collapse;">
-          <tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Name:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;">${name}</td></tr>
-          <tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Email:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;">${email}</td></tr>
-          <tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Phone:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;">${phone}</td></tr>
-          <tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Service:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;">${type}</td></tr>
-          <tr><td style="padding: 10px; border-bottom: 1px solid #eee;"><strong>Requirement:</strong></td><td style="padding: 10px; border-bottom: 1px solid #eee;">${requirement}</td></tr>
-        </table>
-        <p style="margin-top: 20px; font-size: 12px; color: #666;">Source: ${source_page || "Direct"}</p>
+      <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
+          <h2 style="color: #001341; margin: 0; font-size: 24px; font-weight: 800;">🚀 New Business Lead</h2>
+          <p style="color: #64748b; font-size: 13px; margin: 5px 0 0 0; text-transform: uppercase; tracking-wider: 1px; font-weight: 700;">AICLEX™ Real-Time CRM pipeline</p>
+        </div>
+        
+        <div style="margin-top: 20px;">
+          <h3 style="color: #0f172a; font-size: 16px; margin-bottom: 10px; border-left: 4px solid #5271ff; padding-left: 8px;">Lead Contact Details</h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; width: 35%; color: #64748b;"><strong>Name:</strong></td><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: 600;">${name}</td></tr>
+            <tr><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #64748b;"><strong>Email:</strong></td><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #5271ff; font-weight: 600;">${email || "N/A"}</td></tr>
+            <tr><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #64748b;"><strong>Phone / WhatsApp:</strong></td><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #16a34a; font-weight: 700;">${phone}</td></tr>
+          </table>
+        </div>
+
+        <div style="margin-top: 20px;">
+          <h3 style="color: #0f172a; font-size: 16px; margin-bottom: 10px; border-left: 4px solid #ff914d; padding-left: 8px;">Captured Location & Service</h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; width: 35%; color: #64748b;"><strong>Service Category:</strong></td><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: 600;">${type}</td></tr>
+            <tr><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #64748b;"><strong>Target City:</strong></td><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: 600; text-transform: capitalize;">${city || "Global / General"}</td></tr>
+            <tr><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #64748b;"><strong>Captured Page:</strong></td><td style="padding: 10px; border-bottom: 1px solid #f1f5f9; color: #475569; font-family: monospace; font-size: 11px; word-break: break-all;">${source_page || "Direct"}</td></tr>
+          </table>
+        </div>
+
+        ${(utm_source || utm_medium || utm_campaign) ? `
+        <div style="margin-top: 20px; background-color: #f8fafc; padding: 15px; border-radius: 12px; border: 1px dashed #cbd5e1;">
+          <h3 style="color: #0f172a; font-size: 12px; margin: 0 0 10px 0; font-weight: 700; text-transform: uppercase; color: #001341;">Attribution Channels (UTM)</h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            ${utm_source ? `<tr><td style="padding: 6px 0; color: #64748b; font-size: 13px;"><strong>UTM Source:</strong></td><td style="padding: 6px 0; color: #334155; font-size: 13px; font-weight: 600;">${utm_source}</td></tr>` : ''}
+            ${utm_medium ? `<tr><td style="padding: 6px 0; color: #64748b; font-size: 13px;"><strong>UTM Medium:</strong></td><td style="padding: 6px 0; color: #334155; font-size: 13px; font-weight: 600;">${utm_medium}</td></tr>` : ''}
+            ${utm_campaign ? `<tr><td style="padding: 6px 0; color: #64748b; font-size: 13px;"><strong>UTM Campaign:</strong></td><td style="padding: 6px 0; color: #334155; font-size: 13px; font-weight: 600;">${utm_campaign}</td></tr>` : ''}
+          </table>
+        </div>
+        ` : ''}
+
+        <div style="margin-top: 20px; background-color: #f1f5f9; padding: 15px; border-radius: 12px;">
+          <strong style="color: #334155; font-size: 12px; display: block; margin-bottom: 5px; text-transform: uppercase;">Lead Requirement:</strong>
+          <p style="margin: 0; color: #0f172a; font-size: 13px; font-style: italic; line-height: 1.5; font-weight: 500;">"${requirement || 'No detailed requirement provided.'}"</p>
+        </div>
+
+        <div style="margin-top: 25px; text-align: center; font-size: 11px; color: #94a3b8;">
+          This notification was automatically sent by AICLEX™ lead attribution systems.
+        </div>
       </div>
     `,
   };

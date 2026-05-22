@@ -127,10 +127,18 @@ export default function PortfolioSection() {
 
         <div className="mt-20 text-center">
             <div className="inline-flex items-center gap-8 p-6 bg-gray-50 border border-gray-100 rounded-[2rem] shadow-inner">
-                <div className="flex -space-x-4">
-                    {[1, 2, 3, 4].map(i => (
-                        <div key={i} className="w-12 h-12 rounded-full border-4 border-white bg-gray-200 flex items-center justify-center overflow-hidden">
-                            <img src={`https://i.pravatar.cc/150?u=${i}`} alt="Client" />
+                <div className="flex -space-x-3.5">
+                    {[
+                      { initials: "DK", grad: "from-[#5271ff] to-[#001341]" },
+                      { initials: "SK", grad: "from-[#ff914d] to-orange-600" },
+                      { initials: "UA", grad: "from-teal-400 to-emerald-600" },
+                      { initials: "PM", grad: "from-purple-500 to-indigo-700" }
+                    ].map((avatar, i) => (
+                        <div 
+                          key={i} 
+                          className={`w-12 h-12 rounded-full border-4 border-white bg-gradient-to-tr ${avatar.grad} flex items-center justify-center font-black text-xs text-white shadow-md select-none`}
+                        >
+                          {avatar.initials}
                         </div>
                     ))}
                 </div>

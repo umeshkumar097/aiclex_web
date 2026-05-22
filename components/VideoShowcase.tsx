@@ -60,6 +60,9 @@ export default function VideoShowcase() {
                   className="w-full aspect-video object-cover"
                   controls
                   playsInline
+                  autoPlay
+                  muted
+                  loop
                 >
                   <source src="https://ai.siteboard.in/AIclex%20Technologies%20-%20Growth-Oriented%20Zoom%20Solutions_1080p_caption.mp4" type="video/mp4" />
                   Your browser does not support the video tag.

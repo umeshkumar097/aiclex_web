@@ -51,7 +51,7 @@ export default function Dashboard() {
   const [uploading, setUploading] = useState(false);
   
   // CRM Filters
-  const [crmFilters, setCrmFilters] = useState({ name: "", phone: "", date: "", source: "" });
+  const [crmFilters, setCrmFilters] = useState({ name: "", phone: "", date: "", source: "", city: "", service: "" });
   
   // Form State
   const [formData, setFormData] = useState({ 
@@ -100,8 +100,8 @@ export default function Dashboard() {
 
   const fetchLeads = async () => {
     try {
-      const { name, phone, date, source } = crmFilters;
-      const params = new URLSearchParams({ name, phone, date, source });
+      const { name, phone, date, source, city, service } = crmFilters;
+      const params = new URLSearchParams({ name, phone, date, source, city, service });
       const res = await fetch(`/api/leads?${params.toString()}`);
       if(res.ok) setLeads(await res.json());
     } catch (error) { console.error("Failed to fetch leads"); }
@@ -284,9 +284,24 @@ export default function Dashboard() {
 
   const exportToCSV = () => {
     if (leads.length === 0) return;
-    const headers = ["Name", "Email", "WhatsApp", "Status", "Requirement", "Source", "Date"];
+    const headers = [
+      "Name", "Email", "WhatsApp", "Status", "Requirement", "Source", "Date",
+      "City", "Service", "Captured URL", "UTM Source", "UTM Medium", "UTM Campaign"
+    ];
     const rows = leads.map(l => [
-      `"${l.name}"`, `"${l.email || ''}"`, `"${l.whatsapp}"`, `"${l.status}"`, `"${l.requirement?.replace(/"/g, '""')}"`, `"${l.source}"`, `"${new Date(l.created_at).toLocaleDateString()}"`
+      `"${l.name}"`, 
+      `"${l.email || ''}"`, 
+      `"${l.whatsapp}"`, 
+      `"${l.status}"`, 
+      `"${l.requirement?.replace(/"/g, '""')}"`, 
+      `"${l.source || ''}"`, 
+      `"${new Date(l.created_at).toLocaleDateString()}"`,
+      `"${l.city || ''}"`,
+      `"${l.service || ''}"`,
+      `"${l.source_page || ''}"`,
+      `"${l.utm_source || ''}"`,
+      `"${l.utm_medium || ''}"`,
+      `"${l.utm_campaign || ''}"`
     ]);
     const csvContent = headers.join(",") + "\n" + rows.map(e => e.join(",")).join("\n");
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -863,7 +878,27 @@ export default function Dashboard() {
                                         <option value="ai-marketing-assistant">AI Marketing Assistant</option>
                                     </select>
                                 </div>
-                                <button onClick={() => setCrmFilters({name: "", phone: "", date: "", source: ""})} className="w-full py-4 text-gray-400 font-bold text-xs uppercase hover:text-[#001341] transition cursor-pointer">
+                                <div>
+                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Filter by City</label>
+                                    <input 
+                                        type="text" 
+                                        className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#001341] outline-none text-sm font-medium"
+                                        placeholder="e.g. Noida, Kota..."
+                                        value={crmFilters.city}
+                                        onChange={(e) => setCrmFilters({...crmFilters, city: e.target.value})}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Filter by Service</label>
+                                    <input 
+                                        type="text" 
+                                        className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-[#001341] outline-none text-sm font-medium"
+                                        placeholder="e.g. ERP, SEO..."
+                                        value={crmFilters.service}
+                                        onChange={(e) => setCrmFilters({...crmFilters, service: e.target.value})}
+                                    />
+                                </div>
+                                <button onClick={() => setCrmFilters({name: "", phone: "", date: "", source: "", city: "", service: ""})} className="w-full py-4 text-gray-400 font-bold text-xs uppercase hover:text-[#001341] transition cursor-pointer">
                                     Clear All Filters
                                 </button>
                             </div>
@@ -930,6 +965,16 @@ export default function Dashboard() {
                                             <span className="px-3 py-1 bg-blue-50 text-[#5271ff] text-[10px] font-black rounded-lg border border-blue-100 uppercase tracking-widest">
                                                 {lead.source?.replace(/-/g, ' ') || 'Direct'}
                                             </span>
+                                            {lead.service && (
+                                                <span className="px-3 py-1 bg-purple-50 text-purple-600 text-[10px] font-black rounded-lg border border-purple-100 uppercase tracking-widest">
+                                                    Service: {lead.service}
+                                                </span>
+                                            )}
+                                            {lead.city && (
+                                                <span className="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-black rounded-lg border border-amber-100 uppercase tracking-widest">
+                                                    City: {lead.city}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
 
@@ -956,10 +1001,34 @@ export default function Dashboard() {
                                         </div>
                                     </div>
                                     
-                                    {lead.source_page && (
-                                        <div className="mt-4 flex items-center gap-3">
-                                            <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest shrink-0">Captured At:</p>
-                                            <p className="text-[9px] text-gray-400 font-mono bg-gray-50 px-2 py-1 rounded truncate hover:text-[#5271ff] cursor-pointer transition" title={lead.source_page}>{lead.source_page}</p>
+                                    {(lead.source_page || lead.utm_source || lead.utm_medium || lead.utm_campaign) && (
+                                        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-gray-50 pt-4">
+                                            {lead.source_page && (
+                                                <div className="flex items-center gap-1.5">
+                                                    <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest shrink-0">Captured At:</p>
+                                                    <a href={lead.source_page} target="_blank" rel="noopener noreferrer" className="text-[9px] text-[#5271ff] font-mono bg-blue-50/30 px-2.5 py-1 rounded truncate max-w-[240px] hover:bg-blue-50 transition" title={lead.source_page}>{lead.source_page}</a>
+                                                </div>
+                                            )}
+                                            {(lead.utm_source || lead.utm_medium || lead.utm_campaign) && (
+                                                <div className="flex flex-wrap items-center gap-1.5">
+                                                    <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest shrink-0">UTM Attribution:</span>
+                                                    {lead.utm_source && (
+                                                        <span className="px-2 py-0.5 bg-rose-50 text-rose-600 text-[9px] font-bold rounded border border-rose-100">
+                                                            source: {lead.utm_source}
+                                                        </span>
+                                                    )}
+                                                    {lead.utm_medium && (
+                                                        <span className="px-2 py-0.5 bg-teal-50 text-teal-600 text-[9px] font-bold rounded border border-teal-100">
+                                                            medium: {lead.utm_medium}
+                                                        </span>
+                                                    )}
+                                                    {lead.utm_campaign && (
+                                                        <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[9px] font-bold rounded border border-indigo-100">
+                                                            campaign: {lead.utm_campaign}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
