@@ -264,20 +264,20 @@ export const servicesData: Service[] = [
     id: 13,
     title: "ERP Software Solutions",
     slug: "erp-software-solutions",
-    description: "Enterprise Resource Planning (ERP) software tailored for manufacturing, retail, real estate, healthcare, and education to streamline your business operations.",
-    longDescription: "AICLEX™ Technologies provides robust, customized, and scalable Enterprise Resource Planning (ERP) software solutions. Our systems integrate all essential business operations—including accounting, inventory, supply chain, human resources, sales, and CRM—into a single unified platform. Designed to eliminate data silos and automate manual workflows, our ERP systems enable businesses to operate with maximum efficiency and secure data integrity.",
+    description: "Enterprise Resource Planning (ERP) software specializing in School, College, and University Management systems, alongside tailored modules for manufacturing, real estate, and retail.",
+    longDescription: "AICLEX™ Technologies provides robust, customized, and scalable Enterprise Resource Planning (ERP) software solutions, with a primary specialization in advanced School, College, and University Campus Management systems. Our solutions integrate admissions portals, automated online fee collection with WhatsApp notifications, student-parent information systems, smart timetable schedulers, and grade book generators. Alongside educational ERPs, we design tailored modules for accounting, inventory, HRMS, CRM, and supply chain management for all major industries. Designed to eliminate administrative complexity, our ERP systems allow schools, colleges, and multi-industry corporations to operate with unified efficiency.",
     features: [
-      "Custom Module Development (CRM, HRMS, Accounting, Inventory)",
-      "Multi-industry Compatibility (Real Estate, Retail, Manufacturing, EdTech)",
-      "Real-time Dashboards & Business Intelligence (BI)",
-      "Seamless API Integrations & Legacy Data Migration",
-      "Secure Cloud-based Hosting with Advanced Role Permissions",
-      "Responsive Layouts for Mobile & Desktop Operations"
+      "All-in-One Educational ERP (Fee collection, admissions, grading, parent portal)",
+      "Custom Module Development (CRM, HRMS, Accounting, Inventory & Asset tracking)",
+      "Dynamic Timetable, Library, and Hostel Management systems",
+      "Real-time Dashboards, Reports, and Campus Analytics",
+      "Seamless API Integrations (Payment Gateways, SMS & WhatsApp APIs)",
+      "Secure Cloud-based Hosting with Advanced Role-based Access Control"
     ],
     benefits: [
-      { title: "Tailored Module Design", desc: "We design custom modules tailored precisely to your company workflows—whether it's property management or retail billing." },
-      { title: "Departmental Synchronization", desc: "Connect sales, inventory, and finance teams in real-time, eliminating manual communication lags and double entries." },
-      { title: "Scalable Infrastructure", desc: "Our ERP solutions scale organically as your database volume, employee count, and customer transactions grow." },
+      { title: "Specialized Campus Automation", desc: "Completely automate admissions, secure online fee gateways, track daily student/staff attendance, and send automated notifications to parents." },
+      { title: "Departmental Synchronization", desc: "Connect admin, academic, finance, and logistics teams in real-time, eliminating data silos and double entries." },
+      { title: "Scalable Cloud Architecture", desc: "Our ERP systems scale organically to handle unlimited student batches, transaction volumes, and legacy data migrations." },
       ...commonBenefits.slice(0, 2)
     ],
     process: [

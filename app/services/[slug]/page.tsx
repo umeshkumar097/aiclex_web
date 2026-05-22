@@ -252,6 +252,20 @@ export default async function ServiceDetailPage({ params }: Props) {
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Industries We Serve</h3>
                 <p className="text-slate-500 text-sm mb-8">Custom modules and workflows engineered to fit the unique operational needs of your specific industry sector.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Flagship: School, College & University ERP */}
+                  <div className="p-5 bg-gradient-to-br from-purple-50/80 to-indigo-50/80 rounded-2xl border-2 border-indigo-200/80 shadow-md hover:shadow-lg transition-shadow group relative overflow-hidden md:col-span-2">
+                    <span className="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                      Flagship Solution
+                    </span>
+                    <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
+                      <GraduationCap className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-bold text-slate-900 text-base mb-2">School, College & University Campus ERP</h4>
+                    <p className="text-slate-600 text-xs leading-relaxed">
+                      End-to-end student admission portals, online fee collection with auto-reminders, timetable schedules, grading systems, examination/report card builders, library cards, hostel allocations, and direct WhatsApp alerts for parents and staff.
+                    </p>
+                  </div>
+
                   <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
                     <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <Home className="w-5 h-5" />
@@ -282,14 +296,6 @@ export default async function ServiceDetailPage({ params }: Props) {
                     </div>
                     <h4 className="font-bold text-slate-800 mb-2">Healthcare & Clinics</h4>
                     <p className="text-slate-500 text-xs leading-relaxed">Secure Electronic Health Records (EHR), OPD/IPD billing system, digital doctor rosters, automated patient appointment reminders, and clinic analytics.</p>
-                  </div>
-
-                  <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
-                    <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <GraduationCap className="w-5 h-5" />
-                    </div>
-                    <h4 className="font-bold text-slate-800 mb-2">EdTech & School Management</h4>
-                    <p className="text-slate-500 text-xs leading-relaxed">End-to-end fee collection schedules, automatic parent alert dispatch, digital library cards, student/staff attendance, and dynamic report generators.</p>
                   </div>
 
                   <div className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
