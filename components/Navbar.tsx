@@ -40,29 +40,32 @@ export default function Navbar() {
 
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} aria-hidden="true" /> },
-    { name: "About Us", href: "/about", icon: <User size={18} aria-hidden="true" /> },
-    { name: "Zoom", href: "/zoom", icon: <Video size={18} aria-hidden="true" /> },
-    { name: "Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
+    {
+      name: "Solutions",
+      href: "#",
+      icon: <Layers size={18} aria-hidden="true" />,
+      children: [
+        { name: "All Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
+        { name: "Zoom", href: "/zoom", icon: <Video size={18} aria-hidden="true" /> },
+        { name: "AI Tools Suite™", href: "/ai-tools", icon: <Sparkles size={18} aria-hidden="true" className="text-orange-500" /> },
+      ],
+    },
     { name: "Pricing", href: "/pricing", icon: <FileText size={18} aria-hidden="true" /> },
     {
       name: "Company",
       href: "#",
       icon: <Building2 size={18} aria-hidden="true" />,
       children: [
+        { name: "About Us", href: "/about", icon: <User size={18} aria-hidden="true" /> },
         { name: "Our Team", href: "/team", icon: <Users size={18} aria-hidden="true" /> },
+        { name: "Careers", href: "/career", icon: <Users size={18} aria-hidden="true" /> },
         {
           name: "Brochure",
           href: "/brouchure.pdf",
           icon: <FileText size={18} aria-hidden="true" />,
           isFile: true,
         },
-        { name: "Careers", href: "/career", icon: <Users size={18} aria-hidden="true" /> },
       ],
-    },
-    {
-      name: "AI Tools Suite™",
-      href: "/ai-tools",
-      icon: <Sparkles size={18} aria-hidden="true" className="text-orange-500" />,
     },
     { name: "Contact Us", href: "/contact", icon: <Phone size={18} aria-hidden="true" /> },
   ];
