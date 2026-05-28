@@ -108,7 +108,7 @@ export default function Hero() {
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
           >
             <img
-              src="/hero-new.png"
+              src="https://ai.siteboard.in/Aiclex%20Umesh%20Kumar%20Founder%20(2).png"
               alt="Digital Marketing and AI Agency India, AICLEX"
               width={700}
               height={600}
