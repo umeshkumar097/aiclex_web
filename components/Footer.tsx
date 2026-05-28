@@ -221,29 +221,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* WHATSAPP BUTTON */}
-      <Link
-        href="https://wa.me/918449488090"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Contact us on WhatsApp"
-        className="fixed bottom-24 right-6 h-14 w-14 rounded-full bg-white shadow-xl overflow-hidden flex items-center justify-center hover:scale-110 transition-all duration-300 z-[99999]"
-      >
-        <Image
-          src='/whatsapp.jpeg'
-          alt='WhatsApp'
-          width={56}
-          height={56}
-          className="object-cover p-2"
-        />
-      </Link>
-
       {/* BACK TO TOP BUTTON */}
       {showButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
-          className="fixed bottom-6 right-6 h-12 w-12 cursor-pointer flex items-center justify-center rounded-full bg-[#0C0C0C] hover:bg-[#5271FF] transition-all z-[9999]"
+          className="fixed bottom-6 left-6 h-12 w-12 cursor-pointer flex items-center justify-center rounded-full bg-[#0C0C0C] hover:bg-[#5271FF] transition-all z-[9999]"
         >
           <ArrowUp size={22} className="text-white" aria-hidden="true" />
         </button>
