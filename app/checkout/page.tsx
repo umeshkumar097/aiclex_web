@@ -75,11 +75,20 @@ function CheckoutForm() {
         throw new Error(data.error || "Payment creation failed");
       }
 
-      if (data.payment_link) {
-        // Redirect user to Cashfree hosted checkout page
-        window.location.href = data.payment_link;
+      if (data.payment_session_id) {
+        // Initialize Cashfree SDK
+        // @ts-ignore
+        const { load } = await import("@cashfreepayments/cashfree-js");
+        const cashfree = await load({
+          mode: data.environment as "sandbox" | "production"
+        });
+
+        cashfree.checkout({
+          paymentSessionId: data.payment_session_id,
+          redirectTarget: "_self"
+        });
       } else {
-        throw new Error("No payment link returned from Cashfree");
+        throw new Error("No payment session returned from server");
       }
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");

@@ -71,9 +71,9 @@ export async function POST(req: NextRequest) {
     );
 
     return NextResponse.json({
-      payment_link: (orderData as any).payment_link || `https://payments.cashfree.com/forms/checkout?payment_session_id=${orderData.payment_session_id}`,
       payment_session_id: orderData.payment_session_id,
-      order_id: orderId
+      order_id: orderId,
+      environment: process.env.CASHFREE_ENVIRONMENT === "PRODUCTION" ? "production" : "sandbox"
     });
   } catch (error: any) {
     console.error("Cashfree Order Error:", error?.response?.data || error.message);
