@@ -62,6 +62,7 @@ export default function DashboardLayout({
 
   const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Subscriptions", href: "/dashboard/subscriptions", icon: Target },
     { name: "Services", href: "/dashboard/services", icon: Target },
     { name: "CRM / Leads", href: "/dashboard/crm", icon: Users },
     { name: "Client Projects", href: "/dashboard/projects", icon: Briefcase },
