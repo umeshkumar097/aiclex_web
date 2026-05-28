@@ -24,7 +24,13 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     }
 
-    const email = decoded.email;
+    const impersonateEmail = req.headers.get("x-impersonate-email");
+    let email = decoded.email;
+
+    // If admin is impersonating a user, use the impersonated email
+    if (decoded.role === 'admin' && impersonateEmail) {
+      email = impersonateEmail;
+    }
 
     // Fetch subscriptions for this email
     const { rows } = await pool.query(
