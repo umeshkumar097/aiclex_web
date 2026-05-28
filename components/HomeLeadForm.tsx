@@ -29,9 +29,10 @@ export default function HomeLeadForm({
     
     const data = {
       name: target.name.value,
-      phone: target.phone.value,
+      whatsapp: target.phone.value,
       email: target.email.value || "",
-      type: target.service.value || type,
+      service: target.service.value || type,
+      source: "HomeLeadForm",
       requirement: target.requirement.value || "Lead from Home Page section",
       source_page: window.location.pathname
     };
@@ -241,6 +242,7 @@ export default function HomeLeadForm({
         {/* Actions Container */}
         <div className="pt-4 flex flex-col sm:flex-row gap-4">
           <motion.button 
+            type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             disabled={loading}
