@@ -108,11 +108,11 @@ export default function Hero() {
             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
           >
             <img
-              src="/hero-new.jpg"
+              src="/hero-new.png"
               alt="Digital Marketing and AI Agency India, AICLEX"
               width={700}
               height={600}
-              className="w-full max-w-[500px] lg:max-w-[600px] object-contain drop-shadow-2xl mix-blend-multiply"
+              className="w-full max-w-[500px] lg:max-w-[600px] object-contain drop-shadow-2xl"
             />
           </motion.div>
 
