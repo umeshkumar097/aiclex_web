@@ -102,10 +102,6 @@ export default function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
         >
-          {/* Glassmorphic decorative card behind image */}
-          <div className="absolute inset-0 bg-white/40 backdrop-blur-2xl border border-white/60 rounded-[3rem] transform rotate-3 scale-95 shadow-2xl shadow-blue-900/5"></div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-orange-100/50 to-blue-50/50 rounded-[3rem] transform -rotate-2 scale-95 border border-white"></div>
-          
           <motion.div 
             className="relative z-10 w-full px-4 py-8 flex justify-center items-center"
             animate={{ y: [-10, 10, -10] }}
@@ -116,7 +112,7 @@ export default function Hero() {
               alt="Digital Marketing and AI Agency India, AICLEX"
               width={700}
               height={600}
-              className="w-full max-w-[500px] lg:max-w-[600px] object-contain drop-shadow-2xl mix-blend-darken filter contrast-[1.05]"
+              className="w-full max-w-[500px] lg:max-w-[600px] object-contain drop-shadow-2xl mix-blend-multiply"
             />
           </motion.div>
 

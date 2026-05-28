@@ -177,15 +177,46 @@ export default function WhatsPilotChatbot() {
 
   return (
     <>
-      {/* Floating Trigger Bubble */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+      {/* Floating Trigger Bubble & Hover Menu */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end group">
+        
+        {/* Hover Menu Options */}
+        <div className="flex flex-col gap-3 mb-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 translate-y-4 group-hover:translate-y-0">
+          
+          {/* Free Proposal Button */}
+          <button
+            onClick={() => window.dispatchEvent(new Event("open-proposal-drawer"))}
+            className="flex items-center gap-3 bg-white px-4 py-3 rounded-full shadow-xl border border-gray-100 hover:scale-105 transition-transform"
+          >
+            <span className="text-xs font-bold text-[#001341]">Free Proposal</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#ff914d] to-orange-600 flex items-center justify-center text-white shadow-md">
+              <Briefcase size={14} />
+            </div>
+          </button>
+
+          {/* WhatsApp Button */}
+          <a
+            href="https://wa.me/918449488090?text=Hi%20Aiclex%20team,%20I'm%20interested%20in%20scaling%20my%20business.%20Let's%20connect!"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-white px-4 py-3 rounded-full shadow-xl border border-gray-100 hover:scale-105 transition-transform"
+          >
+            <span className="text-xs font-bold text-[#001341]">WhatsApp Us</span>
+            <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-md">
+              <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436.002 9.858-4.415 9.86-9.86.002-2.638-1.024-5.117-2.884-6.979C16.578 1.897 14.1 1.07 11.465 1.07c-5.44 0-9.862 4.416-9.864 9.862-.001 1.702.451 3.361 1.309 4.8l-.995 3.637 3.732-.979zm11.287-7.406c-.302-.15-.1787-.262-.777-.561-.177-.089-.307-.15-.562-.275-.255-.125-.337-.15-.462.037-.125.187-.487.612-.598.737-.112.125-.224.137-.525-.012-.302-.15-1.273-.469-2.426-1.496-.897-.8-1.502-1.787-1.678-2.087-.177-.3-.019-.462.13-.611.135-.134.302-.35.45-.525.15-.175.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.6-.145-.825-1.987-.225-.562-.462-.575-.637-.575h-.525c-.175 0-.462.062-.7.325-.237.262-.912.887-.912 2.162 0 1.275.925 2.512 1.05 2.687.125.175 1.82 2.78 4.409 3.896.615.265 1.096.423 1.469.542.617.196 1.178.169 1.622.1.494-.075 1.525-.625 1.737-1.225.213-.6.213-1.125.15-1.225-.063-.1-.225-.15-.525-.3z"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+
         <AnimatePresence>
           {unread && !isOpen && (
             <motion.div
               initial={{ opacity: 0, y: 10, scale: 0.8 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="bg-white border border-gray-100 shadow-xl rounded-2xl p-3 mb-3 text-xs font-black text-[#001341] max-w-[200px] text-center relative whitespace-nowrap select-none pointer-events-none"
+              className="bg-white border border-gray-100 shadow-xl rounded-2xl p-3 mb-3 text-xs font-black text-[#001341] max-w-[200px] text-center relative whitespace-nowrap select-none pointer-events-none absolute bottom-16 right-0"
             >
               <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-white rotate-45 border-r border-b border-gray-100" />
               <span>Questions? Chat with AI ⚡</span>
@@ -198,14 +229,14 @@ export default function WhatsPilotChatbot() {
             setIsOpen(!isOpen);
             setUnread(false);
           }}
-          className={`w-14 h-14 rounded-full flex items-center justify-center text-white shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer border border-white/20 ${
+          className={`w-14 h-14 rounded-full flex items-center justify-center text-white shadow-2xl transition-all duration-300 transform group-hover:scale-105 active:scale-95 cursor-pointer border border-white/20 ${
             isOpen 
               ? "bg-[#001341] rotate-90" 
-              : "bg-gradient-to-tr from-[#5271ff] to-[#ff914d] hover:shadow-[#5271ff]/30 hover:shadow-2xl"
+              : "bg-gradient-to-tr from-[#5271ff] to-[#ff914d]"
           }`}
           aria-label="Toggle chat helper"
         >
-          {isOpen ? <X size={24} /> : <MessageSquare size={24} className="animate-pulse" />}
+          {isOpen ? <X size={24} /> : <MessageSquare size={24} className={unread ? "animate-pulse" : ""} />}
           
           {/* Notification dot */}
           {unread && !isOpen && (
