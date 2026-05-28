@@ -81,12 +81,34 @@ export default function ClientDashboard() {
               <h3 className="font-black text-[#001341] text-lg mb-1">{sub.plan_name}</h3>
               <p className="text-gray-500 text-sm font-medium mb-4">Order: {sub.order_id}</p>
               
-              <div className="mt-auto pt-4 border-t border-gray-50 flex justify-between items-center">
+              <div className="mt-auto pt-4 border-t border-gray-50 flex justify-between items-center mb-4">
                 <span className="text-2xl font-black text-[#001341]">₹{sub.total_amount}</span>
                 <span className="text-xs text-gray-400 font-bold">
                   {new Date(sub.created_at).toLocaleDateString()}
                 </span>
               </div>
+              
+              <button 
+                onClick={() => {
+                  const token = localStorage.getItem("admin_token");
+                  fetch(`/api/client/download-invoice?order_id=${sub.order_id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                  })
+                  .then(res => res.blob())
+                  .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${sub.invoice_number || 'invoice'}.pdf`;
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                  })
+                  .catch(err => console.error("Download failed", err));
+                }}
+                className="w-full bg-[#f4f6f9] text-[#001341] py-2 rounded-xl text-sm font-bold border border-gray-200 hover:bg-[#e2e8f0] transition-colors text-center"
+              >
+                Download Invoice
+              </button>
             </div>
           ))}
         </div>

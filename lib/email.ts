@@ -20,18 +20,20 @@ interface EmailOptions {
   to: string;
   subject: string;
   html: string;
+  attachments?: any[];
 }
 
-export async function sendEmail({ to, subject, html }: EmailOptions) {
+export async function sendEmail(options: EmailOptions) {
   let status = "FAILED";
   let errorMessage = null;
 
   try {
     const info = await transporter.sendMail({
       from: `"Aiclex Support" <${process.env.SMTP_USER || "support@aiclex.in"}>`,
-      to,
-      subject,
-      html,
+      to: options.to,
+      subject: options.subject,
+      html: options.html,
+      attachments: options.attachments,
     });
     
     status = "SUCCESS";
@@ -47,7 +49,7 @@ export async function sendEmail({ to, subject, html }: EmailOptions) {
     try {
       await pool.query(
         `INSERT INTO email_logs (recipient, subject, status, error_message) VALUES ($1, $2, $3, $4)`,
-        [to, subject, status, errorMessage]
+        [options.to, options.subject, status, errorMessage]
       );
     } catch (logError) {
       console.error("Failed to log email into database: ", logError);

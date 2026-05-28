@@ -14,6 +14,7 @@ const pool = new Pool({
 
 import bcrypt from "bcryptjs";
 import { sendEmail } from "@/lib/email";
+import { generateInvoicePdf } from "@/lib/invoice-generator";
 
 export async function POST(req: NextRequest) {
   try {
@@ -95,10 +96,37 @@ export async function POST(req: NextRequest) {
           `;
         }
 
+        const invoiceDate = new Date(sub.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        
+        // Generate PAID PDF
+        const pdfBuffer = await generateInvoicePdf({
+          invoice_number: sub.invoice_number,
+          invoice_date: invoiceDate,
+          due_date: invoiceDate,
+          status: 'ACTIVE',
+          customer_name: sub.customer_name,
+          customer_gstin: sub.customer_gstin,
+          customer_phone: sub.customer_phone,
+          customer_email: sub.customer_email,
+          plan_name: sub.plan_name,
+          rate: sub.amount,
+          qty: 1,
+          taxable_value: sub.amount,
+          tax_amount: sub.gst_amount,
+          total_amount: sub.total_amount
+        });
+
         await sendEmail({
           to: sub.customer_email,
           subject: `Subscription Activated - ${sub.plan_name}`,
-          html: emailHtml
+          html: emailHtml,
+          attachments: [
+            {
+              filename: `${sub.invoice_number}.pdf`,
+              content: pdfBuffer,
+              contentType: 'application/pdf'
+            }
+          ]
         });
       }
       
