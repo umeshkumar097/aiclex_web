@@ -1,10 +1,13 @@
 import { Pool } from 'pg';
 
+const isProd = process.env.NODE_ENV === 'production';
+const ssl = isProd || process.env.DATABASE_URL?.includes('sslmode=require') 
+  ? { rejectUnauthorized: false } 
+  : false;
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false // Required for most cloud Postgres providers like Neon
-  }
+  ssl
 });
 
 // Self-healing database auto-migration for UTM and routing context tracking columns
