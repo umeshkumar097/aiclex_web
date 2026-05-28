@@ -11,23 +11,35 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    // --- SIMPLE MOCK AUTHENTICATION ---
-    // In a real app, you would fetch('/api/login') here.
-    // For now, we hardcode the credentials for your access.
-    if ((email === "admin@aiclex.in" && password === "admin123") || 
-        (email === "info@aiclex.in" && password === "Umesh@2003##")) {
-      // Set a token in local storage to "remember" the user
-      localStorage.setItem("admin_token", "secure-token-123");
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
       
-      // Redirect to dashboard
-      router.push("/dashboard");
-    } else {
-      setError("Invalid email or password");
+      const data = await res.json();
+      
+      if (res.ok && data.token) {
+        localStorage.setItem("admin_token", data.token);
+        localStorage.setItem("user_info", JSON.stringify(data.user));
+        
+        if (data.user.role === 'admin') {
+          router.push("/dashboard");
+        } else {
+          router.push("/client");
+        }
+      } else {
+        setError(data.error || "Invalid email or password");
+        setLoading(false);
+      }
+    } catch (err) {
+      setError("Failed to connect to the server. Please try again.");
       setLoading(false);
     }
   };
