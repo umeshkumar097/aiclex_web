@@ -3,27 +3,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Briefcase, 
   MapPin, 
-  Clock, 
-  ArrowRight, 
-  Heart, 
-  Zap, 
-  Users, 
-  Globe, 
-  CheckCircle2, 
-  X, 
-  UploadCloud, 
-  Loader2,
-  ChevronRight,
   Search,
-  Building2,
-  ArrowLeft,
-  Share2,
-  DollarSign,
   Filter,
-  Bookmark
+  Bookmark,
+  Briefcase,
+  ChevronRight,
+  Loader2
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // --- TYPES ---
 interface Job {
@@ -39,226 +27,10 @@ interface Job {
   posted_at: string;
 }
 
-// JOBS_DATA removed for dynamic fetch
-
-// --- APPLICATION MODAL COMPONENT ---
-const ApplicationModal = ({ job, onClose }: { job: any; onClose: () => void }) => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!file) {
-      alert("Please upload your resume/CV");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const formData = new FormData();
-      formData.append("job_id", job.id.toString());
-      formData.append("full_name", fullName);
-      formData.append("email", email);
-      formData.append("message", message);
-      formData.append("resume", file);
-
-      const res = await fetch("/api/job-applications", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (res.ok) {
-        setIsSubmitted(true);
-      } else {
-        const error = await res.json();
-        alert(`Error: ${error.error || "Failed to submit application"}`);
-      }
-    } catch (err) {
-      console.error("Submission failed:", err);
-      alert("An unexpected error occurred. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (isSubmitted) {
-    return (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-        <motion.div 
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-          onClick={onClose} className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        />
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl p-10 text-center"
-        >
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-10 h-10 text-green-600" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">Application Sent!</h3>
-          <p className="text-gray-500 mb-8">
-            Thank you for applying for <strong>{job.title}</strong>. Our HR team will review your profile and get in touch with you soon.
-          </p>
-          <button 
-            onClick={onClose}
-            className="w-full py-3 bg-[#1967d2] text-white font-bold rounded-xl hover:bg-blue-700 transition-all"
-          >
-            Close
-          </button>
-        </motion.div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <motion.div 
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        onClick={onClose} className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-      />
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="relative bg-white w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
-      >
-        <div className="border-b border-gray-200 px-8 py-6 flex justify-between items-start bg-white">
-          <div>
-            <h3 className="text-2xl font-normal text-gray-900">Apply for {job.title}</h3>
-            <p className="text-gray-500 text-sm mt-1">{job.department} • {job.location}</p>
-          </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
-            <X size={24} />
-          </button>
-        </div>
-        
-        <div className="p-8 overflow-y-auto">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Full Name</label>
-                <input required type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" />
-              </div>
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Email</label>
-                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all" />
-              </div>
-            </div>
-            
-            <div className="space-y-1 pt-2">
-              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Resume/CV</label>
-              <div 
-                onClick={() => document.getElementById('resume-upload')?.click()}
-                className={`border-2 border-dashed ${file ? 'border-green-500 bg-green-50' : 'border-gray-200 hover:border-blue-500 hover:bg-blue-50'} rounded-xl p-8 text-center transition-colors cursor-pointer group`}
-              >
-                <UploadCloud className={`mx-auto h-8 w-8 ${file ? 'text-green-500' : 'text-gray-400 group-hover:text-blue-500'} transition-colors mb-2`} />
-                <span className={`text-sm font-medium ${file ? 'text-green-700' : 'text-gray-600 group-hover:text-blue-600'}`}>
-                  {file ? file.name : "Upload resume"}
-                </span>
-                <span className="text-xs text-gray-400 block mt-1">PDF or DOCX</span>
-                <input 
-                  id="resume-upload"
-                  type="file" 
-                  className="hidden" 
-                  accept=".pdf,.doc,.docx" 
-                  onChange={(e) => setFile(e.target.files?.[0] || null)}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">Message (Optional)</label>
-              <textarea 
-                rows={3}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                placeholder="Briefly explain why you're a good fit..."
-              />
-            </div>
-
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-100 mt-6">
-                <button type="button" onClick={onClose} className="px-6 py-2.5 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">Cancel</button>
-                <button type="submit" disabled={loading} className="px-8 py-2.5 rounded-full bg-[#1967d2] text-white font-medium hover:bg-blue-700 shadow-md hover:shadow-lg transition-all flex items-center gap-2">
-                  {loading ? <Loader2 className="animate-spin" size={18} /> : "Submit Application"}
-                </button>
-            </div>
-          </form>
-        </div>
-      </motion.div>
-    </div>
-  );
-};
-
-// --- JOB DETAILS MODAL (Google Style Overlay) ---
-const JobDetailOverlay = ({ job, onClose, onApply }: { job: Job; onClose: () => void; onApply: () => void }) => {
-  return (
-    <div className="fixed inset-0 z-[90] flex justify-end">
-      <motion.div 
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        onClick={onClose} className="absolute inset-0 bg-black/30 backdrop-blur-sm"
-      />
-      <motion.div 
-        initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        className="relative w-full max-w-2xl bg-white h-full shadow-2xl flex flex-col overflow-hidden"
-      >
-        {/* Detail Header */}
-        <div className="px-8 py-6 border-b border-gray-200 bg-white sticky top-0 z-10 flex justify-between items-start">
-           <div>
-              <h2 className="text-2xl font-normal text-gray-900 mb-1">{job.title}</h2>
-              <div className="flex items-center gap-3 text-sm text-gray-600">
-                 <span className="flex items-center gap-1"><Briefcase size={14} /> {job.department}</span>
-                 <span className="flex items-center gap-1"><MapPin size={14} /> {job.location}</span>
-              </div>
-           </div>
-           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-             <X size={24} className="text-gray-500" />
-           </button>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto p-8">
-           <div className="prose max-w-none">
-              <div className="flex gap-4 mb-8">
-                 <button onClick={onApply} className="bg-[#1967d2] text-white px-6 py-2.5 rounded-full font-medium shadow-sm hover:shadow-md transition-all hover:bg-blue-700">Apply now</button>
-                 <button className="border border-gray-300 text-gray-700 px-4 py-2.5 rounded-full font-medium hover:bg-gray-50 flex items-center gap-2">
-                    <Share2 size={18} /> Share
-                 </button>
-              </div>
-
-              <h4 className="text-lg font-medium text-gray-900 mb-3">Minimum qualifications:</h4>
-              <ul className="list-disc pl-5 space-y-2 text-gray-600 mb-8">
-                 {job.requirements.map((req, i) => (
-                    <li key={i}>{req}</li>
-                 ))}
-              </ul>
-
-              <h4 className="text-lg font-medium text-gray-900 mb-3">About the job</h4>
-              <p className="text-gray-600 leading-relaxed mb-6">
-                 {job.description}
-              </p>
-              
-              <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 mt-8">
-                 <h4 className="text-blue-900 font-medium mb-2">Why Google-style careers?</h4>
-                 <p className="text-blue-800/80 text-sm">
-                    Because clean typography, ample whitespace, and focused content help candidates find their dream role faster.
-                 </p>
-              </div>
-           </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-// --- MAIN PAGE ---
 export default function CareerPage() {
+  const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
-  const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [filterDepartment, setFilterDepartment] = useState("All");
 
   useEffect(() => {
@@ -276,64 +48,49 @@ export default function CareerPage() {
     fetchJobs();
   }, []);
 
-  const openJobDetails = (job: Job) => {
-    setSelectedJob(job);
-  };
-
   const filteredJobs = filterDepartment === "All" 
     ? jobs 
     : jobs.filter(j => j.department === filterDepartment);
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-12 font-sans text-gray-900">
+    <div className="min-h-screen bg-[#f8fafe] pt-28 pb-20 font-sans text-gray-900">
       
       <AnimatePresence>
-        {loading ? (
-          <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-             <Loader2 className="animate-spin text-blue-600" size={40} />
+        {loading && (
+          <div className="fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50">
+             <Loader2 className="animate-spin text-[#ff914d]" size={40} />
           </div>
-        ) : (
-          <>
-            {isApplicationOpen && selectedJob && (
-              <ApplicationModal job={selectedJob} onClose={() => setIsApplicationOpen(false)} />
-            )}
-            {selectedJob && !isApplicationOpen && (
-              <JobDetailOverlay 
-                job={selectedJob} 
-                onClose={() => setSelectedJob(null)} 
-                onApply={() => setIsApplicationOpen(true)}
-              />
-            )}
-          </>
         )}
       </AnimatePresence>
 
-      {/* --- HERO SEARCH SECTION --- */}
+      {/* --- HERO SECTION --- */}
       <section className="max-w-5xl mx-auto px-6 mb-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-normal text-gray-900 mb-8 tracking-tight">
-          Build for everyone
+        <h1 className="text-4xl md:text-6xl font-extrabold text-[#001341] mb-6 tracking-tight leading-tight">
+          Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff914d] to-[#ff5e00]">Aiclex</span> Team
         </h1>
+        <p className="text-gray-500 text-lg max-w-2xl mx-auto mb-10">
+           Build the future of AI automation, digital marketing, and software engineering with us.
+        </p>
         
-        {/* Google Style Search Bar */}
-        <div className="bg-white shadow-lg border border-gray-200 rounded-full p-2 max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-2">
+        <div className="bg-white shadow-[0_10px_40px_-10px_rgba(0,19,65,0.1)] border border-blue-50 rounded-full p-2 max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-2">
            <div className="flex-1 flex items-center px-4 w-full h-12">
-              <Search className="text-gray-400 mr-3" size={20} />
+              <Search className="text-[#001341]/40 mr-3" size={20} />
               <input 
                 type="text" 
                 placeholder="Job title, skills, or keywords" 
-                className="w-full h-full outline-none text-gray-700 bg-transparent placeholder-gray-500"
+                className="w-full h-full outline-none text-[#001341] font-semibold bg-transparent placeholder-gray-400"
               />
            </div>
-           <div className="hidden md:block w-px h-8 bg-gray-200"></div>
+           <div className="hidden md:block w-px h-8 bg-gray-100"></div>
            <div className="flex-1 flex items-center px-4 w-full h-12 border-t md:border-t-0 border-gray-100">
-              <MapPin className="text-gray-400 mr-3" size={20} />
+              <MapPin className="text-[#001341]/40 mr-3" size={20} />
               <input 
                 type="text" 
                 placeholder="City, state, or zip code" 
-                className="w-full h-full outline-none text-gray-700 bg-transparent placeholder-gray-500"
+                className="w-full h-full outline-none text-[#001341] font-semibold bg-transparent placeholder-gray-400"
               />
            </div>
-           <button className="bg-[#1967d2] text-white h-10 px-8 rounded-full font-medium hover:bg-blue-700 transition-colors w-full md:w-auto">
+           <button className="bg-[#001341] text-white h-12 px-10 rounded-full font-bold hover:bg-[#ff914d] transition-all shadow-md hover:shadow-lg w-full md:w-auto">
               Search
            </button>
         </div>
@@ -344,36 +101,35 @@ export default function CareerPage() {
         
         {/* LEFT SIDEBAR: FILTERS */}
         <div className="lg:col-span-3 hidden lg:block">
-           <div className="sticky top-28">
-              <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
-                 <Filter size={18} /> Filters
+           <div className="sticky top-28 bg-white p-6 rounded-3xl shadow-[0_10px_40px_-10px_rgba(0,19,65,0.05)] border border-blue-50/50">
+              <h3 className="font-bold text-[#001341] mb-6 flex items-center gap-2 text-lg">
+                 <Filter size={18} className="text-[#ff914d]" /> Filters
               </h3>
               
-              <div className="mb-6">
-                 <h4 className="text-sm font-medium text-gray-700 mb-3 uppercase tracking-wide">Locations</h4>
-                 <div className="space-y-2">
-                    {["Remote", "Noida, India", "Bangalore", "Mumbai"].map(loc => (
-                       <label key={loc} className="flex items-center gap-3 cursor-pointer group">
-                          <div className="w-4 h-4 rounded border border-gray-300 group-hover:border-blue-500 flex items-center justify-center transition-colors">
-                             {/* Checkbox imitation */}
-                          </div>
-                          <span className="text-gray-600 text-sm group-hover:text-blue-600 transition-colors">{loc}</span>
-                       </label>
-                    ))}
-                 </div>
-              </div>
-
-              <div className="mb-6">
-                 <h4 className="text-sm font-medium text-gray-700 mb-3 uppercase tracking-wide">Department</h4>
-                 <div className="space-y-2">
+              <div className="mb-8">
+                 <h4 className="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest">Department</h4>
+                 <div className="space-y-3">
                     {["All", "Engineering", "Sales", "Marketing", "Design"].map(dept => (
                        <div 
                           key={dept} 
                           onClick={() => setFilterDepartment(dept)}
-                          className={`text-sm cursor-pointer py-1 ${filterDepartment === dept ? "text-[#1967d2] font-medium" : "text-gray-600 hover:text-gray-900"}`}
+                          className={`flex items-center justify-between text-sm cursor-pointer py-1.5 px-3 rounded-lg transition-all ${filterDepartment === dept ? "bg-orange-50 text-[#ff914d] font-bold" : "text-gray-600 hover:bg-blue-50/50 hover:text-[#001341]"}`}
                         >
-                          {dept}
+                          <span>{dept}</span>
+                          {filterDepartment === dept && <ChevronRight size={14} />}
                        </div>
+                    ))}
+                 </div>
+              </div>
+
+              <div>
+                 <h4 className="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest">Locations</h4>
+                 <div className="space-y-3">
+                    {["Remote", "Noida, India", "Bangalore", "Mumbai"].map(loc => (
+                       <label key={loc} className="flex items-center gap-3 cursor-pointer group">
+                          <div className="w-5 h-5 rounded border-2 border-gray-200 group-hover:border-[#ff914d] flex items-center justify-center transition-colors"></div>
+                          <span className="text-gray-600 text-sm font-medium group-hover:text-[#001341] transition-colors">{loc}</span>
+                       </label>
                     ))}
                  </div>
               </div>
@@ -382,63 +138,67 @@ export default function CareerPage() {
 
         {/* RIGHT COLUMN: JOB LIST */}
         <div className="lg:col-span-9">
-           <div className="flex justify-between items-center mb-6">
-              <span className="text-gray-600">{filteredJobs.length} jobs found</span>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                 Sort by: <span className="font-medium text-gray-900 cursor-pointer">Relevance</span>
+           <div className="flex justify-between items-center mb-8 bg-white p-4 rounded-2xl shadow-[0_5px_20px_-5px_rgba(0,19,65,0.05)] border border-blue-50/50">
+              <span className="text-gray-600 font-medium px-2">
+                 <span className="font-bold text-[#001341] text-lg">{filteredJobs.length}</span> open roles found
+              </span>
+              <div className="flex items-center gap-2 text-sm text-gray-500 font-medium">
+                 Sort by: <span className="font-bold text-[#ff914d] cursor-pointer bg-orange-50 px-3 py-1.5 rounded-lg">Relevance</span>
               </div>
            </div>
 
-           <div className="space-y-4">
+           <div className="space-y-5">
               {filteredJobs.map((job) => (
                  <div 
                     key={job.id}
-                    onClick={() => openJobDetails(job)}
-                    className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow cursor-pointer group relative"
+                    onClick={() => router.push(`/career/${job.slug}`)}
+                    className="bg-white border border-blue-50/50 rounded-2xl p-6 hover:shadow-[0_15px_40px_-10px_rgba(0,19,65,0.1)] hover:-translate-y-1 transition-all cursor-pointer group relative flex flex-col md:flex-row gap-6 items-start md:items-center"
                  >
-                    <div className="flex justify-between items-start">
-                       <div>
-                          <h3 className="text-xl font-normal text-[#1967d2] group-hover:underline mb-1">
-                             {job.title}
-                          </h3>
-                          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600 mb-3">
-                             <span className="flex items-center gap-1 font-medium">{job.department}</span>
-                             <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                             <span className="flex items-center gap-1">{job.location}</span>
-                             <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                             <span className="text-gray-500">
-                               Posted {new Date(job.posted_at).toLocaleDateString()}
-                             </span>
-                          </div>
-                       </div>
-                       <button className="text-gray-400 hover:text-[#1967d2] transition-colors p-2">
-                          <Bookmark size={20} />
-                       </button>
+                    <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0 group-hover:bg-[#ff914d] transition-colors">
+                       <Briefcase className="text-[#5271ff] group-hover:text-white" size={24} />
                     </div>
 
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-4 max-w-3xl">
-                       {job.description}
-                    </p>
+                    <div className="flex-1">
+                       <h3 className="text-xl font-extrabold text-[#001341] group-hover:text-[#ff914d] transition-colors mb-2">
+                          {job.title}
+                       </h3>
+                       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 font-medium">
+                          <span className="flex items-center gap-1 bg-gray-50 px-3 py-1 rounded-full text-gray-700">{job.department}</span>
+                          <span className="flex items-center gap-1"><MapPin size={14} className="text-gray-400" /> {job.location}</span>
+                          <span className="flex items-center gap-1 bg-green-50 text-green-700 px-3 py-1 rounded-full">{job.type}</span>
+                       </div>
+                    </div>
 
-                    <div className="flex items-center gap-2">
-                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                          {job.type}
-                       </span>
-                       {job.location === "Remote" && (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700">
-                             Remote eligible
-                          </span>
-                       )}
+                    <div className="flex items-center gap-4 w-full md:w-auto mt-4 md:mt-0 justify-between md:justify-end border-t md:border-none border-gray-100 pt-4 md:pt-0">
+                       <div className="text-right hidden md:block">
+                          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Salary</p>
+                          <p className="text-sm font-bold text-[#001341]">{job.salary || "Competitive"}</p>
+                       </div>
+                       <button className="h-12 w-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-[#001341] group-hover:text-white transition-colors">
+                          <ChevronRight size={20} />
+                       </button>
                     </div>
                  </div>
               ))}
+              
+              {filteredJobs.length === 0 && !loading && (
+                 <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                    <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                       <Search size={30} className="text-gray-300" />
+                    </div>
+                    <h3 className="text-xl font-bold text-[#001341] mb-2">No roles found</h3>
+                    <p className="text-gray-500">Try adjusting your department or location filters.</p>
+                 </div>
+              )}
            </div>
            
-           <div className="mt-8 text-center">
-              <button className="px-6 py-3 border border-gray-300 rounded-full text-blue-600 font-medium hover:bg-blue-50 transition-colors">
-                 Load more jobs
-              </button>
-           </div>
+           {filteredJobs.length > 0 && (
+              <div className="mt-10 text-center">
+                 <button className="px-8 py-3 bg-white shadow-md border border-gray-100 rounded-full text-[#001341] font-bold hover:bg-gray-50 transition-colors">
+                    Load more opportunities
+                 </button>
+              </div>
+           )}
         </div>
 
       </section>
