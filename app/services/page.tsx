@@ -7,6 +7,7 @@ import SuccessStats from "@/components/SuccessStats";
 import ServiceIcon from "@/components/ServiceIcon"; // Import our new helper
 import { Loader2 } from "lucide-react";
 import FadeInOnScroll from "@/components/ui/FadeInOnScroll";
+import { servicesData } from "@/lib/servicesData";
 
 // Define the type for the data we get from API
 interface Service {
@@ -19,34 +20,6 @@ interface Service {
 }
 
 export default function ServicesPage() {
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const res = await fetch("/api/services");
-        if (!res.ok) throw new Error("Failed to fetch");
-        const data = await res.json();
-        setServices(data);
-      } catch (error) {
-        console.error("Error loading services:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchServices();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
-      </div>
-    );
-  }
-
   return (
     <div className="w-full mt-10">
       
@@ -75,7 +48,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
+            {servicesData.map((service, index) => (
               <FadeInOnScroll key={service.id} delay={index * 0.1}>
                 <Link href={`/services/${service.slug}`} className="block group h-full">
                   <div className="h-full relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-2 overflow-hidden">
