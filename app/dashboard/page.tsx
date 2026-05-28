@@ -26,18 +26,20 @@ const mockData = [
 ];
 
 export default function DashboardOverview() {
-  const [stats, setStats] = useState({ leads: 0, jobs: 0, posts: 0, links: 0, services: 0 });
+  const [stats, setStats] = useState({ leads: 0, projects: 0, services: 0, meetings: 0 });
 
   useEffect(() => {
-    // In a real app, you'd fetch aggregated stats here. 
-    // Using dummy numbers for UI demonstration as requested.
-    setStats({
-      leads: 142,
-      jobs: 5,
-      posts: 24,
-      links: 18,
-      services: 8
-    });
+    fetch("/api/dashboard/stats")
+      .then(res => res.json())
+      .then(data => {
+        setStats({
+          leads: data.leads || 0,
+          projects: data.projects || 0,
+          services: data.services || 0,
+          meetings: data.meetings || 0
+        });
+      })
+      .catch(console.error);
   }, []);
 
   return (
@@ -72,7 +74,7 @@ export default function DashboardOverview() {
           <div className="bg-white p-6 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,19,65,0.05)] border border-gray-100 flex items-center justify-between group hover:-translate-y-1 transition-transform">
               <div>
                   <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Upcoming Meetings</p>
-                  <h3 className="text-3xl font-black text-[#001341]">3</h3>
+                  <h3 className="text-3xl font-black text-[#001341]">{stats.meetings}</h3>
                   <p className="text-xs text-gray-400 font-bold mt-2">This week</p>
               </div>
               <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center group-hover:bg-purple-500 transition-colors">
@@ -83,7 +85,7 @@ export default function DashboardOverview() {
           <div className="bg-white p-6 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,19,65,0.05)] border border-gray-100 flex items-center justify-between group hover:-translate-y-1 transition-transform">
               <div>
                   <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Active Projects</p>
-                  <h3 className="text-3xl font-black text-[#001341]">12</h3>
+                  <h3 className="text-3xl font-black text-[#001341]">{stats.projects}</h3>
                   <p className="text-xs text-green-500 font-bold flex items-center gap-1 mt-2">
                     <Activity size={12} /> On track
                   </p>
