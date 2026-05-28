@@ -6,10 +6,10 @@ import {
   MapPin, 
   Search,
   Filter,
-  Bookmark,
   Briefcase,
   ChevronRight,
-  Loader2
+  Loader2,
+  Check
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -31,7 +31,12 @@ export default function CareerPage() {
   const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Filters State
   const [filterDepartment, setFilterDepartment] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -48,9 +53,41 @@ export default function CareerPage() {
     fetchJobs();
   }, []);
 
-  const filteredJobs = filterDepartment === "All" 
-    ? jobs 
-    : jobs.filter(j => j.department === filterDepartment);
+  const toggleLocation = (loc: string) => {
+    if (selectedLocations.includes(loc)) {
+      setSelectedLocations(selectedLocations.filter(l => l !== loc));
+    } else {
+      setSelectedLocations([...selectedLocations, loc]);
+    }
+  };
+
+  const filteredJobs = jobs.filter(job => {
+    // 1. Department Filter
+    if (filterDepartment !== "All" && job.department !== filterDepartment) return false;
+
+    // 2. Sidebar Checkbox Location Filter
+    if (selectedLocations.length > 0 && !selectedLocations.includes(job.location)) return false;
+
+    // 3. Hero Text Search
+    if (searchQuery.trim() !== "") {
+      const q = searchQuery.toLowerCase();
+      if (!job.title.toLowerCase().includes(q) && 
+          !job.department.toLowerCase().includes(q) &&
+          !job.description.toLowerCase().includes(q)) {
+        return false;
+      }
+    }
+
+    // 4. Hero Location Search
+    if (searchLocation.trim() !== "") {
+      const loc = searchLocation.toLowerCase();
+      if (!job.location.toLowerCase().includes(loc)) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-[#f8fafe] pt-28 pb-20 font-sans text-gray-900">
@@ -77,6 +114,8 @@ export default function CareerPage() {
               <Search className="text-[#001341]/40 mr-3" size={20} />
               <input 
                 type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Job title, skills, or keywords" 
                 className="w-full h-full outline-none text-[#001341] font-semibold bg-transparent placeholder-gray-400"
               />
@@ -86,6 +125,8 @@ export default function CareerPage() {
               <MapPin className="text-[#001341]/40 mr-3" size={20} />
               <input 
                 type="text" 
+                value={searchLocation}
+                onChange={(e) => setSearchLocation(e.target.value)}
                 placeholder="City, state, or zip code" 
                 className="w-full h-full outline-none text-[#001341] font-semibold bg-transparent placeholder-gray-400"
               />
@@ -102,14 +143,29 @@ export default function CareerPage() {
         {/* LEFT SIDEBAR: FILTERS */}
         <div className="lg:col-span-3 hidden lg:block">
            <div className="sticky top-28 bg-white p-6 rounded-3xl shadow-[0_10px_40px_-10px_rgba(0,19,65,0.05)] border border-blue-50/50">
-              <h3 className="font-bold text-[#001341] mb-6 flex items-center gap-2 text-lg">
-                 <Filter size={18} className="text-[#ff914d]" /> Filters
-              </h3>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="font-bold text-[#001341] flex items-center gap-2 text-lg">
+                  <Filter size={18} className="text-[#ff914d]" /> Filters
+                </h3>
+                {(searchQuery || searchLocation || selectedLocations.length > 0 || filterDepartment !== "All") && (
+                  <button 
+                    onClick={() => {
+                      setSearchQuery("");
+                      setSearchLocation("");
+                      setSelectedLocations([]);
+                      setFilterDepartment("All");
+                    }}
+                    className="text-xs text-[#ff914d] hover:underline font-bold"
+                  >
+                    Clear All
+                  </button>
+                )}
+              </div>
               
               <div className="mb-8">
                  <h4 className="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest">Department</h4>
                  <div className="space-y-3">
-                    {["All", "Engineering", "Sales", "Marketing", "Design"].map(dept => (
+                    {["All", "Engineering", "Sales", "Marketing", "Design", "Customer Success"].map(dept => (
                        <div 
                           key={dept} 
                           onClick={() => setFilterDepartment(dept)}
@@ -125,12 +181,23 @@ export default function CareerPage() {
               <div>
                  <h4 className="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest">Locations</h4>
                  <div className="space-y-3">
-                    {["Remote", "Noida, India", "Bangalore", "Mumbai"].map(loc => (
-                       <label key={loc} className="flex items-center gap-3 cursor-pointer group">
-                          <div className="w-5 h-5 rounded border-2 border-gray-200 group-hover:border-[#ff914d] flex items-center justify-center transition-colors"></div>
-                          <span className="text-gray-600 text-sm font-medium group-hover:text-[#001341] transition-colors">{loc}</span>
-                       </label>
-                    ))}
+                    {["Remote", "Noida, India", "Bangalore", "Mumbai"].map(loc => {
+                       const isSelected = selectedLocations.includes(loc);
+                       return (
+                         <label key={loc} className="flex items-center gap-3 cursor-pointer group">
+                            <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${isSelected ? 'border-[#ff914d] bg-[#ff914d]' : 'border-gray-200 group-hover:border-[#ff914d]'}`}>
+                               {isSelected && <Check size={12} className="text-white" />}
+                            </div>
+                            <input 
+                              type="checkbox" 
+                              className="hidden" 
+                              checked={isSelected} 
+                              onChange={() => toggleLocation(loc)} 
+                            />
+                            <span className={`text-sm font-medium transition-colors ${isSelected ? 'text-[#001341]' : 'text-gray-600 group-hover:text-[#001341]'}`}>{loc}</span>
+                         </label>
+                       );
+                    })}
                  </div>
               </div>
            </div>
@@ -187,18 +254,10 @@ export default function CareerPage() {
                        <Search size={30} className="text-gray-300" />
                     </div>
                     <h3 className="text-xl font-bold text-[#001341] mb-2">No roles found</h3>
-                    <p className="text-gray-500">Try adjusting your department or location filters.</p>
+                    <p className="text-gray-500">Try adjusting your filters or search terms.</p>
                  </div>
               )}
            </div>
-           
-           {filteredJobs.length > 0 && (
-              <div className="mt-10 text-center">
-                 <button className="px-8 py-3 bg-white shadow-md border border-gray-100 rounded-full text-[#001341] font-bold hover:bg-gray-50 transition-colors">
-                    Load more opportunities
-                 </button>
-              </div>
-           )}
         </div>
 
       </section>
