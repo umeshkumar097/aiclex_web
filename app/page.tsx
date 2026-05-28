@@ -27,13 +27,6 @@ export default function Home() {
       <Hero />
       <AiSalesAgentHero />
       
-      <div className="max-w-4xl mx-auto px-4 -mt-20 relative z-20">
-        <HomeLeadForm 
-          title="Start Your AI Journey Today" 
-          subtitle="Get a free consultation and customized proposal for your project."
-        />
-      </div>
-
       <ValueMarqueeSection />
       <BentoServices />
       <PortfolioSection />

@@ -79,7 +79,7 @@ export default function AiSalesAgentHeroSplit() {
     };
 
     return (
-        <section className="relative w-full py-16 md:py-28 bg-gray-50 text-gray-900 overflow-hidden">
+        <section className="relative w-full pt-8 pb-16 md:pt-12 md:pb-24 bg-gray-50 text-gray-900 overflow-hidden">
             
             {/* BACKGROUND DECORATION */}
             <div className="absolute inset-0 pointer-events-none opacity-50">
@@ -89,7 +89,7 @@ export default function AiSalesAgentHeroSplit() {
             </div>
 
             <motion.div
-                className="relative z-10 max-w-7xl mx-auto px-6 py-20 lg:px-8 flex flex-col md:flex-row items-center justify-between"
+                className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between"
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"

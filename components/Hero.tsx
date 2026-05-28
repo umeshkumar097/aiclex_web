@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative w-full pt-28 pb-16 md:pt-32 md:pb-20 overflow-hidden bg-[#f8fafc]">
+    <section className="relative w-full pt-28 pb-8 md:pt-32 md:pb-12 overflow-hidden bg-[#f8fafc]">
       {/* Dynamic Background Elements */}
       <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-blue-400/20 rounded-full blur-[120px] mix-blend-multiply"></div>
