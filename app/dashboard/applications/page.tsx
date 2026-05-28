@@ -70,7 +70,7 @@ export default function JobapplicationsPage() {
                             <div className="flex flex-col gap-1">
                                 <span className="text-[10px] text-gray-400 font-bold uppercase">{new Date(item.applied_at).toLocaleDateString()}</span>
                                 {item.resume_url && (
-                                  <a href={`https://pub-cf694bda2bc743cbb8a2fb380596ff1e.r2.dev/${item.resume_url}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 font-bold flex items-center gap-1 hover:underline">
+                                  <a href={item.resume_url.startsWith('http') ? item.resume_url : `https://pub-cf694bda2bc743cbb8a2fb380596ff1e.r2.dev/${item.resume_url}`} target="_blank" rel="noreferrer" className="text-xs text-blue-500 font-bold flex items-center gap-1 hover:underline">
                                       <Download size={12} /> View Resume
                                   </a>
                                 )}
