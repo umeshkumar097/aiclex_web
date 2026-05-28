@@ -96,7 +96,7 @@ export default function AiSalesAgentHeroSplit() {
             >
                 {/* LEFT COLUMN: IMAGE (Slide In from Left) */}
                 <motion.div
-                    className="w-full md:w-5/12 flex justify-center mb-12 md:mb-0"
+                    className="hidden md:flex w-full md:w-5/12 justify-center mb-12 md:mb-0"
                     variants={imageVariants} 
                 >
                     <Image
