@@ -65,9 +65,20 @@ export async function POST(req: NextRequest) {
       throw new Error("Failed to create Cashfree order");
     }
 
-    // Generate Invoice Number
-    const invoiceNumber = `INV-${Math.floor(1000 + Math.random() * 9000)}`;
-    const paymentLink = `https://checkout.cashfree.com/pay/?payment_session_id=${orderData.payment_session_id}`;
+    // Insert to database first to get sequential ID
+    const { rows: insertedSub } = await pool.query(
+      `INSERT INTO subscriptions 
+      (order_id, plan_slug, plan_name, amount, gst_amount, total_amount, customer_name, customer_email, customer_phone, customer_gstin, payment_session_id)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
+      [orderId, planSlug, plan.name, basePrice, gstAmount, totalAmount, customerName, customerEmail, customerPhone, customerGst || null, orderData.payment_session_id]
+    );
+
+    const subId = insertedSub[0].id;
+    
+    // Generate Sequential Invoice Number based on Database ID
+    const invoiceNumber = `INV-${1000 + parseInt(subId)}`;
+    const envString = process.env.CASHFREE_ENVIRONMENT === "PRODUCTION" ? "production" : "sandbox";
+    const paymentLink = `https://aiclex.in/checkout/pay?session_id=${orderData.payment_session_id}&env=${envString}`;
     const invoiceDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 
     // Handle User Creation if they drop
@@ -87,12 +98,10 @@ export async function POST(req: NextRequest) {
       userId = existingUser[0].id;
     }
 
-    // Save to database
+    // Update subscription with generated invoice number and payment link
     await pool.query(
-      `INSERT INTO subscriptions 
-      (order_id, plan_slug, plan_name, amount, gst_amount, total_amount, customer_name, customer_email, customer_phone, customer_gstin, payment_session_id, invoice_number, payment_link)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
-      [orderId, planSlug, plan.name, basePrice, gstAmount, totalAmount, customerName, customerEmail, customerPhone, customerGst || null, orderData.payment_session_id, invoiceNumber, paymentLink]
+      `UPDATE subscriptions SET invoice_number = $1, payment_link = $2 WHERE id = $3`,
+      [invoiceNumber, paymentLink, subId]
     );
 
     // Generate PDF Invoice (DUE)

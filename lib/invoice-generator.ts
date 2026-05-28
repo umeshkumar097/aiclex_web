@@ -126,15 +126,15 @@ export function generateInvoicePdf(data: InvoiceData): Promise<Buffer> {
       // Totals
       const totalsTop = rowTop + 40;
       doc.font('Helvetica-Bold').text('Taxable Amount', 360, totalsTop, { width: 90 });
-      doc.font('Helvetica-Bold').text('₹' + data.taxable_value.toFixed(2), 460, totalsTop, { width: 90, align: 'right' });
+      doc.font('Helvetica-Bold').text('Rs. ' + data.taxable_value.toFixed(2), 460, totalsTop, { width: 90, align: 'right' });
       
       doc.font('Helvetica-Bold').text('IGST 18.0%', 360, totalsTop + 15, { width: 90 });
-      doc.font('Helvetica-Bold').text('₹' + data.tax_amount.toFixed(2), 460, totalsTop + 15, { width: 90, align: 'right' });
+      doc.font('Helvetica-Bold').text('Rs. ' + data.tax_amount.toFixed(2), 460, totalsTop + 15, { width: 90, align: 'right' });
 
       doc.moveTo(360, totalsTop + 30).lineTo(550, totalsTop + 30).stroke('#e5e7eb');
       
       doc.fontSize(12).font('Helvetica-Bold').text('Total', 360, totalsTop + 35, { width: 90 });
-      doc.fontSize(12).font('Helvetica-Bold').text('₹' + data.total_amount.toFixed(2), 460, totalsTop + 35, { width: 90, align: 'right' });
+      doc.fontSize(12).font('Helvetica-Bold').text('Rs. ' + data.total_amount.toFixed(2), 460, totalsTop + 35, { width: 90, align: 'right' });
 
       // Amount in words
       doc.moveTo(50, totalsTop + 55).lineTo(550, totalsTop + 55).stroke('#0055ff');
