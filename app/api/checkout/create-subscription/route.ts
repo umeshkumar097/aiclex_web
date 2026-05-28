@@ -47,9 +47,9 @@ export async function POST(req: NextRequest) {
         customer_name: customerName,
       },
       order_meta: {
-        // Change to actual domain in production
-        return_url: `${process.env.NEXTAUTH_URL || 'https://aiclex.in'}/checkout/success?order_id={order_id}`,
+        return_url: `https://aiclex.in/checkout/success?order_id=${orderId}`,
         notify_url: `https://aiclex.in/api/checkout/webhook`,
+        payment_methods: "cc,dc,ccc,upi,nb,app,emi,paylater"
       },
       order_note: `${plan.name} Subscription${customerGst ? ' - GST: ' + customerGst : ''}`
     };
