@@ -288,5 +288,35 @@ export const servicesData: Service[] = [
     ],
     icon: "Database",
     color: "from-indigo-600 to-purple-800",
+  },
+  {
+    id: 14,
+    title: "Real Estate CRM",
+    slug: "real-estate-crm",
+    description: "End-to-end Real Estate CRM software to manage property leads, builder projects, broker commissions, and township sales automation.",
+    longDescription: "AICLEX™ Technologies builds specialized Real Estate CRM software tailored for builders, property developers, and real estate agencies in India. Our platform automates lead capturing, site visit scheduling, property inventory tracking, and sales pipeline management. By integrating directly with WhatsApp APIs and property portals, we help real estate teams close deals faster without losing any prospects in the pipeline.",
+    features: [
+      "Property Inventory & Plot Management",
+      "Automated Lead Capture (Facebook/WhatsApp/MagicBricks)",
+      "Site Visit Scheduling & Follow-up Reminders",
+      "Broker & Channel Partner Commission Tracking",
+      "Dynamic Pricing & Payment Plan Generators",
+      "Direct WhatsApp API & Telephony Integration"
+    ],
+    benefits: [
+      { title: "Zero Lead Leakage", desc: "Automatically capture leads from all marketing channels directly into one centralized dashboard." },
+      { title: "Automated Follow-ups", desc: "Trigger instant WhatsApp messages to prospects the moment they submit an inquiry for a property." },
+      { title: "Inventory Synchronization", desc: "Real-time updates on plot availability across all sales teams, preventing double-bookings." },
+      { title: "Broker Management", desc: "Track channel partner performance and calculate commissions automatically based on successful closures." },
+      { title: "Increased Conversions", desc: "Equip your sales team with complete prospect history and follow-up tools to close deals faster." }
+    ],
+    process: [
+      { step: "01", title: "Sales Process Mapping", desc: "We map your entire real estate sales journey from lead generation to final booking." },
+      { step: "02", title: "System Setup", desc: "Configuring property inventory, project details, and pricing structures in the CRM." },
+      { step: "03", title: "API Integrations", desc: "Connecting your Facebook Ads, property portals, and WhatsApp API for automated lead flow." },
+      { step: "04", title: "Training & Launch", desc: "Onboarding your sales teams and brokers to maximize CRM adoption and performance." }
+    ],
+    icon: "Home",
+    color: "from-blue-600 to-cyan-700",
   }
 ];

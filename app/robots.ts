@@ -4,7 +4,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
-      allow: '/',
+      allow: ['/', '/services/', '/locations/', '/industries/', '/compare/', '/blog/'],
       disallow: ['/api/', '/dashboard/'],
     },
     sitemap: 'https://aiclex.in/sitemap.xml',
