@@ -38,11 +38,11 @@ export default function SitemapPage() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Core Services */}
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-bold text-[#001341] mb-6 border-b pb-4">Our Services</h2>
+            <h2 className="text-2xl font-bold text-[#001341] mb-6 border-b pb-4">Our Core Services</h2>
             <ul className="space-y-3">
-              {servicesData.map(service => (
+              {servicesData.filter(s => !s.isSeoOnly).map(service => (
                 <li key={service.id}>
                   <Link href={`/services/${service.slug}`} className="text-gray-600 hover:text-[#5271ff]">
                     {service.title}
@@ -50,6 +50,22 @@ export default function SitemapPage() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Specific Solutions */}
+          <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+            <h2 className="text-2xl font-bold text-[#001341] mb-6 border-b pb-4">Specialized Solutions</h2>
+            <div className="h-96 overflow-y-auto pr-4 custom-scrollbar">
+              <ul className="space-y-3">
+                {servicesData.filter(s => s.isSeoOnly).map(service => (
+                  <li key={service.id}>
+                    <Link href={`/services/${service.slug}`} className="text-gray-600 hover:text-[#5271ff] text-sm">
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Locations */}

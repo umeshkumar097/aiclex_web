@@ -48,7 +48,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {servicesData.map((service, index) => (
+            {servicesData.filter(s => !s.isSeoOnly).map((service, index) => (
               <FadeInOnScroll key={service.id} delay={index * 0.1}>
                 <Link href={`/services/${service.slug}`} className="block group h-full">
                   <div className="h-full relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-2 overflow-hidden">
