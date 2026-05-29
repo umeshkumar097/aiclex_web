@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { Metadata } from "next";
 import { servicesData } from "@/lib/servicesData";
-import { getCityName } from "@/lib/citiesData";
+import { getCityName, majorCities } from "@/lib/citiesData";
 
 // Updated components
 import WorkProcess from "@/components/WorkProcess";
@@ -29,6 +29,7 @@ interface ServiceDetail {
   process: { step: string; title: string; desc: string }[];
   icon: string;
   color: string;
+  isSeoOnly?: boolean;
 }
 
 type Props = {
@@ -506,9 +507,17 @@ export default async function ServiceDetailPage({ params }: Props) {
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <Link href="/services" className="inline-flex items-center text-gray-500 hover:text-[#5271ff] mb-6 transition-colors font-medium">
-              <ArrowLeft className="w-4 h-4 mr-2" /> Back to Services
-            </Link>
+            <nav className="flex items-center text-sm font-medium text-gray-500 mb-6 space-x-2">
+              <Link href="/" className="hover:text-[#5271ff] transition-colors flex items-center">
+                <Home className="w-4 h-4 mr-1" /> Home
+              </Link>
+              <span>/</span>
+              <Link href="/services" className="hover:text-[#5271ff] transition-colors">
+                Services
+              </Link>
+              <span>/</span>
+              <span className="text-[#001341] truncate max-w-[200px] sm:max-w-xs">{cleanServiceTitle}</span>
+            </nav>
             <h1 className="text-4xl md:text-6xl font-extrabold text-[#001341] mb-6 leading-tight">
               {cleanServiceTitle} {city && <span className="text-[#5271ff]">in {city}</span>}
             </h1>
@@ -715,7 +724,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-lg">
                 <h4 className="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100">Other Services</h4>
                 <div className="space-y-3">
-                  {allServices.filter(s => s.slug !== service.slug).slice(0, 5).map((s) => (
+                  {allServices.filter(s => s.slug !== service.slug && !s.isSeoOnly).slice(0, 5).map((s) => (
                     <Link 
                       key={s.id} 
                       href={`/services/${s.slug}`}
@@ -739,6 +748,29 @@ export default async function ServiceDetailPage({ params }: Props) {
 
         </div>
       </section>
+
+      {/* ==================== RELATED CITIES ==================== */}
+      {city && (
+        <section className="py-12 bg-gray-50 border-t border-gray-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Also providing {cleanServiceTitle} in:</h3>
+            <div className="flex flex-wrap gap-3">
+              {majorCities
+                .filter(c => c !== city)
+                .slice(0, 15)
+                .map(c => (
+                  <Link 
+                    key={c}
+                    href={`/services/${originalService.slug}-in-${c.toLowerCase().replace(/\\s+/g, '-')}`}
+                    className="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:text-[#5271ff] hover:border-[#5271ff] transition-all"
+                  >
+                    {c}
+                  </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <WorkProcess />
       <SuccessStats />
