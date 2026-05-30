@@ -27,7 +27,7 @@ export default async function BlogPage({ searchParams }: Props) {
 
   try {
     const query = `
-      SELECT id, title, slug, content, image_url, created_at
+      SELECT id, title, slug, content, meta_description, image_url, created_at
       FROM posts 
       ORDER BY created_at DESC
       LIMIT $1 OFFSET $2
@@ -61,10 +61,9 @@ export default async function BlogPage({ searchParams }: Props) {
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {posts.map((post: any) => {
-            // Strip HTML for excerpt
-            const cleanExcerpt = post.content
-              ? post.content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').substring(0, 150)
-              : "";
+            const cleanExcerpt = post.meta_description 
+              ? post.meta_description
+              : (post.content ? post.content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').substring(0, 150) : "");
 
             return (
               <article 
@@ -109,7 +108,7 @@ export default async function BlogPage({ searchParams }: Props) {
                   </h3>
                   
                   <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
-                    {cleanExcerpt}...
+                    {cleanExcerpt}
                   </p>
 
                   <Link 
