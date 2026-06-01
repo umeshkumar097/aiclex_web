@@ -113,9 +113,10 @@ export default function ContactSection() {
                   const target = e.target as any;
                   const data = {
                     name: target.name.value,
-                    phone: target.phone.value,
+                    whatsapp: target.phone.value,
                     email: target.email.value,
-                    type: target.service.value,
+                    service: target.service.value,
+                    source: "Contact Form",
                     requirement: `Budget: ${target.budget.value || "Not specified"}`,
                     source_page: window.location.pathname
                   };
@@ -126,9 +127,14 @@ export default function ContactSection() {
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify(data),
                     });
-                    if (res.ok) setSubmitted(true);
+                    if (res.ok) {
+                      setSubmitted(true);
+                    } else {
+                      const errorData = await res.json();
+                      alert(`❌ Failed to send: ${errorData.error || "Please try again."}`);
+                    }
                   } catch (err) {
-                    alert("❌ Failed to send proposal.");
+                    alert("❌ Failed to send proposal. Network error.");
                   } finally {
                     setLoading(false);
                   }
