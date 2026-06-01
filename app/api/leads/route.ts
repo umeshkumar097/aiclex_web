@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
     if (result.success) {
       // Trigger email alert with full tracking and attribution parameters
-      sendLeadEmails({
+      await sendLeadEmails({
         name,
         email: email || "",
         phone: whatsapp,
