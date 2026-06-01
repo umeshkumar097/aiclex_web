@@ -43,9 +43,9 @@ export default function BlogLeadPopup() {
 
     const data = {
       name: target.name.value,
-      phone: target.phone.value,
+      whatsapp: target.phone.value,
       email: target.email.value || "",
-      type: "Blog Lead",
+      source: "Blog Lead",
       requirement: "User interested while reading blog post",
       source_page: window.location.pathname
     };
@@ -59,9 +59,13 @@ export default function BlogLeadPopup() {
       if (res.ok) {
         setSubmitted(true);
         setTimeout(() => setIsVisible(false), 3000); // Close after 3 seconds on success
+      } else {
+        const errorData = await res.json();
+        alert(`Failed to submit: ${errorData.error || "Please try again."}`);
       }
     } catch (err) {
       console.error("Submission failed", err);
+      alert("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
