@@ -21,6 +21,7 @@ const PLANS: Record<string, { name: string, price: number }> = {
   "zoom-pro-basic": { name: "Zoom Pro Basic", price: 11200 },
   "zoom-coaches-plan": { name: "Zoom Coaches Plan", price: 50000 },
   "zoom-business": { name: "Zoom Business", price: 18500 },
+  "zoom-webinar-500": { name: "Zoom Webinar Plan", price: 70000 },
 };
 
 export async function POST(req: NextRequest) {

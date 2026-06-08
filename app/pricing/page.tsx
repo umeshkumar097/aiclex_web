@@ -339,13 +339,12 @@ export default function PricingPage() {
                     <p className="text-xs text-[#ff914d] font-bold mb-6 uppercase tracking-wider">For Large Scale Events</p>
                     <div className="flex flex-col mb-6">
                       <div className="flex items-baseline">
-                        <span className="text-xl font-bold text-gray-400 line-through mr-3">₹12,000</span>
+                        <span className="text-xl font-bold text-gray-400 line-through mr-3">₹1,00,000</span>
                         <span className="text-3xl font-extrabold text-[#ff914d]">₹</span>
-                        <span className="text-5xl font-black tracking-tight text-[#001341]">7,000</span>
-                        <span className="text-gray-400 ml-2 text-sm font-semibold">/ month</span>
+                        <span className="text-5xl font-black tracking-tight text-[#001341]">70,000</span>
                       </div>
-                      <span className="text-gray-400 mt-2 text-xs font-extrabold uppercase tracking-wide">
-                        Billed Annually at ₹70,000 + 18% GST
+                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
+                        + 18% GST / YEAR
                       </span>
                     </div>
                     <ul className="space-y-4 mb-8">
@@ -371,21 +370,13 @@ export default function PricingPage() {
                       </li>
                     </ul>
                   </div>
-                  <div className="flex flex-col gap-3 mt-2">
-                    <button
-                      onClick={() => handleCheckout("zoom-webinar-500-monthly")}
-                      className="w-full py-3 px-4 bg-transparent border-2 border-[#ff914d] text-[#ff914d] hover:bg-[#ff914d] hover:text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center cursor-pointer"
-                    >
-                      <span>Pay Monthly (₹7,000)</span>
-                    </button>
-                    <button
-                      onClick={() => handleCheckout("zoom-webinar-500-annual")}
-                      className="w-full py-3 px-4 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-                    >
-                      <span>Pay Annually (₹70,000)</span>
-                      <ArrowRight size={14} />
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => handleCheckout("zoom-webinar-500")}
+                    className="w-full py-4 px-6 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Buy License</span>
+                    <ArrowRight size={14} />
+                  </button>
                 </div>
 
                 {/* Zoom Business */}

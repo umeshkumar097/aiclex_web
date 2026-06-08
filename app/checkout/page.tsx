@@ -11,6 +11,7 @@ const PLANS: Record<string, { name: string, price: number, billing: string, slug
   "zoom-pro-basic": { name: "Zoom Pro Basic", price: 11200, billing: "Yearly", slug: "zoom-pro-basic" },
   "zoom-coaches-plan": { name: "Zoom Coaches Plan", price: 50000, billing: "Yearly", slug: "zoom-coaches-plan" },
   "zoom-business": { name: "Zoom Business", price: 18500, billing: "Yearly", slug: "zoom-business" },
+  "zoom-webinar-500": { name: "Zoom Webinar Plan", price: 70000, billing: "Yearly", slug: "zoom-webinar-500" },
 };
 
 function CheckoutForm() {
