@@ -338,8 +338,8 @@ export default function PricingPage() {
                     <h3 className="text-xl font-black mb-1">Zoom Webinar</h3>
                     <p className="text-xs text-[#ff914d] font-bold mb-6 uppercase tracking-wider">For Large Scale Events</p>
                     <div className="flex flex-col mb-6">
+                      <span className="text-lg font-bold text-gray-400 line-through mb-1">₹1,00,000</span>
                       <div className="flex items-baseline">
-                        <span className="text-xl font-bold text-gray-400 line-through mr-3">₹1,00,000</span>
                         <span className="text-3xl font-extrabold text-[#ff914d]">₹</span>
                         <span className="text-5xl font-black tracking-tight text-[#001341]">70,000</span>
                       </div>
