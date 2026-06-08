@@ -240,7 +240,7 @@ export default function PricingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.4 }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"
+                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 items-stretch"
               >
                 {/* Zoom Pro */}
                 <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
@@ -274,6 +274,52 @@ export default function PricingPage() {
                   <button
                     onClick={() => handleCheckout("zoom-pro-basic")}
                     className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] hover:text-white text-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Buy License</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+
+                {/* Zoom Coaches Plan */}
+                <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
+                  <div>
+                    <h3 className="text-xl font-black mb-1">Zoom Coaches Plan</h3>
+                    <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">Perfect for Masterclasses</p>
+                    <div className="flex flex-col mb-6">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-extrabold text-[#001341]">₹</span>
+                        <span className="text-5xl font-black tracking-tight text-[#001341]">50,000</span>
+                      </div>
+                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
+                        + 18% GST / YEAR
+                      </span>
+                    </div>
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Host up to <strong>500 participants</strong></span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Includes Meetings & Webinar Features</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span><strong>Unlimited Cloud Recording</strong></span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Auto-delete recordings after 30 days</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Priority Support</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => handleCheckout("zoom-coaches-plan")}
+                    className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] text-[#001341] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Buy License</span>
                     <ArrowRight size={14} />
@@ -325,13 +371,21 @@ export default function PricingPage() {
                       </li>
                     </ul>
                   </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-webinar-500")}
-                    className="w-full py-4 px-6 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Subscribe Now</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  <div className="flex flex-col gap-3 mt-2">
+                    <button
+                      onClick={() => handleCheckout("zoom-webinar-500-monthly")}
+                      className="w-full py-3 px-4 bg-transparent border-2 border-[#ff914d] text-[#ff914d] hover:bg-[#ff914d] hover:text-white font-black text-xs uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center cursor-pointer"
+                    >
+                      <span>Pay Monthly (₹7,000)</span>
+                    </button>
+                    <button
+                      onClick={() => handleCheckout("zoom-webinar-500-annual")}
+                      className="w-full py-3 px-4 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+                    >
+                      <span>Pay Annually (₹70,000)</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Zoom Business */}
