@@ -280,30 +280,32 @@ export default function PricingPage() {
                   </button>
                 </div>
 
-                {/* Zoom Coaches Plan (NEW) */}
+                {/* Zoom Webinar Plan */}
                 <div className="bg-white rounded-3xl p-8 border-2 border-[#ff914d] shadow-2xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group scale-[1.03] z-10 bg-gradient-to-b from-white to-[#ff914d]/5">
                   <div className="absolute top-0 right-8 transform -translate-y-1/2">
                     <span className="bg-[#ff914d] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
                       <Sparkles size={10} />
-                      <span>Specially for Coaches</span>
+                      <span>Webinar Special</span>
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-black mb-1">Zoom Coaches Plan</h3>
-                    <p className="text-xs text-[#ff914d] font-bold mb-6 uppercase tracking-wider">Perfect for Webinars & Masterclasses</p>
+                    <h3 className="text-xl font-black mb-1">Zoom Webinar</h3>
+                    <p className="text-xs text-[#ff914d] font-bold mb-6 uppercase tracking-wider">For Large Scale Events</p>
                     <div className="flex flex-col mb-6">
                       <div className="flex items-baseline">
+                        <span className="text-xl font-bold text-gray-400 line-through mr-3">₹12,000</span>
                         <span className="text-3xl font-extrabold text-[#ff914d]">₹</span>
-                        <span className="text-5xl font-black tracking-tight text-[#001341]">50,000</span>
+                        <span className="text-5xl font-black tracking-tight text-[#001341]">7,000</span>
+                        <span className="text-gray-400 ml-2 text-sm font-semibold">/ month</span>
                       </div>
-                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
-                        + 18% GST / YEAR
+                      <span className="text-gray-400 mt-2 text-xs font-extrabold uppercase tracking-wide">
+                        Billed Annually at ₹70,000 + 18% GST
                       </span>
                     </div>
                     <ul className="space-y-4 mb-8">
                       <li className="flex items-start gap-3 text-sm text-gray-700">
                         <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span>Host up to <strong>500 participants</strong></span>
+                        <span>Host up to <strong>500 Webinar Attendees</strong></span>
                       </li>
                       <li className="flex items-start gap-3 text-sm text-gray-700">
                         <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
@@ -311,11 +313,11 @@ export default function PricingPage() {
                       </li>
                       <li className="flex items-start gap-3 text-sm text-gray-700">
                         <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span><strong>Unlimited Cloud Recording</strong></span>
+                        <span>Practice Session & Green Room</span>
                       </li>
                       <li className="flex items-start gap-3 text-sm text-gray-700">
                         <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span>Auto-delete recordings after 30 days</span>
+                        <span>Q&A, Polling, and Post-Event Reporting</span>
                       </li>
                       <li className="flex items-start gap-3 text-sm text-gray-700">
                         <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
@@ -324,7 +326,7 @@ export default function PricingPage() {
                     </ul>
                   </div>
                   <button
-                    onClick={() => handleCheckout("zoom-coaches-plan")}
+                    onClick={() => handleCheckout("zoom-webinar-500")}
                     className="w-full py-4 px-6 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Subscribe Now</span>
