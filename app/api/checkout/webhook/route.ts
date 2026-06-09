@@ -128,6 +128,33 @@ export async function POST(req: NextRequest) {
             }
           ]
         });
+
+        // --- Pabbly Webhook for Zoom Payments ---
+        if (sub.plan_slug && sub.plan_slug.toLowerCase().includes('zoom')) {
+          try {
+            await fetch("https://connect.pabbly.com/webhook-listener/webhook/IjU3NjYwNTZlMDYzNTA0MzI1MjZiIg_3D_3D_pc/IjU3NjcwNTY5MDYzNjA0MzE1MjZjNTUzNzUxMzEi_pc", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                event: "ZOOM_PAYMENT_SUCCESS",
+                order_id: orderId,
+                customer_name: sub.customer_name,
+                customer_email: sub.customer_email,
+                customer_phone: sub.customer_phone,
+                customer_gstin: sub.customer_gstin || "",
+                plan_name: sub.plan_name,
+                plan_slug: sub.plan_slug,
+                amount_paid: sub.total_amount,
+                payment_status: "ACTIVE",
+                invoice_number: sub.invoice_number,
+                created_at: new Date().toISOString()
+              })
+            });
+            console.log(`Successfully fired Pabbly webhook for Zoom order ${orderId}`);
+          } catch (webhookErr) {
+            console.error("Failed to fire Pabbly webhook:", webhookErr);
+          }
+        }
       }
       
       console.log(`Order ${orderId} marked as ACTIVE via webhook.`);
