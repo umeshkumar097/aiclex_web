@@ -129,8 +129,8 @@ export async function POST(req: NextRequest) {
           ]
         });
 
-        // --- Pabbly Webhook for Zoom Payments ---
-        if (sub.plan_slug && sub.plan_slug.toLowerCase().includes('zoom')) {
+        // --- Pabbly Webhook for Zoom Coaches & Webinar Plans ---
+        if (sub.plan_slug === 'zoom-coaches-plan' || sub.plan_slug === 'zoom-webinar-500') {
           try {
             await fetch("https://connect.pabbly.com/webhook-listener/webhook/IjU3NjYwNTZlMDYzNTA0MzI1MjZiIg_3D_3D_pc/IjU3NjcwNTY5MDYzNjA0MzE1MjZjNTUzNzUxMzEi_pc", {
               method: "POST",
