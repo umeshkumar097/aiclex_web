@@ -78,6 +78,7 @@ export default function DashboardLayout({
     { name: "Newsletters", href: "/dashboard/newsletters", icon: Mail },
     { name: "Enquiries", href: "/dashboard/enquiries", icon: PhoneCall },
     { name: "Short Links", href: "/dashboard/links", icon: Globe },
+    { name: "Webhook Logs", href: "/dashboard/webhook_logs", icon: Globe },
     { name: "Activity Logs", href: "/dashboard/logs", icon: BarChart3 },
   ];
 

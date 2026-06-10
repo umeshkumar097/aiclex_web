@@ -131,28 +131,40 @@ export async function POST(req: NextRequest) {
 
         // --- Pabbly Webhook for Zoom Coaches & Webinar Plans ---
         if (sub.plan_slug === 'zoom-coaches-plan' || sub.plan_slug === 'zoom-webinar-500') {
+          const payload = {
+            event: "ZOOM_PAYMENT_SUCCESS",
+            order_id: orderId,
+            customer_name: sub.customer_name,
+            customer_email: sub.customer_email,
+            customer_phone: sub.customer_phone,
+            customer_gstin: sub.customer_gstin || "",
+            plan_name: sub.plan_name,
+            plan_slug: sub.plan_slug,
+            amount_paid: sub.total_amount,
+            payment_status: "ACTIVE",
+            invoice_number: sub.invoice_number,
+            created_at: new Date().toISOString()
+          };
+
           try {
             await fetch("https://connect.pabbly.com/webhook-listener/webhook/IjU3NjYwNTZlMDYzNTA0MzI1MjZiIg_3D_3D_pc/IjU3NjcwNTY5MDYzNjA0MzE1MjZjNTUzNzUxMzEi_pc", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                event: "ZOOM_PAYMENT_SUCCESS",
-                order_id: orderId,
-                customer_name: sub.customer_name,
-                customer_email: sub.customer_email,
-                customer_phone: sub.customer_phone,
-                customer_gstin: sub.customer_gstin || "",
-                plan_name: sub.plan_name,
-                plan_slug: sub.plan_slug,
-                amount_paid: sub.total_amount,
-                payment_status: "ACTIVE",
-                invoice_number: sub.invoice_number,
-                created_at: new Date().toISOString()
-              })
+              body: JSON.stringify(payload)
             });
             console.log(`Successfully fired Pabbly webhook for Zoom order ${orderId}`);
+            
+            await pool.query(
+              `INSERT INTO webhook_logs (order_id, customer_email, plan_slug, payload, status) VALUES ($1, $2, $3, $4, $5)`,
+              [orderId, sub.customer_email, sub.plan_slug, JSON.stringify(payload), 'SUCCESS']
+            );
           } catch (webhookErr) {
             console.error("Failed to fire Pabbly webhook:", webhookErr);
+            
+            await pool.query(
+              `INSERT INTO webhook_logs (order_id, customer_email, plan_slug, payload, status) VALUES ($1, $2, $3, $4, $5)`,
+              [orderId, sub.customer_email, sub.plan_slug, JSON.stringify(payload), 'FAILED']
+            );
           }
         }
       }
