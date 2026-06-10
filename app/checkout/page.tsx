@@ -19,6 +19,8 @@ function CheckoutForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const planSlug = searchParams.get("plan");
+  const qtyParam = searchParams.get("qty");
+  const qty = qtyParam ? parseInt(qtyParam, 10) : 1;
   
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,7 +42,7 @@ function CheckoutForm() {
 
   if (!selectedPlan) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-[#5271ff]" size={40} /></div>;
 
-  const basePrice = selectedPlan.price;
+  const basePrice = selectedPlan.price * qty;
   const gstAmount = basePrice * 0.18;
   const totalAmount = basePrice + gstAmount;
 
@@ -67,7 +69,8 @@ function CheckoutForm() {
           customerName: formData.name,
           customerEmail: formData.email,
           customerPhone: formData.phone,
-          customerGst: formData.gstin || null
+          customerGst: formData.gstin || null,
+          quantity: qty
         })
       });
 
@@ -125,7 +128,9 @@ function CheckoutForm() {
             <h2 className="text-xl font-black mb-6 border-b pb-4">Order Summary</h2>
             <div className="space-y-4 mb-6">
               <div className="flex justify-between items-center">
-                <span className="text-gray-500 font-bold">{selectedPlan.name} ({selectedPlan.billing})</span>
+                <span className="text-gray-500 font-bold">
+                  {selectedPlan.name} {qty > 1 ? `(x${qty})` : ''} ({selectedPlan.billing})
+                </span>
                 <span className="font-black">₹{basePrice.toLocaleString('en-IN')}</span>
               </div>
               <div className="flex justify-between items-center text-gray-400 text-sm">

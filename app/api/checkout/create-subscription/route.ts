@@ -27,16 +27,18 @@ const PLANS: Record<string, { name: string, price: number }> = {
 
 export async function POST(req: NextRequest) {
   try {
-    const { planSlug, customerName, customerEmail, customerPhone, customerGst } = await req.json();
+    const { planSlug, customerName, customerEmail, customerPhone, customerGst, quantity } = await req.json();
 
     const plan = PLANS[planSlug];
     if (!plan) {
       return NextResponse.json({ error: "Invalid plan selected" }, { status: 400 });
     }
 
-    const basePrice = plan.price;
+    const qty = quantity ? parseInt(quantity, 10) : 1;
+    const basePrice = plan.price * qty;
     const gstAmount = basePrice * 0.18;
     const totalAmount = basePrice + gstAmount;
+    const planNameWithQty = qty > 1 ? `${plan.name} (x${qty})` : plan.name;
 
     // Generate unique order ID
     const orderId = `ORDER_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
@@ -56,7 +58,7 @@ export async function POST(req: NextRequest) {
         notify_url: `https://aiclex.in/api/checkout/webhook`,
         payment_methods: "cc,dc,ccc,upi,nb,app,emi,paylater"
       },
-      order_note: `${plan.name} Subscription${customerGst ? ' - GST: ' + customerGst : ''}`
+      order_note: `${planNameWithQty} Subscription${customerGst ? ' - GST: ' + customerGst : ''}`
     };
 
     // Create Order with Cashfree
@@ -72,7 +74,7 @@ export async function POST(req: NextRequest) {
       `INSERT INTO subscriptions 
       (order_id, plan_slug, plan_name, amount, gst_amount, total_amount, customer_name, customer_email, customer_phone, customer_gstin, payment_session_id)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
-      [orderId, planSlug, plan.name, basePrice, gstAmount, totalAmount, customerName, customerEmail, customerPhone, customerGst || null, orderData.payment_session_id]
+      [orderId, planSlug, planNameWithQty, basePrice, gstAmount, totalAmount, customerName, customerEmail, customerPhone, customerGst || null, orderData.payment_session_id]
     );
 
     const subId = insertedSub[0].id;

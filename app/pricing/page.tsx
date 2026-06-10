@@ -11,9 +11,19 @@ type PricingCategory = "whatspilot" | "zoom" | "ads";
 export default function PricingPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<PricingCategory>("zoom");
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
 
-  const handleCheckout = (planSlug: string) => {
-    router.push(`/checkout?plan=${planSlug}`);
+  const handleQuantityChange = (id: string, increment: boolean) => {
+    setQuantities(prev => {
+      const current = prev[id] || 1;
+      const newQty = increment ? current + 1 : Math.max(1, current - 1);
+      return { ...prev, [id]: newQty };
+    });
+  };
+
+  const handleCheckout = (planSlug: string, id?: string) => {
+    const qty = id ? (quantities[id] || 1) : 1;
+    router.push(`/checkout?plan=${planSlug}&qty=${qty}`);
   };
 
   const tabs = [
@@ -240,7 +250,7 @@ export default function PricingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.4 }}
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch"
+                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 items-stretch"
               >
                 {/* Zoom Pro */}
                 <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
@@ -271,13 +281,23 @@ export default function PricingPage() {
                       </li>
                     </ul>
                   </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-pro-basic")}
-                    className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] hover:text-white text-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Buy License</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100">
+                      <span className="text-xs font-bold text-gray-500 uppercase px-2">Licenses</span>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => handleQuantityChange('zoom-pro', false)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">-</button>
+                        <span className="font-black text-sm w-4 text-center">{quantities['zoom-pro'] || 1}</span>
+                        <button onClick={() => handleQuantityChange('zoom-pro', true)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">+</button>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleCheckout("zoom-pro-basic", "zoom-pro")}
+                      className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] hover:text-white text-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>Buy License</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Zoom Business */}
@@ -313,13 +333,23 @@ export default function PricingPage() {
                       </li>
                     </ul>
                   </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-business")}
-                    className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] text-[#001341] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Buy License</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100">
+                      <span className="text-xs font-bold text-gray-500 uppercase px-2">Licenses</span>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => handleQuantityChange('zoom-business', false)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">-</button>
+                        <span className="font-black text-sm w-4 text-center">{quantities['zoom-business'] || 1}</span>
+                        <button onClick={() => handleQuantityChange('zoom-business', true)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">+</button>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleCheckout("zoom-business", "zoom-business")}
+                      className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] text-[#001341] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>Buy License</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Smart Coach Plan */}
@@ -357,13 +387,23 @@ export default function PricingPage() {
                       </li>
                     </ul>
                   </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-coaches-plan")}
-                    className="w-full py-4 px-6 bg-[#5271ff] hover:bg-[#001341] text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Buy License</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100">
+                      <span className="text-xs font-bold text-gray-500 uppercase px-2">Licenses</span>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => handleQuantityChange('zoom-coaches-plan', false)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">-</button>
+                        <span className="font-black text-sm w-4 text-center">{quantities['zoom-coaches-plan'] || 1}</span>
+                        <button onClick={() => handleQuantityChange('zoom-coaches-plan', true)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">+</button>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleCheckout("zoom-coaches-plan", "zoom-coaches-plan")}
+                      className="w-full py-4 px-6 bg-[#5271ff] hover:bg-[#001341] text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>Buy License</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Zoom Webinar Plan */}
@@ -406,13 +446,23 @@ export default function PricingPage() {
                       </li>
                     </ul>
                   </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-webinar-500")}
-                    className="w-full py-4 px-6 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Buy License</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100">
+                      <span className="text-xs font-bold text-gray-500 uppercase px-2">Licenses</span>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => handleQuantityChange('zoom-webinar-500', false)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">-</button>
+                        <span className="font-black text-sm w-4 text-center">{quantities['zoom-webinar-500'] || 1}</span>
+                        <button onClick={() => handleQuantityChange('zoom-webinar-500', true)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">+</button>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleCheckout("zoom-webinar-500", "zoom-webinar-500")}
+                      className="w-full py-4 px-6 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>Buy License</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Smart Coach Webinar Plus */}
@@ -454,13 +504,23 @@ export default function PricingPage() {
                       </li>
                     </ul>
                   </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-smart-coach-webinar-plus")}
-                    className="w-full py-4 px-6 bg-[#001341] hover:bg-[#ff914d] text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Buy License</span>
-                    <ArrowRight size={14} />
-                  </button>
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100">
+                      <span className="text-xs font-bold text-gray-500 uppercase px-2">Licenses</span>
+                      <div className="flex items-center gap-3">
+                        <button onClick={() => handleQuantityChange('zoom-smart-coach-webinar-plus', false)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">-</button>
+                        <span className="font-black text-sm w-4 text-center">{quantities['zoom-smart-coach-webinar-plus'] || 1}</span>
+                        <button onClick={() => handleQuantityChange('zoom-smart-coach-webinar-plus', true)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">+</button>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleCheckout("zoom-smart-coach-webinar-plus", "zoom-smart-coach-webinar-plus")}
+                      className="w-full py-4 px-6 bg-[#001341] hover:bg-[#ff914d] text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <span>Buy License</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             )}
