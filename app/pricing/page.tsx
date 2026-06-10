@@ -240,12 +240,12 @@ export default function PricingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.4 }}
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 items-stretch"
+                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch"
               >
                 {/* Zoom Pro */}
                 <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
                   <div>
-                    <h3 className="text-xl font-black mb-1">Zoom Pro Basic</h3>
+                    <h3 className="text-xl font-black mb-1">Zoom Pro</h3>
                     <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">For professionals</p>
                     <div className="flex flex-col mb-6">
                       <div className="flex items-baseline">
@@ -267,112 +267,13 @@ export default function PricingPage() {
                       </li>
                       <li className="flex items-start gap-3 text-sm text-gray-600">
                         <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span><strong>5GB Cloud Recording</strong> per License</span>
+                        <span><strong>10GB Cloud Recording</strong> per License</span>
                       </li>
                     </ul>
                   </div>
                   <button
                     onClick={() => handleCheckout("zoom-pro-basic")}
                     className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] hover:text-white text-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Buy License</span>
-                    <ArrowRight size={14} />
-                  </button>
-                </div>
-
-                {/* Zoom Coaches Plan */}
-                <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
-                  <div>
-                    <h3 className="text-xl font-black mb-1">Zoom Coaches Plan</h3>
-                    <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">Perfect for Masterclasses</p>
-                    <div className="flex flex-col mb-6">
-                      <div className="flex items-baseline">
-                        <span className="text-3xl font-extrabold text-[#001341]">₹</span>
-                        <span className="text-5xl font-black tracking-tight text-[#001341]">50,000</span>
-                      </div>
-                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
-                        + 18% GST / YEAR
-                      </span>
-                    </div>
-                    <ul className="space-y-4 mb-8">
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Host up to <strong>500 participants</strong></span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Includes Meetings & Webinar Features</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span><strong>Unlimited Cloud Recording</strong></span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Auto-delete recordings after 30 days</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Priority Support</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-coaches-plan")}
-                    className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] text-[#001341] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Buy License</span>
-                    <ArrowRight size={14} />
-                  </button>
-                </div>
-
-                {/* Zoom Webinar Plan */}
-                <div className="bg-white rounded-3xl p-8 border-2 border-[#ff914d] shadow-2xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group scale-[1.03] z-10 bg-gradient-to-b from-white to-[#ff914d]/5">
-                  <div className="absolute top-0 right-8 transform -translate-y-1/2">
-                    <span className="bg-[#ff914d] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
-                      <Sparkles size={10} />
-                      <span>Webinar Special</span>
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-black mb-1">Zoom Webinar</h3>
-                    <p className="text-xs text-[#ff914d] font-bold mb-6 uppercase tracking-wider">For Large Scale Events</p>
-                    <div className="flex flex-col mb-6">
-                      <span className="text-lg font-bold text-gray-400 line-through mb-1">₹1,00,000</span>
-                      <div className="flex items-baseline">
-                        <span className="text-3xl font-extrabold text-[#ff914d]">₹</span>
-                        <span className="text-5xl font-black tracking-tight text-[#001341]">70,000</span>
-                      </div>
-                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
-                        + 18% GST / YEAR
-                      </span>
-                    </div>
-                    <ul className="space-y-4 mb-8">
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span>Host up to <strong>500 Webinar Attendees</strong></span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span>Includes Meetings & Webinar Features</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span>Practice Session & Green Room</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span>Q&A, Polling, and Post-Event Reporting</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-700">
-                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
-                        <span>Priority Support</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <button
-                    onClick={() => handleCheckout("zoom-webinar-500")}
-                    className="w-full py-4 px-6 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Buy License</span>
                     <ArrowRight size={14} />
@@ -414,6 +315,147 @@ export default function PricingPage() {
                   </div>
                   <button
                     onClick={() => handleCheckout("zoom-business")}
+                    className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] text-[#001341] hover:text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Buy License</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+
+                {/* Smart Coach Plan */}
+                <div className="bg-white rounded-3xl p-8 border border-[#5271ff]/30 shadow-2xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
+                  <div className="absolute top-0 right-8 transform -translate-y-1/2">
+                    <span className="bg-[#5271ff] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                      <Sparkles size={10} />
+                      <span>Most Popular</span>
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black mb-1">Smart Coach Plan</h3>
+                    <p className="text-xs text-[#5271ff] font-bold mb-6 uppercase tracking-wider">Perfect for Creators</p>
+                    <div className="flex flex-col mb-6">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-extrabold text-[#001341]">₹</span>
+                        <span className="text-5xl font-black tracking-tight text-[#001341]">50,000</span>
+                      </div>
+                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
+                        + 18% GST / YEAR
+                      </span>
+                    </div>
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#5271ff] mt-0.5 shrink-0" />
+                        <span>Host up to <strong>500 participants</strong> in Meeting</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#5271ff] mt-0.5 shrink-0" />
+                        <span>Host up to <strong>500 participants</strong> in Webinar</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#5271ff] mt-0.5 shrink-0" />
+                        <span>Includes All Business Features</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => handleCheckout("zoom-coaches-plan")}
+                    className="w-full py-4 px-6 bg-[#5271ff] hover:bg-[#001341] text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Buy License</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+
+                {/* Zoom Webinar Plan */}
+                <div className="bg-white rounded-3xl p-8 border border-[#ff914d] shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
+                  <div className="absolute top-0 right-8 transform -translate-y-1/2">
+                    <span className="bg-[#ff914d] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                      <Sparkles size={10} />
+                      <span>Webinar Special</span>
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black mb-1">Zoom Webinar</h3>
+                    <p className="text-xs text-[#ff914d] font-bold mb-6 uppercase tracking-wider">For Large Scale Events</p>
+                    <div className="flex flex-col mb-6">
+                      <span className="text-lg font-bold text-gray-400 line-through mb-1">₹1,00,000</span>
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-extrabold text-[#ff914d]">₹</span>
+                        <span className="text-5xl font-black tracking-tight text-[#001341]">70,000</span>
+                      </div>
+                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
+                        + 18% GST / YEAR
+                      </span>
+                    </div>
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
+                        <span>Host up to <strong>500 Webinar Attendees</strong></span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
+                        <span><strong>Unlimited Cloud Recording</strong></span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
+                        <span>Practice Session & Green Room</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#ff914d] mt-0.5 shrink-0" />
+                        <span>Q&A, Polling, and Post-Event Reporting</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => handleCheckout("zoom-webinar-500")}
+                    className="w-full py-4 px-6 bg-[#ff914d] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Buy License</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+
+                {/* Smart Coach Webinar Plus */}
+                <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group md:col-span-2 xl:col-span-1">
+                  <div className="absolute top-0 right-8 transform -translate-y-1/2">
+                    <span className="bg-[#001341] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                      <Sparkles size={10} />
+                      <span>Ultimate</span>
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black mb-1">Smart Coach Webinar Plus</h3>
+                    <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">The Ultimate Tier</p>
+                    <div className="flex flex-col mb-6">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-extrabold text-[#001341]">₹</span>
+                        <span className="text-5xl font-black tracking-tight text-[#001341]">90,000</span>
+                      </div>
+                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
+                        + 18% GST / YEAR
+                      </span>
+                    </div>
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#001341] mt-0.5 shrink-0" />
+                        <span>Host up to <strong>500 participants</strong> in Meeting</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#001341] mt-0.5 shrink-0" />
+                        <span>Host up to <strong>500 participants</strong> in Webinar</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#001341] mt-0.5 shrink-0" />
+                        <span><strong>100 Participants</strong> in Webinar Plus</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#001341] mt-0.5 shrink-0" />
+                        <span><strong>Unlimited Cloud Recording</strong></span>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => handleCheckout("zoom-smart-coach-webinar-plus")}
                     className="w-full py-4 px-6 bg-[#001341] hover:bg-[#ff914d] text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Buy License</span>
