@@ -171,6 +171,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: any) {
     console.error("Cashfree Order Error:", error?.response?.data || error.message);
-    return NextResponse.json({ error: "Could not initialize payment. Please try again." }, { status: 500 });
+    const errorMessage = error?.response?.data?.message || "Could not initialize payment. Please try again.";
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }
