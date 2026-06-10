@@ -10,15 +10,15 @@ type PricingCategory = "whatspilot" | "zoom" | "ads";
 
 export default function PricingPage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<PricingCategory>("whatspilot");
+  const [activeTab, setActiveTab] = useState<PricingCategory>("zoom");
 
   const handleCheckout = (planSlug: string) => {
     router.push(`/checkout?plan=${planSlug}`);
   };
 
   const tabs = [
-    { id: "whatspilot", label: "WhatsPilot SaaS", icon: <MessageCircle size={16} /> },
     { id: "zoom", label: "Zoom Reselling", icon: <Video size={16} /> },
+    { id: "whatspilot", label: "WhatsPilot SaaS", icon: <MessageCircle size={16} /> },
     { id: "ads", label: "Paid Media & Ads", icon: <BarChart3 size={16} /> }
   ];
 
