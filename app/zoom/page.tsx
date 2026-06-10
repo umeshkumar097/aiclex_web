@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 import ZoomLeadForm from "@/components/zoom/ZoomLeadForm";
 import PricingComparison from "@/components/zoom/PricingComparison";
 import { 
@@ -39,104 +40,104 @@ import {
 // --- Data: Content Updated According to Your Request ---
 const pricingPlans = [
   {
-    id: "basic",
-    title: "Zoom Basic",
-    price: "Free",
-    description: "Best for personal use.",
-    frequency: "Forever free",
-    buttonText: "Contact sales team",
-    isPopular: false,
-    theme: "white", 
-    features: [
-      { text: "40 minutes per meeting", icon: <Clock size={18} /> },
-      { text: "100 participants per meeting", icon: <Users size={18} /> },
-      { text: "AI Companion: Available with 3 meetings/mo", icon: <Bot size={18} /> },
-      { text: "Team Chat", icon: <MessageSquare size={18} /> },
-      { text: "Whiteboard: 3 editable whiteboards", icon: <LayoutTemplate size={18} /> },
-      { text: "Docs: Share up to 10 docs", icon: <FileText size={18} /> },
-      { text: "Clips: 5 two-minute clips", icon: <Film size={18} /> },
-      { text: "Mail: Connect Gmail/Outlook in Zoom", icon: <Mail size={18} /> },
-      { text: "Calendar: Sync Google/Microsoft calendars", icon: <Calendar size={18} /> },
-      { text: "Tasks: Manual entry", icon: <CheckSquare size={18} /> },
-      { text: "Hub: Basic", icon: <Grid size={18} /> }
-    ],
-    tags: ["Personal", "Free"]
-  },
-  {
     id: "pro",
     title: "Zoom Pro",
-    price: "Get a Quote",
+    price: "₹11,200",
     description: "Best for personal use or small teams.",
-    frequency: "Contact sales team for pricing",
-    buttonText: "Contact Sales Team",
-    isPopular: true,
-    theme: "brand", // Highlighted Card (Blue/Orange Brand Theme)
+    frequency: "+ GST per year",
+    buttonText: "Buy License",
+    checkoutSlug: "zoom-pro-basic",
+    isPopular: false,
+    theme: "white",
     features: [
       { text: "30 hours per meeting", icon: <Clock size={18} /> },
       { text: "100 participants", icon: <Users size={18} /> },
       { text: "Increase with Large Meeting", icon: <ArrowUpCircle size={18} /> },
       { text: "AI Companion: Schedule, Synthesize & Tasks", icon: <Bot size={18} /> },
-      { text: "Docs: Unlimited docs", icon: <FileText size={18} /> },
-      { text: "Clips: Unlimited clips & Custom avatars", icon: <Film size={18} /> },
-      { text: "Mail: Zoom Mail or Gmail/Outlook", icon: <Mail size={18} /> },
-      { text: "Calendar: Zoom Calendar or Sync", icon: <Calendar size={18} /> },
-      { text: "Tasks: AI-first task management", icon: <CheckCircle2 size={18} /> },
-      { text: "Workflow automation", icon: <Workflow size={18} /> },
-      { text: "Hub: All features", icon: <LayoutGrid size={18} /> },
       { text: "Cloud storage: 10 GB", icon: <Cloud size={18} /> },
-      { text: "Live Chat Support", icon: <MessageCircle size={18} /> },
-      { text: "Essential Apps: Free premium apps for 1 year", icon: <AppWindow size={18} /> }
     ],
     tags: ["AI Features", "Cloud Storage"]
   },
   {
     id: "business",
     title: "Zoom Business",
-    price: "Get a Quote",
+    price: "₹18,500",
     description: "Best for larger teams.",
-    frequency: "Contact sales team for pricing",
-    buttonText: "Contact Sales Team",
+    frequency: "+ GST per year",
+    buttonText: "Buy License",
+    checkoutSlug: "zoom-business",
     isPopular: false,
     theme: "white",
     features: [
       { text: "Meetings: 300 participants", icon: <Users size={18} /> },
       { text: "Increase with Large Meeting", icon: <ArrowUpCircle size={18} /> },
       { text: "Scheduler: All features", icon: <CalendarCheck size={18} /> },
-      { text: "Whiteboard: Unlimited whiteboards", icon: <LayoutTemplate size={18} /> },
       { text: "Extras: SSO, managed domains & more", icon: <Shield size={18} /> },
       { text: "Company branding", icon: <Briefcase size={18} /> }
     ],
     tags: ["SSO", "Branding"]
   },
   {
-    id: "enterprise",
-    title: "Zoom Enterprise",
-    price: "Custom",
-    description: "Best for even larger teams.",
-    frequency: "Contact sales for pricing",
-    buttonText: "Contact sales team",
+    id: "smart-coach",
+    title: "Smart Coach Plan",
+    price: "₹50,000",
+    description: "Best for coaches and creators.",
+    frequency: "+ GST per year",
+    buttonText: "Buy License",
+    checkoutSlug: "zoom-coaches-plan",
+    isPopular: true,
+    theme: "brand",
+    features: [
+      { text: "500 Participants in Meeting", icon: <Users size={18} /> },
+      { text: "500 Participants in Webinar", icon: <MonitorPlay size={18} /> },
+      { text: "All Zoom Business Features", icon: <CheckCircle2 size={18} /> }
+    ],
+    tags: ["Meeting", "Webinar"]
+  },
+  {
+    id: "webinar-500",
+    title: "Zoom Webinar",
+    price: "₹70,000",
+    description: "For large broadcasts and events.",
+    frequency: "+ GST per year",
+    buttonText: "Buy License",
+    checkoutSlug: "zoom-webinar-500",
     isPopular: false,
     theme: "white",
     features: [
-      { text: "Meetings: 1000 participants", icon: <Users size={18} /> },
-      { text: "Phone: Full-featured PBX", icon: <Phone size={18} /> },
       { text: "Webinars: 500 attendees", icon: <MonitorPlay size={18} /> },
-      { text: "Rooms", icon: <Monitor size={18} /> },
-      { text: "Workspace Reservation", icon: <CalendarCheck size={18} /> },
-      { text: "Visitor Management", icon: <UserCheck size={18} /> },
-      { text: "Translated captions", icon: <Languages size={18} /> }
+      { text: "Unlimited Cloud Recording", icon: <Cloud size={18} /> },
+      { text: "Q&A, Polling, and Reporting", icon: <FileText size={18} /> }
     ],
-    tags: ["Unlimited", "Enterprise"]
+    tags: ["Broadcast", "Unlimited Recording"]
+  },
+  {
+    id: "smart-coach-plus",
+    title: "Smart Coach Webinar Plus",
+    price: "₹90,000",
+    description: "The ultimate tier for professional coaches.",
+    frequency: "+ GST per year",
+    buttonText: "Buy License",
+    checkoutSlug: "zoom-smart-coach-webinar-plus",
+    isPopular: false,
+    theme: "white",
+    features: [
+      { text: "500 Meeting Participants", icon: <Users size={18} /> },
+      { text: "500 Webinar Participants", icon: <MonitorPlay size={18} /> },
+      { text: "Webinar Plus (100 Participants)", icon: <Video size={18} /> },
+      { text: "Unlimited Cloud Recording", icon: <Cloud size={18} /> }
+    ],
+    tags: ["Ultimate", "Webinar Plus"]
   }
 ];
 
 export default function PricingSection() {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("");
 
-  const handleOpenModal = (plan: string) => {
-    setSelectedPlan(plan);
-    setModalOpen(true);
+  const handleCheckout = (slug: string) => {
+    router.push(`/checkout?plan=${slug}`);
   };
 
   return (
@@ -196,7 +197,7 @@ export default function PricingSection() {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch justify-center">
           {pricingPlans.map((plan) => (
             <div
               key={plan.id}
@@ -231,7 +232,7 @@ export default function PricingSection() {
 
                 {/* Main Action Button */}
                 <button
-                  onClick={() => handleOpenModal(plan.title)}
+                  onClick={() => handleCheckout(plan.checkoutSlug)}
                   className={`w-full py-4 rounded-full font-bold cursor-pointer text-sm transition-all duration-300 active:scale-95 shadow-lg ${
                     plan.theme === "brand"
                       ? "bg-[#5271ff] text-white hover:bg-[#001341]"

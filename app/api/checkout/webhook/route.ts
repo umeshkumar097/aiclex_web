@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
         });
 
         // --- Pabbly Webhook for Zoom Coaches & Webinar Plans ---
-        if (sub.plan_slug === 'zoom-coaches-plan' || sub.plan_slug === 'zoom-webinar-500') {
+        if (sub.plan_slug === 'zoom-coaches-plan' || sub.plan_slug === 'zoom-webinar-500' || sub.plan_slug === 'zoom-smart-coach-webinar-plus') {
           const payload = {
             event: "ZOOM_PAYMENT_SUCCESS",
             order_id: orderId,
