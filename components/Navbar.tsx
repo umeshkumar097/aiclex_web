@@ -46,11 +46,9 @@ export default function Navbar() {
       icon: <Layers size={18} aria-hidden="true" />,
       children: [
         { name: "All Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
-        { name: "Zoom", href: "/zoom", icon: <Video size={18} aria-hidden="true" /> },
         { name: "AI Tools Suite™", href: "/ai-tools", icon: <Sparkles size={18} aria-hidden="true" className="text-orange-500" /> },
       ],
     },
-    { name: "Pricing", href: "/pricing", icon: <FileText size={18} aria-hidden="true" /> },
     {
       name: "Company",
       href: "#",
