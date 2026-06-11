@@ -26,6 +26,7 @@ export default function PricingPage() {
     router.push(`/checkout?plan=${planSlug}&qty=${qty}`);
   };
 
+  const tabs = [
     { id: "whatspilot", label: "WhatsPilot SaaS", icon: <MessageCircle size={16} /> },
     { id: "ads", label: "Paid Media & Ads", icon: <BarChart3 size={16} /> }
   ];
@@ -241,87 +242,7 @@ export default function PricingPage() {
               </motion.div>
             )}
 
-            {activeTab === "zoom" && (
-              <motion.div
-                key="zoom"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.4 }}
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 items-stretch"
-              >
-                {/* Zoom Pro */}
-                <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
-                  <div>
-                    <h3 className="text-xl font-black mb-1">Zoom Pro</h3>
-                    <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">For professionals</p>
-                    <div className="flex flex-col mb-6">
-                      <div className="flex items-baseline">
-                        <span className="text-3xl font-extrabold">₹</span>
-                        <span className="text-5xl font-black tracking-tight">11,200</span>
-                      </div>
-                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
-                        + 18% GST / YEAR
-                      </span>
-                    </div>
-                    <ul className="space-y-4 mb-8">
-                      <li className="flex items-start gap-3 text-sm text-gray-600">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Host up to <strong>100 participants</strong></span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-600">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Unlimited Group Meetings (Up to 30 Hours)</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-600">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span><strong>10GB Cloud Recording</strong> per License</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <div className="flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100">
-                      <span className="text-xs font-bold text-gray-500 uppercase px-2">Licenses</span>
-                      <div className="flex items-center gap-3">
-                        <button onClick={() => handleQuantityChange('zoom-pro', false)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">-</button>
-                        <span className="font-black text-sm w-4 text-center">{quantities['zoom-pro'] || 1}</span>
-                        <button onClick={() => handleQuantityChange('zoom-pro', true)} className="w-8 h-8 rounded-lg bg-white border border-gray-200 text-gray-600 hover:border-gray-300 flex items-center justify-center font-bold transition-all shadow-sm">+</button>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => handleCheckout("zoom-pro-basic", "zoom-pro")}
-                      className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] hover:text-white text-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <span>Buy License</span>
-                      <ArrowRight size={14} />
-                    </button>
-                  </div>
-                </div>
 
-                {/* Zoom Business */}
-                <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
-                  <div>
-                    <h3 className="text-xl font-black mb-1">Zoom Business</h3>
-                    <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">Designed for SME teams</p>
-                    <div className="flex flex-col mb-6">
-                      <div className="flex items-baseline">
-                        <span className="text-3xl font-extrabold">₹</span>
-                        <span className="text-5xl font-black tracking-tight">18,500</span>
-                      </div>
-                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
-                        + 18% GST / YEAR
-                      </span>
-                    </div>
-                    <ul className="space-y-4 mb-8">
-                      <li className="flex items-start gap-3 text-sm text-gray-600">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Host up to <strong>300 participants</strong></span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-600">
-                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
-                        <span>Single Sign-On (SSO)</span>
-                      </li>
-                      <li className="flex items-start gap-3 text-sm text-gray-600">
             {/* Ads section remains for Proposal only */}
             {activeTab === "ads" && (
               <motion.div
