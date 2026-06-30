@@ -44,10 +44,12 @@ export function generateInvoicePdf(data: InvoiceData): Promise<Buffer> {
       doc.fillColor('white').fontSize(16).font('Helvetica-Bold').text(statusText, 430, 42, { width: 100, align: 'center' });
 
       // Company Info
-      doc.fillColor('#000000').fontSize(16).font('Helvetica-Bold').text('AICLEX TECHNOLOGIES', 50, 75);
-      doc.fontSize(9).font('Helvetica-Bold')
-         .text('GSTIN ', 50, 95).font('Helvetica').text('09JAMPK1070B1ZS  ', { continued: true })
+      doc.fillColor('#000000').fontSize(14).font('Helvetica-Bold').text('AICLEX SOLUTIONS PVT. LTD.', 50, 75);
+      doc.fillColor('#444444').fontSize(9).font('Helvetica').text('(Trading as AICLEX™ Technologies)', 50, 93);
+      doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold')
+         .text('GSTIN ', 50, 107).font('Helvetica').text('09JAMPK1070B1ZS  ', { continued: true })
          .font('Helvetica-Bold').text('PAN ', { continued: true }).font('Helvetica').text('JAMPK1070B');
+
       
       doc.font('Helvetica').text('UNIT NO 8125, 8TH FLOOR');
       doc.text('GAUR CITY MALL OFFICE SPACE, SECTOR 4, Greater Noida');
@@ -155,7 +157,7 @@ export function generateInvoicePdf(data: InvoiceData): Promise<Buffer> {
       doc.font('Helvetica-Bold').text('State Bank of India', 120, bottomY + 15);
       
       doc.font('Helvetica').text('Account Holder:', 50, bottomY + 30);
-      doc.font('Helvetica-Bold').text('AICLEX TECHNOLOGIES', 130, bottomY + 30);
+      doc.font('Helvetica-Bold').text('AICLEX SOLUTIONS PVT LTD', 130, bottomY + 30);
       
       doc.font('Helvetica').text('Account #:', 50, bottomY + 45);
       doc.font('Helvetica-Bold').text('44636629133', 120, bottomY + 45);
@@ -180,7 +182,8 @@ export function generateInvoicePdf(data: InvoiceData): Promise<Buffer> {
 
       // Authorized Signatory
       const signY = bottomY + 90;
-      doc.fillColor('#000000').font('Helvetica').text('For AICLEX TECHNOLOGIES', 380, signY);
+      doc.fillColor('#000000').font('Helvetica').text('For AICLEX SOLUTIONS PVT. LTD.', 360, signY);
+      doc.fillColor('#444444').font('Helvetica').fontSize(8).text('(Trading as AICLEX™ Technologies)', 360, signY + 12);
       
       // Draw a fake signature line just for aesthetic
       doc.moveTo(400, signY + 35).lineTo(430, signY + 25).lineTo(460, signY + 40).lineTo(480, signY + 10).lineTo(520, signY + 20).stroke('#000000');

@@ -74,10 +74,13 @@ export default function Footer() {
 
           <p className="text-[15px] leading-relaxed text-black">
             Elevate your brand with{" "}
-            <span className="font-bold">AICLEX™ TECHNOLOGIES!</span>
-            Our comprehensive brand development strategies are designed to make
+            <span className="font-bold">AICLEX™ Technologies</span>
+            {" — "}trading name of{" "}
+            <span className="font-bold">Aiclex Solutions Pvt. Ltd.</span>
+            {" "}Our comprehensive brand development strategies are designed to make
             your business stand out.
           </p>
+
 
           <div className="space-y-4 text-[15px] font-semibold">
             <div className="flex items-center gap-3">
@@ -215,7 +218,8 @@ export default function Footer() {
       {/* --- BOTTOM BAR --- */}
       <div className="border-t border-gray-200 bg-[#001341]">
         <div className="max-w-7xl mx-auto px-6 py-6 text-[14px] font-medium text-white/80 text-center ">
-             2025-26 © All rights reserved by Aiclex™ Technologies.
+             2025-26 &copy; All rights reserved by <strong>Aiclex Solutions Pvt. Ltd.</strong>&nbsp;(Trading as AICLEX™ Technologies)
+
         </div>
       </div>
 

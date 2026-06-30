@@ -23,7 +23,8 @@ export default function TermsAndConditions() {
               These Terms apply to all visitors, clients, and anyone who submits a form, makes a payment, or enters into a service agreement with us.
             </p>
             <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                <p className="font-bold text-[#001341]">AICLEX™ Technologies</p>
+                <p className="font-bold text-[#001341]">Aiclex Solutions Pvt. Ltd.</p>
+                <p className="text-sm text-gray-500">(Trading as AICLEX™ Technologies)</p>
                 <p>Gaur City Mall, Greater Noida – 201318, India</p>
                 <p>📧 info@aiclex.in | 📞 +91 84494 88090</p>
             </div>

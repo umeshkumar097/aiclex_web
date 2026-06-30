@@ -90,9 +90,9 @@ export const sendLeadEmails = async (leadData: {
 
   // 2. Send Confirmation to User
   const userMailOptions = {
-    from: `"AICLEX Technologies" <${process.env.SMTP_USER}>`,
+    from: `"AICLEX™ Technologies" <${process.env.SMTP_USER}>`,
     to: email,
-    subject: `Thank you for contacting AICLEX Technologies!`,
+    subject: `Thank you for contacting AICLEX™ Technologies!`,
     html: `
       <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px; background-color: #f9f9f9;">
         <h2 style="color: #001341;">Hello ${name},</h2>
@@ -104,7 +104,7 @@ export const sendLeadEmails = async (leadData: {
         </div>
         <p>In the meantime, feel free to visit our website [aiclex.in](https://aiclex.in) or reply to this email for any urgent matters.</p>
         <br />
-        <p>Best Regards,<br /><strong>The AICLEX Team</strong></p>
+        <p>Best Regards,<br /><strong>AICLEX™ Technologies</strong><br /><span style="font-size:11px;color:#888;">A brand of Aiclex Solutions Pvt. Ltd.</span></p>
       </div>
     `,
   };

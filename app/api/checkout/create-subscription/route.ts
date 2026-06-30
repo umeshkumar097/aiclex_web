@@ -147,7 +147,7 @@ export async function POST(req: NextRequest) {
         </div>` : ''}
 
         <p>We have attached the Proforma Invoice (DUE) for your records.</p>
-        <p>Best regards,<br>Aiclex Technologies</p>
+        <p>Best regards,<br><strong>AICLEX™ Technologies</strong><br><span style="font-size:11px;color:#888;">A brand of Aiclex Solutions Pvt. Ltd.</span></p>
       </div>
     `;
 
