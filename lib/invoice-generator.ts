@@ -47,8 +47,8 @@ export function generateInvoicePdf(data: InvoiceData): Promise<Buffer> {
       doc.fillColor('#000000').fontSize(14).font('Helvetica-Bold').text('AICLEX SOLUTIONS PVT. LTD.', 50, 75);
       doc.fillColor('#444444').fontSize(9).font('Helvetica').text('(Trading as AICLEX™ Technologies)', 50, 93);
       doc.fillColor('#000000').fontSize(9).font('Helvetica-Bold')
-         .text('GSTIN ', 50, 107).font('Helvetica').text('09JAMPK1070B1ZS  ', { continued: true })
-         .font('Helvetica-Bold').text('PAN ', { continued: true }).font('Helvetica').text('JAMPK1070B');
+         .text('GSTIN ', 50, 107).font('Helvetica').text('09ABGCA0151N1ZL  ', { continued: true })
+         .font('Helvetica-Bold').text('CIN ', { continued: true }).font('Helvetica').text('U62099UW2026PTC254970');
 
       
       doc.font('Helvetica').text('UNIT NO 8125, 8TH FLOOR');

@@ -25,7 +25,9 @@ export default function TermsAndConditions() {
             <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
                 <p className="font-bold text-[#001341]">Aiclex Solutions Pvt. Ltd.</p>
                 <p className="text-sm text-gray-500">(Trading as AICLEX™ Technologies)</p>
-                <p>Gaur City Mall, Greater Noida – 201318, India</p>
+                <p className="text-sm mt-1">CIN: <strong>U62099UW2026PTC254970</strong></p>
+                <p className="text-sm">GSTIN: <strong>09ABGCA0151N1ZL</strong></p>
+                <p className="mt-1">Gaur City Mall, Greater Noida – 201318, India</p>
                 <p>📧 info@aiclex.in | 📞 +91 84494 88090</p>
             </div>
           </section>

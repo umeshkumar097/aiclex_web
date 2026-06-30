@@ -219,6 +219,7 @@ export default function Footer() {
       <div className="border-t border-gray-200 bg-[#001341]">
         <div className="max-w-7xl mx-auto px-6 py-6 text-[14px] font-medium text-white/80 text-center ">
              2025-26 &copy; All rights reserved by <strong>Aiclex Solutions Pvt. Ltd.</strong>&nbsp;(Trading as AICLEX™ Technologies)
+             &nbsp;|&nbsp; CIN: U62099UW2026PTC254970 &nbsp;|&nbsp; GSTIN: 09ABGCA0151N1ZL
 
         </div>
       </div>

@@ -11,6 +11,11 @@ export default function OrganizationSchema() {
     "name": "Aiclex Solutions Pvt. Ltd.",
     "alternateName": ["AICLEX™ Technologies", "AICLEX™"],
     "legalName": "Aiclex Solutions Pvt. Ltd.",
+    "taxID": "09ABGCA0151N1ZL",
+    "identifier": [
+      { "@type": "PropertyValue", "name": "CIN", "value": "U62099UW2026PTC254970" },
+      { "@type": "PropertyValue", "name": "GSTIN", "value": "09ABGCA0151N1ZL" }
+    ],
     "url": "https://aiclex.in",
     "logo": "https://aiclex.in/logo.svg",
     "contactPoint": {

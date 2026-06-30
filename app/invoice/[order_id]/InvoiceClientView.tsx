@@ -58,10 +58,13 @@ export default function InvoiceClientView({ subscription }: { subscription: any 
         {/* Header */}
         <div className="bg-[#001341] text-white p-10 flex justify-between items-start print:bg-[#001341] print:text-white" style={{ WebkitPrintColorAdjust: 'exact', colorAdjust: 'exact' }}>
           <div>
-            <h1 className="text-4xl font-black mb-2 text-[#ff914d]">AICLEX</h1>
-            <p className="text-sm opacity-80 max-w-xs">
-              Aiclex Private Limited<br/>
-              Khizrabad, New Delhi - 110025, India<br/>
+            <h1 className="text-4xl font-black mb-1 text-[#ff914d]">AICLEX</h1>
+            <p className="text-xs font-bold opacity-90">Aiclex Solutions Pvt. Ltd.</p>
+            <p className="text-sm opacity-70 max-w-xs mt-1">
+              Unit No 8125, 8th Floor, Gaur City Mall,<br/>
+              Sector 4, Greater Noida – 201318, India<br/>
+              GSTIN: 09ABGCA0151N1ZL<br/>
+              CIN: U62099UW2026PTC254970<br/>
               Email: info@aiclex.in
             </p>
           </div>
