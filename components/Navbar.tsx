@@ -45,8 +45,8 @@ export default function Navbar() {
       href: "#",
       icon: <Layers size={18} aria-hidden="true" />,
       children: [
-        { name: "All Services", href: "/services", icon: <Layers size={18} aria-hidden="true" /> },
-        { name: "AI Tools Suite™", href: "/ai-tools", icon: <Sparkles size={18} aria-hidden="true" className="text-orange-500" /> },
+        { name: "All Services", href: "/services", desc: "Discover our full range of digital & AI scaling platforms.", icon: <Layers size={18} aria-hidden="true" /> },
+        { name: "AI Tools Suite™", href: "/ai-tools", desc: "Experience our advanced, custom GPT-powered workflow tools.", icon: <Sparkles size={18} aria-hidden="true" className="text-orange-500" /> },
       ],
     },
     {
@@ -54,12 +54,13 @@ export default function Navbar() {
       href: "#",
       icon: <Building2 size={18} aria-hidden="true" />,
       children: [
-        { name: "About Us", href: "/about", icon: <User size={18} aria-hidden="true" /> },
-        { name: "Our Team", href: "/team", icon: <Users size={18} aria-hidden="true" /> },
-        { name: "Careers", href: "/career", icon: <Users size={18} aria-hidden="true" /> },
+        { name: "About Us", href: "/about", desc: "Learn about our vision, leadership, and startup journey.", icon: <User size={18} aria-hidden="true" /> },
+        { name: "Our Team", href: "/team", desc: "Meet the tech experts building the future of AI automation.", icon: <Users size={18} aria-hidden="true" /> },
+        { name: "Careers", href: "/career", desc: "Join our fast-paced, high-growth engineering studio.", icon: <Users size={18} aria-hidden="true" /> },
         {
           name: "Brochure",
           href: "/brouchure.pdf",
+          desc: "Download our agency portfolio and client results.",
           icon: <FileText size={18} aria-hidden="true" />,
           isFile: true,
         },
@@ -167,43 +168,108 @@ export default function Navbar() {
                   <AnimatePresence>
                     {isHover && (
                       <motion.div
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute left-0 top-full min-w-[220px] bg-white shadow-xl rounded-b-lg overflow-hidden border-t-2 border-orange-400 z-50"
+                        transition={{ duration: 0.25, ease: "easeOut" }}
+                        className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[580px] bg-white shadow-2xl rounded-2xl overflow-hidden border border-slate-100 z-50 p-6 grid grid-cols-12 gap-6"
                       >
-                        {item.children?.map((child) => {
-                          if (child.isFile) {
+                        {/* Left Side: Submenu List (7 columns) */}
+                        <div className="col-span-7 flex flex-col gap-4">
+                          {item.children?.map((child) => {
+                            const InnerContent = (
+                              <div className="flex items-start gap-3.5 p-2.5 rounded-xl hover:bg-slate-50 transition-all duration-300 group/item">
+                                <div className="mt-1 w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-[#5271ff] group-hover/item:bg-orange-50 group-hover/item:border-orange-100 group-hover/item:text-orange-500 transition-colors">
+                                  {child.icon}
+                                </div>
+                                <div className="flex flex-col text-left">
+                                  <span className="font-bold text-sm text-[#001341] group-hover/item:text-[#5271ff] transition-colors leading-tight">
+                                    {child.name}
+                                  </span>
+                                  {child.desc && (
+                                    <span className="text-[11px] text-slate-400 mt-1 font-medium leading-relaxed">
+                                      {child.desc}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            );
+
+                            if (child.isFile) {
+                              return (
+                                <a
+                                  key={child.name}
+                                  href={child.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block"
+                                >
+                                  {InnerContent}
+                                </a>
+                              );
+                            }
+
                             return (
-                              <a
+                              <Link
                                 key={child.name}
                                 href={child.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-3 px-6 py-3 hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors"
+                                className="block"
                               >
-                                {child.icon}
-                                <span className="font-medium text-sm">
-                                  {child.name}
-                                </span>
-                              </a>
+                                {InnerContent}
+                              </Link>
                             );
-                          }
+                          })}
+                        </div>
 
-                          return (
+                        {/* Right Side: Featured Card Banner (5 columns) */}
+                        <div className="col-span-5 flex">
+                          {item.name === "Solutions" ? (
+                            /* Solutions Featured Card: ZONVO AI */
                             <Link
-                              key={child.name}
-                              href={child.href}
-                              className="flex items-center gap-3 px-6 py-3 hover:bg-orange-50 text-gray-700 hover:text-orange-600 transition-colors"
+                              href="/services/ai-agent-calling"
+                              className="w-full flex flex-col justify-between p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-[#001341] text-white border border-white/5 relative overflow-hidden group/card shadow-lg hover:shadow-xl transition-all"
                             >
-                              {child.icon}
-                              <span className="font-medium text-sm">
-                                {child.name}
-                              </span>
+                              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-transparent to-transparent opacity-50"></div>
+                              
+                              <div className="relative z-10">
+                                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 text-[9px] font-black uppercase tracking-wider mb-4">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                                  Featured Product
+                                </div>
+                                <h4 className="font-black text-lg tracking-tight text-white mb-1 group-hover/card:text-cyan-400 transition-colors">
+                                  ZONVO AI
+                                </h4>
+                                <p className="text-[11px] text-slate-300 font-medium leading-normal">
+                                  Deploy human-like conversational voice agents in minutes.
+                                </p>
+                              </div>
+
+                              <div className="relative z-10 pt-4 flex items-center gap-1.5 text-xs font-bold text-cyan-400 group-hover/card:translate-x-1 transition-transform">
+                                Try Live Demo →
+                              </div>
                             </Link>
-                          );
-                        })}
+                          ) : (
+                            /* Company Featured Card: Startup India Registered */
+                            <div className="w-full flex flex-col justify-between p-5 rounded-2xl bg-gradient-to-br from-orange-50/50 to-amber-50/50 border border-orange-100 relative overflow-hidden group/card shadow-sm">
+                              <div>
+                                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-orange-100 border border-orange-200 text-orange-700 text-[9px] font-black uppercase tracking-wider mb-4">
+                                  Accredited
+                                </div>
+                                <h4 className="font-black text-base tracking-tight text-[#001341] mb-1">
+                                  Startup India
+                                </h4>
+                                <p className="text-[11px] text-slate-500 font-bold leading-normal">
+                                  Aiclex Solutions Pvt. Ltd. is officially recognized by DPIIT, Government of India.
+                                </p>
+                              </div>
+
+                              <div className="pt-4 border-t border-orange-100 flex items-center justify-between text-[10px] text-orange-700 font-black">
+                                <span>Reg: DIPP271379</span>
+                                <span className="opacity-60">Govt. Certified</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
