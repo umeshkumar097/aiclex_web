@@ -240,11 +240,11 @@ export default function JobsPage() {
                                 </div>
                             </td>
                             <td className="p-6 text-right">
-                                <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button onClick={() => handleEdit(item)} className="p-3 bg-white shadow-sm border border-gray-100 rounded-xl text-blue-600 hover:bg-blue-600 hover:text-white transition-all cursor-pointer">
+                                <div className="flex justify-end gap-2 transition-all">
+                                    <button onClick={() => handleEdit(item)} className="p-3 bg-white shadow-sm border border-gray-100 rounded-xl text-[#001341] hover:bg-[#001341] hover:text-white transition-all cursor-pointer" title="Edit Job Listing">
                                         <Pencil size={16} />
                                     </button>
-                                    <button onClick={() => handleDelete(item.id)} className="p-3 bg-white shadow-sm border border-gray-100 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all cursor-pointer">
+                                    <button onClick={() => handleDelete(item.id)} className="p-3 bg-white shadow-sm border border-gray-100 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all cursor-pointer" title="Delete Job Listing">
                                         <Trash2 size={16} />
                                     </button>
                                 </div>
