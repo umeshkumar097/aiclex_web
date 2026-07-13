@@ -124,3 +124,50 @@ export const sendLeadEmails = async (leadData: {
     // We don't throw here to avoid failing the whole API request just because of email
   }
 };
+
+export const sendInvitationEmail = async (email: string, token: string, role: string) => {
+  const inviteLink = `https://aiclex.in/join-team?token=${token}`;
+  
+  const mailOptions = {
+    from: `"AICLEX™ Workspaces" <${process.env.SMTP_USER}>`,
+    to: email,
+    subject: `Invitation to join AICLEX as ${role.toUpperCase()}`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff;">
+        <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
+          <h2 style="color: #001341; margin: 0; font-size: 22px;">Join AICLEX Workspaces</h2>
+          <p style="color: #64748b; font-size: 13px; margin-top: 5px;">Access Management Invitation</p>
+        </div>
+        <div style="margin-top: 25px;">
+          <p style="font-size: 15px; color: #334155; line-height: 1.6;">Hello,</p>
+          <p style="font-size: 15px; color: #334155; line-height: 1.6;">
+            You have been invited to join the official **AICLEX™ Technologies** workspace with the role of **${role.toUpperCase()}**.
+          </p>
+          <p style="font-size: 15px; color: #334155; line-height: 1.6; margin-bottom: 30px;">
+            To set up your account, choose your password, and access the admin dashboard, please click the button below:
+          </p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${inviteLink}" style="background-color: #001341; color: white; padding: 14px 28px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 15px; display: inline-block; box-shadow: 0 4px 6px rgba(0, 19, 65, 0.15);">
+              Accept Invitation & Join Team
+            </a>
+          </div>
+          
+          <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-top: 30px;">
+            If the button doesn't work, copy and paste this link into your browser: <br/>
+            <a href="${inviteLink}" style="color: #5271ff; word-break: break-all;">${inviteLink}</a>
+          </p>
+          <p style="font-size: 12px; color: #94a3b8; margin-top: 20px;">
+            This invitation link is secure and will expire in 7 days. If you were not expecting this invite, please ignore this email.
+          </p>
+        </div>
+        <div style="margin-top: 30px; border-top: 1px solid #f1f5f9; padding-top: 20px; font-size: 12px; color: #64748b; text-align: center;">
+          <strong>AICLEX™ Technologies</strong><br/>
+          A brand of Aiclex Solutions Pvt. Ltd.
+        </div>
+      </div>
+    `
+  };
+  
+  await transporter.sendMail(mailOptions);
+};

@@ -25,4 +25,21 @@ pool.query(`
   console.error("⚠️ leads table auto-migration error:", err.message);
 });
 
+// Self-healing database auto-migration for invitations table
+pool.query(`
+  CREATE TABLE IF NOT EXISTS invitations (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    role VARCHAR(50) DEFAULT 'admin',
+    token VARCHAR(255) UNIQUE NOT NULL,
+    is_accepted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP + INTERVAL '7 days'
+  )
+`).then(() => {
+  console.log("✅ invitations table auto-migration verified.");
+}).catch((err) => {
+  console.error("⚠️ invitations table auto-migration error:", err.message);
+});
+
 export default pool;

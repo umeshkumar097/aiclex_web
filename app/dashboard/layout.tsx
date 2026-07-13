@@ -21,7 +21,8 @@ import {
   Target,
   Mail,
   HelpCircle,
-  PhoneCall
+  PhoneCall,
+  ShieldCheck
 } from "lucide-react";
 
 export default function DashboardLayout({
@@ -63,6 +64,7 @@ export default function DashboardLayout({
   const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
     { name: "Users", href: "/dashboard/users", icon: Users },
+    { name: "Team Access", href: "/dashboard/access-control", icon: ShieldCheck },
     { name: "Email Logs", href: "/dashboard/email_logs", icon: Mail },
     { name: "Subscriptions", href: "/dashboard/subscriptions", icon: Target },
     { name: "Services", href: "/dashboard/services", icon: Target },
