@@ -29,7 +29,7 @@ export default function LoginPage() {
         localStorage.setItem("admin_token", data.token);
         localStorage.setItem("user_info", JSON.stringify(data.user));
         
-        if (data.user.role === 'admin') {
+        if (data.user.role !== 'client') {
           router.push("/dashboard");
         } else {
           router.push("/client");
@@ -72,7 +72,12 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Password</label>
+            <div className="flex justify-between items-center mb-2">
+              <label className="block text-sm font-bold text-gray-700">Password</label>
+              <a href="/forgot-password" className="text-xs text-[#5271ff] hover:underline font-bold">
+                Forgot Password?
+              </a>
+            </div>
             <div className="relative">
               <Lock className="absolute left-3 top-3 text-gray-400" size={20} />
               <input 

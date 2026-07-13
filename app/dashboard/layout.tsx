@@ -37,16 +37,50 @@ export default function DashboardLayout({
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
+  const [userRole, setUserRole] = useState("admin");
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("admin_token");
+      const userInfoStr = localStorage.getItem("user_info");
       if (!token) {
         router.push("/signin"); 
       } else {
         setIsAuthorized(true);
+        if (userInfoStr) {
+          try {
+            const userInfo = JSON.parse(userInfoStr);
+            setUserRole(userInfo.role || "admin");
+          } catch(e) {}
+        }
       }
     }
   }, [router]);
+
+  // Route Guard to prevent URL tampering
+  useEffect(() => {
+    if (!isAuthorized) return;
+    
+    const roleRestrictions: Record<string, string[]> = {
+      hr: ["/dashboard", "/dashboard/jobs", "/dashboard/applications"],
+      sales: ["/dashboard", "/dashboard/crm", "/dashboard/meetings", "/dashboard/enquiries"],
+      editor: ["/dashboard", "/dashboard/blogs", "/dashboard/portfolio", "/dashboard/testimonials", "/dashboard/services"],
+      viewer: ["/dashboard"]
+    };
+
+    if (userRole === "client") {
+      router.push("/client");
+      return;
+    }
+
+    if (userRole !== "admin") {
+      const permittedPaths = roleRestrictions[userRole] || ["/dashboard"];
+      const isPermitted = permittedPaths.some(path => pathname === path || pathname.startsWith(path + "/"));
+      if (!isPermitted) {
+        router.push("/dashboard");
+      }
+    }
+  }, [pathname, userRole, isAuthorized, router]);
 
   if (!isAuthorized) {
     return (
@@ -58,6 +92,7 @@ export default function DashboardLayout({
 
   const handleLogout = () => {
     localStorage.removeItem("admin_token");
+    localStorage.removeItem("user_info");
     router.push("/signin");
   };
 
@@ -84,6 +119,20 @@ export default function DashboardLayout({
     { name: "Activity Logs", href: "/dashboard/logs", icon: BarChart3 },
   ];
 
+  const filteredNavItems = navItems.filter((item) => {
+    if (userRole === "admin") return true;
+    
+    const permittedMap: Record<string, string[]> = {
+      hr: ["Overview", "Jobs", "Applications"],
+      sales: ["Overview", "CRM / Leads", "Meetings", "Enquiries"],
+      editor: ["Overview", "Blog Posts", "Portfolio", "Testimonials", "Services"],
+      viewer: ["Overview"]
+    };
+
+    const permittedNames = permittedMap[userRole] || ["Overview"];
+    return permittedNames.includes(item.name);
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* MOBILE SIDEBAR OVERLAY */}
@@ -108,7 +157,7 @@ export default function DashboardLayout({
             </div>
             <div>
               <h1 className="font-black text-[#001341] text-lg leading-none">AICLEX</h1>
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Admin Workspace</p>
+              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Workspace: {userRole.toUpperCase()}</p>
             </div>
           </Link>
           <button className="lg:hidden p-2 text-gray-400 hover:text-[#001341] rounded-xl hover:bg-gray-50" onClick={() => setSidebarOpen(false)}>
@@ -117,7 +166,7 @@ export default function DashboardLayout({
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-1 scrollbar-hide">
-          {navItems.map((item) => {
+          {filteredNavItems.map((item) => {
             const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
             const Icon = item.icon;
             

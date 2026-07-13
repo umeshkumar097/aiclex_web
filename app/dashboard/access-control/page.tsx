@@ -76,6 +76,25 @@ export default function AccessControlPage() {
     }
   };
 
+  const handleRoleChange = async (userId: number, newRole: string) => {
+    try {
+      const res = await fetch("/api/admin/users", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, role: newRole })
+      });
+      if (res.ok) {
+        setMessage({ text: "Role updated successfully!", type: "success" });
+        fetchData();
+      } else {
+        const data = await res.json();
+        setMessage({ text: data.error || "Failed to update role", type: "error" });
+      }
+    } catch (error) {
+      console.error("Failed to update role:", error);
+    }
+  };
+
   const handleCopyLink = (token: string, inviteId: number) => {
     const inviteLink = `${window.location.origin}/join-team?token=${token}`;
     navigator.clipboard.writeText(inviteLink);
@@ -137,8 +156,10 @@ export default function AccessControlPage() {
                   className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#001341] outline-none cursor-pointer text-gray-700"
                 >
                   <option value="admin">Administrator (Full Access)</option>
-                  <option value="staff">Staff Member (Limited Access)</option>
-                  <option value="viewer">Viewer (Read-Only Access)</option>
+                  <option value="hr">HR Manager (Careers & Applications)</option>
+                  <option value="sales">Sales Agent (CRM & Meetings)</option>
+                  <option value="editor">Content Editor (Blogs & Portfolio)</option>
+                  <option value="viewer">Viewer (Read-Only Overview)</option>
                 </select>
               </div>
 
@@ -274,13 +295,18 @@ export default function AccessControlPage() {
                       </td>
                       <td className="py-4 text-gray-500">{member.email}</td>
                       <td className="py-4">
-                        <span className={`px-2.5 py-1 text-[9px] font-black rounded-lg uppercase tracking-wider ${
-                          member.role === "admin" 
-                            ? "bg-purple-100 text-purple-700 border border-purple-200" 
-                            : "bg-blue-100 text-blue-700 border border-blue-200"
-                        }`}>
-                          {member.role}
-                        </span>
+                        <select
+                          value={member.role}
+                          onChange={(e) => handleRoleChange(member.id, e.target.value)}
+                          className="px-2 py-1.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-bold text-[#001341] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#5271ff] transition-all"
+                        >
+                          <option value="admin">Admin</option>
+                          <option value="hr">HR Manager</option>
+                          <option value="sales">Sales Agent</option>
+                          <option value="editor">Editor</option>
+                          <option value="viewer">Viewer</option>
+                          <option value="client">Client</option>
+                        </select>
                       </td>
                       <td className="py-4 text-xs text-gray-400">
                         {new Date(member.created_at).toLocaleDateString()}

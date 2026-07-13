@@ -15,3 +15,19 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "An internal server error occurred" }, { status: 500 });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const { userId, role } = await req.json();
+
+    if (!userId || !role) {
+      return NextResponse.json({ error: "User ID and role are required" }, { status: 400 });
+    }
+
+    await pool.query("UPDATE users SET role = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2", [role, userId]);
+    return NextResponse.json({ success: true, message: "User role updated successfully" });
+  } catch (error: any) {
+    console.error("Update user role error:", error);
+    return NextResponse.json({ error: "An internal server error occurred" }, { status: 500 });
+  }
+}

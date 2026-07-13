@@ -32,8 +32,8 @@ export default function ClientLayout({
         router.push("/signin"); 
       } else {
         const userInfo = JSON.parse(userInfoStr);
-        // Both clients and admins can access client portal (impersonation support)
-        if (userInfo.role === "client" || userInfo.role === "admin") {
+        // Clients, admins, and team staff can access client portal
+        if (userInfo.role) {
           setUser(userInfo);
           setIsAuthorized(true);
         } else {

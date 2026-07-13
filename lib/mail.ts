@@ -171,3 +171,50 @@ export const sendInvitationEmail = async (email: string, token: string, role: st
   
   await transporter.sendMail(mailOptions);
 };
+
+export const sendPasswordResetEmail = async (email: string, token: string) => {
+  const resetLink = `https://aiclex.in/reset-password?token=${token}`;
+  
+  const mailOptions = {
+    from: `"AICLEX™ Security" <${process.env.SMTP_USER}>`,
+    to: email,
+    subject: `Reset your AICLEX Account Password`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 25px; border: 1px solid #e2e8f0; border-radius: 16px; background-color: #ffffff;">
+        <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
+          <h2 style="color: #001341; margin: 0; font-size: 22px;">Reset Your Password</h2>
+          <p style="color: #64748b; font-size: 13px; margin-top: 5px;">AICLEX™ Security Verification</p>
+        </div>
+        <div style="margin-top: 25px;">
+          <p style="font-size: 15px; color: #334155; line-height: 1.6;">Hello,</p>
+          <p style="font-size: 15px; color: #334155; line-height: 1.6;">
+            We received a request to reset the password for your **AICLEX™ Technologies** account.
+          </p>
+          <p style="font-size: 15px; color: #334155; line-height: 1.6; margin-bottom: 30px;">
+            Please click the button below to choose a new password:
+          </p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetLink}" style="background-color: #EF4444; color: white; padding: 14px 28px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 15px; display: inline-block; box-shadow: 0 4px 6px rgba(239, 68, 68, 0.15);">
+              Reset Password
+            </a>
+          </div>
+          
+          <p style="font-size: 13px; color: #64748b; line-height: 1.5; margin-top: 30px;">
+            If the button doesn't work, copy and paste this link into your browser: <br/>
+            <a href="${resetLink}" style="color: #5271ff; word-break: break-all;">${resetLink}</a>
+          </p>
+          <p style="font-size: 12px; color: #94a3b8; margin-top: 20px;">
+            This recovery link is secure and will expire in 2 hours. If you did not request a password reset, you can safely ignore this email.
+          </p>
+        </div>
+        <div style="margin-top: 30px; border-top: 1px solid #f1f5f9; padding-top: 20px; font-size: 12px; color: #64748b; text-align: center;">
+          <strong>AICLEX™ Technologies</strong><br/>
+          A brand of Aiclex Solutions Pvt. Ltd.
+        </div>
+      </div>
+    `
+  };
+  
+  await transporter.sendMail(mailOptions);
+};
