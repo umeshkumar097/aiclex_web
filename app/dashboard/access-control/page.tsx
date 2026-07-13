@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import { 
   Loader2, Mail, ShieldAlert, CheckCircle, 
-  Trash2, UserCheck, Plus, RefreshCw, Copy, Link as LinkIcon 
+  Trash2, UserCheck, Plus, RefreshCw, Copy, Link as LinkIcon,
+  Pencil, Phone, X
 } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
 
 export default function AccessControlPage() {
   const [members, setMembers] = useState<any[]>([]);
@@ -15,6 +17,97 @@ export default function AccessControlPage() {
   const [role, setRole] = useState("admin");
   const [message, setMessage] = useState({ text: "", type: "" });
   const [copiedId, setCopiedId] = useState<number | null>(null);
+
+  // Edit / Delete State
+  const [editingMember, setEditingMember] = useState<any | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editForm, setEditForm] = useState({ name: "", email: "", phone: "", role: "" });
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const userInfoStr = localStorage.getItem("user_info");
+    if (userInfoStr) {
+      try {
+        const userInfo = JSON.parse(userInfoStr);
+        setCurrentUserId(userInfo.id);
+      } catch (e) {}
+    }
+  }, []);
+
+  const handleDeleteMember = async (userId: number, userName: string) => {
+    if (!confirm(`Are you sure you want to permanently delete user "${userName}"? This cannot be undone.`)) return;
+
+    try {
+      const res = await fetch(`/api/admin/users?id=${userId}`, { method: "DELETE" });
+      if (res.ok) {
+        setMessage({ text: "User deleted successfully!", type: "success" });
+        fetchData();
+      } else {
+        setMessage({ text: "Failed to delete user.", type: "error" });
+      }
+    } catch (error) {
+      console.error("Delete user error:", error);
+    }
+  };
+
+  const openEditModal = (member: any) => {
+    setEditingMember(member);
+    setEditForm({
+      name: member.name || "",
+      email: member.email || "",
+      phone: member.phone || "",
+      role: member.role || "viewer"
+    });
+    setShowEditModal(true);
+  };
+
+  const handleEditSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingMember) return;
+
+    try {
+      const res = await fetch("/api/admin/users", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: editingMember.id,
+          name: editForm.name,
+          email: editForm.email,
+          phone: editForm.phone,
+          role: editForm.role
+        })
+      });
+
+      if (res.ok) {
+        setMessage({ text: "User updated successfully!", type: "success" });
+        setShowEditModal(false);
+        setEditingMember(null);
+
+        // Sync local storage session if the admin edited their own profile
+        const userInfoStr = localStorage.getItem("user_info");
+        if (userInfoStr) {
+          try {
+            const userInfo = JSON.parse(userInfoStr);
+            if (userInfo.id === editingMember.id) {
+              userInfo.name = editForm.name;
+              userInfo.email = editForm.email;
+              userInfo.role = editForm.role;
+              localStorage.setItem("user_info", JSON.stringify(userInfo));
+              window.location.reload();
+              return;
+            }
+          } catch (e) {}
+        }
+
+        fetchData();
+      } else {
+        const data = await res.json();
+        setMessage({ text: data.error || "Failed to update user details", type: "error" });
+      }
+    } catch (error) {
+      console.error("Edit user save error:", error);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -295,6 +388,7 @@ export default function AccessControlPage() {
                     <th className="py-2.5">Email</th>
                     <th className="py-2.5">Role</th>
                     <th className="py-2.5">Joined Date</th>
+                    <th className="py-2.5 text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-50 text-sm">
@@ -326,11 +420,29 @@ export default function AccessControlPage() {
                       <td className="py-4 text-xs text-gray-400">
                         {new Date(member.created_at).toLocaleDateString()}
                       </td>
+                      <td className="py-4 text-right space-x-2">
+                        <button
+                          onClick={() => openEditModal(member)}
+                          className="p-2 bg-gray-50 hover:bg-blue-50 hover:text-[#5271ff] rounded-lg transition inline-flex items-center"
+                          title="Edit member details"
+                        >
+                          <Pencil size={14} />
+                        </button>
+                        {member.id !== currentUserId && (
+                          <button
+                            onClick={() => handleDeleteMember(member.id, member.name)}
+                            className="p-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition inline-flex items-center"
+                            title="Delete user account"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
+                      </td>
                     </tr>
                   ))}
                   {members.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="py-6 text-center text-gray-400 text-xs">
+                      <td colSpan={5} className="py-6 text-center text-gray-400 text-xs">
                         No team members registered yet.
                       </td>
                     </tr>
@@ -343,6 +455,119 @@ export default function AccessControlPage() {
         </div>
 
       </div>
+
+      {/* EDIT PROFILE MODAL */}
+      <AnimatePresence>
+        {showEditModal && editingMember && (
+          <>
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 bg-[#001341]/20 backdrop-blur-sm z-50"
+              onClick={() => {
+                setShowEditModal(false);
+                setEditingMember(null);
+              }}
+            />
+
+            {/* Modal Box */}
+            <div className="fixed inset-x-4 top-24 max-w-md mx-auto bg-white rounded-3xl border border-gray-150 shadow-2xl z-[60] overflow-hidden animate-fade-in">
+              <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+                <h3 className="font-bold text-[#001341] text-lg">Edit Team Member</h3>
+                <button 
+                  onClick={() => {
+                    setShowEditModal(false);
+                    setEditingMember(null);
+                  }}
+                  className="p-1.5 hover:bg-gray-50 rounded-lg text-gray-400 hover:text-red-500 transition cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <form onSubmit={handleEditSave}>
+                <div className="p-6 space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={editForm.name}
+                      onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#5271ff] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={editForm.email}
+                      onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#5271ff] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      value={editForm.phone || ""}
+                      onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })}
+                      placeholder="e.g. +91 84494 88090"
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#5271ff] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      Workspace Role
+                    </label>
+                    <select
+                      value={editForm.role}
+                      onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
+                      className="w-full px-3.5 py-2.5 bg-gray-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-[#5271ff] outline-none cursor-pointer"
+                    >
+                      <option value="admin">Administrator</option>
+                      <option value="hr">HR Manager</option>
+                      <option value="sales">Sales Agent</option>
+                      <option value="editor">Content Editor</option>
+                      <option value="viewer">Viewer</option>
+                      <option value="client">Client</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="p-6 border-t border-gray-50 bg-gray-50 flex gap-3">
+                  <button
+                    type="submit"
+                    className="flex-1 py-3 bg-[#001341] hover:bg-blue-900 text-white rounded-xl text-sm font-bold shadow transition cursor-pointer"
+                  >
+                    Save Profile Changes
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowEditModal(false);
+                      setEditingMember(null);
+                    }}
+                    className="px-5 py-3 border border-gray-200 text-gray-700 hover:bg-white bg-white rounded-xl text-sm font-bold transition"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }

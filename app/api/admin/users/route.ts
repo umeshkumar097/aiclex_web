@@ -14,16 +14,59 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const { userId, role } = await req.json();
+    const { userId, name, email, phone, role } = await req.json();
 
-    if (!userId || !role) {
-      return NextResponse.json({ error: "User ID and role are required" }, { status: 400 });
+    if (!userId) {
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
     }
 
-    await pool.query("UPDATE users SET role = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2", [role, userId]);
-    return NextResponse.json({ success: true, message: "User role updated successfully" });
+    if (name !== undefined || email !== undefined || phone !== undefined || role !== undefined) {
+      const fields: string[] = [];
+      const values: any[] = [];
+      let counter = 1;
+
+      if (name !== undefined) {
+        fields.push(`name = $${counter++}`);
+        values.push(name);
+      }
+      if (email !== undefined) {
+        fields.push(`email = $${counter++}`);
+        values.push(email);
+      }
+      if (phone !== undefined) {
+        fields.push(`phone = $${counter++}`);
+        values.push(phone);
+      }
+      if (role !== undefined) {
+        fields.push(`role = $${counter++}`);
+        values.push(role);
+      }
+
+      values.push(userId);
+      const queryText = `UPDATE users SET ${fields.join(", ")}, updated_at = CURRENT_TIMESTAMP WHERE id = $${counter}`;
+      await pool.query(queryText, values);
+    }
+
+    return NextResponse.json({ success: true, message: "User details updated successfully" });
   } catch (error: any) {
-    console.error("Update user role error:", error);
+    console.error("Update user error:", error);
+    return NextResponse.json({ error: "An internal server error occurred" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
+    }
+
+    await pool.query("DELETE FROM users WHERE id = $1", [id]);
+    return NextResponse.json({ success: true, message: "User deleted successfully" });
+  } catch (error: any) {
+    console.error("Delete user error:", error);
     return NextResponse.json({ error: "An internal server error occurred" }, { status: 500 });
   }
 }
