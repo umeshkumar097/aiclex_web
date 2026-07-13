@@ -27,8 +27,11 @@ export default function TermsAndConditions() {
                 <p className="text-sm text-gray-500">(Trading as AICLEX™ Technologies)</p>
                 <p className="text-sm mt-1">CIN: <strong>U62099UW2026PTC254970</strong></p>
                 <p className="text-sm">GSTIN: <strong>09ABGCA0151N1ZL</strong></p>
-                <p className="mt-1">Gaur City Mall, Greater Noida – 201318, India</p>
-                <p>📧 info@aiclex.in | 📞 +91 84494 88090</p>
+                <p className="text-xs text-gray-400 font-bold uppercase mt-2 tracking-wider">Corporate Office</p>
+                <p>Gaur City Mall, Greater Noida – 201318, India</p>
+                <p className="text-xs text-gray-400 font-bold uppercase mt-2 tracking-wider">Registered Office</p>
+                <p>E58, Sector 3, Noida, Gautam Buddha Nagar – 201301, Uttar Pradesh, India</p>
+                <p className="mt-2">📧 info@aiclex.in | 📞 +91 84494 88090</p>
             </div>
           </section>
 
@@ -160,8 +163,11 @@ export default function TermsAndConditions() {
 
           <section className="bg-orange-50 p-8 rounded-3xl border border-orange-100">
             <h2 className="text-2xl font-bold text-[#001341] mb-4">14. Contact</h2>
-            <p className="font-bold text-gray-900">AICLEX™ Technologies</p>
-            <p>Gaur City Mall, Greater Noida – 201318, India</p>
+             <p className="font-bold text-gray-900">Aiclex Solutions Pvt. Ltd.</p>
+             <p className="text-xs text-gray-500 font-bold uppercase mt-2 tracking-wider">Corporate Office</p>
+             <p>Gaur City Mall, Greater Noida – 201318, India</p>
+             <p className="text-xs text-gray-500 font-bold uppercase mt-2 tracking-wider">Registered Office</p>
+             <p>E58, Sector 3, Noida, Gautam Buddha Nagar – 201301, Uttar Pradesh, India</p>
             <div className="mt-4 space-y-2">
               <p>📧 <strong>Email:</strong> <a href="mailto:info@aiclex.in" className="text-blue-600">info@aiclex.in</a></p>
               <p>📞 <strong>Phone:</strong> <a href="tel:+918449488090" className="text-blue-600">+91 84494 88090</a></p>

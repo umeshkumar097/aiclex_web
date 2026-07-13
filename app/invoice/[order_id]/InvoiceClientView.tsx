@@ -61,8 +61,8 @@ export default function InvoiceClientView({ subscription }: { subscription: any 
             <h1 className="text-4xl font-black mb-1 text-[#ff914d]">AICLEX</h1>
             <p className="text-xs font-bold opacity-90">Aiclex Solutions Pvt. Ltd.</p>
             <p className="text-sm opacity-70 max-w-xs mt-1">
-              Unit No 8125, 8th Floor, Gaur City Mall,<br/>
-              Sector 4, Greater Noida – 201318, India<br/>
+              <strong>Corp Office:</strong> Unit No 8125, 8th Floor, Gaur City Mall, Sector 4, Greater Noida – 201318<br/>
+              <strong>Regd Office:</strong> E58, Sector 3, Noida, UP – 201301<br/>
               GSTIN: 09ABGCA0151N1ZL<br/>
               CIN: U62099UW2026PTC254970<br/>
               Email: info@aiclex.in

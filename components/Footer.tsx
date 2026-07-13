@@ -96,9 +96,14 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <MapPin size={18} className="text-[#5271FF]" />
-              Gaur City Mall, Greater Noida, 201318
+            <div className="flex items-start gap-3">
+              <MapPin size={18} className="text-[#5271FF] mt-1 shrink-0" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-xs text-gray-500 font-black uppercase tracking-wider mb-0.5">Corporate Office</span>
+                <span className="mb-2">Gaur City Mall, Greater Noida, 201318</span>
+                <span className="text-xs text-gray-500 font-black uppercase tracking-wider mb-0.5">Registered Office</span>
+                <span>E58, Sector 3, Noida, UP – 201301</span>
+              </div>
             </div>
           </div>
 

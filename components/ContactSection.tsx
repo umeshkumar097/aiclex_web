@@ -66,9 +66,11 @@ export default function ContactSection() {
                   <div className="w-12 h-12 rounded-xl bg-[#5271ff]/20 flex items-center justify-center group-hover:bg-[#5271ff] transition-all">
                     <MapPin className="w-6 h-6 text-[#5271ff] group-hover:text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">Head Office</h3>
-                    <p className="text-gray-400 mt-1">Gaur City Mall, Greater Noida , 201318</p>
+                   <div>
+                    <h3 className="text-lg font-semibold">Corporate Office</h3>
+                    <p className="text-gray-400 mt-1">Gaur City Mall, Greater Noida, 201318</p>
+                    <h3 className="text-lg font-semibold mt-4">Registered Office</h3>
+                    <p className="text-gray-400 mt-1">E58, Sector 3, Noida, Uttar Pradesh, 201301</p>
                   </div>
                 </div>
 

@@ -108,8 +108,11 @@ export default function Disclaimer() {
 
           <section className="bg-gray-50 p-8 rounded-3xl border border-gray-100">
             <h2 className="text-2xl font-bold text-[#001341] mb-4">11. Contact</h2>
-            <p className="font-bold text-gray-900">AICLEX™ Technologies</p>
+            <p className="font-bold text-gray-900">Aiclex Solutions Pvt. Ltd.</p>
+            <p className="text-xs text-gray-500 font-bold uppercase mt-2 tracking-wider">Corporate Office</p>
             <p>Gaur City Mall, Greater Noida – 201318, India</p>
+            <p className="text-xs text-gray-500 font-bold uppercase mt-2 tracking-wider">Registered Office</p>
+            <p>E58, Sector 3, Noida, Gautam Buddha Nagar – 201301, Uttar Pradesh, India</p>
             <div className="mt-4 space-y-2">
               <p>📧 <strong>Email:</strong> <a href="mailto:info@aiclex.in" className="text-blue-600">info@aiclex.in</a></p>
               <p>📞 <strong>Phone:</strong> <a href="tel:+918449488090" className="text-blue-600">+91 84494 88090</a></p>

@@ -120,17 +120,28 @@ export default function ContactUs() {
                 <ArrowRight className="ml-auto text-gray-300 group-hover:text-[#ff914d] group-hover:translate-x-1 transition-all" size={20}/>
               </a>
 
-              {/* 3. NEW: Visit Us Card */}
+              {/* 3. Visit Us Card (Corporate) */}
               <a href="https://maps.google.com/?q=Gaur+City+Mall+Greater+Noida+201318+Uttar+Pradesh" target="_blank" rel="noreferrer" className="flex items-center gap-5 p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center text-purple-600 group-hover:from-purple-600 group-hover:to-indigo-600 group-hover:text-white transition-all duration-300 shadow-inner">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center text-purple-600 group-hover:from-purple-600 group-hover:to-indigo-600 group-hover:text-white transition-all duration-300 shadow-inner animate-pulse">
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#001341] text-lg group-hover:text-purple-600 transition-colors">Visit Our Office</h4>
+                  <h4 className="font-bold text-[#001341] text-lg group-hover:text-purple-600 transition-colors">Corporate Office</h4>
                   <p className="text-gray-600 font-semibold text-sm">Gaur City Mall, Greater Noida</p>
                 </div>
                 <ArrowRight className="ml-auto text-gray-300 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" size={20}/>
               </a>
+
+              {/* 4. Visit Us Card (Registered) */}
+              <div className="flex items-center gap-5 p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-white shadow-sm hover:shadow-xl transition-all duration-300 group">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center text-orange-600 group-hover:from-orange-600 group-hover:to-red-600 group-hover:text-white transition-all duration-300 shadow-inner">
+                  <MapPin size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#001341] text-lg group-hover:text-orange-600 transition-colors">Registered Office</h4>
+                  <p className="text-gray-600 font-semibold text-xs leading-normal">E58, Sector 3, Noida, UP – 201301</p>
+                </div>
+              </div>
 
             </div>
           </div>

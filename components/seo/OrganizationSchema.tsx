@@ -25,14 +25,26 @@ export default function OrganizationSchema() {
       "areaServed": "IN",
       "availableLanguage": ["en", "Hindi"]
     },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Unit No 8125, 8th Floor, Gaur City Mall Office Space, Sector 4",
-      "addressLocality": "Greater Noida",
-      "addressRegion": "Uttar Pradesh",
-      "postalCode": "201318",
-      "addressCountry": "IN"
-    },
+    "address": [
+      {
+        "@type": "PostalAddress",
+        "name": "Corporate Office",
+        "streetAddress": "Unit No 8125, 8th Floor, Gaur City Mall, Sector 4",
+        "addressLocality": "Greater Noida",
+        "addressRegion": "Uttar Pradesh",
+        "postalCode": "201318",
+        "addressCountry": "IN"
+      },
+      {
+        "@type": "PostalAddress",
+        "name": "Registered Office",
+        "streetAddress": "E58, Sector 3",
+        "addressLocality": "Noida",
+        "addressRegion": "Uttar Pradesh",
+        "postalCode": "201301",
+        "addressCountry": "IN"
+      }
+    ],
     "sameAs": [
       "https://www.linkedin.com/company/aiclex",
       "https://twitter.com/aiclex_tech"

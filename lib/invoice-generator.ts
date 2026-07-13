@@ -51,9 +51,10 @@ export function generateInvoicePdf(data: InvoiceData): Promise<Buffer> {
          .font('Helvetica-Bold').text('CIN ', { continued: true }).font('Helvetica').text('U62099UW2026PTC254970');
 
       
-      doc.font('Helvetica').text('UNIT NO 8125, 8TH FLOOR');
-      doc.text('GAUR CITY MALL OFFICE SPACE, SECTOR 4, Greater Noida');
-      doc.text('Gautambuddha Nagar, UTTAR PRADESH, 201318');
+      doc.font('Helvetica-Bold').fontSize(8)
+         .text('Corp Office: ', { continued: true }).font('Helvetica').text('Unit No 8125, 8th Floor, Gaur City Mall, Sector 4, Greater Noida – 201318')
+         .font('Helvetica-Bold').text('Regd Office: ', { continued: true }).font('Helvetica').text('E58, Sector 3, Noida, Uttar Pradesh – 201301');
+      doc.fontSize(9);
       
       doc.font('Helvetica-Bold').text('Mobile ', { continued: true }).font('Helvetica').text('+91 8449488090  ', { continued: true })
          .font('Helvetica-Bold').text('Email ', { continued: true }).font('Helvetica').text('info@aiclex.in');
