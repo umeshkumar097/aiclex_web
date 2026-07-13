@@ -151,9 +151,10 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
 
           <section className="prose prose-lg max-w-none text-gray-600 mb-12 relative z-10">
             <h2 className="text-2xl font-black text-[#001341] mb-6">About the Role</h2>
-            <p className="leading-relaxed whitespace-pre-wrap font-medium text-gray-600">
-              {job.description}
-            </p>
+            <div 
+              className="leading-relaxed font-medium text-gray-600 prose-headings:text-[#001341] prose-headings:font-bold prose-ul:list-disc prose-ul:pl-5 prose-li:my-1 space-y-4"
+              dangerouslySetInnerHTML={{ __html: job.description }}
+            />
           </section>
 
           {job.requirements && job.requirements.length > 0 && (
