@@ -101,6 +101,16 @@ export default function Footer() {
               Gaur City Mall, Greater Noida, 201318
             </div>
           </div>
+
+          <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
+            <div className="h-8 px-2.5 py-1 rounded bg-[#ff914d]/10 text-[#ff914d] text-[10px] font-black uppercase tracking-wider border border-[#ff914d]/25 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff914d] animate-pulse"></span>
+              Startup India Registered
+            </div>
+            <div className="text-[11px] text-gray-500 font-bold leading-tight">
+              DPIIT Reg: <span className="text-[#001341]">DIPP271379</span>
+            </div>
+          </div>
         </div>
 
         {/* --- COLUMN 2: COMPANY --- */}
@@ -219,7 +229,7 @@ export default function Footer() {
       <div className="border-t border-gray-200 bg-[#001341]">
         <div className="max-w-7xl mx-auto px-6 py-6 text-[14px] font-medium text-white/80 text-center ">
              2025-26 &copy; All rights reserved by <strong>Aiclex Solutions Pvt. Ltd.</strong>&nbsp;(Trading as AICLEX™ Technologies)
-             &nbsp;|&nbsp; CIN: U62099UW2026PTC254970 &nbsp;|&nbsp; GSTIN: 09ABGCA0151N1ZL
+             &nbsp;|&nbsp; CIN: U62099UW2026PTC254970 &nbsp;|&nbsp; GSTIN: 09ABGCA0151N1ZL &nbsp;|&nbsp; <strong>DPIIT Recognized Startup (DIPP271379)</strong>
 
         </div>
       </div>

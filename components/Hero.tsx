@@ -28,13 +28,20 @@ export default function Hero() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Trust Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-blue-100 shadow-sm shadow-blue-900/5 mx-auto md:mx-0 w-fit">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-            </span>
-            <span className="text-[10px] md:text-xs font-bold text-[#001341] tracking-wide uppercase">Trusted by 50+ Enterprises</span>
+          {/* Trust Badges */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-blue-100 shadow-sm shadow-blue-900/5 w-fit">
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              </span>
+              <span className="text-[10px] md:text-xs font-bold text-[#001341] tracking-wide uppercase">Trusted by 50+ Enterprises</span>
+            </div>
+            
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 shadow-sm shadow-orange-950/5 w-fit">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff914d] animate-pulse"></span>
+              <span className="text-[10px] md:text-xs font-bold text-orange-700 tracking-wide uppercase">DPIIT Recognized Startup</span>
+            </div>
           </div>
 
           {/* Main Headline */}

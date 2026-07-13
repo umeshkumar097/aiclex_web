@@ -60,6 +60,12 @@ const proofPoints = [
     label: "HubSpot + Zoom Authorized",
     desc: "Official Zoom Reseller in India and HubSpot Certified Partner — verified credentials."
   },
+  {
+    icon: "🇮🇳",
+    metric: "Govt. Recognized",
+    label: "Startup India Certified",
+    desc: "Officially recognized by the Department for Promotion of Industry and Internal Trade (DPIIT), Ministry of Commerce & Industry, Government of India (Certificate No: DIPP271379)."
+  },
 ];
 
 // Updated FAQs focusing on Ad Services

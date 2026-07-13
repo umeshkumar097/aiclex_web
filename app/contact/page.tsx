@@ -218,7 +218,7 @@ export default function ContactUs() {
                       <option value="" disabled>Select a Service</option>
                       <option value="Digital Marketing">Digital Marketing & SEO</option>
                       <option value="Web/App Dev">Website or App Development</option>
-                      <option value="Paid Ads">Google or Meta Ads</option>
+                      <option value="Paid Ads">Google, Meta or JioHotstar Ads</option>
                       <option value="Branding">Brand Development</option>
                       <option value="Other">Other Inquiry</option>
                     </select>

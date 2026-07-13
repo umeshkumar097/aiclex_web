@@ -8030,5 +8030,35 @@ export const servicesData: Service[] = [
     ],
     icon: "MessageSquare",
     color: "from-green-500 to-emerald-600"
+  },
+  {
+    id: 16,
+    title: "JioHotstar Ads",
+    slug: "jiohotstar-ads",
+    description: "Launch premium high-ROI video ad campaigns on JioHotstar (Disney+ Hotstar) to reach millions of viewers during live sports like TATA IPL, popular TV shows, and blockbuster movies.",
+    longDescription: "Maximize your brand visibility on India's top OTT platform. As a verified agency partner for JioHotstar Ads (Disney+ Hotstar), AICLEX SOLUTIONS PRIVATE LIMITED helps brands plan, execute, and scale targeted video ad campaigns. From high-impact live sports sponsorships (such as TATA IPL and ICC tournaments) to precise socio-demographic targeting on entertainment channels, we provide complete media strategy, creative validation, and transparent real-time analytics to ensure every rupee spent translates into growth.",
+    features: [
+      "Live Sports Ads (TATA IPL, ICC World Cups)",
+      "Socio-Demographic & Interest Targeting",
+      "Interactive Connected TV (CTV) Ads",
+      "Unskippable Mid-roll & Pre-roll Video Formats",
+      "Real-time Dashboard Analytics & Campaign Auditing",
+      "Official JioHotstar Ads Agency Partner Access"
+    ],
+    benefits: [
+      { title: "Official Agency Credentials", desc: "Access premium inventory and direct campaign support from Hotstar Ad Manager through our verified agency account." },
+      { title: "Precise Audience Filters", desc: "Target viewers by city/state, age, gender, device cost, network speed, and streaming preferences." },
+      { title: "Unmatched View Rates", desc: "Our unskippable video ad strategies deliver view-through rates (VTR) exceeding 90%." },
+      { title: "Connected TV (CTV) Targeting", desc: "Showcase your brand in stunning 4K on smart TVs, targeting premium households with high disposable income." },
+      { title: "Govt. Recognized Trust", desc: "AICLEX is a DPIIT Recognized Startup (DIPP271379) under the Government of India, ensuring transparent operations and escrow options." }
+    ],
+    process: [
+      { step: "01", title: "Strategy & Media Planning", desc: "Analyzing your target audience and creating a customized budget plan with projected cost-per-view (CPV)." },
+      { step: "02", title: "Creative Compliance Check", desc: "Formatting and auditing your video assets to meet JioHotstar's strict quality and legal guidelines." },
+      { step: "03", title: "Campaign Tuning", desc: "Configuring precise demography, geography, interest tags, and ad placements in Hotstar Ad Manager." },
+      { step: "04", title: "Launch & Optimization", desc: "Monitoring pacing and adjusting bids daily to maximize impressions and view-through rates." }
+    ],
+    icon: "Tv",
+    color: "from-amber-500 to-[#ff914d]"
   }
 ];
