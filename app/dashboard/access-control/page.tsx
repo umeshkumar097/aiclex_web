@@ -85,6 +85,21 @@ export default function AccessControlPage() {
       });
       if (res.ok) {
         setMessage({ text: "Role updated successfully!", type: "success" });
+        
+        // Sync local storage if the logged-in user changed their own role
+        const userInfoStr = localStorage.getItem("user_info");
+        if (userInfoStr) {
+          try {
+            const userInfo = JSON.parse(userInfoStr);
+            if (userInfo.id === userId) {
+              userInfo.role = newRole;
+              localStorage.setItem("user_info", JSON.stringify(userInfo));
+              window.location.reload();
+              return;
+            }
+          } catch(e) {}
+        }
+        
         fetchData();
       } else {
         const data = await res.json();
