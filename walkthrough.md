@@ -1,19 +1,20 @@
-# Walkthrough - Job Listings Edit & Delete Fixes
+# Walkthrough - Careers Detail HTML Render Fix
 
-Successfully resolved editing and deletion bugs for job listings by implementing missing API handlers and improving the table's user experience.
+Successfully resolved an issue where the rich text job description on the dynamic careers page rendered raw HTML tags.
 
 ---
 
 ## Deliverables Completed
 
-### 1. Dynamic API Expansion (`/api/jobs/[slug]`)
-* **PUT Handler:** Added a handler to process job updates via numeric parameters (`UPDATE jobs SET ... WHERE id = $10`).
-* **DELETE Handler:** Added a handler to permanently delete a job listing from the database using its numeric parameter (`DELETE FROM jobs WHERE id = $1`).
-* **Multi-type Resolving:** Handled both string slugs (for frontend careers pages) and numeric IDs (for admin actions) safely within the same dynamic path segment.
-
-### 2. Visibility and UX Improvements (`app/dashboard/jobs/page.tsx`)
-* **Permanent Action Buttons:** Removed the `opacity-0 group-hover:opacity-100` hover visibility classes. Edit and Delete buttons under the "Settings" column are now permanently visible on all screen sizes, solving the empty settings columns problem.
-* **Internship Option Verification:** Confirmed that the `"Internship"` option is fully supported and integrated both inside the admin job-type selection dropdown and dynamically on the public careers listing page (`/career`).
+### 1. HTML Parsing on Career Detail Screen (`app/career/[slug]/page.tsx`)
+* Replaced text-based interpolation of `{job.description}` inside a `<p>` block with a secure dynamic injection container:
+  ```tsx
+  <div 
+    className="leading-relaxed font-medium text-gray-600 prose-headings:text-[#001341] prose-headings:font-bold prose-ul:list-disc prose-ul:pl-5 prose-li:my-1 space-y-4"
+    dangerouslySetInnerHTML={{ __html: job.description }}
+  />
+  ```
+* This parses raw tag strings (`<p>`, `<strong>`, and `&nbsp;`) safely into structured paragraphs, headers, and bullet points, matching the editor styling.
 
 ---
 

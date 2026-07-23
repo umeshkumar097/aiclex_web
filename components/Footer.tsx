@@ -230,6 +230,19 @@ export default function Footer() {
 
       </div>
 
+      {/* --- TRUST MARKS / CERTIFICATIONS --- */}
+      <div className="border-t border-gray-100 bg-[#F3F5FC]/50 py-6">
+        <div className="max-w-7xl mx-auto px-6 flex justify-center items-center">
+          <Image
+            src="/certificates.png"
+            alt="Aiclex Solutions - Startup India, ISO 9001:2015 Certified, IAF Accredited"
+            width={600}
+            height={75}
+            className="h-12 w-auto object-contain opacity-90 select-none mix-blend-multiply"
+          />
+        </div>
+      </div>
+
       {/* --- BOTTOM BAR --- */}
       <div className="border-t border-gray-200 bg-[#001341]">
         <div className="max-w-7xl mx-auto px-6 py-6 text-[14px] font-medium text-white/80 text-center ">
