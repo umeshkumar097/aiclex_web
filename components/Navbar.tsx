@@ -19,6 +19,7 @@ import {
   Sparkles,
   MessageSquare,
   Image as ImageIcon,
+  CreditCard,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -49,6 +50,7 @@ export default function Navbar() {
         { name: "AI Tools Suite™", href: "/ai-tools", desc: "Experience our advanced, custom GPT-powered workflow tools.", icon: <Sparkles size={18} aria-hidden="true" className="text-orange-500" /> },
       ],
     },
+    { name: "Pricing", href: "/pricing", icon: <CreditCard size={18} aria-hidden="true" /> },
     {
       name: "Company",
       href: "#",
