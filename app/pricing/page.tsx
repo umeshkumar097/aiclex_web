@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 
-type PricingCategory = "whatspilot" | "zoom" | "ads";
+type PricingCategory = "whatspilot" | "siteboard" | "ads";
 
 export default function PricingPage() {
   const router = useRouter();
@@ -28,6 +28,7 @@ export default function PricingPage() {
 
   const tabs = [
     { id: "whatspilot", label: "WhatsPilot SaaS", icon: <MessageCircle size={16} /> },
+    { id: "siteboard", label: "Siteboard CRM", icon: <Building2 size={16} /> },
     { id: "ads", label: "Paid Media & Ads", icon: <BarChart3 size={16} /> }
   ];
 
@@ -242,6 +243,147 @@ export default function PricingPage() {
               </motion.div>
             )}
 
+            {activeTab === "siteboard" && (
+              <motion.div
+                key="siteboard"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4 }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"
+              >
+                {/* Siteboard Plan 1 */}
+                <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
+                  <div>
+                    <h3 className="text-xl font-black mb-1">Single Project</h3>
+                    <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">For individual townships & layouts</p>
+                    <div className="flex flex-col mb-6">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-extrabold">₹</span>
+                        <span className="text-5xl font-black tracking-tight">4,999</span>
+                        <span className="text-gray-400 ml-2 text-sm font-semibold">/ month</span>
+                      </div>
+                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
+                        + 18% GST (Recurring)
+                      </span>
+                    </div>
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span><strong>1 Active Project / Township</strong></span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Interactive Plot Layout SVG Map</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Booking & Inventory Manager</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Core Real Estate CRM & Lead Intake</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => handleCheckout("siteboard-starter")}
+                    className="w-full py-4 px-6 bg-gray-50 hover:bg-[#5271ff] hover:text-white text-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Subscribe Now</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+
+                {/* Siteboard Plan 2 */}
+                <div className="bg-white rounded-3xl p-8 border-2 border-[#5271ff] shadow-2xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group scale-[1.03] z-10 bg-gradient-to-b from-white to-[#5271ff]/5">
+                  <div className="absolute top-0 right-8 transform -translate-y-1/2">
+                    <span className="bg-[#5271ff] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                      <Sparkles size={10} />
+                      <span>Recommended</span>
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black mb-1">Developer Pro</h3>
+                    <p className="text-xs text-[#5271ff] font-bold mb-6 uppercase tracking-wider">Best for multi-township builders</p>
+                    <div className="flex flex-col mb-6">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-extrabold text-[#5271ff]">₹</span>
+                        <span className="text-5xl font-black tracking-tight text-[#001341]">11,999</span>
+                        <span className="text-gray-400 ml-2 text-sm font-semibold">/ month</span>
+                      </div>
+                      <span className="text-gray-400 mt-1.5 text-xs font-extrabold uppercase tracking-wide">
+                        + 18% GST (Recurring)
+                      </span>
+                    </div>
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#5271ff] mt-0.5 shrink-0" />
+                        <span><strong>Up to 5 Active Townships</strong></span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#5271ff] mt-0.5 shrink-0" />
+                        <span>Advanced Financial Ledger & Installments</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#5271ff] mt-0.5 shrink-0" />
+                        <span>WhatsApp & SMS Alerts Automation</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-700">
+                        <Check size={16} className="text-[#5271ff] mt-0.5 shrink-0" />
+                        <span>Team Collaboration Shared Inbox</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => handleCheckout("siteboard-business")}
+                    className="w-full py-4 px-6 bg-[#5271ff] text-white hover:bg-[#001341] font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Subscribe Now</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+
+                {/* Siteboard Plan 3 */}
+                <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-all duration-300 relative group">
+                  <div>
+                    <h3 className="text-xl font-black mb-1 font-bold">Enterprise</h3>
+                    <p className="text-xs text-gray-400 font-bold mb-6 uppercase tracking-wider">Custom build & white-label setups</p>
+                    <div className="flex items-baseline mb-6">
+                      <span className="text-4xl font-black text-[#001341]">Custom</span>
+                    </div>
+                    <ul className="space-y-4 mb-8">
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span><strong>Unlimited Projects & Townships</strong></span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>White-Labeled Domain (`portal.yourbrand.com`)</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Dedicated Hosting Node & Full API Access</span>
+                      </li>
+                      <li className="flex items-start gap-3 text-sm text-gray-600">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>24/7 Priority Support & Onsite Training</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const event = new CustomEvent("open-proposal-drawer", { detail: { service: "Siteboard Enterprise" }});
+                      window.dispatchEvent(event);
+                    }}
+                    className="w-full py-4 px-6 bg-[#001341] hover:bg-[#ff914d] text-white font-black text-xs uppercase tracking-wider rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Contact Sales</span>
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+              </motion.div>
+            )}
 
             {/* Ads section remains for Proposal only */}
             {activeTab === "ads" && (

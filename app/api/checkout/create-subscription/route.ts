@@ -18,6 +18,8 @@ const pool = new Pool({
 const PLANS: Record<string, { name: string, price: number }> = {
   "whatspilot-starter": { name: "WhatsPilot Starter", price: 1599 },
   "whatspilot-business": { name: "WhatsPilot Business Pro", price: 3999 },
+  "siteboard-starter": { name: "Siteboard Starter", price: 4999 },
+  "siteboard-business": { name: "Siteboard Developer Pro", price: 11999 },
   "zoom-pro-basic": { name: "Zoom Pro Basic", price: 11200 },
   "zoom-coaches-plan": { name: "Zoom Coaches Plan", price: 50000 },
   "zoom-business": { name: "Zoom Business", price: 18500 },
