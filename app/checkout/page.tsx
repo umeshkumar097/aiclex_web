@@ -8,8 +8,7 @@ import Script from "next/script";
 const PLANS: Record<string, { name: string, price: number, billing: string, slug: string }> = {
   "whatspilot-starter": { name: "WhatsPilot Starter", price: 1599, billing: "Monthly", slug: "whatspilot-starter" },
   "whatspilot-business": { name: "WhatsPilot Business Pro", price: 3999, billing: "Monthly", slug: "whatspilot-business" },
-  "siteboard-starter": { name: "Siteboard Starter", price: 4999, billing: "Monthly", slug: "siteboard-starter" },
-  "siteboard-business": { name: "Siteboard Developer Pro", price: 11999, billing: "Monthly", slug: "siteboard-business" },
+  "siteboard-annual": { name: "Siteboard Developer Pro", price: 100000, billing: "Yearly", slug: "siteboard-annual" },
   "zoom-pro-basic": { name: "Zoom Pro Basic", price: 11200, billing: "Yearly", slug: "zoom-pro-basic" },
   "zoom-coaches-plan": { name: "Zoom Coaches Plan", price: 50000, billing: "Yearly", slug: "zoom-coaches-plan" },
   "zoom-business": { name: "Zoom Business", price: 18500, billing: "Yearly", slug: "zoom-business" },

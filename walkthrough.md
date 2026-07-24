@@ -1,31 +1,22 @@
-# Walkthrough - Footer Certifications Update
+# Walkthrough - Siteboard & WhatsPilot Pricing Integration
 
-Successfully added the official certifications banner to the website's main footer component.
+Successfully added **Siteboard CRM (Real Estate)** pricing plans to the main pricing page and integrated it fully with the end-to-end checkout system.
 
 ---
 
 ## Deliverables Completed
 
-### 1. Saved Certifications Asset (`public/certificates.png`)
-* Retrieved and copied the uploaded trust marks image (featuring Startup India, ISO 9001:2015, and IAF credentials) into the public assets directory as `public/certificates.png`.
+### 1. Updated Pricing Page UI (`app/pricing/page.tsx`)
+* Added a dedicated **Siteboard CRM** tab using the `Building2` icon from Lucide.
+* Created 3 professional plans for Siteboard:
+  1. **Single Project** (₹4,999/month): For individual townships & SVG map layouts.
+  2. **Developer Pro** (₹11,999/month): For multi-township builders, ledger tracking, and automated alerts.
+  3. **Enterprise** (Custom): For white-label domain setups and dedicated server nodes.
+* Tied the checkout buttons to redirect to the secure billing checkout page with appropriate query params.
 
-### 2. Centered Certification Banner (`components/Footer.tsx`)
-* Integrated a clean, centered certifications banner section right above the dark bottom copyright bar in the global `Footer` component:
-  ```tsx
-  {/* --- TRUST MARKS / CERTIFICATIONS --- */}
-  <div className="border-t border-gray-100 bg-[#F3F5FC]/50 py-6">
-    <div className="max-w-7xl mx-auto px-6 flex justify-center items-center">
-      <Image
-        src="/certificates.png"
-        alt="Aiclex Solutions - Startup India, ISO 9001:2015 Certified, IAF Accredited"
-        width={600}
-        height={75}
-        className="h-12 w-auto object-contain opacity-90 select-none mix-blend-multiply"
-      />
-    </div>
-  </div>
-  ```
-* Used `mix-blend-multiply` to blend the image seamlessly against the light grey-blue background (`#F3F5FC/50`) of the certifications row.
+### 2. End-to-End Checkout Support
+* **Frontend Checkout Config (`app/checkout/page.tsx`):** Registered the new `siteboard-starter` and `siteboard-business` pricing options inside the client-side `PLANS` schema map.
+* **Backend Checkout validation (`app/api/checkout/create-subscription/route.ts`):** Added the equivalent plan data to the server validation object to verify the order amounts against Cashfree's signature generation API.
 
 ---
 
