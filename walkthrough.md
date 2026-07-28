@@ -1,19 +1,18 @@
-# Walkthrough - Siteboard Pricing Update
+# Walkthrough - Header Pricing Link Addition
 
-Successfully updated the **Siteboard CRM** pricing model from monthly packages to a single premium annual plan of **₹1,00,000 / year + GST**, fully integrated with the end-to-end checkout system.
+Successfully added the official **Pricing** page link to the website's main header navbar menu.
 
 ---
 
 ## Deliverables Completed
 
-### 1. Updated Pricing Page UI (`app/pricing/page.tsx`)
-* Removed the previous monthly Starter and Developer Pro options.
-* Replaced them with the new **Developer Pro (Annual)** card priced at **₹1,00,000 / year** (+ 18% GST).
-* Maintained the **Enterprise** customized scale option for white-labeled domains and dedicated clouds.
-
-### 2. Updated Checkout Options
-* **Frontend Config (`app/checkout/page.tsx`):** Registered the new `siteboard-annual` plan in the client checkout PLANS dictionary map, mapping to the price of ₹1,00,000.
-* **Backend API (`app/api/checkout/create-subscription/route.ts`):** Registered the `siteboard-annual` key with its price validation rules on the backend subscription processor.
+### 1. Updated Header Navbar Navigation (`components/Navbar.tsx`)
+* Imported the `CreditCard` icon from Lucide to represent pricing.
+* Registered the **Pricing** item inside the `menuItems` configuration:
+  ```typescript
+  { name: "Pricing", href: "/pricing", icon: <CreditCard size={18} aria-hidden="true" /> }
+  ```
+* This dynamically updates both the desktop main header menu and the collapsible mobile slide-out menu layout.
 
 ---
 

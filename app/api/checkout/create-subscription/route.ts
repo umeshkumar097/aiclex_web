@@ -4,6 +4,7 @@ import { Pool } from "pg";
 import { generateInvoicePdf } from "@/lib/invoice-generator";
 import { sendEmail } from "@/lib/email";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 
 Cashfree.XClientId = process.env.CASHFREE_APP_ID!;
 Cashfree.XClientSecret = process.env.CASHFREE_SECRET_KEY!;
@@ -28,7 +29,8 @@ const PLANS: Record<string, { name: string, price: number }> = {
 
 export async function POST(req: NextRequest) {
   try {
-    const { planSlug, customerName, customerEmail, customerPhone, customerGst, quantity } = await req.json();
+    const { planSlug, customerName, customerEmail, customerPhone, customerGst, quantity, gateway } = await req.json();
+    const selectedGateway: "cashfree" | "payu" = gateway === "payu" ? "payu" : "cashfree";
 
     const plan = PLANS[planSlug];
     if (!plan) {
@@ -44,6 +46,103 @@ export async function POST(req: NextRequest) {
     // Generate unique order ID
     const orderId = `ORDER_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 
+    // ── PayU Branch ─────────────────────────────────────────────────────────
+    if (selectedGateway === "payu") {
+      const payuKey  = process.env.PAYU_MERCHANT_KEY!;
+      const payuSalt = process.env.PAYU_MERCHANT_SALT!;
+      const payuEnv  = process.env.PAYU_ENVIRONMENT === "PRODUCTION" ? "PRODUCTION" : "TEST";
+      const payuActionUrl = payuEnv === "PRODUCTION"
+        ? "https://secure.payu.in/_payment"
+        : "https://test.payu.in/_payment";
+
+      // Hash: sha512(key|txnid|amount|productinfo|firstname|email|||||||||||salt)
+      const amountStr = totalAmount.toFixed(2);
+      const hashInput = `${payuKey}|${orderId}|${amountStr}|${planNameWithQty}|${customerName}|${customerEmail}|||||||||||${payuSalt}`;
+      const payuHash  = crypto.createHash("sha512").update(hashInput).digest("hex");
+
+      // Insert subscription row BEFORE redirecting
+      const { rows: insertedSub } = await pool.query(
+        `INSERT INTO subscriptions 
+        (order_id, plan_slug, plan_name, amount, gst_amount, total_amount, customer_name, customer_email, customer_phone, customer_gstin, payment_session_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
+        [orderId, planSlug, planNameWithQty, basePrice, gstAmount, totalAmount, customerName, customerEmail, customerPhone, customerGst || null, orderId]
+      );
+      const subId = insertedSub[0].id;
+      const invoiceNumber = `INV-${1000 + parseInt(subId)}`;
+      const invoiceDate   = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+      const paymentLink   = payuActionUrl;
+
+      // User creation
+      const { rows: existingUser } = await pool.query("SELECT * FROM users WHERE email = $1", [customerEmail]);
+      let tempPassword: string | null = null;
+      if (existingUser.length === 0) {
+        tempPassword = Math.random().toString(36).slice(-8);
+        const hashedPw = await bcrypt.hash(tempPassword, 10);
+        await pool.query(
+          "INSERT INTO users (name, email, phone, password_hash, role) VALUES ($1,$2,$3,$4,$5)",
+          [customerName, customerEmail, customerPhone, hashedPw, "client"]
+        );
+      }
+
+      await pool.query(
+        `UPDATE subscriptions SET invoice_number = $1, payment_link = $2 WHERE id = $3`,
+        [invoiceNumber, paymentLink, subId]
+      );
+
+      // Proforma invoice email
+      const pdfBuffer = await generateInvoicePdf({
+        invoice_number: invoiceNumber, invoice_date: invoiceDate, due_date: invoiceDate,
+        status: "PENDING", payment_link: paymentLink,
+        customer_name: customerName, customer_gstin: customerGst, customer_phone: customerPhone, customer_email: customerEmail,
+        plan_name: plan.name, rate: basePrice, qty: 1, taxable_value: basePrice, tax_amount: gstAmount, total_amount: totalAmount,
+      });
+
+      const emailBody = `
+        <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#333;">
+          <h2>Order Received: Action Required</h2>
+          <p>Hi ${customerName},</p>
+          <p>Thank you for initiating the purchase of <strong>${plan.name}</strong>.</p>
+          <p>Your payment is being processed via PayU. Once completed, your subscription will be activated automatically.</p>
+          ${tempPassword ? `
+          <div style="background:#f4f6f9;padding:15px;border-radius:8px;margin-top:20px;">
+            <h3 style="margin-top:0;">Your Client Portal Account</h3>
+            <p><strong>Login URL:</strong> <a href="https://aiclex.in/signin">aiclex.in/signin</a><br>
+            <strong>Email:</strong> ${customerEmail}<br>
+            <strong>Temporary Password:</strong> ${tempPassword}</p>
+            <p style="font-size:12px;color:#666;">Please change this password after logging in.</p>
+          </div>` : ""}
+          <p>Proforma invoice is attached for your records.</p>
+          <p>Best regards,<br><strong>AICLEX™ Technologies</strong></p>
+        </div>
+      `;
+
+      await sendEmail({
+        to: customerEmail,
+        subject: `Order Received: ${plan.name} (Invoice ${invoiceNumber})`,
+        html: emailBody,
+        attachments: [{ filename: `${invoiceNumber}.pdf`, content: pdfBuffer, contentType: "application/pdf" }],
+      });
+
+      return NextResponse.json({
+        gateway: "payu",
+        payu_params: {
+          key:         payuKey,
+          txnid:       orderId,
+          amount:      amountStr,
+          productinfo: planNameWithQty,
+          firstname:   customerName,
+          email:       customerEmail,
+          phone:       customerPhone,
+          surl:        `https://aiclex.in/api/checkout/payu-callback`,
+          furl:        `https://aiclex.in/api/checkout/payu-callback`,
+          hash:        payuHash,
+          udf1:        "", udf2: "", udf3: "", udf4: "", udf5: "",
+        },
+        payu_action_url: payuActionUrl,
+      });
+    }
+
+    // ── Cashfree Branch ──────────────────────────────────────────────────────
     const request = {
       order_amount: totalAmount,
       order_currency: "INR",
@@ -59,7 +158,7 @@ export async function POST(req: NextRequest) {
         notify_url: `https://aiclex.in/api/checkout/webhook`,
         payment_methods: "cc,dc,ccc,upi,nb,app,emi,paylater"
       },
-      order_note: `${planNameWithQty} Subscription${customerGst ? ' - GST: ' + customerGst : ''}`
+      order_note: `${planNameWithQty} Subscription${customerGst ? " - GST: " + customerGst : ""}`
     };
 
     // Create Order with Cashfree
@@ -171,7 +270,7 @@ export async function POST(req: NextRequest) {
       environment: process.env.CASHFREE_ENVIRONMENT === "PRODUCTION" ? "production" : "sandbox"
     });
   } catch (error: any) {
-    console.error("Cashfree Order Error:", error?.response?.data || error.message);
+    console.error("Payment Order Error:", error?.response?.data || error.message);
     const errorMessage = error?.response?.data?.message || "Could not initialize payment. Please try again.";
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
