@@ -55,10 +55,10 @@ export async function POST(req: NextRequest) {
         ? "https://secure.payu.in/_payment"
         : "https://test.payu.in/_payment";
 
-      // Hash formula: sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
-      // After email: 10 pipes = udf1..udf5 (empty) + 5 more empty fields, then SALT
+      // Hash formula (OFFICIAL PayU): sha512(key|txnid|amount|productinfo|firstname|email|||||||||||SALT)
+      // email ke baad exactly 11 pipes (udf1..udf5 empty + 6 more empty fields)
       const amountStr = totalAmount.toFixed(2);
-      const hashInput = `${payuKey}|${orderId}|${amountStr}|${planNameWithQty}|${customerName}|${customerEmail}||||||||||${payuSalt}`;
+      const hashInput = `${payuKey}|${orderId}|${amountStr}|${planNameWithQty}|${customerName}|${customerEmail}|||||||||||${payuSalt}`;
       const payuHash  = crypto.createHash("sha512").update(hashInput).digest("hex");
 
       // Insert subscription row BEFORE redirecting

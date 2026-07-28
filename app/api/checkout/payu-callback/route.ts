@@ -25,12 +25,12 @@ export async function POST(req: NextRequest) {
     const key  = process.env.PAYU_MERCHANT_KEY!;
 
     // ─── Verify Response Hash ────────────────────────────────────────────────
-    // PayU response hash (reverse of request hash):
-    // sha512(additionalCharges|SALT|status|udf5|udf4|udf3|udf2|udf1|||||email|firstname|productinfo|amount|txnid|key)
-    // = SALT|status + 10 pipes (5 empty udf reversed + 5 empty) + email
+    // PayU response hash (OFFICIAL - reverse of request):
+    // sha512(SALT|status|||||||||||email|firstname|productinfo|amount|txnid|key)
+    // status ke baad exactly 11 pipes (same count as request hash after email)
     const hashStr = additionalCharges
-      ? `${additionalCharges}|${salt}|${status}||||||||||${email}|${firstname}|${productinfo}|${amount}|${txnid}|${key}`
-      : `${salt}|${status}||||||||||${email}|${firstname}|${productinfo}|${amount}|${txnid}|${key}`;
+      ? `${additionalCharges}|${salt}|${status}|||||||||||${email}|${firstname}|${productinfo}|${amount}|${txnid}|${key}`
+      : `${salt}|${status}|||||||||||${email}|${firstname}|${productinfo}|${amount}|${txnid}|${key}`;
 
     const expectedHash = crypto.createHash("sha512").update(hashStr).digest("hex");
 
