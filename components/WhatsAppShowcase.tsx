@@ -78,8 +78,10 @@ export default function WhatsAppShowcase() {
                   autoPlay
                   muted
                   loop
+                  aria-label="WhatsPilot - Automate Your WhatsApp Mastery demo video"
                 >
                   <source src="https://ai.siteboard.in/WhatsPilot_%20Automate%20Your%20WhatsApp%20Mastery_1080p_caption.mp4" type="video/mp4" />
+                  <track kind="captions" srcLang="en" label="English captions" default />
                   Your browser does not support the video tag.
                 </video>
               </div>

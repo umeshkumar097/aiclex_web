@@ -286,7 +286,7 @@ export default function Navbar() {
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
           rel="noopener noreferrer"
-          
+          aria-label="Chat with us on WhatsApp"
         >
           <motion.button
             className="hidden md:block px-6 py-3 bg-[#001341] cursor-pointer text-white rounded-md font-semibold relative overflow-hidden"

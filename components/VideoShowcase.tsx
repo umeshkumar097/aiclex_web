@@ -63,8 +63,10 @@ export default function VideoShowcase() {
                   autoPlay
                   muted
                   loop
+                  aria-label="Aiclex Technologies - Growth-Oriented Zoom Solutions demo video"
                 >
                   <source src="https://ai.siteboard.in/AIclex%20Technologies%20-%20Growth-Oriented%20Zoom%20Solutions_1080p_caption.mp4" type="video/mp4" />
+                  <track kind="captions" srcLang="en" label="English captions" default />
                   Your browser does not support the video tag.
                 </video>
               </div>

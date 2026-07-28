@@ -64,11 +64,12 @@ export default function CookieConsent() {
                 <ShieldCheck size={28} />
               </div>
               <h2 className="text-2xl font-bold text-[#001341] tracking-tight">Cookie Policy Intelligence</h2>
-              <p className="text-gray-400 text-xs font-medium uppercase tracking-widest mt-1">AICLEX™ Technologies Compliance</p>
+              <p className="text-gray-600 text-xs font-medium uppercase tracking-widest mt-1">AICLEX™ Technologies Compliance</p>
             </div>
             <button 
               onClick={() => setIsVisible(false)}
-              className="p-2 text-gray-400 hover:text-[#001341] hover:bg-gray-100 rounded-full transition-all"
+              aria-label="Close cookie consent"
+              className="p-2 text-gray-500 hover:text-[#001341] hover:bg-gray-100 rounded-full transition-all"
             >
               <X size={20} />
             </button>
@@ -126,7 +127,8 @@ export default function CookieConsent() {
             </button>
             <button 
               onClick={handleReject}
-              className="w-full py-4 text-gray-400 font-bold uppercase text-[10px] tracking-widest hover:text-red-500 transition-colors"
+              aria-label="Reject all non-essential cookies"
+              className="w-full py-4 text-gray-600 font-bold uppercase text-[10px] tracking-widest hover:text-red-500 transition-colors"
             >
               Reject all
             </button>
@@ -156,7 +158,7 @@ function CookieToggle({
         <span className="text-sm font-bold text-[#001341] flex items-center gap-2">
           {title} <ChevronRight size={14} className="text-gray-300 group-hover:text-[#5271ff] transition-colors" />
         </span>
-        <span className="text-[11px] text-gray-400 leading-tight">{desc}</span>
+        <span className="text-[11px] text-gray-600 leading-tight">{desc}</span>
       </div>
       <button 
         onClick={onToggle}
