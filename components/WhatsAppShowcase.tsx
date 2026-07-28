@@ -36,7 +36,7 @@ export default function WhatsAppShowcase() {
                   <Bot className="w-6 h-6 text-green-500" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#001341]">Smart AI Chatbots</h4>
+                  <h3 className="font-bold text-[#001341]">Smart AI Chatbots</h3>
                   <p className="text-sm text-gray-500">24/7 automated lead qualification.</p>
                 </div>
               </div>
@@ -45,7 +45,7 @@ export default function WhatsAppShowcase() {
                   <Zap className="w-6 h-6 text-yellow-500" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#001341]">Bulk Broadcasting</h4>
+                  <h3 className="font-bold text-[#001341]">Bulk Broadcasting</h3>
                   <p className="text-sm text-gray-500">Reach thousands with one click.</p>
                 </div>
               </div>

@@ -30,7 +30,7 @@ export default function VideoShowcase() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#001341]">Official Partner</h4>
+                  <h3 className="font-bold text-[#001341]">Official Partner</h3>
                   <p className="text-sm text-gray-500">Certified reseller & support in India.</p>
                 </div>
               </div>
@@ -41,7 +41,7 @@ export default function VideoShowcase() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#001341]">Instant Setup</h4>
+                  <h3 className="font-bold text-[#001341]">Instant Setup</h3>
                   <p className="text-sm text-gray-500">Quick provisioning & deployment.</p>
                 </div>
               </div>

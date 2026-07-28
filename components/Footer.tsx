@@ -108,8 +108,8 @@ export default function Footer() {
           </div>
 
           <div className="pt-4 border-t border-gray-100 flex items-center gap-3">
-            <div className="h-8 px-2.5 py-1 rounded bg-[#ff914d]/10 text-[#ff914d] text-[10px] font-black uppercase tracking-wider border border-[#ff914d]/25 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#ff914d] animate-pulse"></span>
+            <div className="h-8 px-2.5 py-1 rounded bg-[#ff914d] text-white text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
               Startup India Registered
             </div>
             <div className="text-[11px] text-gray-500 font-bold leading-tight">

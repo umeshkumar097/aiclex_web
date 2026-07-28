@@ -108,7 +108,7 @@ export default function ZonvoAIShowcase() {
             }`}
           >
             {/* Badge — matches site style */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ff914d]/10 border border-[#ff914d]/20 text-[#ff914d] text-xs font-bold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ff914d] text-white text-xs font-bold uppercase tracking-widest">
               <Mic className="w-3.5 h-3.5" />
               Introducing ZONVO AI
             </div>
@@ -137,7 +137,7 @@ export default function ZonvoAIShowcase() {
                     {f.icon}
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#001341] text-sm mb-0.5">{f.title}</h4>
+                    <h3 className="font-bold text-[#001341] text-sm mb-0.5">{f.title}</h3>
                     <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
                   </div>
                 </div>
