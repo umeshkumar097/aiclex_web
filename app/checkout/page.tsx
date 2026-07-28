@@ -6,6 +6,7 @@ import { CheckCircle, ShieldCheck, Loader2, ArrowRight, CreditCard, Zap } from "
 import Script from "next/script";
 
 const PLANS: Record<string, { name: string, price: number, billing: string, slug: string }> = {
+  "test-monthly": { name: "Test Plan (PayU)", price: 50, billing: "Monthly", slug: "test-monthly" },
   "whatspilot-starter": { name: "WhatsPilot Starter", price: 1599, billing: "Monthly", slug: "whatspilot-starter" },
   "whatspilot-business": { name: "WhatsPilot Business Pro", price: 3999, billing: "Monthly", slug: "whatspilot-business" },
   "siteboard-annual": { name: "Siteboard Developer Pro", price: 100000, billing: "Yearly", slug: "siteboard-annual" },
@@ -32,6 +33,9 @@ function CheckoutForm() {
   const selectedPlan = planSlug ? PLANS[planSlug] : null;
 
   useEffect(() => {
+    if (planSlug === "test-monthly") {
+      setGateway("payu");
+    }
     if (!planSlug || !selectedPlan) router.push("/pricing");
   }, [planSlug, selectedPlan, router]);
 

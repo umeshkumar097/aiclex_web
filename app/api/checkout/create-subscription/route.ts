@@ -17,6 +17,7 @@ const pool = new Pool({
 });
 
 const PLANS: Record<string, { name: string, price: number }> = {
+  "test-monthly": { name: "Test Subscription Plan", price: 50 },
   "whatspilot-starter": { name: "WhatsPilot Starter", price: 1599 },
   "whatspilot-business": { name: "WhatsPilot Business Pro", price: 3999 },
   "siteboard-annual": { name: "Siteboard Developer Pro", price: 100000 },
