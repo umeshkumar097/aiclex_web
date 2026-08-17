@@ -47,6 +47,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "UmwQdEsVEUPUkavhn1dpxw8NcABZMiWunsWpQBpKjTo",
+    other: {
+      "zoom-domain-verification": ["ZOOM_verify_Wouc725oikqVb9RQzqef3d"],
+    },
   },
 };
 
@@ -57,6 +60,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="zoom-domain-verification" content="ZOOM_verify_Wouc725oikqVb9RQzqef3d" />
+      </head>
       <body className={inter.className}>
         <GoogleAnalytics />
         <Script id="zi-tracking" strategy="afterInteractive">
