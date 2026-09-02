@@ -242,6 +242,7 @@ export default function DashboardLayout({
       id: "marketing",
       icon: Globe,
       items: [
+        { name: "Coach Discovery (COB)", href: "/dashboard/cob", icon: FileText },
         { name: "Campaigns", href: "/dashboard/marketing?tab=campaigns", icon: Target },
         { name: "Landing Pages", href: "/", icon: Globe },
         { name: "Forms", href: "/dashboard/enquiries", icon: FileText },

@@ -42,4 +42,37 @@ pool.query(`
   console.error("⚠️ invitations table auto-migration error:", err.message);
 });
 
+// Self-healing database auto-migration for cob_submissions table
+pool.query(`
+  CREATE TABLE IF NOT EXISTS cob_submissions (
+    id SERIAL PRIMARY KEY,
+    submission_id VARCHAR(50) UNIQUE NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    business_name VARCHAR(255) NOT NULL,
+    designation VARCHAR(255),
+    phone VARCHAR(50) NOT NULL,
+    whatsapp VARCHAR(50),
+    email VARCHAR(255) NOT NULL,
+    city VARCHAR(255),
+    state VARCHAR(255),
+    website VARCHAR(255),
+    business_start_year INTEGER,
+    business_type VARCHAR(100),
+    coaching_category VARCHAR(100),
+    primary_audience TEXT,
+    primary_goal VARCHAR(255),
+    monthly_lead_target INTEGER,
+    monthly_sales_target INTEGER,
+    status VARCHAR(50) DEFAULT 'New',
+    admin_notes TEXT,
+    payload JSONB NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  )
+`).then(() => {
+  console.log("✅ cob_submissions table auto-migration verified.");
+}).catch((err) => {
+  console.error("⚠️ cob_submissions table auto-migration error:", err.message);
+});
+
 export default pool;
