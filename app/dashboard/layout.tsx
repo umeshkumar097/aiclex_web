@@ -46,6 +46,7 @@ export default function DashboardLayout({
   const [workspace, setWorkspace] = useState("Aiclex Solutions Pvt. Ltd");
   const [showWorkspaceSelector, setShowWorkspaceSelector] = useState(false);
   const [collapsedSections, setCollapsedSections] = useState<Record<string, boolean>>({
+    cob: false,
     crm: false,
     ai: false,
     comm: true,
@@ -175,6 +176,15 @@ export default function DashboardLayout({
   };
 
   const sections: NavSection[] = [
+    {
+      title: "COB Portal",
+      id: "cob",
+      icon: Award,
+      items: [
+        { name: "Coach Submissions", href: "/dashboard/cob", icon: FileText },
+        { name: "Public Onboarding Form", href: "/cob", icon: Globe }
+      ]
+    },
     {
       title: "CRM",
       id: "crm",

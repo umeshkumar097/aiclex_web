@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  FileSpreadsheet, Search, Filter, RefreshCw, CheckCircle2, Clock,
+  FileSpreadsheet, FileText, Search, Filter, RefreshCw, CheckCircle2, Clock,
   Eye, Edit, Trash2, ChevronLeft, ChevronRight, User, Building2,
   Mail, Phone, MapPin, Globe, Sparkles, Download, Layers, ShieldCheck,
-  Award, Target, Video, Share2, Briefcase, FileText, Lock, MessageSquare,
-  AlertTriangle, Save, Check
+  Award, Target, Video, Share2, Briefcase, Lock, MessageSquare,
+  AlertTriangle, Save, Check, Printer
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export default function AdminCobPage() {
   const [submissions, setSubmissions] = useState<any[]>([]);
@@ -87,7 +89,6 @@ export default function AdminCobPage() {
     fetchSubmissions();
   };
 
-  // Toggle selection
   const toggleSelectRow = (id: string) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
@@ -102,7 +103,7 @@ export default function AdminCobPage() {
     }
   };
 
-  // Handle Excel Export API call
+  // Excel Export API Handler
   const triggerExcelExport = async (export_type: "all" | "selected" | "single", singleId?: string) => {
     setIsExporting(true);
     try {
@@ -132,6 +133,64 @@ export default function AdminCobPage() {
       alert("Failed to export Excel file. Please try again.");
     } finally {
       setIsExporting(false);
+    }
+  };
+
+  // Client PDF Generator using jsPDF & autoTable
+  const generateClientPdf = (clientData: any) => {
+    try {
+      const doc = new jsPDF();
+
+      // Header Banner (Aiclex Deep Navy)
+      doc.setFillColor(0, 19, 65);
+      doc.rect(0, 0, 210, 28, "F");
+
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("AICLEX TECHNOLOGIES", 14, 15);
+
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "normal");
+      doc.text("Coach Social Media Onboarding & Business Discovery Report", 14, 22);
+
+      // Client Overview Card Box
+      doc.setTextColor(0, 19, 65);
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.text(`Client: ${clientData.full_name || "N/A"} (${clientData.business_name || "N/A"})`, 14, 36);
+
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Submission ID: ${clientData.submission_id}`, 14, 42);
+      doc.text(`Phone: ${clientData.phone || "N/A"}  |  Email: ${clientData.email || "N/A"}`, 14, 47);
+      doc.text(`Category: ${clientData.coaching_category || "N/A"}  |  Status: ${clientData.status || "New"}`, 14, 52);
+
+      // Table Rows
+      const payload = clientData.payload || {};
+      const tableRows: any[] = [];
+
+      Object.entries(payload).forEach(([key, value]) => {
+        const cleanKey = key.replace(/sec\d+_/g, "").replace(/_/g, " ").toUpperCase();
+        const cleanVal = Array.isArray(value) ? value.join(", ") : String(value || "N/A");
+        tableRows.push([cleanKey, cleanVal]);
+      });
+
+      autoTable(doc, {
+        startY: 58,
+        head: [["Field / Question", "Response / Value"]],
+        body: tableRows,
+        headStyles: { fillColor: [0, 19, 65], textColor: [255, 255, 255], fontStyle: "bold" },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        margin: { top: 58, left: 14, right: 14 },
+        styles: { overflow: "linebreak", cellWidth: "wrap", fontSize: 8 },
+        columnStyles: { 0: { cellWidth: 60, fontStyle: "bold" }, 1: { cellWidth: 120 } },
+      });
+
+      doc.save(`Aiclex_COB_${clientData.submission_id}_${(clientData.full_name || "Client").replace(/\s+/g, "_")}.pdf`);
+    } catch (e) {
+      console.error(e);
+      alert("Failed to generate PDF document.");
     }
   };
 
@@ -205,7 +264,6 @@ export default function AdminCobPage() {
     }
   };
 
-  // Open Full Detail Modal
   const openClientDetails = async (sub: any) => {
     try {
       const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : "";
@@ -234,15 +292,15 @@ export default function AdminCobPage() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="px-3 py-1 rounded-full bg-blue-50 text-[#5271ff] text-xs font-black uppercase tracking-wider">
-              Aiclex Technologies Portal
+              Aiclex Technologies COB Portal
             </span>
             <span className="text-xs text-gray-400 font-semibold">• Coach Discovery</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-black text-[#001341]">
-            Coach Onboarding & Social Media Submissions
+            COB - Coach Onboarding & Social Media Submissions
           </h1>
           <p className="text-sm text-gray-500 font-medium mt-1">
-            Manage, filter, review and export detailed client onboarding discovery profiles to Excel.
+            Manage, filter, review and download client onboarding profiles in Excel (.xlsx) and PDF format.
           </p>
         </div>
 
@@ -253,7 +311,7 @@ export default function AdminCobPage() {
             className="py-3 px-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-black text-xs uppercase tracking-wider transition flex items-center gap-2 shadow-lg shadow-emerald-600/20 cursor-pointer disabled:opacity-50"
           >
             <FileSpreadsheet size={16} />
-            <span>{isExporting ? "Exporting..." : "Export All to Excel (.xlsx)"}</span>
+            <span>{isExporting ? "Exporting..." : "Download All Excel (.xlsx)"}</span>
           </button>
 
           <Link
@@ -365,7 +423,7 @@ export default function AdminCobPage() {
               disabled={isExporting}
               className="py-2 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black uppercase tracking-wider transition flex items-center gap-1.5 cursor-pointer"
             >
-              <FileSpreadsheet size={14} /> Export Selected to Excel
+              <FileSpreadsheet size={14} /> Download Selected Excel
             </button>
             <button
               onClick={() => setSelectedIds([])}
@@ -409,7 +467,7 @@ export default function AdminCobPage() {
                   <th className="py-4 px-4">Primary Goal</th>
                   <th className="py-4 px-4">Date</th>
                   <th className="py-4 px-4">Status</th>
-                  <th className="py-4 px-4 text-right">Actions</th>
+                  <th className="py-4 px-4 text-right">Downloads & Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 text-xs">
@@ -469,7 +527,7 @@ export default function AdminCobPage() {
                           <option value="Completed">Completed</option>
                         </select>
                       </td>
-                      <td className="py-4 px-4 text-right space-x-2">
+                      <td className="py-4 px-4 text-right space-x-1.5">
                         <button
                           onClick={() => openClientDetails(sub)}
                           className="p-2 rounded-xl bg-blue-50 text-[#5271ff] hover:bg-blue-100 transition cursor-pointer"
@@ -478,15 +536,22 @@ export default function AdminCobPage() {
                           <Eye size={14} />
                         </button>
                         <button
+                          onClick={() => generateClientPdf(sub)}
+                          className="p-2 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition cursor-pointer"
+                          title="Download PDF Report"
+                        >
+                          <FileText size={14} />
+                        </button>
+                        <button
                           onClick={() => triggerExcelExport("single", sub.submission_id)}
                           className="p-2 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition cursor-pointer"
-                          title="Export Individual Excel"
+                          title="Download Excel (.xlsx)"
                         >
                           <FileSpreadsheet size={14} />
                         </button>
                         <button
                           onClick={() => setDeleteTargetId(sub.id)}
-                          className="p-2 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition cursor-pointer"
+                          className="p-2 rounded-xl bg-gray-100 text-gray-500 hover:bg-red-50 hover:text-red-600 transition cursor-pointer"
                           title="Delete Record"
                         >
                           <Trash2 size={14} />
@@ -524,7 +589,7 @@ export default function AdminCobPage() {
         </div>
       </div>
 
-      {/* FULL CLIENT PROFILE MODAL / DRAWER */}
+      {/* FULL CLIENT PROFILE MODAL */}
       <AnimatePresence>
         {activeClient && (
           <div className="fixed inset-0 z-50 flex items-center justify-end p-0 md:p-6">
@@ -538,7 +603,7 @@ export default function AdminCobPage() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative z-10 w-full max-w-4xl h-full bg-white rounded-none md:rounded-3xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden"
+              className="relative z-10 w-full max-w-4xl h-full bg-white rounded-none md:rounded-3xl shadow-2xl border border-gray-100 flex flex-col overflow-hidden text-[#001341]"
             >
               {/* MODAL HEADER */}
               <div className="p-6 border-b border-gray-100 flex items-start justify-between bg-[#001341] text-white">
@@ -559,8 +624,14 @@ export default function AdminCobPage() {
 
                 <div className="flex items-center gap-2">
                   <button
+                    onClick={() => generateClientPdf(activeClient)}
+                    className="py-2 px-3 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-black flex items-center gap-1.5 transition cursor-pointer"
+                  >
+                    <FileText size={14} /> Download PDF
+                  </button>
+                  <button
                     onClick={() => triggerExcelExport("single", activeClient.submission_id)}
-                    className="py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black flex items-center gap-1.5 transition"
+                    className="py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <FileSpreadsheet size={14} /> Excel
                   </button>
@@ -584,7 +655,7 @@ export default function AdminCobPage() {
                   <button
                     key={idx}
                     onClick={() => setActiveTab(idx + 1)}
-                    className={`px-3 py-1.5 rounded-xl transition whitespace-nowrap ${
+                    className={`px-3 py-1.5 rounded-xl transition whitespace-nowrap cursor-pointer ${
                       activeTab === idx + 1
                         ? "bg-[#001341] text-white"
                         : "text-gray-600 hover:bg-gray-200"
@@ -597,13 +668,11 @@ export default function AdminCobPage() {
 
               {/* MODAL BODY SCROLL CONTENT */}
               <div className="flex-1 overflow-y-auto p-6 space-y-6 text-sm text-[#001341]">
-                {/* SECTION TAB CONTENT DISPLAY */}
                 <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-4">
                   <h3 className="font-black text-base text-[#001341] border-b pb-2">
                     Section {activeTab} Details
                   </h3>
 
-                  {/* Render payload dictionary key-value grid for the active section tab */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {Object.entries(activeClient.payload || {})
                       .filter(([key]) => key.startsWith(`sec${activeTab}_`))
@@ -668,7 +737,7 @@ export default function AdminCobPage() {
               </div>
               <h3 className="text-xl font-black text-[#001341]">Confirm Deletion</h3>
               <p className="text-xs text-gray-500 font-semibold leading-relaxed">
-                Are you sure you want to permanently delete this onboarding submission? This action cannot be undone.
+                Are you sure you want to permanently delete this onboarding submission?
               </p>
               <div className="flex gap-3 pt-2">
                 <button
