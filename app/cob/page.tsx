@@ -289,20 +289,9 @@ export default function CobFormPage() {
   const validateCurrentStep = (): boolean => {
     setErrorMsg("");
     if (currentStep === 1) {
-      if (!formData.sec1_full_name.trim()) { setErrorMsg("Please enter your Full Name."); return false; }
-      if (!formData.sec1_business_name.trim()) { setErrorMsg("Please enter your Business / Brand Name."); return false; }
-      if (!formData.sec1_phone.trim()) { setErrorMsg("Please enter your Phone Number."); return false; }
-      if (!formData.sec1_email.trim()) { setErrorMsg("Please enter a valid Email Address."); return false; }
-    }
-    if (currentStep === 2) {
-      if (!formData.sec2_help_achieve.trim()) { setErrorMsg("Please describe what you help people achieve."); return false; }
-    }
-    if (currentStep === 3) {
-      if (!formData.sec3_ideal_client.trim()) { setErrorMsg("Please describe your ideal client."); return false; }
-      if (!formData.sec3_ideal_customer_desc.trim()) { setErrorMsg("Please describe your ideal customer in your own words."); return false; }
-    }
-    if (currentStep === 6) {
-      if (!formData.sec6_six_month_vision.trim()) { setErrorMsg("Please share your 6-month social media vision."); return false; }
+      if (!formData.sec1_full_name?.trim()) { setErrorMsg("Please enter your Full Name."); return false; }
+      if (!formData.sec1_phone?.trim()) { setErrorMsg("Please enter your Phone Number."); return false; }
+      if (!formData.sec1_email?.trim()) { setErrorMsg("Please enter a valid Email Address."); return false; }
     }
     return true;
   };
@@ -330,8 +319,16 @@ export default function CobFormPage() {
   };
 
   const handleSubmitForm = async () => {
-    setSubmitting(true);
     setErrorMsg("");
+
+    if (!formData.sec1_full_name?.trim() || !formData.sec1_phone?.trim() || !formData.sec1_email?.trim()) {
+      setErrorMsg("Please complete Section 1 (Full Name, Phone Number, and Email Address) before submitting.");
+      setCurrentStep(1);
+      setShowReviewModal(false);
+      return;
+    }
+
+    setSubmitting(true);
 
     try {
       const res = await fetch("/api/cob/submit", {
@@ -354,7 +351,7 @@ export default function CobFormPage() {
         submission_id: data.submission_id,
         created_at: data.created_at || new Date().toISOString(),
         full_name: formData.sec1_full_name,
-        business_name: formData.sec1_business_name,
+        business_name: formData.sec1_business_name || formData.sec1_full_name,
       });
 
       setShowReviewModal(false);
